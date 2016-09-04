@@ -6,14 +6,8 @@
 \usage{
 mri_info.help()
 }
-\arguments{
-\item{file}{File to pass to \code{mri_info}}
-
-\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
-}
 \value{
-Result of \code{fs_cmd}, which type depends on 
-arguments to \code{...}
+Result of \code{fs_help}
 }
 \description{
 This calls Freesurfer's \code{mri_info} help

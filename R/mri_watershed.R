@@ -23,3 +23,13 @@ mri_watershed = function(file,
          ...)
   return(res)
 }
+
+
+#' @title MRI Watershed Help
+#' @description This calls Freesurfer's \code{mri_watershed} help 
+#'
+#' @return Result of \code{fs_help}
+#' @export
+mri_watershed.help = function(){
+  fs_help(func_name = "mri_watershed")
+}
