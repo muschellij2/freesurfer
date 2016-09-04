@@ -1,0 +1,72 @@
+#' @title FS Command Wrapper
+#' @description This function calls Freesurfer command passed to \code{func}
+#' @param func (character) Freesurfer function
+#' @param file (character) image to be manipulated
+#' @param outfile (character) resultant image name (optional)
+#' @param retimg (logical) return image of class nifti
+#' @param reorient (logical) If retimg, should file be reoriented when read in?
+#' Passed to \code{\link{readnii}}.
+#' @param intern (logical) to be passed to \code{\link{system}}
+#' @param opts (character) operations to be passed to \code{func} 
+#' @param verbose (logical) print out command before running
+#' @param samefile (logical) is the output the same file?
+#' @param opts_after_outfile (logical) should \code{opts} come after 
+#' the \code{outfile} in the Freesurfer command?
+#' @param frontopts (character) options/character to put in before filename
+#' @param ... additional arguments passed to \code{\link{readnii}}.
+#' @return If \code{retimg} then object of class nifti.  Otherwise,
+#' Result from system command, depends if intern is TRUE or FALSE.
+#' @importFrom fslr checkimg check_outfile readnii nii.stub
+#' @export
+fs_cmd = function(
+  func,
+  file,
+  outfile=NULL, 
+  retimg = TRUE,
+  reorient = FALSE,
+  intern = FALSE, 
+  opts = "", 
+  verbose = TRUE,
+  samefile = FALSE,
+  opts_after_outfile = FALSE,
+  frontopts = "",
+  ...){
+  
+  cmd = get_fs()
+  file = checkimg(file, ...)
+  # file = path.expand(file)
+  
+  ##########################
+  # Add frontopts
+  ##########################
+  s = sprintf('%s %s ', func, frontopts)
+  s = gsub("\\s\\s+", " ", s)
+  s = sub("[ \t\r\n]+$", "", s, perl = TRUE)
+  s = paste(s, sprintf('"%s"', file))
+  cmd <- paste0(cmd, s)
+  # cmd <- paste0(cmd, sprintf('%s "%s"', func, file))
+  
+  no.outfile = is.null(outfile)
+  if (no.outfile & samefile) outfile = ""  
+  outfile = check_outfile(outfile = outfile, 
+                          retimg = retimg, fileext = "")
+  outfile = nii.stub(outfile)
+  if (!opts_after_outfile) {
+    cmd <- paste(cmd, sprintf(' %s "%s";', opts, outfile))
+  } else {
+    cmd <- paste(cmd, sprintf(' "%s" %s;', outfile, opts))
+  }
+  ext = fs_imgext()
+  if (verbose) {
+    message(cmd, "\n")
+  }
+  res = system(cmd, intern = intern)
+  outfile = paste0(outfile, ext)  
+  if (retimg) {
+    if (samefile) outfile = file
+    img = readnii(outfile, reorient = reorient, ...)
+    return(img)
+  } 
+  
+  return(res)  
+}

@@ -11,16 +11,7 @@ Description: Wrapper functions that interface with Freesurfer (https://surfer.nm
     object of class "nifti" if desired.
 Imports:
     methods,
-    matrixStats,
-    R.utils,
-    scales,
-    graphics,
-    grDevices,
-    stats, 
-    utils
-Depends:
-    stringr,
-    oro.nifti (>= 0.5.0)
+    fslr
 License: GPL-3
 VignetteBuilder: knitr
 Suggests:
