@@ -8,12 +8,13 @@
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Character or nifti depending on \code{retimg}
 #' @export
-mri_watershed = function(infile, 
+mri_watershed = function(file, 
                          outfile = NULL,                  
                          retimg = TRUE,
                          opts="", 
                          ...){
-  res = fs_cmd(func = "mri_watershed",
+  res = fs_cmd(
+    func = "mri_watershed",
          file = file,
          outfile = outfile,
          frontopts = opts,

@@ -4,11 +4,9 @@
 \alias{mri_watershed}
 \title{Use Freesurfers MRI Watershed Algorithm}
 \usage{
-mri_watershed(infile, outfile = NULL, retimg = TRUE, opts = "", ...)
+mri_watershed(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 }
 \arguments{
-\item{infile}{(character) input filename}
-
 \item{outfile}{(character) output filename}
 
 \item{retimg}{(logical) return image of class nifti}
@@ -16,6 +14,8 @@ mri_watershed(infile, outfile = NULL, retimg = TRUE, opts = "", ...)
 \item{opts}{(character) additional options to \code{mri_watershed}}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
+
+\item{infile}{(character) input filename}
 }
 \value{
 Character or nifti depending on \code{retimg}
