@@ -14,6 +14,6 @@ fs_help = function(func_name, help.arg = "--help", extra.args = ""){
   #     args = paste(help.arg, extra.args, sep=" ", collapse = " ")
   suppressWarnings({res = system(cmd, intern = TRUE)})
   #     res = system2(func_name, args = args, stdout=TRUE, stderr=TRUE)
-  message(res, sep = "\n")
+  cat(res, sep = "\n")
   return(invisible(res))
 }
