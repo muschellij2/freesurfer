@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+\.travis\.yml
+^\.DS_Store$
+.*/\.DS_Store$
+.DS_Store$

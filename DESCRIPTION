@@ -1,0 +1,31 @@
+Package: freesurfer
+Type: Package
+Title: Wrapper Functions for Freesurfer from Harvard
+Version: 0.1.0
+Author: John Muschelli <muschellij2@gmail.com>
+Maintainer: John Muschelli <muschellij2@gmail.com>
+Description: Wrapper functions that interface with Freesurfer (https://surfer.nmr.mgh.harvard.edu/), a powerful and commonly-used neuroimaging
+    software, using system commands. The goal is to be able to interface with Freesurfer
+    completely in R, where you pass R objects of class "nifti", implemented by
+    package 'oro.nifti', and the function executes an Freesurfer command and returns an R
+    object of class "nifti" if desired.
+Imports:
+    methods,
+    matrixStats,
+    R.utils,
+    scales,
+    graphics,
+    grDevices,
+    stats, 
+    utils
+Depends:
+    stringr,
+    oro.nifti (>= 0.5.0)
+License: GPL-3
+VignetteBuilder: knitr
+Suggests:
+    knitr,
+    rmarkdown
+BugReports: https://github.com/muschellij2/fslr/issues
+SystemRequirements: FSL (http://fsl.fmrib.ox.ac.uk/fsl/fslwiki/)
+RoxygenNote: 5.0.1.9000
