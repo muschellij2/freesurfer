@@ -47,14 +47,18 @@ fs_cmd = function(
   # cmd <- paste0(cmd, sprintf('%s "%s"', func, file))
   
   no.outfile = is.null(outfile)
-  if (no.outfile & samefile) outfile = ""  
+  if (no.outfile & samefile) {
+    outfile = ""  
+  }
   outfile = check_outfile(outfile = outfile, 
                           retimg = retimg, fileext = "")
   outfile = nii.stub(outfile)
-  if (!opts_after_outfile) {
-    cmd <- paste(cmd, sprintf(' %s "%s";', opts, outfile))
-  } else {
-    cmd <- paste(cmd, sprintf(' "%s" %s;', outfile, opts))
+  if ( !(no.outfile & samefile) ) {
+    if (!opts_after_outfile) {
+      cmd <- paste(cmd, sprintf(' %s "%s";', opts, outfile))
+    } else {
+      cmd <- paste(cmd, sprintf(' "%s" %s;', outfile, opts))
+    }
   }
   ext = fs_imgext()
   if (verbose) {
