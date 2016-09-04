@@ -50,8 +50,10 @@ fs_cmd = function(
   if (no.outfile & samefile) {
     outfile = ""  
   }
+  ext = fs_imgext()
+  
   outfile = check_outfile(outfile = outfile, 
-                          retimg = retimg, fileext = "")
+                          retimg = retimg, fileext = ext)
   outfile = nii.stub(outfile)
   if ( !(no.outfile & samefile) ) {
     if (!opts_after_outfile) {
@@ -60,12 +62,10 @@ fs_cmd = function(
       cmd <- paste(cmd, sprintf(' "%s" %s;', outfile, opts))
     }
   }
-  ext = fs_imgext()
   if (verbose) {
     message(cmd, "\n")
   }
   res = system(cmd, intern = intern)
-  outfile = paste0(outfile, ext)  
   if (retimg) {
     if (samefile) outfile = file
     img = readnii(outfile, reorient = reorient, ...)
