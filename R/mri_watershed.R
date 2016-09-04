@@ -1,7 +1,7 @@
 #' @title Use Freesurfers MRI Watershed Algorithm
 #' @description This function calls \code{mri_watershed} to extract a brain 
 #' from an image, usually for skull stripping.
-#' @param infile (character) input filename
+#' @param file (character) input filename
 #' @param outfile (character) output filename
 #' @param retimg (logical) return image of class nifti
 #' @param opts (character) additional options to \code{mri_watershed}
