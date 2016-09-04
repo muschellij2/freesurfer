@@ -51,7 +51,6 @@ fs_cmd = function(
     outfile = ""  
   }
   ext = fs_imgext()
-  
   outfile = check_outfile(outfile = outfile, 
                           retimg = retimg, fileext = ext)
   outfile = nii.stub(outfile)
