@@ -11,5 +11,6 @@ mri_info = function(file,
                     ...){
   fs_cmd(func = "mri_info",
     file = file,
+    samefile = TRUE,
     ...)
 }
