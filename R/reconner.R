@@ -31,6 +31,7 @@ reconner <- function(
     opts)
   
   cmd = get_fs()
+  cmd = paste0(cmd, "recon-all")
   cmd = paste(cmd, opts)
   if (verbose) {
     message(cmd, "\n")
