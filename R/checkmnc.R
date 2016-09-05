@@ -20,6 +20,7 @@ setGeneric("checkmnc", function(file, ...) standardGeneric("checkmnc"))
 #' @export
 setMethod("checkmnc", "nifti", function(file, ...) { 
   file = fslr::checkimg(file, gzipped = FALSE, ...)
+  outfile = tempfile(fileext = ".mnc")
   outfile = mnc2nii(file, outfile)
   return(outfile)
 })
