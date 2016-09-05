@@ -6,18 +6,20 @@
 #' @return Character filename of output
 #' @importFrom tools file_ext 
 #' @importFrom R.utils gzip gunzip
+#' @importFrom fslr checknii
 #' @export
 nii2mnc = function(
   file, 
   outfile = NULL){
-  file = checkimg(file, gzipped = FALSE)
-  ext = file_ext(tolower(file))
-  if (ext %in% "gz") {
-    file = R.utils::gunzip(filename = file, 
-                           remove = FALSE,
-                           temporary = TRUE,
-                           overwrite = TRUE)
-  }
+  file = fslr::checknii(file)
+  # file = checkimg(file, gzipped = FALSE)
+  # ext = file_ext(tolower(file))
+  # if (ext %in% "gz") {
+  #   file = R.utils::gunzip(filename = file, 
+  #                          remove = FALSE,
+  #                          temporary = TRUE,
+  #                          overwrite = TRUE)
+  # }
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ".mnc")
   }
