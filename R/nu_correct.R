@@ -3,7 +3,9 @@
 #' to correct for non-uniformity
 #' @param file (character) input filename
 #' @param outfile (character) output filename
+#' @param mask (character or nifti) Mask to use for correction.
 #' @param opts (character) additional options to \code{mri_segment}
+#' @param verbose print diagnostic messages
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Character or nifti depending on \code{retimg}
 #' @importFrom fslr parse_img_ext
@@ -11,7 +13,9 @@
 nu_correct = function(
   file, 
   outfile = NULL, 
+  mask = NULL,
   opts = "", 
+  verbose = TRUE,
   ...){
   
   file = checkimg(file)
@@ -31,8 +35,15 @@ nu_correct = function(
     stop("outfile extension must be nii/nii.gz or mnc")
   }
   tmpfile = tempfile(fileext = ".mnc")
-    
   
+  opts = trimws(opts)
+  if (!is.null(mask)) {
+    mask = ensure_mnc(mask)
+    opts = paste0(opts, " -mask ", mask)
+  }
+  if (!verbose) {
+    opts = paste0(opts, " -quiet")
+  }
   res = fs_cmd(
     func = "nu_correct",
     file = infile,
@@ -41,6 +52,7 @@ nu_correct = function(
     retimg = FALSE,
     samefile = FALSE,
     add_ext = FALSE,
+    verbose = verbose,
     ...)
   if (no.outfile) {
     res = tmpfile

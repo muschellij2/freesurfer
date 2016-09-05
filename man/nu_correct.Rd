@@ -4,14 +4,19 @@
 \alias{nu_correct}
 \title{Use Freesurfers Non-Uniformity Correction}
 \usage{
-nu_correct(file, outfile = NULL, opts = "", ...)
+nu_correct(file, outfile = NULL, mask = NULL, opts = "", verbose = TRUE,
+  ...)
 }
 \arguments{
 \item{file}{(character) input filename}
 
 \item{outfile}{(character) output filename}
 
+\item{mask}{(character or nifti) Mask to use for correction.}
+
 \item{opts}{(character) additional options to \code{mri_segment}}
+
+\item{verbose}{print diagnostic messages}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
