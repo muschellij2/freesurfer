@@ -22,7 +22,7 @@ mnc2nii = function(file,
     frontopts = "",
     samefile = FALSE)
   if (out_ext %in% "gz") {
-    outfile = gzip(outfile)
+    outfile = gzip(outfile, remove = TRUE, temporary = FALSE)
   }
   return(outfile)
 }

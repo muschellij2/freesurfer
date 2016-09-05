@@ -13,7 +13,9 @@ nii2mnc = function(
   file = checkimg(file, gzipped = FALSE)
   ext = file_ext(tolower(file))
   if (ext %in% "gz") {
-    file = R.utils::gunzip(filename = file)
+    file = R.utils::gunzip(filename = file, 
+                           remove = FALSE,
+                           temporary = TRUE)
   }
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ".mnc")
