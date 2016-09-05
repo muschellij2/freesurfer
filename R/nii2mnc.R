@@ -15,7 +15,8 @@ nii2mnc = function(
   if (ext %in% "gz") {
     file = R.utils::gunzip(filename = file, 
                            remove = FALSE,
-                           temporary = TRUE)
+                           temporary = TRUE,
+                           overwrite = TRUE)
   }
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ".mnc")
