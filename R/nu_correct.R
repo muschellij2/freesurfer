@@ -29,7 +29,7 @@ nu_correct = function(
     outfile = tempfile(fileext = ".nii.gz")
     no.outfile = TRUE
   }
-
+  
   out_ext = fslr::parse_img_ext(outfile)
   if ( !(ext %in% c("nii", "mnc"))) {
     stop("outfile extension must be nii/nii.gz or mnc")
@@ -39,12 +39,12 @@ nu_correct = function(
   opts = trimws(opts)
   if (!is.null(mask)) {
     mask = ensure_mnc(mask)
-    opts = paste0(opts, " -mask ", mask)
+    opts = paste0(opts, " -mask ", shQuote(mask))
   }
   if (!verbose) {
     opts = paste0(opts, " -quiet")
   }
-  res = fs_cmd(
+  fs_cmd(
     func = "nu_correct",
     file = infile,
     outfile = tmpfile,
@@ -54,16 +54,12 @@ nu_correct = function(
     add_ext = FALSE,
     verbose = verbose,
     ...)
-  if (no.outfile) {
-    res = tmpfile
+  if (out_ext == "nii") {
+    outfile = mnc2nii(tmpfile, outfile = outfile)
   } else {
-    if (out_ext == "nii") {
-      outfile = mnc2nii(tmpfile, outfile = outfile)
-    }
-    res = outfile
+    file.copy(from = tmpfile, to = outfile, overwrite = TRUE)
   }
-  
-  return(res)
+  return(outfile)
 }
 
 
