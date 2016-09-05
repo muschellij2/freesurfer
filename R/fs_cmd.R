@@ -56,8 +56,10 @@ fs_cmd = function(
   ext = fs_imgext()
   outfile = check_outfile(outfile = outfile, 
                           retimg = retimg, fileext = ext)
-  outfile = nii.stub(outfile)
-  outfile = paste0(outfile, ext)  
+  if (add_ext) {
+    outfile = nii.stub(outfile)
+    outfile = paste0(outfile, ext)  
+  }
   
   if ( !(no.outfile & samefile) ) {
     if (!opts_after_outfile) {
