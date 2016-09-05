@@ -1,7 +1,7 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for Freesurfer from Harvard
-Version: 0.3.0
+Version: 0.4.0
 Author: John Muschelli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Wrapper functions that interface with Freesurfer (https://surfer.nmr.mgh.harvard.edu/), a powerful and commonly-used neuroimaging
@@ -11,7 +11,9 @@ Description: Wrapper functions that interface with Freesurfer (https://surfer.nm
     object of class "nifti" if desired.
 Imports:
     methods,
-    fslr
+    fslr, 
+    tools,
+    R.utils
 License: GPL-3
 VignetteBuilder: knitr
 Suggests:
