@@ -4,13 +4,10 @@
 \alias{nu_correct}
 \title{Use Freesurfers Non-Uniformity Correction}
 \usage{
-nu_correct(file, outfile = NULL, mask = NULL, opts = "", verbose = TRUE,
-  ...)
+nu_correct(file, mask = NULL, opts = "", verbose = TRUE, ...)
 }
 \arguments{
 \item{file}{(character) input filename}
-
-\item{outfile}{(character) output filename}
 
 \item{mask}{(character or nifti) Mask to use for correction.}
 
@@ -21,7 +18,7 @@ nu_correct(file, outfile = NULL, mask = NULL, opts = "", verbose = TRUE,
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
 \value{
-Character or nifti depending on \code{retimg}
+Object of class nifti depending on \code{retimg}
 }
 \description{
 This function calls \code{nu_correct} 

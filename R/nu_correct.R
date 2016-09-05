@@ -2,17 +2,15 @@
 #' @description This function calls \code{nu_correct} 
 #' to correct for non-uniformity
 #' @param file (character) input filename
-#' @param outfile (character) output filename
 #' @param mask (character or nifti) Mask to use for correction.
 #' @param opts (character) additional options to \code{mri_segment}
 #' @param verbose print diagnostic messages
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
-#' @return Character or nifti depending on \code{retimg}
+#' @return Object of class nifti depending on \code{retimg}
 #' @importFrom fslr parse_img_ext
 #' @export
 nu_correct = function(
   file, 
-  outfile = NULL, 
   mask = NULL,
   opts = "", 
   verbose = TRUE,
@@ -24,11 +22,11 @@ nu_correct = function(
   if (ext %in% c("nii", "nii.gz")) {
     infile = nii2mnc(file)
   }
-  no.outfile = FALSE
-  if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".nii.gz")
-    no.outfile = TRUE
-  }
+  # no.outfile = FALSE
+  # if (is.null(outfile)) {
+  outfile = tempfile(fileext = ".nii")
+  # no.outfile = TRUE
+  # }
   
   out_ext = fslr::parse_img_ext(outfile)
   if ( !(ext %in% c("nii", "mnc"))) {
@@ -56,6 +54,7 @@ nu_correct = function(
     ...)
   if (out_ext == "nii") {
     outfile = mnc2nii(tmpfile, outfile = outfile)
+    outfile = readnii(outfile)
   } else {
     file.copy(from = tmpfile, to = outfile, overwrite = TRUE)
   }
