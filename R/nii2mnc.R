@@ -5,16 +5,22 @@
 #' @param outfile (character) output filename
 #' @return Character filename of output
 #' @importFrom tools file_ext 
-#' @importFrom R.utils gzip
+#' @importFrom R.utils gzip gunzip
 #' @export
-nii2mnc = function(file, 
-                   outfile = NULL){
+nii2mnc = function(
+  file, 
+  outfile = NULL){
+  file = checkimg(file, gzipped = FALSE)
+  ext = file_ext(tolower(file))
+  if (ext %in% "gz") {
+    file = R.utils::gunzip(filename = file)
+  }
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ".mnc")
   }
   out_ext = file_ext(tolower(outfile))
   if (out_ext != "mnc") {
-    stop("File format not MNC")
+    stop("File format of output not MNC")
   }
   fs_cmd(
     func = "nii2mnc",
@@ -26,7 +32,7 @@ nii2mnc = function(file,
 }
 
 
-#' @title MRI Segment Help
+#' @title onvert NIfTI to MNC Help
 #' @description This calls Freesurfer's \code{mnc2nii} help 
 #'
 #' @return Result of \code{fs_help}

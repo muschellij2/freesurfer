@@ -2,7 +2,7 @@
 % Please edit documentation in R/nii2mnc.R
 \name{nii2mnc.help}
 \alias{nii2mnc.help}
-\title{MRI Segment Help}
+\title{onvert NIfTI to MNC Help}
 \usage{
 nii2mnc.help()
 }
