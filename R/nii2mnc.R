@@ -34,6 +34,9 @@ nii2mnc = function(
     retimg = FALSE,
     samefile = FALSE,
     add_ext = FALSE)
+  if (!file.exists(outfile)) {
+    stop("nii2mnc did not produce outfile specified")
+  }
   return(outfile)
 }
 

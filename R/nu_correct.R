@@ -1,0 +1,65 @@
+#' @title Use Freesurfers Non-Uniformity Correction
+#' @description This function calls \code{nu_correct} 
+#' to correct for non-uniformity
+#' @param file (character) input filename
+#' @param outfile (character) output filename
+#' @param opts (character) additional options to \code{mri_segment}
+#' @param ... additional arguments passed to \code{\link{fs_cmd}}.
+#' @return Character or nifti depending on \code{retimg}
+#' @importFrom fslr parse_img_ext
+#' @export
+nu_correct = function(
+  file, 
+  outfile = NULL, 
+  opts = "", 
+  ...){
+  
+  file = checkimg(file)
+  ext = fslr::parse_img_ext(file)
+  infile = file
+  if (ext %in% c("nii", "nii.gz")) {
+    infile = nii2mnc(file)
+  }
+  no.outfile = FALSE
+  if (is.null(outfile)) {
+    outfile = tempfile(fileext = ".mnc")
+    no.outfile = TRUE
+  }
+
+  out_ext = fslr::parse_img_ext(outfile)
+  if ( !(ext %in% c("nii", "mnc"))) {
+    stop("outfile extension must be nii/nii.gz or mnc")
+  }
+  tmpfile = tempfile(fileext = ".mnc")
+    
+  
+  res = fs_cmd(
+    func = "nu_correct",
+    file = infile,
+    outfile = tmpfile,
+    frontopts = opts,
+    retimg = FALSE,
+    samefile = FALSE,
+    add_ext = FALSE,
+    ...)
+  if (no.outfile) {
+    res = tmpfile
+  } else {
+    if (out_ext == "nii") {
+      outfile = mnc2nii(tmpfile, outfile = outfile)
+    }
+    res = outfile
+  }
+  
+  return(res)
+}
+
+
+#' @title Non-Uniformity Correction Help
+#' @description This calls Freesurfer's \code{nu_correct} help 
+#'
+#' @return Result of \code{fs_help}
+#' @export
+nu_correct.help = function(){
+  fs_help(func_name = "nu_correct", help.arg = "-help")
+}
