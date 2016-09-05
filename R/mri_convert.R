@@ -3,7 +3,6 @@
 #' @param file (character) input filename
 #' @param outfile (character) output filename
 #' @param opts (character) additional options to \code{mri_convert}
-#' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Result of \code{system} command
 #' @export
 mri_convert = function(
@@ -16,8 +15,7 @@ mri_convert = function(
     outfile = outfile,
     frontopts = opts,
     retimg = FALSE,
-    samefile = FALSE,
-    ...)
+    samefile = FALSE)
   return(res)
 }
 

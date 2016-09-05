@@ -12,8 +12,6 @@ mri_convert(file, outfile, opts = "")
 \item{outfile}{(character) output filename}
 
 \item{opts}{(character) additional options to \code{mri_convert}}
-
-\item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
 \value{
 Result of \code{system} command

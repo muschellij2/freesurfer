@@ -32,6 +32,8 @@ in \code{recon-all}
 }
 \note{
 See https://surfer.nmr.mgh.harvard.edu/fswiki/recon-all for the 
-steps of each \code{autorecon1-3}.
+steps of each \code{autorecon1-3}. 
+If you set \code{infile = NULL}, then you can omit the 
+\code{-i} flag in \code{recon-all}.
 }
 

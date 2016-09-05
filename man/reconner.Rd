@@ -23,4 +23,8 @@ Result of \code{\link{system}}
 \description{
 Wrapper for the \code{recon-all} function in Freesurfer
 }
+\note{
+If you set \code{infile = NULL}, then you can omit the 
+\code{-i} flag in \code{recon-all}
+}
 
