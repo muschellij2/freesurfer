@@ -21,7 +21,7 @@ setGeneric("checkmnc", function(file, ...) standardGeneric("checkmnc"))
 setMethod("checkmnc", "nifti", function(file, ...) { 
   file = fslr::checkimg(file, gzipped = FALSE, ...)
   outfile = tempfile(fileext = ".mnc")
-  outfile = mnc2nii(file, outfile)
+  outfile = nii2mnc(file, outfile)
   return(outfile)
 })
 
