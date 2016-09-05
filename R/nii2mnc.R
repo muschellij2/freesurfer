@@ -27,7 +27,8 @@ nii2mnc = function(
     file = file,
     outfile = outfile,
     retimg = FALSE,
-    samefile = FALSE)
+    samefile = FALSE,
+    add_ext = FALSE)
   return(outfile)
 }
 

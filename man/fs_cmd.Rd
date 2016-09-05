@@ -6,7 +6,7 @@
 \usage{
 fs_cmd(func, file, outfile = NULL, retimg = TRUE, reorient = FALSE,
   intern = FALSE, opts = "", verbose = TRUE, samefile = FALSE,
-  opts_after_outfile = FALSE, frontopts = "", ...)
+  opts_after_outfile = FALSE, frontopts = "", add_ext = TRUE, ...)
 }
 \arguments{
 \item{func}{(character) Freesurfer function}
@@ -32,6 +32,9 @@ Passed to \code{\link{readnii}}.}
 the \code{outfile} in the Freesurfer command?}
 
 \item{frontopts}{(character) options/character to put in before filename}
+
+\item{add_ext}{(logical) should the extension be added to 
+the \code{outfile}}
 
 \item{...}{additional arguments passed to \code{\link{readnii}}.}
 }
