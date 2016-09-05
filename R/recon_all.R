@@ -7,6 +7,8 @@
 #' @param verbose print diagnostic messages
 #' @param opts Additional options
 #'
+#' @note If you would like to restart a \code{recon-all} run,
+#' change opts so that \code{opts = "-make all"}
 #' @return Result of \code{\link{system}}
 #' @export
 recon_all <- function(

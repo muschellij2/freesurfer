@@ -1,7 +1,7 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for Freesurfer from Harvard
-Version: 0.6.1
+Version: 0.7.0
 Author: John Muschelli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Wrapper functions that interface with Freesurfer (https://surfer.nmr.mgh.harvard.edu/), a powerful and commonly-used neuroimaging

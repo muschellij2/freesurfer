@@ -1,0 +1,32 @@
+#' @title Use Freesurfers MRI Converter 
+#' @description This function calls \code{mri_convert} to convert an image
+#' @param file (character) input filename
+#' @param outfile (character) output filename
+#' @param opts (character) additional options to \code{mri_convert}
+#' @param ... additional arguments passed to \code{\link{fs_cmd}}.
+#' @return Result of \code{system} command
+#' @export
+mri_convert = function(
+  file, 
+  outfile,
+  opts = ""){
+  res = fs_cmd(
+    func = "mri_convert",
+    file = file,
+    outfile = outfile,
+    frontopts = opts,
+    retimg = FALSE,
+    samefile = FALSE,
+    ...)
+  return(res)
+}
+
+
+#' @title MRI Normalize Help
+#' @description This calls Freesurfer's \code{mri_convert} help 
+#'
+#' @return Result of \code{fs_help}
+#' @export
+mri_convert.help = function(){
+  fs_help(func_name = "mri_convert")
+}
