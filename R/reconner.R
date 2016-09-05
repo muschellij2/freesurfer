@@ -25,7 +25,7 @@ reconner <- function(
   infile = checknii(infile)
   
   opts = paste(
-    paste0("-i", infile),
+    paste0("-i ", infile),
     paste0(" -sd ", shQuote(outdir)),
     paste0(" -subjid ", subjid),
     opts)
