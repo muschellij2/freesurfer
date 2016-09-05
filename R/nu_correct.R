@@ -22,7 +22,7 @@ nu_correct = function(
   }
   no.outfile = FALSE
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".mnc")
+    outfile = tempfile(fileext = ".nii.gz")
     no.outfile = TRUE
   }
 
