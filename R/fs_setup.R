@@ -9,6 +9,10 @@
 #' \code{getOption("freesurfer.path")}, it will try the default directory \code{/usr/local/freesurfer}.
 #' @return NULL if Freesurfer in path, or bash code for setting up Freesurfer DIR
 #' @export
+#' @examples
+#' if (have_fs()) {
+#' get_fs()
+#' }
 get_fs = function(add_bin = TRUE){
   cmd = NULL
 
@@ -56,6 +60,12 @@ get_fs = function(add_bin = TRUE){
 #' @return Character path
 #' @aliases freesurfer_dir
 #' @export
+#' @examples
+#' if (have_fs()) {
+#'  freesurferdir()
+#'  freesurfer_dir()
+#'  fs_dir()
+#' }
 freesurferdir = function(){
   freesurferdir = Sys.getenv("FreesurferDIR")
   if (freesurferdir == "") {
@@ -98,18 +108,20 @@ have_fs = function(...){
 #' @return FSF_OUTPUT_FORMAT, such as nii.gz  If none found, uses nii.gz as default
 #' 
 #' @export
+#' @examples
+#' get_fs_output()
 get_fs_output = function(){
   fs_out = Sys.getenv("FSF_OUTPUT_FORMAT")
   if (fs_out == "") {
     fs_out = getOption("fs.outputtype")
   } 
   if (is.null(fs_out)) {
-    warning("Can't find FSF_OUTPUT_FORMAT, setting to NIFTI_GZ")
+    warning("Can't find FSF_OUTPUT_FORMAT, setting to nii.gz")
     fs_out = "nii.gz"
-    options(fs.outputtype = "NIFTI_GZ")
+    options(fs.outputtype = fs_out)
   }
   if (fs_out == "") {
-    warning("Can't find FSF_OUTPUT_FORMAT, setting to NIFTI_GZ")
+    warning("Can't find FSF_OUTPUT_FORMAT, setting to nii.gz")
     fs_out = "nii.gz"
     options(fs.outputtype = "nii.gz")
   } 
@@ -121,6 +133,8 @@ get_fs_output = function(){
 #' gets corresponding extension (such as .nii.gz)
 #' @return Extension for output type
 #' @export
+#' @examples
+#' fs_imgext()
 fs_imgext = function(){
   fs_out = get_fs_output()
   ext = switch(fs_out, 

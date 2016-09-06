@@ -23,4 +23,9 @@ This will use \code{Sys.getenv("FREESURFER_HOME")} before \code{getOption("frees
 If the directory is not found for Freesurfer in \code{Sys.getenv("FreesurferDIR")} and 
 \code{getOption("freesurfer.path")}, it will try the default directory \code{/usr/local/freesurfer}.
 }
+\examples{
+if (have_fs()) {
+get_fs()
+}
+}
 

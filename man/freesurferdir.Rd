@@ -19,4 +19,11 @@ Character path
 Finds the FreesurferDIR from system environment or \code{getOption("freesurfer.path")}
 for location of Freesurfer fuctions and returns it
 }
+\examples{
+if (have_fs()) {
+ freesurferdir()
+ freesurfer_dir()
+ fs_dir()
+}
+}
 

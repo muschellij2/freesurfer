@@ -13,4 +13,7 @@ Extension for output type
 Runs \code{get_fs_output()} to extract FSLOUTPUTTYPE and then 
 gets corresponding extension (such as .nii.gz)
 }
+\examples{
+fs_imgext()
+}
 
