@@ -7,6 +7,13 @@
 #' @importFrom tools file_ext 
 #' @importFrom R.utils gzip
 #' @export
+#' @examples 
+#' if (have_fs()) {
+#'    require(oro.nifti)
+#'    img = nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
+#'    mnc = nii2mnc(img)
+#'    img_file = mnc2nii(mnc)
+#' }
 mnc2nii = function(file, 
                    outfile = NULL){
   if (is.null(outfile)) {

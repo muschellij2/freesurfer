@@ -7,7 +7,13 @@
 #' @param opts (character) additional options to \code{mri_segment}
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Character or nifti depending on \code{retimg}
-#' @export
+#' 
+#' @note NOT COMPLETE
+#' @examples \dontrun{
+#' if (have_fs()){
+#'     mri_segment("/path/to/T1.nii.gz")
+#' } 
+#' } 
 mri_segment = function(
   file, 
   outfile = NULL,                  

@@ -24,4 +24,14 @@ Character or nifti depending on \code{retimg}
 This function calls \code{mri_segment} 
 to segment tissues from an image
 }
+\note{
+NOT COMPLETE
+}
+\examples{
+\dontrun{
+if (have_fs()){
+    mri_segment("/path/to/T1.nii.gz")
+} 
+} 
+}
 

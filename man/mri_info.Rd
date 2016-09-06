@@ -18,4 +18,11 @@ arguments to \code{...}
 \description{
 This calls Freesurfer's \code{mri_info}
 }
+\examples{
+if (have_fs()){
+   require(oro.nifti)
+   img = nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
+   mri_info(img)
+}
+}
 

@@ -7,6 +7,12 @@
 #' @return Result of \code{fs_cmd}, which type depends on 
 #' arguments to \code{...}
 #' @export
+#' @examples 
+#' if (have_fs()){
+#'    require(oro.nifti)
+#'    img = nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
+#'    mri_info(img)
+#' }
 mri_info = function(file, 
                     ...){
   fs_cmd(func = "mri_info",

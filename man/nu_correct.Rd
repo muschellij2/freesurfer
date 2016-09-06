@@ -24,4 +24,11 @@ Object of class nifti depending on \code{retimg}
 This function calls \code{nu_correct} 
 to correct for non-uniformity
 }
+\examples{
+\dontrun{
+if (have_fs()){
+    nu_correct("/path/to/T1.nii.gz")
+} 
+} 
+}
 

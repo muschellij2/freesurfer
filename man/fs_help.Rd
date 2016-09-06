@@ -21,4 +21,9 @@ Prints help output and returns output as character vector
 This function takes in the function and returns the
 help from Freesurfer for that function
 }
+\examples{
+if (have_fs()) {
+fs_help(func_name = "mri_watershed")
+}
+}
 

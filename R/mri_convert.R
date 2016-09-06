@@ -5,6 +5,12 @@
 #' @param opts (character) additional options to \code{mri_convert}
 #' @return Result of \code{system} command
 #' @export
+#' @examples 
+#' if (have_fs()) {
+#'    require(oro.nifti)
+#'    img = nifti(array(rnorm(5*5*5), dim = c(5,5,5))) 
+#'    res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
+#' } 
 mri_convert = function(
   file, 
   outfile,
@@ -15,7 +21,8 @@ mri_convert = function(
     outfile = outfile,
     frontopts = opts,
     retimg = FALSE,
-    samefile = FALSE)
+    samefile = FALSE,
+    add_ext = FALSE)
   return(res)
 }
 
