@@ -1,13 +1,13 @@
 #' @title Parcellation Stats to Table 
-#' @description This function calls \code{aparcstats2table} to 
+#' @description This function calls \code{asegstats2table} to 
 #' convert parcellation statistics to a table
 #' @param subjects (character) vector of subjects
+#' @param inputs (character paths) vector of input filenames,
+#' e.g. \code{aseg.stats}.
 #' @param outfile (character) output filename
-#' @param hemi (character) hemisphere to run statistics
 #' @param measure (character) measure to be calculated
 #' @param sep (character) separator for the output file.  This will be
 #' an attribute of \code{outfile}
-#' @param parc (character) parcellation to compute on
 #' @param skip (logical) if subject does not have parcellation, 
 #' should the command skip that subject (\code{TRUE}) or error 
 #' (\code{FALSE})
@@ -15,7 +15,7 @@
 #' is to be used other than \code{SUBJECTS_DIR} from shell, it can be
 #' specified here.  Use with care as if the command fail, it may not reset
 #' the \code{SUBJECTS_DIR} back correctly after the error
-#' @param opts (character) additional options to \code{aparcstats2table}
+#' @param opts (character) additional options to \code{asegstats2table}
 #' @param verbose (logical) print diagnostic messages
 #' 
 #' @return Character filename of output file, with the 
@@ -23,36 +23,45 @@
 #' @export
 #' @examples 
 #' if (have_fs()) {
-#'    outfile = aparcstats2table(subjects = "bert",
-#'                     hemi = "lh",
-#'                     meas = "thickness")
+#'    outfile = asegstats2table(subjects = "bert",
+#'                     meas = "mean")
 #' }
-aparcstats2table = function(
-  subjects,
+asegstats2table = function(
+  subjects = NULL,
+  inputs = NULL,
   outfile = NULL,
-  hemi = c("lh", "rh"),
-  measure =  c("area", "volume", "thickness",
-               "thicknessstd", "meancurv", "gauscurv", 
-               "foldind", "curvind"),
+  measure =  c("volume", "mean",
+               "std"),
   sep = c("tab", "space", "comma", "semicolon"),
-  parc = c("aparc", "aparc.a2009s"),
   skip = FALSE,
   subj_dir = NULL,
   opts = "",
   verbose = TRUE){
   
-  ###########################
-  # Making Hemisphere
-  ###########################  
-  hemi = match.arg(hemi)
-  hemi = paste0("--hemi ", hemi)
-  args = hemi
+  if (is.null(subjects) & is.null(inputs)) {
+    stop("Subjects or inputs must be specified!")
+  }
+  if (!is.null(subjects) & !is.null(inputs)) {
+    stop("Both subjects and inputs should not be specified!")
+  }  
+
+  args = NULL
   ###########################
   # Making Subject Vector
-  ###########################    
-  subjects = paste(subjects, collapse = " ")
-  subjects = paste0("--subjects ", subjects)
-  args = c(args, subjects)
+  ###########################   
+  if (is.null(subjects) & !is.null(inputs)) {
+    inputs = paste(inputs, collapse = " ")
+    inputs = paste0("--inputs ", inputs)
+    args = c(args, inputs)
+  }
+  ###########################
+  # Making Subject Vector
+  ###########################   
+  if (!is.null(subjects) & is.null(inputs)) {
+    subjects = paste(subjects, collapse = " ")
+    subjects = paste0("--subjects ", subjects)
+    args = c(args, subjects)
+  }  
   
   ###########################
   # Making Separator
@@ -71,12 +80,6 @@ aparcstats2table = function(
                "comma" = ",",
                "semicolon" = ";")
   
-  ###########################
-  # Making Parcellation arg
-  ###########################  
-  parc = match.arg(parc)
-  parc = paste0("--parc ", parc)
-  args = c(args, parc)
   
   ###########################
   # Adding verbose option
@@ -124,7 +127,7 @@ aparcstats2table = function(
   ###########################
   # Add the Subjects DIR Stuff to the command first
   ###########################  
-  cmd = paste0(get_fs(), "aparcstats2table")
+  cmd = paste0(get_fs(), "asegstats2table")
   cmd = paste0(cmd_pre, cmd)
   
   args = paste(args, collapse = " ")
@@ -137,13 +140,13 @@ aparcstats2table = function(
   }  
   res = system(cmd)
   fe_after = file.exists(outfile)
-
+  
   if (res != 0 & !fe_after) {
     stop("Command Failed, no output produced")
   }
   if (res != 0 & fe_after & fe_before) {
     warning(paste0(
-      " Command aparcstats2table ", 
+      " Command asegstats2table ", 
       "had non-zero exit status (probably failed),",
       " outfile exists but existed before command was run. ",
       " Please check output.")
@@ -152,7 +155,7 @@ aparcstats2table = function(
   
   if (res != 0 & fe_after & !fe_before) {
     warning(paste0(
-      " Command aparcstats2table ", 
+      " Command asegstats2table ", 
       "had non-zero exit status (probably failed),",
       " outfile exists and did NOT before command was run. ",
       " Please check output.")
@@ -164,10 +167,10 @@ aparcstats2table = function(
 
 
 #' @title Parcellation Stats to Table Help
-#' @description This calls Freesurfer's \code{aparcstats2table} help 
+#' @description This calls Freesurfer's \code{asegstats2table} help 
 #'
 #' @return Result of \code{fs_help}
 #' @export
-aparcstats2table.help = function(){
-  fs_help(func_name = "aparcstats2table", help.arg = "--help")
+asegstats2table.help = function(){
+  fs_help(func_name = "asegstats2table", help.arg = "--help")
 }
