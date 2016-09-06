@@ -44,4 +44,11 @@ Result of \code{system} command
 This function calls \code{aparcstats2table} to 
 convert parcellation statistics to a table
 }
+\examples{
+if (have_fs()) {
+   outfile = aparcstats2table(subjects = "bert",
+                    hemi = "lh",
+                    meas = "thickness")
+}
+}
 

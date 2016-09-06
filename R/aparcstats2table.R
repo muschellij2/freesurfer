@@ -19,6 +19,12 @@
 #' @param verbose (logical) print diagnostic messages
 #' @return Result of \code{system} command
 #' @export
+#' @examples 
+#' if (have_fs()) {
+#'    outfile = aparcstats2table(subjects = "bert",
+#'                     hemi = "lh",
+#'                     meas = "thickness")
+#' }
 aparcstats2table = function(
   subjects,
   outfile = NULL,
@@ -81,7 +87,6 @@ aparcstats2table = function(
   # Making measure
   ###########################  
   measure = match.arg(measure)
-  measure = match.arg(parc)
   measure = paste0("--measure ", measure)
   args = paste(args, measure)  
   
