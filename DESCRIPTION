@@ -21,7 +21,8 @@ VignetteBuilder: knitr
 Suggests:
     knitr,
     rmarkdown,
-    magrittr
+    magrittr,
+    oro.nifti
 Remotes: muschellij2/fslr
 BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
