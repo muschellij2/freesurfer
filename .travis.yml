@@ -1,13 +1,9 @@
-# Sample .travis.yml for R projects.
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-language: r
-warnings_are_errors: true
-sudo: required
-before_install:
-    - echo "TRAVIS BUILD ID"
-    - echo ${TRAVIS_BUILD_ID}
-    - echo "TRAVIS JOB ID"
-    - echo ${TRAVIS_JOB_ID}
+language: R
+sudo: false
+cache: packages
+
 notifications:
   email:
     on_success: change
