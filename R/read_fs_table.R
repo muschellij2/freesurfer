@@ -18,6 +18,8 @@
 #'    df = read_fs_table(outfile)
 #'    seg_outfile = asegstats2table(subjects = "bert", meas = "mean")
 #'    df_seg = read_fs_table(seg_outfile)
+#'    df_seg = asegstats2table(subjects = "bert", meas = "mean") %>% 
+#'             read_fs_table
 #' }
 read_fs_table = function(
   file,

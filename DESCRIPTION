@@ -20,7 +20,8 @@ License: GPL-3
 VignetteBuilder: knitr
 Suggests:
     knitr,
-    rmarkdown
+    rmarkdown,
+    magrittr
 Remotes: muschellij2/fslr
 BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
