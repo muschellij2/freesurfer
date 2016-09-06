@@ -50,13 +50,13 @@ aparcstats2table = function(
   ###########################    
   subjects = paste(subjects, collapse = " ")
   subjects = paste0("--subjects ", subjects)
-  args = paste(args, subjects)
+  args = c(args, subjects)
   
   ###########################
   # Making Separator
   ###########################    
   sep = match.arg(sep)
-  args = paste(args, paste0("--delimiter ", sep))
+  args = c(args, paste0("--delimiter ", sep))
   
   ext = switch(sep,
                "tab" = ".txt",
@@ -74,13 +74,13 @@ aparcstats2table = function(
   ###########################  
   parc = match.arg(parc)
   parc = paste0("--parc ", parc)
-  args = paste(args, parc)
+  args = c(args, parc)
   
   ###########################
   # Adding verbose option
   ###########################    
   if (verbose) {
-    args = paste(args, "--debug")
+    args = c(args, "--debug")
   }
   
   ###########################
@@ -88,13 +88,13 @@ aparcstats2table = function(
   ###########################  
   measure = match.arg(measure)
   measure = paste0("--measure ", measure)
-  args = paste(args, measure)  
+  args = c(args, measure)  
   
   ###########################
   # Making skip
   ###########################  
   if (skip) {
-    args = paste(args, "--skip")
+    args = c(args, "--skip")
   }
   
   ###########################
@@ -104,7 +104,7 @@ aparcstats2table = function(
     outfile = tempfile(fileext = ext)
   }
   outfile = c("--tablefile ", outfile)
-  args = paste(args, outfile)  
+  args = c(args, outfile)  
   
   ###########################
   # Need ability to have 
@@ -126,6 +126,7 @@ aparcstats2table = function(
   cmd = paste0(get_fs(), "aparcstats2table")
   cmd = paste0(cmd_pre, cmd)
   
+  args = paste(args, collapse = " ")
   cmd = paste(cmd, args)
   cmd = paste(cmd, opts)
   
