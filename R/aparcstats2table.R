@@ -103,8 +103,7 @@ aparcstats2table = function(
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ext)
   }
-  outfile = paste0("--tablefile ", outfile)
-  args = c(args, outfile)  
+  args = c(args, paste0("--tablefile ", outfile))  
   
   ###########################
   # Need ability to have 
