@@ -103,7 +103,7 @@ aparcstats2table = function(
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ext)
   }
-  outfile = c("--tablefile ", outfile)
+  outfile = paste0("--tablefile ", outfile)
   args = c(args, outfile)  
   
   ###########################
@@ -136,7 +136,7 @@ aparcstats2table = function(
   }  
   res = system(cmd)
   fe_after = file.exists(outfile)
-  
+
   if (res != 0 & !fe_after) {
     stop("Command Failed, no output produced")
   }
