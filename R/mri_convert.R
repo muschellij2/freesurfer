@@ -7,8 +7,7 @@
 #' @export
 #' @examples 
 #' if (have_fs()) {
-#'    require(oro.nifti)
-#'    img = nifti(array(rnorm(5*5*5), dim = c(5,5,5))) 
+#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5))) 
 #'    res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
 #' } 
 mri_convert = function(
