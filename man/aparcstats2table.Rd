@@ -38,7 +38,8 @@ the \code{SUBJECTS_DIR} back correctly after the error}
 \item{verbose}{(logical) print diagnostic messages}
 }
 \value{
-Result of \code{system} command
+Character filename of output file, with the 
+attribute of the separator
 }
 \description{
 This function calls \code{aparcstats2table} to 

@@ -17,7 +17,9 @@
 #' the \code{SUBJECTS_DIR} back correctly after the error
 #' @param opts (character) additional options to \code{aparcstats2table}
 #' @param verbose (logical) print diagnostic messages
-#' @return Result of \code{system} command
+#' 
+#' @return Character filename of output file, with the 
+#' attribute of the separator
 #' @export
 #' @examples 
 #' if (have_fs()) {
