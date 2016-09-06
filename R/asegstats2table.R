@@ -121,6 +121,7 @@ asegstats2table = function(
     on.exit({
       system(old_reset)
     })    
+    subj_dir = path.expand(subj_dir)
     cmd_pre = sprintf("export SUBJECTS_DIR=%s; ", subj_dir)
   }
   
