@@ -3,8 +3,20 @@
 #' convert parcellation statistics to a table
 #' @param subjects (character) vector of subjects
 #' @param outfile (character) output filename
-#' 
+#' @param hemi (character) hemisphere to run statistics
+#' @param measure (character) measure to be calculated
+#' @param sep (character) separator for the output file.  This will be
+#' an attribute of \code{outfile}
+#' @param parc (character) parcellation to compute on
+#' @param skip (logical) if subject does not have parcellation, 
+#' should the command skip that subject (\code{TRUE}) or error 
+#' (\code{FALSE})
+#' @param subj_dir (character path) if a different subjects directory
+#' is to be used other than \code{SUBJECTS_DIR} from shell, it can be
+#' specified here.  Use with care as if the command fail, it may not reset
+#' the \code{SUBJECTS_DIR} back correctly after the error
 #' @param opts (character) additional options to \code{aparcstats2table}
+#' @param verbose (logical) print diagnostic messages
 #' @return Result of \code{system} command
 #' @export
 aparcstats2table = function(
@@ -16,8 +28,8 @@ aparcstats2table = function(
                "foldind", "curvind"),
   sep = c("tab", "space", "comma", "semicolon"),
   parc = c("aparc", "aparc.a2009s"),
-  subj_dir = NULL,
   skip = FALSE,
+  subj_dir = NULL,
   opts = "",
   verbose = TRUE){
   
@@ -74,12 +86,20 @@ aparcstats2table = function(
   args = paste(args, measure)  
   
   ###########################
+  # Making skip
+  ###########################  
+  if (skip) {
+    args = paste(args, "--skip")
+  }
+  
+  ###########################
   # Making output file if not specified
   ###########################    
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ext)
   }
   outfile = c("--tablefile ", outfile)
+  args = paste(args, outfile)  
   
   ###########################
   # Need ability to have 
@@ -105,6 +125,9 @@ aparcstats2table = function(
   cmd = paste(cmd, opts)
   
   fe_before = file.exists(outfile)
+  if (verbose) {
+    message(cmd, "\n")
+  }  
   res = system(cmd)
   fe_after = file.exists(outfile)
   

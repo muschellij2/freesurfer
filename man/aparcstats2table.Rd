@@ -7,15 +7,35 @@
 aparcstats2table(subjects, outfile = NULL, hemi = c("lh", "rh"),
   measure = c("area", "volume", "thickness", "thicknessstd", "meancurv",
   "gauscurv", "foldind", "curvind"), sep = c("tab", "space", "comma",
-  "semicolon"), parc = c("aparc", "aparc.a2009s"), subj_dir = NULL,
-  skip = FALSE, opts = "", verbose = TRUE)
+  "semicolon"), parc = c("aparc", "aparc.a2009s"), skip = FALSE,
+  subj_dir = NULL, opts = "", verbose = TRUE)
 }
 \arguments{
 \item{subjects}{(character) vector of subjects}
 
 \item{outfile}{(character) output filename}
 
+\item{hemi}{(character) hemisphere to run statistics}
+
+\item{measure}{(character) measure to be calculated}
+
+\item{sep}{(character) separator for the output file.  This will be
+an attribute of \code{outfile}}
+
+\item{parc}{(character) parcellation to compute on}
+
+\item{skip}{(logical) if subject does not have parcellation, 
+should the command skip that subject (\code{TRUE}) or error 
+(\code{FALSE})}
+
+\item{subj_dir}{(character path) if a different subjects directory
+is to be used other than \code{SUBJECTS_DIR} from shell, it can be
+specified here.  Use with care as if the command fail, it may not reset
+the \code{SUBJECTS_DIR} back correctly after the error}
+
 \item{opts}{(character) additional options to \code{aparcstats2table}}
+
+\item{verbose}{(logical) print diagnostic messages}
 }
 \value{
 Result of \code{system} command
