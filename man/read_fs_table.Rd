@@ -32,7 +32,7 @@ if (have_fs()) {
    seg_outfile = asegstats2table(subjects = "bert", meas = "mean")
    df_seg = read_fs_table(seg_outfile)
 }
-\dontrun {
+\dontrun{
 ### using the pipe
 df_seg = asegstats2table(subjects = "bert", meas = "mean") \%>\% 
             read_fs_table
