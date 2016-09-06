@@ -9,6 +9,7 @@
 #' @param ... additional arguments to \code{\link{read.table}}
 #' 
 #' @return \code{data.frame} from the file
+#' @importFrom utils read.table
 #' @export
 #' @examples 
 #' if (have_fs()) {
@@ -34,7 +35,7 @@ read_fs_table = function(
   if (is.null(sep)) {
     sep = attr(file, "separator") 
   }
-  x = read.table(file = file, header = TRUE, sep = sep, 
+  x = utils::read.table(file = file, header = TRUE, sep = sep, 
                  stringsAsFactors = stringsAsFactors, ...)  
   return(x)
 }
