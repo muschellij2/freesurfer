@@ -11,7 +11,7 @@ Description: Wrapper functions that interface with Freesurfer (https://surfer.nm
     object of class "nifti" if desired.
 Imports:
     methods,
-    fslr, 
+    fslr (>= 1.9.0.0), 
     tools,
     R.utils
 Depends:
