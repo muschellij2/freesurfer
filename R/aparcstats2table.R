@@ -123,7 +123,7 @@ aparcstats2table = function(
   ###########################
   # Add the Subjects DIR Stuff to the command first
   ###########################  
-  cmd = get_fs()
+  cmd = paste0(get_fs(), "aparcstats2table")
   cmd = paste0(cmd_pre, cmd)
   
   cmd = paste(cmd, args)
