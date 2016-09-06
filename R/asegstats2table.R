@@ -92,7 +92,7 @@ asegstats2table = function(
   # Making measure
   ###########################  
   measure = match.arg(measure)
-  measure = paste0("--measure ", measure)
+  measure = paste0("--meas ", measure)
   args = c(args, measure)  
   
   ###########################
