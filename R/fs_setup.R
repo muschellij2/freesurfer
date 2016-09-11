@@ -143,3 +143,27 @@ fs_imgext = function(){
                "nii" = ".nii")
   return(ext)
 }
+
+
+#' @title Determine Freesurfer Subjects Directory
+#' @description Finds the SUBJECTS_DIR from system environment or 
+#' \code{getOption("fs.subj_dir")} for subjects dir
+#' @return SUBJECTS_DIR, such as \code{${FREESURFER_HOME}/subjects}
+#' 
+#' @export
+#' @examples
+#' fs_subj_dir()
+fs_subj_dir  = function(){
+  fs_out = Sys.getenv("SUBJECTS_DIR")
+  if (fs_out == "") {
+    fs_out = getOption("fs.subj_dir")
+  } 
+  if (is.null(fs_out)) {
+    fs_out = NA
+  }
+  if (fs_out == "") {
+    fs_out = NA
+  }
+  return(fs_out)
+}
+
