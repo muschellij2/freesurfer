@@ -28,6 +28,9 @@ surf_convert = function(
     add_ext = FALSE)
   stopifnot(res == 0)
   
+  ###############################
+  # Reading the data back in
+  ###############################
   rl = readLines(outfile)
   rl = trimws(rl)
   rl = gsub("\\s+", " ", rl)
