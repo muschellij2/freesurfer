@@ -27,7 +27,8 @@ mnc2nii = function(file,
     retimg = FALSE,
     frontopts = "",
     samefile = FALSE,
-    add_ext = FALSE)
+    add_ext = FALSE,
+    bin_app = "mni/bin")
   if (out_ext %in% "gz") {
     outfile = gzip(outfile, 
                    remove = TRUE, 
@@ -44,5 +45,5 @@ mnc2nii = function(file,
 #' @return Result of \code{fs_help}
 #' @export
 mnc2nii.help = function(){
-  fs_help(func_name = "mnc2nii", help.arg = "")
+  fs_help(func_name = "mnc2nii", help.arg = "", bin_app = "mni/bin")
 }

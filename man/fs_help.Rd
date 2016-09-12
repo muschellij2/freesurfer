@@ -4,7 +4,7 @@
 \alias{fs_help}
 \title{Wrapper for getting Freesurfer help}
 \usage{
-fs_help(func_name, help.arg = "--help", extra.args = "")
+fs_help(func_name, help.arg = "--help", extra.args = "", ...)
 }
 \arguments{
 \item{func_name}{Freesurfer function name}
@@ -13,6 +13,8 @@ fs_help(func_name, help.arg = "--help", extra.args = "")
 
 \item{extra.args}{Extra arguments to be passed other than 
 \code{--help}}
+
+\item{...}{additional arguments to \code{\link{get_fs}}}
 }
 \value{
 Prints help output and returns output as character vector

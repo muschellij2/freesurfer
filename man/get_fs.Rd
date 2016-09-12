@@ -4,12 +4,12 @@
 \alias{get_fs}
 \title{Create command declaring FREESURFER_HOME}
 \usage{
-get_fs(add_bin = TRUE)
+get_fs(bin_app = c("bin", "mni/bin", ""))
 }
 \arguments{
-\item{add_bin}{Should \code{bin} be added to the freesurfer path? 
-All executables are assumed to be in \code{FREESURFER_HOME/}.  If not, and 
-\code{add_bin = FALSE}, they will be assumed to be in \code{FreesurferDIR/}.}
+\item{bin_app}{Should \code{bin} be added to the freesurfer path? 
+All executables are assumed to be in \code{FREESURFER_HOME/bin/}.  If not, and 
+\code{bin_app = ""}, they will be assumed to be in \code{FREESURFER_HOME/}.}
 }
 \value{
 NULL if Freesurfer in path, or bash code for setting up Freesurfer DIR

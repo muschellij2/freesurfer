@@ -1,9 +1,9 @@
 #' @title Create command declaring FREESURFER_HOME
 #' @description Finds the Freesurfer from system environment or \code{getOption("freesurfer.path")}
 #' for location of Freesurfer functions
-#' @param add_bin Should \code{bin} be added to the freesurfer path? 
-#' All executables are assumed to be in \code{FREESURFER_HOME/}.  If not, and 
-#' \code{add_bin = FALSE}, they will be assumed to be in \code{FreesurferDIR/}.
+#' @param bin_app Should \code{bin} be added to the freesurfer path? 
+#' All executables are assumed to be in \code{FREESURFER_HOME/bin/}.  If not, and 
+#' \code{bin_app = ""}, they will be assumed to be in \code{FREESURFER_HOME/}.
 #' @note This will use \code{Sys.getenv("FREESURFER_HOME")} before \code{getOption("freesurfer.path")}.
 #' If the directory is not found for Freesurfer in \code{Sys.getenv("FreesurferDIR")} and 
 #' \code{getOption("freesurfer.path")}, it will try the default directory \code{/usr/local/freesurfer}.
@@ -13,11 +13,11 @@
 #' if (have_fs()) {
 #' get_fs()
 #' }
-get_fs = function(add_bin = TRUE){
+get_fs = function(bin_app = c("bin", "mni/bin", "")) {
   cmd = NULL
-  
   freesurferdir = Sys.getenv("FREESURFER_HOME")
   if (freesurferdir == "") {
+    bin_app = match.arg(bin_app)
     freesurferdir = getOption("freesurfer.path")
     ## Will try a default directory (/usr/local/freesurfer) if nothing else
     if (is.null(freesurferdir)) {
@@ -32,11 +32,11 @@ get_fs = function(add_bin = TRUE){
         }
       }
     }
-    bin = "bin"
-    bin_app = paste0(bin, "/")
-    if (!add_bin) {
-      bin_app = bin = ""
-    }
+    # bin = "bin"
+    # bin_app = paste0(bin, "/")
+    # if (!add_bin) {
+    #   bin_app = bin = ""
+    # }
     # FSF_OUTPUT_FORMAT
     freesurferout = get_fs_output()
     # lic_file = file.path(freesurferdir, "license.txt")

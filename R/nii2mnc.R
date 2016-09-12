@@ -39,7 +39,8 @@ nii2mnc = function(
     outfile = outfile,
     retimg = FALSE,
     samefile = FALSE,
-    add_ext = FALSE)
+    add_ext = FALSE,
+    bin_app = "mni/bin")
   if (!file.exists(outfile)) {
     stop("nii2mnc did not produce outfile specified")
   }
@@ -53,5 +54,5 @@ nii2mnc = function(
 #' @return Result of \code{fs_help}
 #' @export
 nii2mnc.help = function(){
-  fs_help(func_name = "nii2mnc", help.arg = "")
+  fs_help(func_name = "nii2mnc", help.arg = "", bin_app = "mni/bin")
 }

@@ -5,14 +5,15 @@
 #' @param help.arg Argument to print help, usually "--help" 
 #' @param extra.args Extra arguments to be passed other than 
 #' \code{--help}
+#' @param ... additional arguments to \code{\link{get_fs}}
 #' @return Prints help output and returns output as character vector
 #' @export
 #' @examples 
 #' if (have_fs()) {
 #' fs_help(func_name = "mri_watershed")
 #' }
-fs_help = function(func_name, help.arg = "--help", extra.args = ""){
-  cmd = get_fs()
+fs_help = function(func_name, help.arg = "--help", extra.args = "", ...){
+  cmd = get_fs(...)
   cmd <- paste0(cmd, sprintf('%s %s %s', func_name, 
                              help.arg, extra.args))
   #     args = paste(help.arg, extra.args, sep=" ", collapse = " ")

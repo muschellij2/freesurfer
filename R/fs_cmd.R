@@ -15,6 +15,7 @@
 #' @param frontopts (character) options/character to put in before filename
 #' @param add_ext (logical) should the extension be added to 
 #' the \code{outfile}
+#' @param bin_app (character) appendix to add to \code{\link{get_fs}}
 #' @param ... additional arguments passed to \code{\link{readnii}}.
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
@@ -33,9 +34,10 @@ fs_cmd = function(
   opts_after_outfile = FALSE,
   frontopts = "",
   add_ext = TRUE,
+  bin_app = "bin",
   ...){
   
-  cmd = get_fs()
+  cmd = get_fs(bin_app = bin_app)
   file = checkimg(file, ...)
   # file = path.expand(file)
   

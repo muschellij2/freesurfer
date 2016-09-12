@@ -6,7 +6,8 @@
 \usage{
 fs_cmd(func, file, outfile = NULL, retimg = TRUE, reorient = FALSE,
   intern = FALSE, opts = "", verbose = TRUE, samefile = FALSE,
-  opts_after_outfile = FALSE, frontopts = "", add_ext = TRUE, ...)
+  opts_after_outfile = FALSE, frontopts = "", add_ext = TRUE,
+  bin_app = "bin", ...)
 }
 \arguments{
 \item{func}{(character) Freesurfer function}
@@ -35,6 +36,8 @@ the \code{outfile} in the Freesurfer command?}
 
 \item{add_ext}{(logical) should the extension be added to 
 the \code{outfile}}
+
+\item{bin_app}{(character) appendix to add to \code{\link{get_fs}}}
 
 \item{...}{additional arguments passed to \code{\link{readnii}}.}
 }

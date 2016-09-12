@@ -56,6 +56,7 @@ nu_correct = function(
     samefile = FALSE,
     add_ext = FALSE,
     verbose = verbose,
+    bin_app = "mni/bin",
     ...)
   if (out_ext == "nii") {
     outfile = mnc2nii(tmpfile, outfile = outfile)
@@ -73,5 +74,5 @@ nu_correct = function(
 #' @return Result of \code{fs_help}
 #' @export
 nu_correct.help = function(){
-  fs_help(func_name = "nu_correct", help.arg = "-help")
+  fs_help(func_name = "nu_correct", help.arg = "-help", bin_app = "mni/bin")
 }
