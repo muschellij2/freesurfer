@@ -16,7 +16,8 @@ fs_dir()
 Character path
 }
 \description{
-Finds the FreesurferDIR from system environment or \code{getOption("freesurfer.path")}
+Finds the FREESURFER_HOME from system environment or 
+\code{getOption("freesurfer.path")}
 for location of Freesurfer fuctions and returns it
 }
 \examples{

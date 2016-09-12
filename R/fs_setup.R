@@ -16,7 +16,6 @@
 get_fs = function(add_bin = TRUE){
   cmd = NULL
   
-  
   freesurferdir = Sys.getenv("FREESURFER_HOME")
   if (freesurferdir == "") {
     freesurferdir = getOption("freesurfer.path")
@@ -55,7 +54,8 @@ get_fs = function(add_bin = TRUE){
 
 
 #' @title Get Freesurfer's Directory 
-#' @description Finds the FreesurferDIR from system environment or \code{getOption("freesurfer.path")}
+#' @description Finds the FREESURFER_HOME from system environment or 
+#' \code{getOption("freesurfer.path")}
 #' for location of Freesurfer fuctions and returns it
 #' @return Character path
 #' @aliases freesurfer_dir
@@ -67,7 +67,7 @@ get_fs = function(add_bin = TRUE){
 #'  fs_dir()
 #' }
 freesurferdir = function(){
-  freesurferdir = Sys.getenv("FreesurferDIR")
+  freesurferdir = Sys.getenv("FREESURFER_HOME")
   if (freesurferdir == "") {
     x = get_fs()
     freesurferdir = getOption("freesurfer.path")
