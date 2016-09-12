@@ -15,8 +15,8 @@
 #' }
 get_fs = function(add_bin = TRUE){
   cmd = NULL
-
-   
+  
+  
   freesurferdir = Sys.getenv("FREESURFER_HOME")
   if (freesurferdir == "") {
     freesurferdir = getOption("freesurfer.path")
@@ -46,7 +46,7 @@ get_fs = function(add_bin = TRUE){
                          paste0('sh ', shQuote(shfile)), ";"),
                   "FSF_OUTPUT_FORMAT=", freesurferout, "; export FSF_OUTPUT_FORMAT; ", 
                   paste0("${FREESURFER_HOME}/", bin_app)
-                  )
+    )
   } 
   if (is.null(freesurferdir)) stop("Can't find Freesurfer")
   if (freesurferdir %in% "") stop("Can't find Freesurfer")
@@ -161,8 +161,10 @@ fs_subj_dir  = function(){
   if (is.null(fs_out)) {
     fs_out = NA
   }
-  if (fs_out == "") {
-    fs_out = NA
+  if (!is.na(fs_out)) {
+    if (fs_out == "") {
+      fs_out = NA
+    }
   }
   return(fs_out)
 }

@@ -7,7 +7,7 @@
 freesurfer_read3_con(fid)
 }
 \arguments{
-\item{file}{connection to a 
+\item{fid}{connection to a 
 thickness file or anything in surf/ directory from Freesurfer
 subject}
 }

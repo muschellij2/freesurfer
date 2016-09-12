@@ -25,7 +25,7 @@ freesurfer_read3 = function(file) {
 #' @title Freesurfer Read 3 records 
 #' @description Reads first 3 records from a connection and returns the rotated value,
 #' for checking for other functions.
-#' @param file connection to a 
+#' @param fid connection to a 
 #' thickness file or anything in surf/ directory from Freesurfer
 #' subject
 #'
