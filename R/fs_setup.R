@@ -39,8 +39,16 @@ get_fs = function(add_bin = TRUE){
     }
     # FSF_OUTPUT_FORMAT
     freesurferout = get_fs_output()
+    lic_file = file.path(freesurferdir, "license.txt")
+    if (!file.exists(lic_file)) {
+      try_lic_file = file.path(freesurferdir, "LICENSE")
+      if (file.exists(try_lic_file)) {
+        file.copy(from = try_lic_file, to = lic_file, overwrite = FALSE)
+      }
+    }
+    
     # shfile = file.path(freesurferdir, "SetUpFreeSurfer.sh")
-    cmd <- paste0("FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
+    cmd <- paste0("export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
                   # ifelse(file.exists(shfile), 
                   #        paste0('sh ', shQuote(shfile), "; "), ""),
                   "FSF_OUTPUT_FORMAT=", freesurferout, "; export FSF_OUTPUT_FORMAT; ", 
