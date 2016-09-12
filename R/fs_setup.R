@@ -46,9 +46,15 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
     #     file.copy(from = try_lic_file, to = lic_file, overwrite = FALSE)
     #   }
     # }
+    cmd = NULL
+    if (grepl("mni", bin_app)) {
+      cmd = paste0("export PERL5LIB=$PERL5LIB:", file.path(freesurferdir, "mni", "lib"), 
+                   " ; ")
+    }
     
     # shfile = file.path(freesurferdir, "SetUpFreeSurfer.sh")
-    cmd <- paste0("export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
+    cmd <- paste0(cmd, 
+                  "export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
                   # ifelse(file.exists(shfile), 
                   #        paste0('sh ', shQuote(shfile), "; "), ""),
                   "FSF_OUTPUT_FORMAT=", freesurferout, "; export FSF_OUTPUT_FORMAT; ", 
