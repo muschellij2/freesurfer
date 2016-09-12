@@ -33,7 +33,7 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
       }
     }
     # bin = "bin"
-    # bin_app = paste0(bin, "/")
+    bin_app = paste0(bin_app, "/")
     # if (!add_bin) {
     #   bin_app = bin = ""
     # }
