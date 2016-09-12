@@ -14,6 +14,8 @@ Finds the SUBJECTS_DIR from system environment or
 \code{getOption("fs.subj_dir")} for subjects dir
 }
 \examples{
-fs_subj_dir()
+if (have_fs()) {
+   fs_subj_dir()
+}
 }
 

@@ -152,14 +152,16 @@ fs_imgext = function(){
 #' 
 #' @export
 #' @examples
-#' fs_subj_dir()
+#' if (have_fs()) {
+#'    fs_subj_dir()
+#' }
 fs_subj_dir  = function(){
   fs_out = Sys.getenv("SUBJECTS_DIR")
   if (fs_out == "") {
     fs_out = getOption("fs.subj_dir")
-  } 
+  }
   if (is.null(fs_out)) {
-    fs_out = NA
+    fs_out = file.path(fs_dir(), "subjects")
   }
   if (!is.na(fs_out)) {
     if (fs_out == "") {
@@ -167,5 +169,21 @@ fs_subj_dir  = function(){
     }
   }
   return(fs_out)
+}
+
+#' @title Set Freesurfer Subjects Directory
+#' @description Sets the SUBJECTS_DIR variable in the system environment or 
+#' \code{options("fs.subj_dir" = x)} 
+#' @param x path to SUBJECTS_DIR defaults to \code{file.path(fs_dir(), "subjects")}
+#' @return NULL
+#' 
+#' @export
+set_fs_subj_dir  = function(x = file.path(fs_dir(), "subjects")){
+  if (!file.exists(x)) {
+    stop("Path to set subj_dir does not exist, erroring out!")
+  }
+  options("fs.subj_dir" = x)
+  Sys.setenv("SUBJECTS_DIR" = x)
+  return(invisible(NULL))
 }
 
