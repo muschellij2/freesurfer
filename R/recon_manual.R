@@ -30,7 +30,21 @@ recon_con1 <- function(
            opts = "-autorecon1")
 }
 
-
+#' @rdname recon_manual
+#' @export
+autorecon1 <- function(
+  infile,
+  outdir,
+  subjid,
+  verbose = TRUE
+) {
+  recon_con1(
+    infile = infile,
+    outdir = outdir,
+    subjid = subjid,
+    verbose = verbose)
+}
+  
 #' @rdname recon_manual
 #' @export
 recon_con2 <- function(
@@ -49,6 +63,21 @@ recon_con2 <- function(
 
 #' @rdname recon_manual
 #' @export
+autorecon2 <- function(
+  infile,
+  outdir,
+  subjid,
+  verbose = TRUE
+) {
+  recon_con2(
+    infile = infile,
+    outdir = outdir,
+    subjid = subjid,
+    verbose = verbose)
+}
+
+#' @rdname recon_manual
+#' @export
 recon_con3 <- function(
   infile,
   outdir,
@@ -61,4 +90,19 @@ recon_con3 <- function(
            subjid = subjid,
            verbose = verbose,
            opts = "-autorecon3")
+}
+
+#' @rdname recon_manual
+#' @export
+autorecon3 <- function(
+  infile,
+  outdir,
+  subjid,
+  verbose = TRUE
+) {
+  recon_con3(
+    infile = infile,
+    outdir = outdir,
+    subjid = subjid,
+    verbose = verbose)
 }

@@ -42,7 +42,7 @@ get_fs = function(add_bin = TRUE){
     shfile = file.path(freesurferdir, "SetUpFreeSurfer.sh")
     cmd <- paste0("FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
                   ifelse(file.exists(shfile), 
-                         paste0('sh ', shQuote(shfile)), ";"),
+                         paste0('sh ', shQuote(shfile), "; "), ""),
                   "FSF_OUTPUT_FORMAT=", freesurferout, "; export FSF_OUTPUT_FORMAT; ", 
                   paste0("${FREESURFER_HOME}/", bin_app)
     )
