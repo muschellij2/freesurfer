@@ -1,5 +1,7 @@
-#' @title Use Freesurfers mri_surf2surf function to resamples one cortical surface onto another 
-#' @description This function calls \code{mri_surf2surf}  to resamples one cortical surface onto another 
+#' @title Use Freesurfers \code{mri_surf2surf} function to 
+#' resamples one cortical surface onto another 
+#' @description This function calls Freesurfer \code{mri_surf2surf} to 
+#' resample one cortical surface onto another 
 #' @param subject (character) vector of subject name 
 #' @param outfile (character) output filename
 #' @param hemi (character) hemisphere to run statistics
@@ -7,18 +9,23 @@
 #' @param src_type (character) source file type, can be curv or paint (w)
 #' @param trg_type (character) target file type, can be curv, paint (w), mgh, or nii
 #' @param sval (character) source file 
+#' @param subj_dir (character path) if a different subjects directory
+#' is to be used other than \code{SUBJECTS_DIR} from shell, it can be
+#' specified here.  Use with care as if the command fail, it may not reset
+#' the \code{SUBJECTS_DIR} back correctly after the error
 #' @param opts (character) additional options to \code{mri_surf2surf}
+#' @param verbose (logical) print diagnostic messages
 #' @return Result of \code{system} command
 #' @export
 #' @examples 
 #' if (have_fs()) {
-#'    mri_surf2surf( subject = 'subject',
-#' target_subject = 'fsaverage', 
-#' trg_type  = 'curv', 
-#' src_type  = 'curv', 
-#' hemi = "rh",
-#' sval = "thickness",
-#' subj_dir = '/path/to/your/subjects')
+#'    out = mri_surf2surf( 
+#'    subject = 'bert',
+#'    target_subject = 'fsaverage', 
+#'    trg_type  = 'curv', 
+#'    src_type  = 'curv', 
+#'    hemi = "rh",
+#'    sval = "thickness")
 #' } 
 mri_surf2surf = function(
   subject = NULL ,
@@ -28,8 +35,8 @@ mri_surf2surf = function(
   outfile = NULL,
   hemi = c("lh", "rh"),
   sval = c("thickness"),
-  opts = "",
   subj_dir = NULL,
+  opts = "",
   verbose = TRUE){
   
   ###########################
@@ -70,6 +77,7 @@ mri_surf2surf = function(
   # Making output file if not specified
   ###########################    
   if (is.null(outfile)) {
+    ext = fs_imgext()
     outfile = tempfile(fileext = ext)
   }
   args = c(args, paste0("--tval ", outfile))  

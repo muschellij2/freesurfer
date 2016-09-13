@@ -2,12 +2,13 @@
 % Please edit documentation in R/mri_surf2surf.R
 \name{mri_surf2surf}
 \alias{mri_surf2surf}
-\title{Use Freesurfers mri_surf2surf function to resamples one cortical surface onto another}
+\title{Use Freesurfers \code{mri_surf2surf} function to 
+resamples one cortical surface onto another}
 \usage{
 mri_surf2surf(subject = NULL, target_subject = NULL, trg_type = c("curv",
   "w", "mgh", "nii"), src_type = c("curv", "w"), outfile = NULL,
-  hemi = c("lh", "rh"), sval = c("thickness"), opts = "",
-  subj_dir = NULL, verbose = TRUE)
+  hemi = c("lh", "rh"), sval = c("thickness"), subj_dir = NULL,
+  opts = "", verbose = TRUE)
 }
 \arguments{
 \item{subject}{(character) vector of subject name}
@@ -24,23 +25,32 @@ mri_surf2surf(subject = NULL, target_subject = NULL, trg_type = c("curv",
 
 \item{sval}{(character) source file}
 
+\item{subj_dir}{(character path) if a different subjects directory
+is to be used other than \code{SUBJECTS_DIR} from shell, it can be
+specified here.  Use with care as if the command fail, it may not reset
+the \code{SUBJECTS_DIR} back correctly after the error}
+
 \item{opts}{(character) additional options to \code{mri_surf2surf}}
+
+\item{verbose}{(logical) print diagnostic messages}
 }
 \value{
 Result of \code{system} command
 }
 \description{
-This function calls \code{mri_surf2surf}  to resamples one cortical surface onto another
+This function calls Freesurfer \code{mri_surf2surf} to 
+resample one cortical surface onto another
 }
 \examples{
 if (have_fs()) {
-   mri_surf2surf( subject = 'subject',
-target_subject = 'fsaverage', 
-trg_type  = 'curv', 
-src_type  = 'curv', 
-hemi = "rh",
-sval = "thickness",
-subj_dir = '/path/to/your/subjects')
+   mri_surf2surf( 
+   subject = 'bert',
+   target_subject = 'fsaverage', 
+   trg_type  = 'curv', 
+   src_type  = 'curv', 
+   hemi = "rh",
+   sval = "thickness",
+   subj_dir = '/path/to/your/subjects')
 } 
 }
 
