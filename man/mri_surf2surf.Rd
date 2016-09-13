@@ -35,7 +35,7 @@ the \code{SUBJECTS_DIR} back correctly after the error}
 \item{verbose}{(logical) print diagnostic messages}
 }
 \value{
-Result of \code{system} command
+Name of output file
 }
 \description{
 This function calls Freesurfer \code{mri_surf2surf} to 
