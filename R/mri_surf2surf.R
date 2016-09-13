@@ -78,7 +78,7 @@ mri_surf2surf = function(
   # Making output file if not specified
   ###########################    
   if (is.null(outfile)) {
-    ext = fs_imgext()
+    ext = paste0(".", sval)
     outfile = tempfile(fileext = ext)
   }
   args = c(args, paste0("--tval ", outfile))  
