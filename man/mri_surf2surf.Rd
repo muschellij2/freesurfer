@@ -43,14 +43,13 @@ resample one cortical surface onto another
 }
 \examples{
 if (have_fs()) {
-   mri_surf2surf( 
+   out = mri_surf2surf( 
    subject = 'bert',
    target_subject = 'fsaverage', 
    trg_type  = 'curv', 
    src_type  = 'curv', 
    hemi = "rh",
-   sval = "thickness",
-   subj_dir = '/path/to/your/subjects')
+   sval = "thickness")
 } 
 }
 

@@ -191,7 +191,16 @@ fs_subj_dir  = function(){
     fs_out = getOption("fs.subj_dir")
   }
   if (is.null(fs_out)) {
-    fs_out = file.path(fs_dir(), "subjects")
+    warning("SUBJECTS_DIR not set, setting to ", 
+            paste0("file.path(set_fs_subj_dir(), 'subjects')"))
+      res = suppressWarnings(try(
+        set_fs_subj_dir(), 
+        silent = TRUE)
+      )
+      if (inherits(res, "try-error")) {
+        fs_out = NA
+      }
+    # fs_out = file.path(fs_dir(), "subjects")
   }
   if (!is.na(fs_out)) {
     if (fs_out == "") {
