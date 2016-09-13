@@ -147,6 +147,7 @@ mri_surf2surf = function(
       " Please check output.")
     )
   }  
+  return(outfile)
 }
 
 
