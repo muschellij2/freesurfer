@@ -81,10 +81,9 @@ mri_surf2surf = function(
     ext = fs_imgext()
     outfile = tempfile(fileext = ext)
   }
-  outfile = file.path(dirname(outfile), 
-                      paste0(xhemi, ".", basename(outfile)))
   args = c(args, paste0("--tval ", outfile))  
-  
+  outfile = file.path(dirname(outfile), 
+                      paste0(xhemi, ".", basename(outfile)))  
   
   ###########################
   # Adding verbose option
