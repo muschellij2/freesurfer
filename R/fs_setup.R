@@ -47,9 +47,25 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
     #   }
     # }
     cmd = NULL
+    ###########################################
+    # Need to fix PERL startup 
+    ###########################################    
     if (grepl("mni", bin_app)) {
-      cmd = paste0("export PERL5LIB=$PERL5LIB:", file.path(freesurferdir, "mni", "lib"), 
-                   " ; ")
+      mni_dir = file.path(freesurferdir, "mni")
+      start_up = list.files(pattern = "MNI[.]pm", 
+                            path = mni_dir, 
+                            full.names = TRUE, recursive = TRUE)
+      if (length(start_up) > 1) {
+        start_up = start_up[1]
+        warning("First MNI.pm file found used");
+      }
+      if (length(start_up) == 0) {
+        warning("MNI startup file not found, trying MNI function anyway ")
+        cmd = NULL
+      } else {
+        start_up = dirname(start_up)
+        cmd = paste0("export PERL5LIB=$PERL5LIB:", start_up, " ; ")
+      }
     }
     
     # shfile = file.path(freesurferdir, "SetUpFreeSurfer.sh")
