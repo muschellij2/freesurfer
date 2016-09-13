@@ -25,7 +25,7 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Remotes: muschellij2/fslr,neuroconductor/fslr
+Remotes: muschellij2/fslr
 BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
 RoxygenNote: 5.0.1.9000
