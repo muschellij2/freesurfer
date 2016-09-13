@@ -15,7 +15,7 @@
 #' the \code{SUBJECTS_DIR} back correctly after the error
 #' @param opts (character) additional options to \code{mri_surf2surf}
 #' @param verbose (logical) print diagnostic messages
-#' @return Result of \code{system} command
+#' @return Name of output file
 #' @export
 #' @examples 
 #' if (have_fs()) {
