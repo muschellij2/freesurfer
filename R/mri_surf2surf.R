@@ -66,7 +66,7 @@ mri_surf2surf = function(
   # Making Source File
   ###########################  
   sval = match.arg(sval)
-  ext = paste0(".", sval)
+  # ext = paste0(".", sval)
   sval = paste0("--sval ", sval)
   args = c(args, sval)
   ###########################
@@ -79,7 +79,7 @@ mri_surf2surf = function(
   # Making output file if not specified
   ###########################    
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ext)
+    outfile = tempfile()
   }
   args = c(args, paste0("--tval ", outfile))  
   outfile = file.path(dirname(outfile), 
