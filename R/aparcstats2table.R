@@ -142,6 +142,9 @@ aparcstats2table = function(
   if (res != 0 & !fe_after) {
     stop("Command Failed, no output produced")
   }
+  if (res == 0 & !fe_after) {
+    warning("Command assumed passed, but no output produced")
+  }    
   if (res != 0 & fe_after & fe_before) {
     warning(paste0(
       " Command aparcstats2table ", 

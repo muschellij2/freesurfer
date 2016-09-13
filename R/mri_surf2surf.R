@@ -43,6 +43,7 @@ mri_surf2surf = function(
   # Making Hemisphere
   ###########################  
   hemi = match.arg(hemi)
+  xhemi = hemi
   hemi = paste0("--hemi ", hemi)
   args = hemi
   ###########################
@@ -80,6 +81,8 @@ mri_surf2surf = function(
     ext = fs_imgext()
     outfile = tempfile(fileext = ext)
   }
+  outfile = file.path(dirname(outfile), 
+                      paste0(xhemi, ".", basename(outfile)))
   args = c(args, paste0("--tval ", outfile))  
   
   
@@ -130,6 +133,9 @@ mri_surf2surf = function(
   if (res != 0 & !fe_after) {
     stop("Command Failed, no output produced")
   }
+  if (res == 0 & !fe_after) {
+    warning("Command assumed passed, but no output produced")
+  }  
   if (res != 0 & fe_after & fe_before) {
     warning(paste0(
       " Command mri_surf2surf ", 
