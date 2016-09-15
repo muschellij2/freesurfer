@@ -4,26 +4,31 @@
 \alias{mris_convert}
 \title{Use Freesurfers MRIs Converter}
 \usage{
-mris_convert(curvinfilepath, origfilepath, outfile = NULL, ext = ".asc")
+mris_convert(curv, orig, outfile = NULL, ext = ".asc", verbose = TRUE)
 }
 \arguments{
-\item{curvinfilepath}{(character) input filename for curve}
+\item{curv}{(character) input filename for curve}
 
-\item{origfilepath}{(character) file path for origin file}
+\item{orig}{(character) file path for origin file}
 
 \item{outfile}{(character) output file path}
 
 \item{ext}{(character) output file extension, default is set to .asc}
+
+\item{verbose}{(logical) print diagnostic messages}
 }
 \value{
-Result of \code{system} command
+Name of output file
 }
 \description{
-This function call  \code{mris_convert}, a general conversion program for converting between cortical surface file formats
+This function call  \code{mris_convert}, a 
+general conversion program for converting between cortical surface file formats
 }
 \examples{
 if (have_fs()) {
- mris_convert(curvinfilepath = 'lh.thickness', origfilepath = 'lh.white', outfile = 'lh.thickness.asc')  
+ mris_convert(curvinfilepath = "lh.thickness", 
+ origfilepath = "lh.white", 
+ outfile = "lh.thickness.asc")  
 } 
 }
 

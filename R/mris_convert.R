@@ -1,21 +1,25 @@
 #' @title Use Freesurfers MRIs Converter 
-#' @description This function call  \code{mris_convert}, a general conversion program for converting between cortical surface file formats 
-#' @param curvinfilepath (character) input filename for curve
-#' @param origfilepath (character) file path for origin file
+#' @description This function call  \code{mris_convert}, a 
+#' general conversion program for converting between cortical surface file formats 
+#' @param curv (character) input filename for curve
+#' @param orig (character) file path for origin file
 #' @param outfile (character) output file path 
 #' @param ext (character) output file extension, default is set to .asc
-#' @return Result of \code{system} command
+#' @param verbose (logical) print diagnostic messages
+#' @return Name of output file
 #' @export
 #' @examples 
 #' if (have_fs()) {
-#'  mris_convert(curvinfilepath = 'lh.thickness', origfilepath = 'lh.white', outfile = 'lh.thickness.asc')  
+#'  mris_convert(curvinfilepath = "lh.thickness", 
+#'  origfilepath = "lh.white", 
+#'  outfile = "lh.thickness.asc")  
 #' } 
-
 mris_convert = function(
-  curvinfilepath, 
-  origfilepath,
+  curv, 
+  orig,
   outfile = NULL,
-  ext = '.asc'){
+  ext = ".asc",
+  verbose = TRUE){
   
   ######################################################    
   # Making output file if not specified
@@ -24,9 +28,13 @@ mris_convert = function(
     outfile = tempfile(fileext = ext)
   }
    
-  cmd <- paste('mris_convert -c', curvinfilepath, origfilepath, outfile, sep = ' ')
+  cmd <- paste("mris_convert -c", curv, 
+               orig, outfile, sep = " ")
   cmd <- paste0(get_fs(), cmd)
-  res = system(cmd)
+  
+  run_check_fs_cmd(cmd = cmd, outfile = outfile, verbose = verbose)
+
+  return(outfile)
 }
 
 
@@ -35,6 +43,6 @@ mris_convert = function(
 #'
 #' @return Result of \code{fs_help}
 #' @export
-mri_convert.help = function(){
+mris_convert.help = function(){
   fs_help(func_name = "mris_convert")
 }

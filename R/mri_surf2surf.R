@@ -122,36 +122,8 @@ mri_surf2surf = function(
   cmd = paste(cmd, args)
   cmd = paste(cmd, opts)
   
-  fe_before = file.exists(outfile)
-  if (verbose) {
-    message(cmd, "\n")
-  }  
-  res = system(cmd)
-  fe_after = file.exists(outfile)
+  run_check_fs_cmd(cmd = cmd, outfile = outfile, verbose = verbose)
   
-  if (res != 0 & !fe_after) {
-    stop("Command Failed, no output produced")
-  }
-  if (res == 0 & !fe_after) {
-    warning("Command assumed passed, but no output produced")
-  }  
-  if (res != 0 & fe_after & fe_before) {
-    warning(paste0(
-      " Command mri_surf2surf ", 
-      "had non-zero exit status (probably failed),",
-      " outfile exists but existed before command was run. ",
-      " Please check output.")
-    )
-  }  
-  
-  if (res != 0 & fe_after & !fe_before) {
-    warning(paste0(
-      " Command mri_surf2surf ", 
-      "had non-zero exit status (probably failed),",
-      " outfile exists and did NOT before command was run. ",
-      " Please check output.")
-    )
-  }  
   return(outfile)
 }
 

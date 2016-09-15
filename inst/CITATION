@@ -1,0 +1,8 @@
+structure(list(fischl2012freesurfer = structure(list(title = "FreeSurfer", 
+                                                     author = structure(list(structure(list(given = "Bruce", family = "Fischl", 
+                                                                                            role = NULL, email = NULL, comment = NULL), .Names = c("given", 
+                                                                                                                                                   "family", "role", "email", "comment"))), class = "person"), 
+                                                     journal = "Neuroimage", volume = "62", number = "2", pages = "774--781", 
+                                                     year = "2012", publisher = "Elsevier"), .Names = c("title", 
+                                                                                                        "author", "journal", "volume", "number", "pages", "year", "publisher"
+                                                     ), bibtype = "Article", key = "fischl2012freesurfer")), class = "bibentry", strings = structure(character(0), .Names = character(0)), .Names = "fischl2012freesurfer")
