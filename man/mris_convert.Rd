@@ -13,7 +13,7 @@ mris_convert(curvinfilepath, origfilepath, outfile = NULL, ext = ".asc")
 
 \item{outfile}{(character) output file path}
 
-\item{ext}{(character) output file extension}
+\item{ext}{(character) output file extension, default is set to .asc}
 }
 \value{
 Result of \code{system} command
