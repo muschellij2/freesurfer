@@ -193,13 +193,16 @@ fs_subj_dir  = function(){
   if (is.null(fs_out)) {
     warning("SUBJECTS_DIR not set, setting to ", 
             paste0("file.path(set_fs_subj_dir(), 'subjects')"))
-      res = suppressWarnings(try(
-        set_fs_subj_dir(), 
-        silent = TRUE)
-      )
-      if (inherits(res, "try-error")) {
-        fs_out = NA
-      }
+    res = suppressWarnings(try(
+      set_fs_subj_dir(), 
+      silent = TRUE)
+    )
+    if (inherits(res, "try-error")) {
+      fs_out = NA
+    } else {
+      fs_out = res
+    }
+    
     # fs_out = file.path(fs_dir(), "subjects")
   }
   if (!is.na(fs_out)) {
@@ -223,6 +226,6 @@ set_fs_subj_dir  = function(x = file.path(fs_dir(), "subjects")){
   }
   options("fs.subj_dir" = x)
   Sys.setenv("SUBJECTS_DIR" = x)
-  return(invisible(NULL))
+  return(x)
 }
 
