@@ -26,9 +26,11 @@ general conversion program for converting between cortical surface file formats
 }
 \examples{
 if (have_fs()) {
- mris_convert(curvinfilepath = "lh.thickness", 
- origfilepath = "lh.white", 
- outfile = "lh.thickness.asc")  
+ bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
+ mris_convert(
+ curv = file.path(bert_surf_dir, "lh.thickness"), 
+ orig = file.path(bert_surf_dir, "lh.white")
+ )  
 } 
 }
 
