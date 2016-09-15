@@ -4,7 +4,8 @@
 \alias{read_fs_table}
 \title{Read Freesurfer Table Output}
 \usage{
-read_fs_table(file, sep = NULL, stringsAsFactors = FALSE, ...)
+read_fs_table(file, sep = NULL, stringsAsFactors = FALSE, header = TRUE,
+  ...)
 }
 \arguments{
 \item{file}{(character path) filename of text file}
@@ -13,6 +14,8 @@ read_fs_table(file, sep = NULL, stringsAsFactors = FALSE, ...)
 pass to \code{\link{read.table}}.}
 
 \item{stringsAsFactors}{(logical) passed to \code{\link{read.table}}}
+
+\item{header}{Is there a header in the data}
 
 \item{...}{additional arguments to \code{\link{read.table}}}
 }

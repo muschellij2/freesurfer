@@ -27,10 +27,12 @@ general conversion program for converting between cortical surface file formats
 \examples{
 if (have_fs()) {
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
- mris_convert(
+ asc_file = mris_convert(
  curv = file.path(bert_surf_dir, "lh.thickness"), 
  orig = file.path(bert_surf_dir, "lh.white")
  )  
+ res = read_fs_table(asc_file, header = FALSE)
+ colnames(res) = c("index", "coord_1", "coord_2", "coord_3", "value")
 } 
 }
 

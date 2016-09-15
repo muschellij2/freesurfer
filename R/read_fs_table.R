@@ -6,6 +6,7 @@
 #' @param sep separator to override attribute of file, to 
 #' pass to \code{\link{read.table}}.
 #' @param stringsAsFactors (logical) passed to \code{\link{read.table}} 
+#' @param header Is there a header in the data
 #' @param ... additional arguments to \code{\link{read.table}}
 #' 
 #' @return \code{data.frame} from the file
@@ -29,13 +30,14 @@ read_fs_table = function(
   file,
   sep = NULL,
   stringsAsFactors = FALSE,
+  header = TRUE,
   ...
   ){
   
   if (is.null(sep)) {
     sep = attr(file, "separator") 
   }
-  x = utils::read.table(file = file, header = TRUE, sep = sep, 
+  x = utils::read.table(file = file, header = header, sep = sep, 
                  stringsAsFactors = stringsAsFactors, ...)  
   return(x)
 }

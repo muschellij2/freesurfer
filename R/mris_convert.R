@@ -11,10 +11,12 @@
 #' @examples 
 #' if (have_fs()) {
 #'  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
-#'  mris_convert(
+#'  asc_file = mris_convert(
 #'  curv = file.path(bert_surf_dir, "lh.thickness"), 
 #'  orig = file.path(bert_surf_dir, "lh.white")
 #'  )  
+#'  res = read_fs_table(asc_file, header = FALSE)
+#'  colnames(res) = c("index", "coord_1", "coord_2", "coord_3", "value")
 #' } 
 mris_convert = function(
   curv, 
@@ -35,7 +37,7 @@ mris_convert = function(
   cmd <- paste0(get_fs(), cmd)
   
   run_check_fs_cmd(cmd = cmd, outfile = outfile, verbose = verbose)
-
+  attr(outfile, "separator")  = " "
   return(outfile)
 }
 
