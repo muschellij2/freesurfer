@@ -47,6 +47,7 @@ convert parcellation statistics to a table
 }
 \examples{
 if (have_fs()) {
+   fs_subj_dir()
    outfile = aparcstats2table(subjects = "bert",
                     hemi = "lh",
                     meas = "thickness")
