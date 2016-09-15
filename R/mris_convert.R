@@ -3,6 +3,7 @@
 #' @param curvinfilepath (character) input filename for curve
 #' @param origfilepath (character) file path for origin file
 #' @param outfile (character) output file path 
+#' @param ext (character) output file extension, default is set to .asc
 #' @return Result of \code{system} command
 #' @export
 #' @examples 
