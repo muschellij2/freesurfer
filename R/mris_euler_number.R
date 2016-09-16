@@ -22,7 +22,8 @@ mris_euler_number = function(
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ".txt")
   }
-  args = paste0("> ", outfile)
+  # args = paste0("-o ", outfile)
+  args = paste0("2> ", outfile)
   
   args = paste(args, collapse = " ")
   opts = paste(opts, args)
@@ -35,7 +36,7 @@ mris_euler_number = function(
     retimg = FALSE,
     samefile = TRUE,
     add_ext = FALSE)
-  
+
   res = readLines(outfile)
   return(res)
 }

@@ -16,7 +16,7 @@
 #' @param add_ext (logical) should the extension be added to 
 #' the \code{outfile}
 #' @param bin_app (character) appendix to add to \code{\link{get_fs}}
-#' @param ... additional arguments passed to \code{\link{readnii}}.
+#' @param ... additional arguments passed to \code{\link{system}}.
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
 #' @importFrom fslr checkimg check_outfile readnii nii.stub
@@ -75,10 +75,10 @@ fs_cmd = function(
   if (verbose) {
     message(cmd, "\n")
   }
-  res = system(cmd, intern = intern)
+  res = system(cmd, intern = intern, ...)
   if (retimg) {
     if (samefile) outfile = file
-    img = readnii(outfile, reorient = reorient, ...)
+    img = readnii(outfile, reorient = reorient)
     return(img)
   } 
   

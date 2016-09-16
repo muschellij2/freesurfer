@@ -39,7 +39,7 @@ the \code{outfile}}
 
 \item{bin_app}{(character) appendix to add to \code{\link{get_fs}}}
 
-\item{...}{additional arguments passed to \code{\link{readnii}}.}
+\item{...}{additional arguments passed to \code{\link{system}}.}
 }
 \value{
 If \code{retimg} then object of class nifti.  Otherwise,
