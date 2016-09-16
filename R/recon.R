@@ -86,7 +86,7 @@
 #' @export
 recon <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   motioncor = TRUE,
   nuintensitycor = TRUE,
@@ -171,11 +171,16 @@ recon <- function(
     n = paste(n, collapse = " ")
     return(n)
   }
+  if (!is.null(outdir)) {
+    sd_opts = paste0(" -sd ", shQuote(outdir))
+  } else {
+    sd_opts = ""
+  }
   
   args = parse_opts(log_opts)
   opts = paste(
     paste0("-i", infile),
-    paste0(" -sd ", shQuote(outdir)),
+    sd_opts,
     paste0(" -subjid ", subjid),
     args,
     opts)

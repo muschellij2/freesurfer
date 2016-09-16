@@ -1,23 +1,20 @@
-#' @title Reconstruction Helper for recon from Freesurfer
-#' @description Wrapper for the \code{recon-all} function in Freesurfer
+#' @title Tract Reconstruction Helper for trac-all from Freesurfer
+#' @description Wrapper for the \code{trac-all} function in Freesurfer
 #' 
-#' @note If you set \code{infile = NULL}, then you can omit the 
-#' \code{-i} flag in \code{recon-all}
 #' @param infile Input filename (dcm or nii)
 #' @param outdir Output directory
-#' @param subjid subject id
+#' @param subjid subject id, if NULL, the basename of the infile will be used
 #' @param verbose print diagnostic messages
 #' @param opts Additional options
 #'
 #' @return Result of \code{\link{system}}
-#' @importFrom tools file_path_sans_ext
 #' @export
-reconner <- function(
+tracker <- function(
   infile,
   outdir = NULL,
   subjid,
   verbose = TRUE,
-  opts = "-all"
+  opts = ""
 ) {
   
   if (is.null(subjid)) {
@@ -30,6 +27,7 @@ reconner <- function(
   } else {
     in_opts = ""
   }
+  
   if (!is.null(outdir)) {
     sd_opts = paste0(" -sd ", shQuote(outdir))
   } else {
@@ -39,11 +37,11 @@ reconner <- function(
   opts = paste(
     in_opts,
     sd_opts,
-    paste0(" -subjid ", subjid),
+    paste0(" -s ", subjid),
     opts)
   
   cmd = get_fs()
-  cmd = paste0(cmd, "recon-all")
+  cmd = paste0(cmd, "trac-all")
   cmd = paste(cmd, opts)
   if (verbose) {
     message(cmd, "\n")

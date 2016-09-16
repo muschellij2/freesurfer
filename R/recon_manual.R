@@ -18,7 +18,7 @@
 #' @export
 recon_con1 <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE
   ) {
@@ -34,7 +34,7 @@ recon_con1 <- function(
 #' @export
 autorecon1 <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE
 ) {
@@ -49,7 +49,7 @@ autorecon1 <- function(
 #' @export
 recon_con2 <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE
 ) {
@@ -65,7 +65,7 @@ recon_con2 <- function(
 #' @export
 autorecon2 <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE
 ) {
@@ -80,7 +80,7 @@ autorecon2 <- function(
 #' @export
 recon_con3 <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE
 ) {
@@ -96,7 +96,7 @@ recon_con3 <- function(
 #' @export
 autorecon3 <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE
 ) {
