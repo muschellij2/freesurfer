@@ -69,6 +69,8 @@ fs_cmd = function(
     } else {
       cmd <- paste(cmd, sprintf(' "%s" %s;', outfile, opts))
     }
+  } else {
+    cmd <- paste(cmd, sprintf(' %s;', opts))
   }
   if (verbose) {
     message(cmd, "\n")

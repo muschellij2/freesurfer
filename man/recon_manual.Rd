@@ -10,17 +10,17 @@
 \alias{recon_con3}
 \title{Reconstruction from Motion Correction to Skull Strip}
 \usage{
-recon_con1(infile, outdir, subjid, verbose = TRUE)
+recon_con1(infile, outdir = NULL, subjid, verbose = TRUE)
 
-autorecon1(infile, outdir, subjid, verbose = TRUE)
+autorecon1(infile, outdir = NULL, subjid, verbose = TRUE)
 
-recon_con2(infile, outdir, subjid, verbose = TRUE)
+recon_con2(infile, outdir = NULL, subjid, verbose = TRUE)
 
-autorecon2(infile, outdir, subjid, verbose = TRUE)
+autorecon2(infile, outdir = NULL, subjid, verbose = TRUE)
 
-recon_con3(infile, outdir, subjid, verbose = TRUE)
+recon_con3(infile, outdir = NULL, subjid, verbose = TRUE)
 
-autorecon3(infile, outdir, subjid, verbose = TRUE)
+autorecon3(infile, outdir = NULL, subjid, verbose = TRUE)
 }
 \arguments{
 \item{infile}{Input filename (dcm or nii)}

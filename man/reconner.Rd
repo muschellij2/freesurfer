@@ -4,7 +4,7 @@
 \alias{reconner}
 \title{Reconstruction Helper for recon from Freesurfer}
 \usage{
-reconner(infile, outdir, subjid, verbose = TRUE, opts = "-all")
+reconner(infile, outdir = NULL, subjid, verbose = TRUE, opts = "-all")
 }
 \arguments{
 \item{infile}{Input filename (dcm or nii)}
