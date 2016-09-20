@@ -19,7 +19,7 @@
 #' @param ... additional arguments passed to \code{\link{system}}.
 #' @return If \code{retimg} then object of class nifti.  Otherwise,
 #' Result from system command, depends if intern is TRUE or FALSE.
-#' @importFrom fslr checkimg check_outfile readnii nii.stub
+#' @importFrom neurobase checkimg check_outfile readnii nii.stub
 #' @export
 fs_cmd = function(
   func,

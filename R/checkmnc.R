@@ -16,10 +16,10 @@ setGeneric("checkmnc", function(file, ...) standardGeneric("checkmnc"))
 
 #' @rdname checkmnc-methods
 #' @aliases checkmnc,nifti-method
-#' @importFrom fslr checkimg
+#' @importFrom neurobase checkimg
 #' @export
 setMethod("checkmnc", "nifti", function(file, ...) { 
-  file = fslr::checkimg(file, gzipped = FALSE, ...)
+  file = neurobase::checkimg(file, gzipped = FALSE, ...)
   outfile = tempfile(fileext = ".mnc")
   outfile = nii2mnc(file, outfile)
   return(outfile)
@@ -37,7 +37,7 @@ setMethod("checkmnc", "character", function(file, ...) {
     return(file)
   } else {
     file = checkimg(file, gzipped = FALSE, ...)
-    ext = fslr::parse_img_ext(file)
+    ext = neurobase::parse_img_ext(file)
     if ( !(ext %in% c("nii", "mnc"))) {
       stop("File extension must be nii/nii.gz or mnc")
     }

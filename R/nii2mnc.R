@@ -6,7 +6,7 @@
 #' @return Character filename of output
 #' @importFrom tools file_ext 
 #' @importFrom R.utils gzip gunzip
-#' @importFrom fslr checknii
+#' @importFrom neurobase checknii
 #' @export
 #' @examples 
 #' if (have_fs()) {
@@ -17,7 +17,7 @@
 nii2mnc = function(
   file, 
   outfile = NULL){
-  file = fslr::checknii(file)
+  file = neurobase::checknii(file)
   # file = checkimg(file, gzipped = FALSE)
   # ext = file_ext(tolower(file))
   # if (ext %in% "gz") {
