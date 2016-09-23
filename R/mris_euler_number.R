@@ -6,11 +6,12 @@
 #' @param opts (character) additional options to \code{mris_euler_number}
 #' @return Result of \code{system} command
 #' @export
-#' @examples 
+#' @examples \dontrun{
 #' if (have_fs()) {
 #'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5))) 
 #'    res = mris_euler_number(img, outfile = tempfile(fileext = ".mgz"))
 #' } 
+#' }
 mris_euler_number = function(
   file, 
   outfile = NULL,

@@ -21,9 +21,11 @@ This function calls \code{mris_euler_number} to
 calculate the Euler Number
 }
 \examples{
+\dontrun{
 if (have_fs()) {
    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5))) 
    res = mris_euler_number(img, outfile = tempfile(fileext = ".mgz"))
 } 
+}
 }
 
