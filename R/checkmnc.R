@@ -11,6 +11,7 @@
 #' @return Character filename of mnc image
 #' 
 #' @export
+#' @import methods
 #' @author John Muschelli \email{muschellij2@@gmail.com}
 setGeneric("checkmnc", function(file, ...) standardGeneric("checkmnc"))
 
