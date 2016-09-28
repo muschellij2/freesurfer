@@ -48,7 +48,7 @@ nii2mnc = function(
 }
 
 
-#' @title onvert NIfTI to MNC Help
+#' @title Convert NIfTI to MNC Help
 #' @description This calls Freesurfer's \code{mnc2nii} help 
 #'
 #' @return Result of \code{fs_help}
