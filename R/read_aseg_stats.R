@@ -1,7 +1,7 @@
 
 
 #' @title Read Anatomical Segmentation Statistics
-#' @description Reads an \code{aseg.stats} file from an indidual subject
+#' @description Reads an \code{aseg.stats} file from an individual subject
 #' 
 #' @param file aseg.stats file from Freesurfer
 #'

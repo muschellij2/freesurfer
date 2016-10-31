@@ -14,7 +14,7 @@ List of 2 \code{data.frame}s, one with the global measures and one
 with the structure-specific measures.
 }
 \description{
-Reads an \code{aseg.stats} file from an indidual subject
+Reads an \code{aseg.stats} file from an individual subject
 }
 \examples{
 if (have_fs()) {
