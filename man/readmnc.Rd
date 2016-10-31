@@ -10,7 +10,7 @@ readmnc(file)
 \item{file}{(character) input filename}
 }
 \value{
-Object of class \code{\link{nifti}}
+Object of class \code{nifti}
 }
 \description{
 This function calls \code{mnc2nii} 

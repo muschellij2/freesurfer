@@ -3,7 +3,7 @@
 #' to convert MNC files to NIfTI, then reads it in using 
 #' \code{\link{readnii}}
 #' @param file (character) input filename
-#' @return Object of class \code{\link{nifti}}
+#' @return Object of class \code{nifti}
 #' @export
 readmnc = function(file){
   outfile = tempfile(fileext = ".nii.gz")
