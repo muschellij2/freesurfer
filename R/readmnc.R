@@ -7,16 +7,8 @@
 #' @export
 readmnc = function(file){
   outfile = tempfile(fileext = ".nii.gz")
-  
-  ret = fs_cmd(
-    func = "mnc2nii",
-    file = file,
-    outfile = outfile,
-    retimg = TRUE,
-    frontopts = "",
-    samefile = FALSE,
-    add_ext = FALSE,
-    bin_app = "mni/bin")
+  mnc2nii(file, outfile = outfile)
+  ret = readnii(outfile)
 
   return(ret)
 }
