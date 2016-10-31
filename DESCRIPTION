@@ -1,7 +1,7 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for 'Freesurfer'
-Version: 1.0
+Version: 1.1
 Author: John Muschelli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Wrapper functions that interface with 'Freesurfer' (https://

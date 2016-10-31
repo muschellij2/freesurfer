@@ -4,6 +4,13 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+r:
+  - release
+  - devel
+
+r_check_args: --as-cran
+
+
 notifications:
   email:
     on_success: change
