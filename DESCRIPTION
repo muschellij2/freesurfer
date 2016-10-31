@@ -1,7 +1,7 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for 'Freesurfer'
-Version: 1.3
+Version: 1.3.1
 Author: John Muschelli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Wrapper functions that interface with 'Freesurfer' (https://
@@ -10,13 +10,14 @@ Description: Wrapper functions that interface with 'Freesurfer' (https://
     'Freesurfer' completely in R, where you pass R objects of class 'nifti',
     implemented by package 'oro.nifti', and the function executes an 'Freesurfer'
     command and returns an R object of class 'nifti' or necessary output.
+LazyData: true
+LazyLoad: true    
 Imports:
     methods,
     neurobase,
     tools,
     R.utils,
-    reshape2,
-    rgl
+    reshape2
 Depends:
     R (>= 3.2.0)
 License: GPL-3

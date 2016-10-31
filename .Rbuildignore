@@ -7,3 +7,4 @@
 ^\.travis\.yml$
 
 README.md
+freesurfer_lut.R

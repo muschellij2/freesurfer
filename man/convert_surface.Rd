@@ -17,8 +17,12 @@ List of 3 elements: a header indicating the number of
 vertices and faces, the vertices, and the faces
 }
 \description{
-Reads in a surface file from Freesurfer which allows
-for coloring
+Reads in a surface file from Freesurfer and separates
+into vertices and faces
+}
+\note{
+This was adapted from the gist: 
+\url{https://gist.github.com/mm--/4a4fc7badacfad874102}
 }
 \examples{
 if (have_fs()) {
