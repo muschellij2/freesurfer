@@ -4,16 +4,17 @@
 \alias{mris_convert}
 \title{Use Freesurfers MRIs Converter}
 \usage{
-mris_convert(curv, orig, outfile = NULL, ext = ".asc", verbose = TRUE)
+mris_convert(infile, outfile = NULL, ext = ".asc", opts = "",
+  verbose = TRUE)
 }
 \arguments{
-\item{curv}{(character) input filename for curve}
-
-\item{orig}{(character) file path for origin file}
+\item{infile}{(character) file path for input file}
 
 \item{outfile}{(character) output file path}
 
 \item{ext}{(character) output file extension, default is set to .asc}
+
+\item{opts}{(character) additional options to add to front of command}
 
 \item{verbose}{(logical) print diagnostic messages}
 }
@@ -28,11 +29,8 @@ general conversion program for converting between cortical surface file formats
 if (have_fs()) {
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
  asc_file = mris_convert(
- curv = file.path(bert_surf_dir, "lh.thickness"), 
- orig = file.path(bert_surf_dir, "lh.white")
+ infile = file.path(bert_surf_dir, "lh.white")
  )  
- res = read_fs_table(asc_file, header = FALSE)
- colnames(res) = c("index", "coord_1", "coord_2", "coord_3", "value")
 } 
 }
 

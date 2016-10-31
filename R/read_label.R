@@ -27,7 +27,9 @@ read_fs_label = function(file) {
     warning("Number of lines do not match file specification! ")
   } 
   ss = strsplit(header, " ")
-  ss = lapply(ss, setdiff, y = "")
+  ss = lapply(ss, function(x) {
+    x[ !x %in% ""]
+  })
   ss = do.call("rbind", ss)
   colnames(ss) = c("vertex_num", "r_coord", "a_coord", "s_coord", "value")
   ss = data.frame(ss, stringsAsFactors = FALSE)

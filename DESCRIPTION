@@ -1,7 +1,7 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for 'Freesurfer'
-Version: 1.1
+Version: 1.3
 Author: John Muschelli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Wrapper functions that interface with 'Freesurfer' (https://
@@ -15,7 +15,8 @@ Imports:
     neurobase,
     tools,
     R.utils,
-    reshape2
+    reshape2,
+    rgl
 Depends:
     R (>= 3.2.0)
 License: GPL-3

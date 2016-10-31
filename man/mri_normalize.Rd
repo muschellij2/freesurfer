@@ -21,8 +21,8 @@ mri_normalize(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 Character or nifti depending on \code{retimg}
 }
 \description{
-This function calls \code{mri_normalize} to extract a brain 
-from an image, usually for skull stripping.
+This function calls \code{mri_normalize} to normalize the 
+values of the image, with white matter voxels around 110.
 }
 \examples{
 \dontrun{

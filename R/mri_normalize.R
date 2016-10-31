@@ -1,6 +1,6 @@
 #' @title Use Freesurfers MRI Normalize Algorithm
-#' @description This function calls \code{mri_normalize} to extract a brain 
-#' from an image, usually for skull stripping.
+#' @description This function calls \code{mri_normalize} to normalize the 
+#' values of the image, with white matter voxels around 110.
 #' @param file (character) input filename
 #' @param outfile (character) output filename
 #' @param retimg (logical) return image of class nifti
