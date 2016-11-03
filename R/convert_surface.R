@@ -75,11 +75,11 @@ convert_surface = function(infile, ...) {
 #' infile = file.path(fs_subj_dir(), 
 #'                    "bert", "surf", "lh.pial")
 #' left_triangles = surface_to_triangles(infile = infile) 
-#' if (require(rgl)) {
-#'   rgl.open()
-#'   rgl.triangles(right_triangles, 
+#' if (requireNamespace("rgl", quietly = TRUE)) {
+#'   rgl::rgl.open()
+#'   rgl::rgl.triangles(right_triangles, 
 #'   color = rainbow(nrow(right_triangles)))
-#'   rgl.triangles(left_triangles, 
+#'   rgl::rgl.triangles(left_triangles, 
 #'   color = rainbow(nrow(left_triangles)))
 #' }
 #' infile = file.path(fs_subj_dir(), 
@@ -88,11 +88,11 @@ convert_surface = function(infile, ...) {
 #' infile = file.path(fs_subj_dir(), 
 #'                    "bert", "surf", "lh.inflated") 
 #' left_triangles = surface_to_triangles(infile = infile)  
-#' if (require(rgl)) {
-#'   rgl.open()
-#'   rgl.triangles(left_triangles, 
+#' if (requireNamespace("rgl", quietly = TRUE)) {
+#'   rgl::rgl.open()
+#'   rgl::rgl.triangles(left_triangles, 
 #'   color = rainbow(nrow(left_triangles)))
-#'   rgl.triangles(right_triangles, 
+#'   rgl::rgl.triangles(right_triangles, 
 #'   color = rainbow(nrow(right_triangles)))   
 #' } 
 #' }

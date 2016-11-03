@@ -1,3 +1,4 @@
+
 read_lut = function(){ 
   lut_file = file.path(fs_dir(), "FreeSurferColorLUT.txt")
   lut = readLines(lut_file)
@@ -25,4 +26,6 @@ read_lut = function(){
 }
 
 fs_lut = read_lut()
+fs_lut = dplyr::arrange(fs_lut, index)
+stopifnot(!any(duplicated(fs_lut$index)))
 save(fs_lut, file = "data/fs_lut.rda", compression_level = 9)
