@@ -4,7 +4,8 @@
 \alias{reconner}
 \title{Reconstruction Helper for recon from Freesurfer}
 \usage{
-reconner(infile, outdir = NULL, subjid, verbose = TRUE, opts = "-all")
+reconner(infile = NULL, outdir = NULL, subjid = NULL, verbose = TRUE,
+  opts = "-all", force = FALSE)
 }
 \arguments{
 \item{infile}{Input filename (dcm or nii)}
@@ -16,6 +17,8 @@ reconner(infile, outdir = NULL, subjid, verbose = TRUE, opts = "-all")
 \item{verbose}{print diagnostic messages}
 
 \item{opts}{Additional options}
+
+\item{force}{Force running of the reconstruction}
 }
 \value{
 Result of \code{\link{system}}

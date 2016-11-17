@@ -13,7 +13,7 @@
 #' @export
 recon_all <- function(
   infile,
-  outdir,
+  outdir = NULL,
   subjid,
   verbose = TRUE,
   opts = "-all"
