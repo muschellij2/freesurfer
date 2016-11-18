@@ -25,7 +25,7 @@ reconner <- function(
   #####################################
   # Checking
   #####################################  
-  if (is.null(subjid) & is.null(infile)) {
+  if (is.null(subjid) && is.null(infile)) {
     stop("Either subjid or infile must be specified!")
   }
   if (!is.null(infile)) {

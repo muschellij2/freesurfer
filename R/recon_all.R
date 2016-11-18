@@ -6,22 +6,25 @@
 #' @param subjid subject id
 #' @param verbose print diagnostic messages
 #' @param opts Additional options
+#' @param ... arguments passed to \code{\link{reconner}}
 #'
 #' @note If you would like to restart a \code{recon-all} run,
 #' change opts so that \code{opts = "-make all"}
 #' @return Result of \code{\link{system}}
 #' @export
 recon_all <- function(
-  infile,
+  infile = NULL,
   outdir = NULL,
-  subjid,
+  subjid = NULL,
   verbose = TRUE,
-  opts = "-all"
+  opts = "-all",
+  ...
 ) {
   
   reconner(infile = infile,
            outdir = outdir,
            subjid = subjid,
            verbose = verbose,
-           opts = opts)
+           opts = opts,
+           ...)
 }
