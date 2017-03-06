@@ -28,4 +28,3 @@ if (have_fs()) {
 readLines(asc_file, n = 6)
 }   
 }
-

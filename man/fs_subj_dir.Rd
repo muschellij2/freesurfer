@@ -18,4 +18,3 @@ if (have_fs()) {
    fs_subj_dir()
 }
 }
-

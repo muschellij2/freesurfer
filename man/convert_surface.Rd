@@ -31,4 +31,3 @@ infile = file.path(fs_subj_dir(),
 res = convert_surface(infile = infile)
 }
 }
-

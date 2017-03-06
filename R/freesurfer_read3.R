@@ -1,7 +1,9 @@
 #' @title Freesurfer Read 3 records
-#' @description Reads first 3 records of file and returns the rotated value,
+#' @description Reads first 3 records of file and returns the 
+#' rotated value,
 #' for checking for other functions.
-#' @param file thickness file or anything in surf/ directory from Freesurfer
+#' @param file thickness file or anything in surf/ directory 
+#' from Freesurfer
 #' subject
 #'
 #' @return Numeric 
@@ -23,7 +25,8 @@ freesurfer_read3 = function(file) {
 }
 
 #' @title Freesurfer Read 3 records 
-#' @description Reads first 3 records from a connection and returns the rotated value,
+#' @description Reads first 3 records from a connection and 
+#' returns the rotated value,
 #' for checking for other functions.
 #' @param fid connection to a 
 #' thickness file or anything in surf/ directory from Freesurfer
@@ -80,7 +83,8 @@ freesurfer_read_curv = function(file) {
 
 
 #' @title Read Freesurfer Surface file
-#' @description Reads a Freesurfer Surface file from the \code{surf/} directory
+#' @description Reads a Freesurfer Surface file from 
+#' the \code{surf/} directory
 #' from \code{recon-all}
 #' @param file surface file (e.g. \code{lh.inflated})
 #'
@@ -114,7 +118,8 @@ freesurfer_read_surf = function(file) {
       }
     }
     # faces = 
-    # b = as.integer(readBin(fid, 3 * fnum * 4, what = "raw", endian = "big"))
+    # b = as.integer(readBin(fid, 3 * fnum * 4,
+    # what = "raw", endian = "big"))
     # b = matrix(b, nrow = 3)
     # retval = bitwShiftL(b[1,], 16) + bitwShiftL(b[2,],8) + b[3,]
     # 

@@ -25,4 +25,3 @@ if (have_fs()) {
    img_file = mnc2nii(mnc)
 }
 }
-

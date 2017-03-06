@@ -15,7 +15,8 @@ subject}
 Numeric
 }
 \description{
-Reads first 3 records from a connection and returns the rotated value,
+Reads first 3 records from a connection and 
+returns the rotated value,
 for checking for other functions.
 }
 \examples{
@@ -26,4 +27,3 @@ if (have_fs()) {
    out = freesurfer_read3_con(file)
 } 
 }
-

@@ -29,4 +29,3 @@ infile = file.path(fs_subj_dir(),
 res = surface_to_obj(infile = infile)
 }
 }
-

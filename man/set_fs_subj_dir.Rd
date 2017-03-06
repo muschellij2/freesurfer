@@ -13,4 +13,3 @@ set_fs_subj_dir(x = file.path(fs_dir(), "subjects"))
 Sets the SUBJECTS_DIR variable in the system environment or 
 \code{options("fs.subj_dir" = x)}
 }
-

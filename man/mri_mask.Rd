@@ -32,4 +32,3 @@ if (have_fs()) {
    res = mri_mask(img, mask)
 }
 }
-

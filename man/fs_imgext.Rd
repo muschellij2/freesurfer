@@ -16,4 +16,3 @@ gets corresponding extension (such as .nii.gz)
 \examples{
 fs_imgext()
 }
-

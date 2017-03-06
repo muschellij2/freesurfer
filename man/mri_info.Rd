@@ -24,4 +24,3 @@ if (have_fs()){
    mri_info(img)
 }
 }
-

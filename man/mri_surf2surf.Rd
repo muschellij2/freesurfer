@@ -52,4 +52,3 @@ if (have_fs()) {
    sval = "thickness")
 } 
 }
-

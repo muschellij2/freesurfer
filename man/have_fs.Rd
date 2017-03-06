@@ -19,4 +19,3 @@ Uses \code{get_fs} to check if FreesurferDIR is accessible or the option
 \examples{
 have_fs()
 }
-

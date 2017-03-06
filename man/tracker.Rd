@@ -23,4 +23,3 @@ Result of \code{\link{system}}
 \description{
 Wrapper for the \code{trac-all} function in Freesurfer
 }
-

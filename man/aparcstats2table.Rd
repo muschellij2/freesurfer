@@ -53,4 +53,3 @@ if (have_fs()) {
                     meas = "thickness")
 }
 }
-

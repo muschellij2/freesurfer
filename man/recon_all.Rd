@@ -30,4 +30,3 @@ Reconstruction from Freesurfer for All Steps
 If you would like to restart a \code{recon-all} run,
 change opts so that \code{opts = "-make all"}
 }
-

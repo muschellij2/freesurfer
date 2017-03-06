@@ -2,11 +2,11 @@
 % Please edit documentation in R/checkmnc.R
 \docType{methods}
 \name{checkmnc-methods}
+\alias{checkmnc-methods}
 \alias{checkmnc}
+\alias{checkmnc,nifti-method}
 \alias{checkmnc,character-method}
 \alias{checkmnc,list-method}
-\alias{checkmnc,nifti-method}
-\alias{checkmnc-methods}
 \alias{ensure_mnc}
 \title{Force object to filename with .mnc extension}
 \usage{
@@ -36,4 +36,3 @@ be converted to MNC when necessary
 \author{
 John Muschelli \email{muschellij2@gmail.com}
 }
-

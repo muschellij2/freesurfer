@@ -12,4 +12,3 @@ Result of \code{fs_help}
 \description{
 This calls Freesurfer's \code{asegstats2table} help
 }
-

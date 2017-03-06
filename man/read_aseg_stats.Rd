@@ -22,4 +22,3 @@ if (have_fs()) {
  out = read_aseg_stats(file)
 }
 }
-

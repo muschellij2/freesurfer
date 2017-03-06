@@ -13,7 +13,8 @@ freesurfer_read_surf(file)
 List of length 2: vertices and faces are the elements
 }
 \description{
-Reads a Freesurfer Surface file from the \code{surf/} directory
+Reads a Freesurfer Surface file from 
+the \code{surf/} directory
 from \code{recon-all}
 }
 \examples{
@@ -22,4 +23,3 @@ if (have_fs()) {
    out = freesurfer_read_surf(fname)
 }
 }
-

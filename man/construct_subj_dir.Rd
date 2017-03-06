@@ -45,4 +45,3 @@ surf = "/Applications/freesurfer/subjects/bert/surf/lh.thickness"
 touch = NULL
 }
 }
-

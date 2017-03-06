@@ -24,4 +24,3 @@ if (have_fs()) {
    out = freesurfer_read_curv(file)
 } 
 }
-

@@ -25,4 +25,3 @@ if (have_fs()) {
    res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
 } 
 }
-

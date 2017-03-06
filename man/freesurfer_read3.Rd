@@ -7,14 +7,16 @@
 freesurfer_read3(file)
 }
 \arguments{
-\item{file}{thickness file or anything in surf/ directory from Freesurfer
+\item{file}{thickness file or anything in surf/ directory 
+from Freesurfer
 subject}
 }
 \value{
 Numeric
 }
 \description{
-Reads first 3 records of file and returns the rotated value,
+Reads first 3 records of file and returns the 
+rotated value,
 for checking for other functions.
 }
 \examples{
@@ -24,4 +26,3 @@ if (have_fs()) {
    out = freesurfer_read3(file)
 }
 }
-

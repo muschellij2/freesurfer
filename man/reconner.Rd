@@ -30,4 +30,3 @@ Wrapper for the \code{recon-all} function in Freesurfer
 If you set \code{infile = NULL}, then you can omit the 
 \code{-i} flag in \code{recon-all}
 }
-

@@ -41,4 +41,3 @@ df_seg = asegstats2table(subjects = "bert", meas = "mean") \%>\%
             read_fs_table
 }
 }
-

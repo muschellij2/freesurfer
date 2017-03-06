@@ -16,4 +16,3 @@ Finds the FSF_OUTPUT_FORMAT from system environment or
 \examples{
 get_fs_output()
 }
-

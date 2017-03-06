@@ -140,4 +140,3 @@ Result of \code{\link{system}}
 Reconstruction from Freesurfer with most of the options
 implemented.
 }
-

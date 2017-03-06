@@ -17,4 +17,3 @@ check_fs_result(res, fe_before, fe_after)
 Checks the Freesurfer system command result and will
 stop or warning based on whether output files exist.
 }
-

@@ -24,4 +24,3 @@ result.
 \seealso{
 \code{\link{check_fs_result}}
 }
-

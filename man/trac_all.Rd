@@ -24,4 +24,3 @@ Result of \code{\link{system}}
 Wrapper for the \code{trac-all} function in Freesurfer 
 for All Steps
 }
-

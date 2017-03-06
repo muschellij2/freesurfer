@@ -28,4 +28,3 @@ if (have_fs()) {
  out = read_fs_label(file)
 }
 }
-
