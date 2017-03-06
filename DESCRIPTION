@@ -27,7 +27,8 @@ Suggests:
     oro.nifti (>= 0.7),
     rgl,
     rmarkdown,
-    pander
+    pander,
+    fslr
 BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
 RoxygenNote: 6.0.1

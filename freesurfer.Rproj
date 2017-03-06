@@ -15,6 +15,6 @@ LaTeX: XeLaTeX
 BuildType: Package
 PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source
-PackageBuildArgs: --resave-data
+PackageBuildArgs: --resave-data --no-build-vignettes
 PackageCheckArgs: --as-cran --no-build-vignettes
 PackageRoxygenize: rd,collate,namespace
