@@ -11,7 +11,7 @@ Description: Wrapper functions that interface with 'Freesurfer' (https://
     implemented by package 'oro.nifti', and the function executes an 'Freesurfer'
     command and returns an R object of class 'nifti' or necessary output.
 LazyData: true
-LazyLoad: true    
+LazyLoad: true
 Imports:
     methods,
     neurobase,
@@ -33,4 +33,3 @@ BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
-Remotes: muschellij2/neurobase, muschellij2/oro.nifti, muschellij2/fslr
