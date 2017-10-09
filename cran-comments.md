@@ -15,9 +15,6 @@ This is a new release, so there are no reverse dependencies.
 
 ---
 
-* I have run R CMD check on the NUMBER downstream dependencies.
-  (Summary at ...). 
+* There are the 0 downstream dependencies. 
   
-* FAILURE SUMMARY
-
-* All revdep maintainers were notified of the release on RELEASE DATE.
+* All revdep maintainers were notified of the release on 10/09/2017.
