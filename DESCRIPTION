@@ -4,8 +4,9 @@ Title: Wrapper Functions for 'Freesurfer'
 Version: 1.6.0
 Author: John Muschelli <muschellij2@gmail.com>
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Wrapper functions that interface with 'Freesurfer' (https://
-    surfer.nmr.mgh.harvard.edu/), a powerful and commonly-used 'neuroimaging'
+Description: Wrapper functions that interface with 'Freesurfer' 
+    <https://surfer.nmr.mgh.harvard.edu/>, a powerful and 
+    commonly-used 'neuroimaging'
     software, using system commands. The goal is to be able to interface with
     'Freesurfer' completely in R, where you pass R objects of class 'nifti',
     implemented by package 'oro.nifti', and the function executes an 'Freesurfer'
