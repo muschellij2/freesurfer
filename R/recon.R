@@ -5,8 +5,18 @@
 #' @param infile Input filename (dcm or nii)
 #' @param outdir Output directory
 #' @param subjid subject id
-#' @param motioncor When there are multiple source volumes, this step will correct for small motions between them and then average them together. The input are the volumes found in file(s) mri/orig/XXX.mgz. The output will be the volume mri/orig.mgz. If no runs are found, then it looks for a volume in mri/orig (or mri/orig.mgz). If that volume is there, then it is used in subsequent processes as if it was the motion corrected volume. If no volume is found, then the process exits with errors.
-#' @param nuintensitycor Non-parametric Non-uniform intensity Normalization (N3), corrects for intensity non-uniformity in MR data, making relatively few assumptions about the data. This runs the MINC tool 'nu_correct'. By default, four iterations of nu_correct are run. The flag -nuiterations specification of some other number of iterations.
+#' @param motioncor When there are multiple source volumes, this step will 
+#' correct for small motions between them and then average them together. 
+#' The input are the volumes found in file(s) mri/orig/XXX.mgz. The output 
+#' will be the volume mri/orig.mgz. If no runs are found, then it looks for 
+#' a volume in mri/orig (or mri/orig.mgz). If that volume is there, then it 
+#' is used in subsequent processes as if it was the motion corrected volume. 
+#' If no volume is found, then the process exits with errors.
+#' @param nuintensitycor Non-parametric Non-uniform intensity Normalization 
+#' (N3), corrects for intensity non-uniformity in MR data, making relatively 
+#' few assumptions about the data. This runs the MINC tool 'nu_correct'. By 
+#' default, four iterations of nu_correct are run. The flag '-nuiterations'
+#' specification of some other number of iterations.
 #' @param talairach computes the affine transform from the orig volume to the 
 #' MNI305 atlas using the MINC program mritotal. 
 #' Creates the files mri/transform/talairach.auto.xfm and talairach.xfm.

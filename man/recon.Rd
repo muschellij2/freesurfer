@@ -23,9 +23,19 @@ recon(infile, outdir = NULL, subjid, motioncor = TRUE,
 
 \item{subjid}{subject id}
 
-\item{motioncor}{When there are multiple source volumes, this step will correct for small motions between them and then average them together. The input are the volumes found in file(s) mri/orig/XXX.mgz. The output will be the volume mri/orig.mgz. If no runs are found, then it looks for a volume in mri/orig (or mri/orig.mgz). If that volume is there, then it is used in subsequent processes as if it was the motion corrected volume. If no volume is found, then the process exits with errors.}
+\item{motioncor}{When there are multiple source volumes, this step will 
+correct for small motions between them and then average them together. 
+The input are the volumes found in file(s) mri/orig/XXX.mgz. The output 
+will be the volume mri/orig.mgz. If no runs are found, then it looks for 
+a volume in mri/orig (or mri/orig.mgz). If that volume is there, then it 
+is used in subsequent processes as if it was the motion corrected volume. 
+If no volume is found, then the process exits with errors.}
 
-\item{nuintensitycor}{Non-parametric Non-uniform intensity Normalization (N3), corrects for intensity non-uniformity in MR data, making relatively few assumptions about the data. This runs the MINC tool 'nu_correct'. By default, four iterations of nu_correct are run. The flag -nuiterations specification of some other number of iterations.}
+\item{nuintensitycor}{Non-parametric Non-uniform intensity Normalization 
+(N3), corrects for intensity non-uniformity in MR data, making relatively 
+few assumptions about the data. This runs the MINC tool 'nu_correct'. By 
+default, four iterations of nu_correct are run. The flag '-nuiterations'
+specification of some other number of iterations.}
 
 \item{talairach}{computes the affine transform from the orig volume to the 
 MNI305 atlas using the MINC program mritotal. 
