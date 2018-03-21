@@ -25,6 +25,9 @@ Reads an \code{label} file from an individual subject
 \examples{
 if (have_fs()) {
  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1.label")
+ if (!file.exists(file)) {
+ file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1_exvivo.label")
+ }
  out = read_fs_label(file)
 }
 }

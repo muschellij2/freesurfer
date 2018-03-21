@@ -3,6 +3,7 @@
 \name{freesurferdir}
 \alias{freesurferdir}
 \alias{freesurfer_dir}
+\alias{freesurfer_dir}
 \alias{fs_dir}
 \title{Get Freesurfer's Directory}
 \usage{

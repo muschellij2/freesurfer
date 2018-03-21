@@ -16,6 +16,9 @@
 #' @examples
 #' if (have_fs()) {
 #'  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1.label")
+#'  if (!file.exists(file)) {
+#'  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1_exvivo.label")
+#'  }
 #'  out = read_fs_label(file)
 #' }
 read_fs_label = function(file) {
