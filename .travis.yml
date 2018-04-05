@@ -1,19 +1,24 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
-
-language: r
+language: R
 warnings_are_errors: true
 sudo: false
 cache: packages
-
 os:
-  - linux
-  - osx
-
-
-r_check_args: --as-cran --install-args=--build
-
-
+- linux
+- osx
+r_check_args: "--as-cran --install-args=--build"
 notifications:
   email:
     on_success: change
     on_failure: change
+
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: YJBgiYTBtrnsuuWpemDxB2HmtTWmHPOstIVyXRUMua/h422C+2Nkud7WhEOo9v/LXg+TVDEpGAvsFajEqHTf0qk+Hb1AfyxhkQTv3SGFAJd7F5Ifs7PxpA5V7itI/JLZl0aIsw6EKEKp3EVt0ACnEqkQbkanWA4L8xR5dk0dk6KK0YRL7BumLDwfJjurQKARvEXfeK+jMB2VYiE8j1w2eYYEfmyZxRObau7erb0IAhtYduWw+/pU6E2ty2LAQPtFMEptqSLSMsPaxJfAH+QV/jOjNjSKP5n7D8SwwlflkcCXa3fVE2vWcI5GaELC5im8G6W1X2UtWKBfThqeI1D1Hh01H+gSUcj4wpYq4AbEiP+R0/jwwQ5jghtKevD0/7E+ybTPw9otycTIHwC8uizat+XR3cCMqQeBOH/IxeMjL747bFk3/Rs9DMaRGZSzosGDxkpfmvd/rIYJTStsD2dlcakzOnM31l5dN+3cyxh6Kx2WETZbpQtlgp8m4wWKJs4KCUofXDytyYEhynObF3LaUglAovvJf1btizsSuFRzibvrAym9qDba9pUoAFuXhzMxMe6Zd5thdEkU3hhC4KJW0Yj6HcvnjNn9kJ+kD2MGJaM3Eq/+SS34rylIKIfsJ9AD7Q7ZSLVRnKDSADSSBKD8VNLvw7E7JVi/aSeNscITcOA=
+  file_glob: true    
+  file: freesurfer*.t*gz
+  on:
+    tags: true    
+    repo: muschellij2/freesurfer
