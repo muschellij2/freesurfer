@@ -73,7 +73,7 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
     cmd <- paste0(cmd, 
                   "export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
                   ifelse(file.exists(shfile),
-                         paste0('source ', shQuote(shfile), "; "), ""),
+                         paste0('. ', shQuote(shfile), "; "), ""),
                   "FSF_OUTPUT_FORMAT=", freesurferout, "; export FSF_OUTPUT_FORMAT; ", 
                   paste0("${FREESURFER_HOME}/", bin_app)
     )
@@ -81,7 +81,7 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
     shfile = file.path(freesurferdir, "FreeSurferEnv.sh")
     cmd <- ifelse(
       file.exists(shfile),
-      paste0('source ', shQuote(shfile), "; ", cmd), 
+      paste0('. ', shQuote(shfile), "; ", cmd), 
       cmd) 
     if (!is.null(cmd)) {
       if (cmd == "") {
