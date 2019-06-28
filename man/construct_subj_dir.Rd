@@ -4,8 +4,9 @@
 \alias{construct_subj_dir}
 \title{Construct Subject Directory}
 \usage{
-construct_subj_dir(label = NULL, mri = NULL, stats = NULL, surf = NULL,
-  touch = NULL, subj = NULL, subj_root_dir = tempdir())
+construct_subj_dir(label = NULL, mri = NULL, stats = NULL,
+  surf = NULL, touch = NULL, subj = NULL,
+  subj_root_dir = tempdir())
 }
 \arguments{
 \item{label}{Files to copy to \code{subj_root_dir/subj/label} folder}

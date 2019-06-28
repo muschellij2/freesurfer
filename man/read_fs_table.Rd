@@ -4,8 +4,8 @@
 \alias{read_fs_table}
 \title{Read Freesurfer Table Output}
 \usage{
-read_fs_table(file, sep = NULL, stringsAsFactors = FALSE, header = TRUE,
-  ...)
+read_fs_table(file, sep = NULL, stringsAsFactors = FALSE,
+  header = TRUE, ...)
 }
 \arguments{
 \item{file}{(character path) filename of text file}

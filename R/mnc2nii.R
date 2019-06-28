@@ -21,6 +21,14 @@ mnc2nii = function(file,
   }
   out_ext = file_ext(tolower(outfile))
   outfile = paste0(nii.stub(outfile), ".nii")
+  
+  # copy for bs stuff
+  stopifnot(all(file.exists(file)))
+  tfile = tempfile()
+  dir.create(tfile, showWarnings = FALSE)
+  infile = file.path(tfile, basename(file))
+  file.copy(from = file, to = infile, overwrite = TRUE)
+  
   fs_cmd(
     func = "mnc2nii",
     file = file,
