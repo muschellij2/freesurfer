@@ -27,8 +27,13 @@ If \code{brain_template} or\code{face_template} is \code{NULL},
 they will be downloaded.
 }
 \examples{
+\donttest{
 if (have_fs()){
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
-   mri_deface(img)
+   base_url = "https://surfer.nmr.mgh.harvard.edu/pub/dist/mri_deface"
+   url = file.path(base_url, "sample_T1_input.mgz")
+   x = tempfile(fileext = ".mgz")
+   download.file(url, destfile = x)
+   mri_deface(x)
+}
 }
 }
