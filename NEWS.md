@@ -1,3 +1,8 @@
+# freesurfer 1.6.5
+
+* Added some workarounds from the examples for different freesurfer versions.
+* Fixed import with download.file
+
 # freesurfer 1.6.3
 
 * Added `mri_deface` to the NAMESPACE and capabilities.

@@ -17,7 +17,7 @@
 #'    base_url = "https://surfer.nmr.mgh.harvard.edu/pub/dist/mri_deface"
 #'    url = file.path(base_url, "sample_T1_input.mgz")
 #'    x = tempfile(fileext = ".mgz")
-#'    download.file(url, destfile = x)
+#'    utils::download.file(url, destfile = x)
 #'    mri_deface(x)
 #' }
 #' }
@@ -31,7 +31,7 @@ mri_deface = function(
   face_url = file.path(base_url, "face.gca.gz")
   download_unzip = function(url) {
     x = tempfile(fileext = ".gca.gz")
-    download.file(url, destfile = x)
+    utils::download.file(url, destfile = x)
     x = R.utils::gunzip(x)
     x
   }  

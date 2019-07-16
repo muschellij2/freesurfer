@@ -18,7 +18,8 @@ Imports:
     neurobase,
     tools,
     R.utils,
-    reshape2
+    reshape2,
+    utils
 Depends:
     R (>= 3.2.0)
 License: GPL-3

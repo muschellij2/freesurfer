@@ -32,7 +32,7 @@ if (have_fs()){
    base_url = "https://surfer.nmr.mgh.harvard.edu/pub/dist/mri_deface"
    url = file.path(base_url, "sample_T1_input.mgz")
    x = tempfile(fileext = ".mgz")
-   download.file(url, destfile = x)
+   utils::download.file(url, destfile = x)
    mri_deface(x)
 }
 }
