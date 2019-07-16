@@ -11,3 +11,7 @@ freesurfer_lut.R
 ^cran-comments\.md$
 revdep/
 ^README\.Rmd$
+^CRAN-RELEASE$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
