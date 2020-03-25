@@ -1,9 +1,17 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for 'Freesurfer'
-Version: 1.6.5
-Author: John Muschelli <muschellij2@gmail.com>
-Maintainer: John Muschelli <muschellij2@gmail.com>
+Version: 1.6.6
+Authors@R: c(
+    person(given = "John",
+           family = "Muschelli",
+           role = c("aut", "cre"),
+           email = "muschellij2@gmail.com",
+           comment = c(ORCID = "0000-0001-6469-1750")),
+    person("Athanasia Mo", "Mowinckel", 
+                    role = "ctb",
+                    comment = c(ORCID = "0000-0002-5756-0223"))
+    )
 Description: Wrapper functions that interface with 'Freesurfer' 
     <https://surfer.nmr.mgh.harvard.edu/>, a powerful and 
     commonly-used 'neuroimaging'

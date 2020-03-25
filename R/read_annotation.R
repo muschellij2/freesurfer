@@ -13,11 +13,17 @@
 #'     $Date: 2014/02/25 19:54:10 $
 #'     $Revision: 1.10 $
 #' 
-#' @param path path to annotation file
+#' @param path path to annotation file, usually with extension \code{annot}
 #' @param verbose logical. 
 #'
 #' @return list of 3 with vertices, labels, and colortable
 #' @export
+#' @examples 
+#' if (have_fs()) {
+#'     bert_dir = file.path(fs_subj_dir(), "bert")
+#'     annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
+#'     res = read_annotation(annot_file)
+#' } 
 read_annotation <- function(path, verbose = TRUE){
   
   # indicate this is binary

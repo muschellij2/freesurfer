@@ -7,7 +7,7 @@
 read_annotation(path, verbose = TRUE)
 }
 \arguments{
-\item{path}{path to annotation file}
+\item{path}{path to annotation file, usually with extension \code{annot}}
 
 \item{verbose}{logical.}
 }
@@ -28,4 +28,11 @@ CVS Revision Info:
     $Author: greve $
     $Date: 2014/02/25 19:54:10 $
     $Revision: 1.10 $
+}
+\examples{
+if (have_fs()) {
+    bert_dir = file.path(fs_subj_dir(), "bert")
+    annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
+    res = read_annotation(annot_file)
+} 
 }
