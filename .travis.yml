@@ -23,7 +23,7 @@ before_install:
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ];
     then
-      wget --quiet -O freesurfer.dmg https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwin-OSX-stable-pub-v6.0.0.dmg
+      wget --quiet -O freesurfer.dmg https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwin-OSX-stable-pub-v6.0.0.dmg ;
       sudo hdiutil attach freesurfer.dmg ;
       sudo installer -package /Volumes/freesurfer-Darwin-full/freesurfer-Darwin-full.pkg -target / ;
       sudo hdiutil detach /Volumes/freesurfer-Darwin-full ;
