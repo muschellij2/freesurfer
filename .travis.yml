@@ -23,12 +23,11 @@ before_install:
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ];
     then
-      sudo apt-get -y install bc binutils libgomp1 perl psmisc sudo tar tcsh unzip uuid-dev vim-common libjpeg62-dev || true ;
       wget --quiet -O freesurfer.dmg https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwin-OSX-stable-pub-v6.0.0.dmg
       sudo hdiutil attach freesurfer.dmg ;
       sudo installer -package /Volumes/freesurfer-Darwin-full/freesurfer-Darwin-full.pkg -target / ;
       sudo hdiutil detach /Volumes/freesurfer-Darwin-full ;
-      export FREESURFER_HOME=/usr/local/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
+      export FREESURFER_HOME=/Applications/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi    
 
 
