@@ -273,7 +273,7 @@ if (have_fs()) {
 }
 ```
 
-```{r mask_run, echo = FALSE, eval = TRUE, dependson="watershed"}
+```{r mask_run, echo = FALSE, eval = FALSE, dependson="watershed"}
 if (have_fs()) {
   writenii(mask, "mask.nii.gz")
 }
