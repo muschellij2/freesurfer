@@ -98,7 +98,7 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
 #' @title Get Freesurfer's Directory 
 #' @description Finds the FREESURFER_HOME from system environment or 
 #' \code{getOption("freesurfer.path")}
-#' for location of Freesurfer fuctions and returns it
+#' for location of Freesurfer functions and returns it
 #' @return Character path
 #' @aliases freesurfer_dir
 #' @export

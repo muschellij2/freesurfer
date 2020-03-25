@@ -14,7 +14,7 @@ The goal of freesurfer is a port/wrapper of
 
 Much of the operations of Freesurfer are incorporated. This package is
 very useful for structural imaging, such as MRI. Some of the fMRI
-functionality has not been ported or has limited capabiilty.
+functionality has not been ported or has limited capability.
 
 ## Installation
 

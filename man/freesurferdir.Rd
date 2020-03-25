@@ -18,7 +18,7 @@ Character path
 \description{
 Finds the FREESURFER_HOME from system environment or 
 \code{getOption("freesurfer.path")}
-for location of Freesurfer fuctions and returns it
+for location of Freesurfer functions and returns it
 }
 \examples{
 if (have_fs()) {
