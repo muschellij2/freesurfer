@@ -4,17 +4,45 @@
 \alias{recon}
 \title{Reconstruction from Freesurfer}
 \usage{
-recon(infile, outdir = NULL, subjid, motioncor = TRUE,
-  nuintensitycor = TRUE, talairach = TRUE, normalization = TRUE,
-  skullstrip = TRUE, gcareg = TRUE, canorm = TRUE, careg = TRUE,
-  rmneck = TRUE, skull_lta = TRUE, calabel = TRUE,
-  normalization2 = TRUE, segmentation = TRUE, fill = TRUE,
-  tessellate = TRUE, smooth1 = TRUE, inflate1 = TRUE,
-  qsphere = TRUE, fix = TRUE, finalsurfs = TRUE, smooth2 = TRUE,
-  inflate2 = TRUE, cortribbon = TRUE, sphere = TRUE,
-  surfreg = TRUE, contrasurfreg = TRUE, avgcurv = TRUE,
-  cortparc = TRUE, parcstats = TRUE, cortparc2 = TRUE,
-  parcstats2 = TRUE, aparc2aseg = TRUE, verbose = TRUE, opts = "")
+recon(
+  infile,
+  outdir = NULL,
+  subjid,
+  motioncor = TRUE,
+  nuintensitycor = TRUE,
+  talairach = TRUE,
+  normalization = TRUE,
+  skullstrip = TRUE,
+  gcareg = TRUE,
+  canorm = TRUE,
+  careg = TRUE,
+  rmneck = TRUE,
+  skull_lta = TRUE,
+  calabel = TRUE,
+  normalization2 = TRUE,
+  segmentation = TRUE,
+  fill = TRUE,
+  tessellate = TRUE,
+  smooth1 = TRUE,
+  inflate1 = TRUE,
+  qsphere = TRUE,
+  fix = TRUE,
+  finalsurfs = TRUE,
+  smooth2 = TRUE,
+  inflate2 = TRUE,
+  cortribbon = TRUE,
+  sphere = TRUE,
+  surfreg = TRUE,
+  contrasurfreg = TRUE,
+  avgcurv = TRUE,
+  cortparc = TRUE,
+  parcstats = TRUE,
+  cortparc2 = TRUE,
+  parcstats2 = TRUE,
+  aparc2aseg = TRUE,
+  verbose = TRUE,
+  opts = ""
+)
 }
 \arguments{
 \item{infile}{Input filename (dcm or nii)}

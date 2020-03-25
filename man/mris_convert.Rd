@@ -4,8 +4,7 @@
 \alias{mris_convert}
 \title{Use Freesurfers MRIs Converter}
 \usage{
-mris_convert(infile, outfile = NULL, ext = ".asc", opts = "",
-  verbose = TRUE)
+mris_convert(infile, outfile = NULL, ext = ".asc", opts = "", verbose = TRUE)
 }
 \arguments{
 \item{infile}{(character) file path for input file}

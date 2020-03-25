@@ -4,8 +4,14 @@
 \alias{recon_all}
 \title{Reconstruction from Freesurfer for All Steps}
 \usage{
-recon_all(infile = NULL, outdir = NULL, subjid = NULL,
-  verbose = TRUE, opts = "-all", ...)
+recon_all(
+  infile = NULL,
+  outdir = NULL,
+  subjid = NULL,
+  verbose = TRUE,
+  opts = "-all",
+  ...
+)
 }
 \arguments{
 \item{infile}{Input filename (dcm or nii)}

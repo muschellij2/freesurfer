@@ -4,10 +4,17 @@
 \alias{asegstats2table}
 \title{Parcellation Stats to Table}
 \usage{
-asegstats2table(subjects = NULL, inputs = NULL, outfile = NULL,
-  measure = c("volume", "mean", "std"), sep = c("tab", "space",
-  "comma", "semicolon"), skip = FALSE, subj_dir = NULL, opts = "",
-  verbose = TRUE)
+asegstats2table(
+  subjects = NULL,
+  inputs = NULL,
+  outfile = NULL,
+  measure = c("volume", "mean", "std"),
+  sep = c("tab", "space", "comma", "semicolon"),
+  skip = FALSE,
+  subj_dir = NULL,
+  opts = "",
+  verbose = TRUE
+)
 }
 \arguments{
 \item{subjects}{(character) vector of subjects}
