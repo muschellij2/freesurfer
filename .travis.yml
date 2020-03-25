@@ -30,7 +30,6 @@ before_install:
       sudo hdiutil detach /Volumes/freesurfer-Darwin-full ;
       export FREESURFER_HOME=/usr/local/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi    
-  - sudo hdiutil attach <image>.dmg
 
 
 
