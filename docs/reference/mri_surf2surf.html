@@ -9,21 +9,25 @@
 <title>Use Freesurfers <code>mri_surf2surf</code> function to 
 resamples one cortical surface onto another — mri_surf2surf • freesurfer</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -31,12 +35,13 @@ resamples one cortical surface onto another — mri_surf2surf • freesurfer</ti
 
 
 
+
 <meta property="og:title" content="Use Freesurfers <code>mri_surf2surf</code> function to 
 resamples one cortical surface onto another — mri_surf2surf" />
-
 <meta property="og:description" content="This function calls Freesurfer mri_surf2surf to 
 resample one cortical surface onto another" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,6 +53,7 @@ resample one cortical surface onto another" />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -66,7 +72,7 @@ resample one cortical surface onto another" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">freesurfer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.6</span>
       </span>
     </div>
 
@@ -74,7 +80,7 @@ resample one cortical surface onto another" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,7 +103,6 @@ resample one cortical surface onto another" />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -107,6 +112,7 @@ resample one cortical surface onto another" />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -119,17 +125,23 @@ resamples one cortical surface onto another</h1>
     </div>
 
     <div class="ref-description">
-    
     <p>This function calls Freesurfer <code>mri_surf2surf</code> to 
 resample one cortical surface onto another</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>mri_surf2surf</span>(<span class='kw'>subject</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>target_subject</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trg_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"curv"</span>, <span class='st'>"w"</span>, <span class='st'>"mgh"</span>, <span class='st'>"nii"</span>), <span class='kw'>src_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"curv"</span>, <span class='st'>"w"</span>),
-  <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hemi</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"lh"</span>, <span class='st'>"rh"</span>), <span class='kw'>sval</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"thickness"</span>),
-  <span class='kw'>subj_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opts</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>mri_surf2surf</span>(
+  <span class='kw'>subject</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>target_subject</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trg_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"curv"</span>, <span class='st'>"w"</span>, <span class='st'>"mgh"</span>, <span class='st'>"nii"</span>),
+  <span class='kw'>src_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"curv"</span>, <span class='st'>"w"</span>),
+  <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hemi</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lh"</span>, <span class='st'>"rh"</span>),
+  <span class='kw'>sval</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"thickness"</span>),
+  <span class='kw'>subj_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='st'>""</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -177,11 +189,10 @@ the <code>SUBJECTS_DIR</code> back correctly after the error</p></td>
       <td><p>(logical) print diagnostic messages</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Name of output file</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='have_fs.html'>have_fs</a></span>()) {
@@ -192,20 +203,19 @@ the <code>SUBJECTS_DIR</code> back correctly after the error</p></td>
    <span class='kw'>src_type</span>  <span class='kw'>=</span> <span class='st'>'curv'</span>,
    <span class='kw'>hemi</span> <span class='kw'>=</span> <span class='st'>"rh"</span>,
    <span class='kw'>sval</span> <span class='kw'>=</span> <span class='st'>"thickness"</span>)
-}</div><div class='output co'>#&gt; <span class='message'>. '/Applications/freesurfer/FreeSurferEnv.sh'; mri_surf2surf --hemi rh --s bert --trgsubject fsaverage --trg_type curv --sval thickness --src_type curv --tval /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpZDpJLA/file14af0ea3390 --debug </span></div></pre>
+}</div><div class='output co'>#&gt; <span class='message'>. '/Applications/freesurfer/FreeSurferEnv.sh'; mri_surf2surf --hemi rh --s bert --trgsubject fsaverage --trg_type curv --sval thickness --src_type curv --tval /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpmoD6gm/file10f77644ccfae --debug </span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -213,13 +223,16 @@ the <code>SUBJECTS_DIR</code> back correctly after the error</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

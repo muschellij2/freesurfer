@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert Freesurfer Surface to Wavefront OBJ — surface_to_obj • freesurfer</title>
+<title>Read Freesurfer annotation file — read_annotation • freesurfer</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,11 @@
 
 
 
-<meta property="og:title" content="Convert Freesurfer Surface to Wavefront OBJ — surface_to_obj" />
-<meta property="og:description" content="Reads in a surface file from Freesurfer and converts it
-to a Wavefront OBJ file" />
+<meta property="og:title" content="Read Freesurfer annotation file — read_annotation" />
+<meta property="og:description" content="Reads Freesurfer binary annotation files
+that contain information on vertex labels
+and colours for use in analyses and
+brain area lookups." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,53 +118,60 @@ to a Wavefront OBJ file" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert Freesurfer Surface to Wavefront OBJ</h1>
+    <h1>Read Freesurfer annotation file</h1>
     
-    <div class="hidden name"><code>surface_to_obj.Rd</code></div>
+    <div class="hidden name"><code>read_annotation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Reads in a surface file from Freesurfer and converts it
-to a Wavefront OBJ file</p>
+    <p>Reads Freesurfer binary annotation files
+that contain information on vertex labels
+and colours for use in analyses and
+brain area lookups.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surface_to_obj</span>(<span class='no'>infile</span>, <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>read_annotation</span>(<span class='no'>path</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>infile</th>
-      <td><p>Input surface file</p></td>
+      <th>path</th>
+      <td><p>path to annotation file, usually with extension <code>annot</code></p></td>
     </tr>
     <tr>
-      <th>outfile</th>
-      <td><p>output Wavefront OBJ file.  If <code>NULL</code>, 
-a temporary file will be created</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments to pass to 
-<code><a href='convert_surface.html'>convert_surface</a></code></p></td>
+      <th>verbose</th>
+      <td><p>logical.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Character filename of output file</p>
+    <p>list of 3 with vertices, labels, and colortable</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This function is heavily
+based on Freesurfer's read_annotation.m
+Original Author: Bruce Fischl
+CVS Revision Info:
+    $Author: greve $
+    $Date: 2014/02/25 19:54:10 $
+    $Revision: 1.10 $</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='have_fs.html'>have_fs</a></span>()) {
-<span class='no'>infile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span>(),
-                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"rh.pial"</span>)
-<span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>surface_to_obj</span>(<span class='kw'>infile</span> <span class='kw'>=</span> <span class='no'>infile</span>)
-}</div><div class='output co'>#&gt; <span class='message'>. '/Applications/freesurfer/FreeSurferEnv.sh'; mris_convert   /Applications/freesurfer/subjects/bert/surf/rh.pial /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpmoD6gm/file10f775c256080.asc</span></div></pre>
+    <span class='no'>bert_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span>(), <span class='st'>"bert"</span>)
+    <span class='no'>annot_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>bert_dir</span>, <span class='st'>"label"</span>, <span class='st'>"lh.aparc.annot"</span>)
+    <span class='no'>res</span> <span class='kw'>=</span> <span class='fu'>read_annotation</span>(<span class='no'>annot_file</span>)
+}</div><div class='output co'>#&gt; Reading from version 2 
+#&gt; colortable with 36 entries read (originally /autofs/space/tanha_002/users/greve/fsdev.build/average/colortable_desikan_killiany.txt )</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

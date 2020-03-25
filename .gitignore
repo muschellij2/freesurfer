@@ -10,3 +10,4 @@
 .Rdata
 # RStudio files
 .Rproj.user/
+inst/doc
