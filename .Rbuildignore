@@ -5,7 +5,7 @@
 .*/\.DS_Store$
 .DS_Store$
 ^\.travis\.yml$
-
+vignettes/.*_cache
 README.md
 freesurfer_lut.R
 ^cran-comments\.md$
