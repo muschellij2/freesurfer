@@ -30,8 +30,6 @@ before_install:
       export FREESURFER_HOME=/Applications/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi    
 
-
-
 deploy:
   provider: releases
   skip_cleanup: true
