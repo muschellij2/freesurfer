@@ -4,7 +4,9 @@
 \name{fs_lut}
 \alias{fs_lut}
 \title{Freesurfer look up table (LUT)}
-\format{An object of class \code{data.frame} with 1266 rows and 6 columns.}
+\format{
+An object of class \code{data.frame} with 1266 rows and 6 columns.
+}
 \usage{
 fs_lut
 }

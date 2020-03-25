@@ -4,10 +4,22 @@
 \alias{fs_cmd}
 \title{FS Command Wrapper}
 \usage{
-fs_cmd(func, file, outfile = NULL, retimg = TRUE, reorient = FALSE,
-  intern = FALSE, opts = "", verbose = TRUE, samefile = FALSE,
-  opts_after_outfile = FALSE, frontopts = "", add_ext = TRUE,
-  bin_app = "bin", ...)
+fs_cmd(
+  func,
+  file,
+  outfile = NULL,
+  retimg = TRUE,
+  reorient = FALSE,
+  intern = FALSE,
+  opts = "",
+  verbose = TRUE,
+  samefile = FALSE,
+  opts_after_outfile = FALSE,
+  frontopts = "",
+  add_ext = TRUE,
+  bin_app = "bin",
+  ...
+)
 }
 \arguments{
 \item{func}{(character) Freesurfer function}

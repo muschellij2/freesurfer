@@ -4,11 +4,19 @@
 \alias{aparcstats2table}
 \title{Parcellation Stats to Table}
 \usage{
-aparcstats2table(subjects, outfile = NULL, hemi = c("lh", "rh"),
-  measure = c("area", "volume", "thickness", "thicknessstd", "meancurv",
-  "gauscurv", "foldind", "curvind"), sep = c("tab", "space", "comma",
-  "semicolon"), parc = c("aparc", "aparc.a2009s"), skip = FALSE,
-  subj_dir = NULL, opts = "", verbose = TRUE)
+aparcstats2table(
+  subjects,
+  outfile = NULL,
+  hemi = c("lh", "rh"),
+  measure = c("area", "volume", "thickness", "thicknessstd", "meancurv", "gauscurv",
+    "foldind", "curvind"),
+  sep = c("tab", "space", "comma", "semicolon"),
+  parc = c("aparc", "aparc.a2009s"),
+  skip = FALSE,
+  subj_dir = NULL,
+  opts = "",
+  verbose = TRUE
+)
 }
 \arguments{
 \item{subjects}{(character) vector of subjects}

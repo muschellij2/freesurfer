@@ -5,10 +5,18 @@
 \title{Use Freesurfers \code{mri_surf2surf} function to 
 resamples one cortical surface onto another}
 \usage{
-mri_surf2surf(subject = NULL, target_subject = NULL,
-  trg_type = c("curv", "w", "mgh", "nii"), src_type = c("curv", "w"),
-  outfile = NULL, hemi = c("lh", "rh"), sval = c("thickness"),
-  subj_dir = NULL, opts = "", verbose = TRUE)
+mri_surf2surf(
+  subject = NULL,
+  target_subject = NULL,
+  trg_type = c("curv", "w", "mgh", "nii"),
+  src_type = c("curv", "w"),
+  outfile = NULL,
+  hemi = c("lh", "rh"),
+  sval = c("thickness"),
+  subj_dir = NULL,
+  opts = "",
+  verbose = TRUE
+)
 }
 \arguments{
 \item{subject}{(character) vector of subject name}

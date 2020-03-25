@@ -33,6 +33,6 @@ Suggests:
     fslr (>= 2.9.2)
 BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 VignetteBuilder: knitr
 Encoding: UTF-8
