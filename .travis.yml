@@ -28,7 +28,7 @@ before_install:
       sudo installer -package /Volumes/freesurfer-Darwin-full/freesurfer-Darwin-full.pkg -target / ;
       sudo hdiutil detach /Volumes/freesurfer-Darwin-full ;
       export FREESURFER_HOME=/Applications/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
-    fi    
+    fi
 
 deploy:
   provider: releases
