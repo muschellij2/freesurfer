@@ -19,8 +19,7 @@ before_install:
       sudo apt-get -y install bc binutils libgomp1 perl psmisc sudo tar tcsh unzip uuid-dev vim-common libjpeg62-dev || true ;
       travis_wait 20 wget --quiet -O freesurfer.tar.gz https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz ;
       travis_wait 20 sudo tar -C /usr/local -xzf freesurfer.tar.gz ;
-      head -n5 $FREESURFER_HOME/SetUpFreeSurfer.sh ;
-      export FREESURFER_HOME=/usr/local/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
+      export FREESURFER_HOME=/usr/local/freesurfer; 
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ];
     then
@@ -28,9 +27,13 @@ before_install:
       sudo hdiutil attach freesurfer.dmg ;
       sudo installer -package /Volumes/freesurfer-Darwin-full/freesurfer-Darwin-full.pkg -target / ;
       sudo hdiutil detach /Volumes/freesurfer-Darwin-full ;
-      head -n5 $FREESURFER_HOME/SetUpFreeSurfer.sh ;
-      export FREESURFER_HOME=/Applications/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
+      export FREESURFER_HOME=/Applications/freesurfer; 
+      source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi
+  - cat $FREESURFER_HOME/FreeSurferEnv.sh || true ;
+  - cat $FREESURFER_HOME/SetUpFreeSurfer.sh || true ;
+  - source $FREESURFER_HOME/SetUpFreeSurfer.sh || true ;
+  - source $$FREESURFER_HOME/FreeSurferEnv.sh || true ;    
   - export PATH=${PATH}:${FREESURFER_HOME}/bin:${FREESURFER_HOME}/mni/bin ;
   - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; source ${FREESURFER_HOME}/FreeSurferEnv.sh\")" || true ;
   - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; . ${FREESURFER_HOME}/FreeSurferEnv.sh\")" || true ;
