@@ -17,13 +17,13 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" = "linux" ];
     then
       sudo apt-get -y install bc binutils libgomp1 perl psmisc sudo tar tcsh unzip uuid-dev vim-common libjpeg62-dev || true ;
-      wget -O freesurfer.tar.gz https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz ;
+      travis_wait 20 wget --quiet -O freesurfer.tar.gz https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Linux-centos6_x86_64-stable-pub-v6.0.0.tar.gz ;
       sudo tar -C /usr/local -xzvf freesurfer.tar.gz ;
       export FREESURFER_HOME=/usr/local/freesurfer; source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ];
     then
-      wget -O freesurfer.dmg https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwin-OSX-stable-pub-v6.0.0.dmg ;
+      travis_wait 20 wget --quiet -O freesurfer.dmg https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/6.0.0/freesurfer-Darwin-OSX-stable-pub-v6.0.0.dmg ;
       sudo hdiutil attach freesurfer.dmg ;
       sudo installer -package /Volumes/freesurfer-Darwin-full/freesurfer-Darwin-full.pkg -target / ;
       sudo hdiutil detach /Volumes/freesurfer-Darwin-full ;
