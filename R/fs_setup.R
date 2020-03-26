@@ -16,13 +16,19 @@
 get_fs = function(bin_app = c("bin", "mni/bin", "")) {
   cmd = NULL
   freesurferdir = Sys.getenv("FREESURFER_HOME")
+  if (is.null(freesurferdir)) {
+    freesurferdir = ""
+  }
+  add_home = FALSE
   if (freesurferdir == "") {
+    add_home = TRUE
     bin_app = match.arg(bin_app)
     freesurferdir = getOption("freesurfer.path")
     ## Will try a default directory (/usr/local/freesurfer) if nothing else
     if (is.null(freesurferdir)) {
       #### adding in "/usr/share/freesurfer/5.0" for NeuroDeb
-      def_paths = c("/usr/local/freesurfer", "/Applications/freesurfer")
+      def_paths = c("/usr/local/freesurfer", "/Applications/freesurfer",
+                    "/usr/freesurfer","/usr/bin/freesurfer")
       for (def_path in def_paths) {
         if (file.exists(def_path)) {
           warning(paste0("Setting freesurfer.path to ", def_path))
@@ -67,59 +73,62 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
         cmd = paste0("export PERL5LIB=$PERL5LIB:", start_up, " ; ")
       }
     }
-    
-    shfile = file.path(freesurferdir, "FreeSurferEnv.sh")
-    
-    sourcer = getOption("freesurfer_source_function")
-    if (is.null(sourcer)) {
-      # Tries to 
-      # fix https://github.com/muschellij2/freesurfer/issues/9
-      try_sourcer = function(sourcer) {
-        source_test = paste0(
-          "export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
-          ifelse(file.exists(shfile),
-                 paste0(sourcer, " ", shQuote(shfile), "; "), "")      
-        )
-        res = suppressWarnings({
-          system(source_test, intern = FALSE, 
-                 ignore.stdout = FALSE, 
-                 ignore.stderr = TRUE)
-        })
-        return(res)
-      }
-      sourcer_options = c("source", ".")
-      sourcer_results = sapply(sourcer_options, try_sourcer) == 0
-      if (!any(sourcer_results)) {
-        warning(paste0(
-          "No sourcing seems to work for Freesurfer, using",
-          " source"))
-        sourcer = "source"
-      } else {
-        sourcer = names(sourcer_results)[sourcer_results][1]
-      }
-      options(freesurfer_source_function = sourcer)
+  }
+  
+  shfile = file.path(freesurferdir, "FreeSurferEnv.sh")
+  sourcer = getOption("freesurfer_source_function")
+  if (is.null(sourcer) || sourcer %in% "") {
+    # Tries to 
+    # fix https://github.com/muschellij2/freesurfer/issues/9
+    try_sourcer = function(sourcer) {
+      source_test = paste0(
+        "export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
+        ifelse(file.exists(shfile),
+               paste0(sourcer, " ", shQuote(shfile), "; "), "")      
+      )
+      res = suppressWarnings({
+        system(source_test, intern = FALSE, 
+               ignore.stdout = FALSE, 
+               ignore.stderr = TRUE)
+      })
+      return(res)
     }
-    
-    cmd <- paste0(
+    sourcer_options = c("source", ".")
+    sourcer_results = sapply(sourcer_options, try_sourcer) == 0
+    if (!any(sourcer_results)) {
+      warning(paste0(
+        "No sourcing seems to work for Freesurfer, using",
+        " source"))
+      sourcer = "source"
+    } else {
+      sourcer = names(sourcer_results)[sourcer_results][1]
+    }
+    options(freesurfer_source_function = sourcer)
+  }
+  
+  cmd <- paste0(
+    cmd, 
+    ifelse(add_home, 
+           paste0("export FREESURFER_HOME=", shQuote(freesurferdir), "; "), 
+           ""),
+    ifelse(file.exists(shfile),
+           paste0(sourcer, " ", shQuote(shfile), " || true; "), "")    
+  )
+  
+  if (add_home) {
+    freesurferout = get_fs_output()
+    cmd = paste0(
       cmd, 
-      "export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
-      ifelse(file.exists(shfile),
-             paste0(sourcer, " ", shQuote(shfile), "; "), ""),
-      "FSF_OUTPUT_FORMAT=", freesurferout, "; export FSF_OUTPUT_FORMAT; ", 
+      "FSF_OUTPUT_FORMAT=", freesurferout, "; ", 
+      "export FSF_OUTPUT_FORMAT; ", 
       paste0("${FREESURFER_HOME}/", bin_app)
     )
-  } else {
-    shfile = file.path(freesurferdir, "FreeSurferEnv.sh")
-    cmd <- ifelse(
-      file.exists(shfile),
-      paste0('. ', shQuote(shfile), "; ", cmd), 
-      cmd) 
-    if (!is.null(cmd)) {
-      if (cmd == "") {
-        cmd = NULL
-      }
-    }
   }
+  if (!is.null(cmd)) {
+    if (cmd == "") {
+      cmd = NULL
+    }
+  }  
   if (is.null(freesurferdir)) stop("Can't find Freesurfer")
   if (freesurferdir %in% "") stop("Can't find Freesurfer")
   return(cmd)
