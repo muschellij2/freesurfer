@@ -32,7 +32,7 @@ before_install:
     fi
   - Rscript -e 'install.packages("base64enc")' ;
   - export license_file=${FREESURFER_HOME}/license.txt; 
-  - Rscript -e "cat(rawToChar(base64enc::base64decode(\"${FREESURFER_LICENSE}\")), file = \"${license_file}\")" ;
+  - sudo Rscript -e "cat(rawToChar(base64enc::base64decode(\"${FREESURFER_LICENSE}\")), file = \"${license_file}\")" ;
   - export PATH=${PATH}:${FREESURFER_HOME}/bin:${FREESURFER_HOME}/mni/bin ;
 
 
