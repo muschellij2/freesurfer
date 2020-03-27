@@ -30,6 +30,9 @@ before_install:
       export FREESURFER_HOME=/Applications/freesurfer; 
       source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi
+  - Rscript -e 'install.packages("base64enc")' ;
+  - export license_file=${FREESURFER_HOME}/license.txt; 
+  - Rscript -e "cat(rawToChar(base64enc::base64decode(\"${FREESURFER_LICENSE}\")), file = \"${license_file}\")" ;
   - cat $FREESURFER_HOME/FreeSurferEnv.sh || true ;
   - cat $FREESURFER_HOME/SetUpFreeSurfer.sh || true ;
   - source $FREESURFER_HOME/SetUpFreeSurfer.sh || true ;

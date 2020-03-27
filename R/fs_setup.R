@@ -81,10 +81,14 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
     # Tries to 
     # fix https://github.com/muschellij2/freesurfer/issues/9
     try_sourcer = function(sourcer) {
+      sh_file_cmd = ifelse(
+        file.exists(shfile),
+        paste0(sourcer, " ", shQuote(shfile), 
+               ifelse(grepl('"', sourcer), '"', ""), 
+               "; "), "") 
       source_test = paste0(
         "export FREESURFER_HOME=", shQuote(freesurferdir), "; ", 
-        ifelse(file.exists(shfile),
-               paste0(sourcer, " ", shQuote(shfile), "; "), "")      
+        sh_file_cmd
       )
       res = suppressWarnings({
         system(source_test, intern = FALSE, 
@@ -93,26 +97,32 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
       })
       return(res)
     }
-    sourcer_options = c("source", ".")
+    sourcer_options = c("source", "bash -c \"source", ".")
     sourcer_results = sapply(sourcer_options, try_sourcer) == 0
     if (!any(sourcer_results)) {
       warning(paste0(
         "No sourcing seems to work for Freesurfer, using",
         " source"))
-      sourcer = "source"
+      sourcer = "bash -c \"source"
     } else {
       sourcer = names(sourcer_results)[sourcer_results][1]
     }
     options(freesurfer_source_function = sourcer)
   }
   
+  sh_file_cmd = ifelse(
+    file.exists(shfile),
+    paste0(sourcer, " ", shQuote(shfile), 
+           ifelse(grepl('"', sourcer), '"', ""), 
+           " || true ; "), 
+    "")     
+  
   cmd <- paste0(
     cmd, 
     ifelse(add_home, 
            paste0("export FREESURFER_HOME=", shQuote(freesurferdir), "; "), 
            ""),
-    ifelse(file.exists(shfile),
-           paste0(sourcer, " ", shQuote(shfile), " || true; "), "")    
+    sh_file_cmd
   )
   
   if (add_home) {
