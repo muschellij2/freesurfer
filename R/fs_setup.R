@@ -97,7 +97,7 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
       })
       return(res)
     }
-    sourcer_options = c("bash -c \"source", "source", ".")
+    sourcer_options = c("source", "bash -c \"source", ".")
     sourcer_results = sapply(sourcer_options, try_sourcer) == 0
     if (!any(sourcer_results)) {
       warning(paste0(
@@ -110,13 +110,30 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
     options(freesurfer_source_function = sourcer)
   }
   
+  # if (add_home && !grepl("reesurfer", Sys.getenv("PATH"))) {
   sh_file_cmd = ifelse(
     file.exists(shfile),
     paste0(sourcer, " ", shQuote(shfile), 
            ifelse(grepl('"', sourcer), '"', ""), 
            " || true ; "), 
-    "")     
-  
+    "")
+  sourcer_test = paste0(
+    ifelse(add_home, 
+           paste0("export FREESURFER_HOME=", shQuote(freesurferdir), "; "), 
+           ""),
+    sh_file_cmd
+  )
+  res = suppressWarnings({
+    system(sourcer_test, intern = FALSE, 
+           ignore.stdout = FALSE, 
+           ignore.stderr = TRUE)
+  })
+  if (res != 0) {
+    sh_file_cmd = ""
+  }
+  # } else {
+  #   sh_file_cmd = ""
+  # }
   cmd <- paste0(
     cmd, 
     ifelse(add_home, 
