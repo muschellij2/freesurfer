@@ -18,7 +18,7 @@ before_install:
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}
   - fsl_install ;
-  - freesurer_install ;
+  - freesurfer_install ;
   - Rscript -e 'install.packages("base64enc")' ;
   - export license_file=${FREESURFER_HOME}/license.txt;
   - sudo chown -R $(whoami) ${FREESURFER_HOME} ;

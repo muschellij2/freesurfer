@@ -1,6 +1,7 @@
 # freesurfer 1.6.7
 
 * Trying to fix `source` vs `.` when using Linux machines.
+* Added checks for FSL in vignette.
 
 # freesurfer 1.6.6
 
