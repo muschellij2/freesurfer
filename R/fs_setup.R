@@ -97,7 +97,7 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
       })
       return(res)
     }
-    sourcer_options = c("source", "bash -c \"source", ".")
+    sourcer_options = c("bash -c \"source", "source", ".")
     sourcer_results = sapply(sourcer_options, try_sourcer) == 0
     if (!any(sourcer_results)) {
       warning(paste0(
