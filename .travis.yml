@@ -33,16 +33,7 @@ before_install:
   - Rscript -e 'install.packages("base64enc")' ;
   - export license_file=${FREESURFER_HOME}/license.txt; 
   - Rscript -e "cat(rawToChar(base64enc::base64decode(\"${FREESURFER_LICENSE}\")), file = \"${license_file}\")" ;
-  - cat $FREESURFER_HOME/FreeSurferEnv.sh || true ;
-  - cat $FREESURFER_HOME/SetUpFreeSurfer.sh || true ;
-  - source $FREESURFER_HOME/SetUpFreeSurfer.sh || true ;
-  - source $$FREESURFER_HOME/FreeSurferEnv.sh || true ;    
   - export PATH=${PATH}:${FREESURFER_HOME}/bin:${FREESURFER_HOME}/mni/bin ;
-  - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; source ${FREESURFER_HOME}/FreeSurferEnv.sh\")" || true ;
-  - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; bash -c 'source ${FREESURFER_HOME}/FreeSurferEnv.sh'\")" || true ;
-  - str='system('"'export FREESURFER_HOME=""${FREESURFER_HOME}"'; bash -c "source ${FREESURFER_HOME}/FreeSurferEnv.sh"'"')";
-  - Rscript -e "${str}" || true ;
-  - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; . ${FREESURFER_HOME}/FreeSurferEnv.sh\")" || true ;
 
 
 deploy:
