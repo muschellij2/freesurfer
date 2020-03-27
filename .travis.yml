@@ -36,6 +36,9 @@ before_install:
   - source $$FREESURFER_HOME/FreeSurferEnv.sh || true ;    
   - export PATH=${PATH}:${FREESURFER_HOME}/bin:${FREESURFER_HOME}/mni/bin ;
   - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; source ${FREESURFER_HOME}/FreeSurferEnv.sh\")" || true ;
+  - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; bash -c 'source ${FREESURFER_HOME}/FreeSurferEnv.sh'\")" || true ;
+  - str='system('"'export FREESURFER_HOME=""${FREESURFER_HOME}"'; bash -c "source ${FREESURFER_HOME}/FreeSurferEnv.sh"'"')";
+  - Rscript -e "${str}" || true ;
   - Rscript -e "system(\"export FREESURFER_HOME=${FREESURFER_HOME}; . ${FREESURFER_HOME}/FreeSurferEnv.sh\")" || true ;
 
 
