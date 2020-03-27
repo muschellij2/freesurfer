@@ -31,7 +31,9 @@ before_install:
       source $FREESURFER_HOME/SetUpFreeSurfer.sh ;
     fi
   - Rscript -e 'install.packages("base64enc")' ;
-  - export license_file=${FREESURFER_HOME}/license.txt; 
+  - export license_file=${FREESURFER_HOME}/license.txt;
+  - sudo chown -R $(whoami) ${FREESURFER_HOME} ;
+  - touch $license_file ;
   - sudo Rscript -e "cat(rawToChar(base64enc::base64decode(\"${FREESURFER_LICENSE}\")), file = \"${license_file}\")" ;
   - export PATH=${PATH}:${FREESURFER_HOME}/bin:${FREESURFER_HOME}/mni/bin ;
 
