@@ -7,6 +7,17 @@ r_binary_packages:
 os:
 - linux
 - osx
+
+env:
+  global:
+    - RGL_USE_NULL=TRUE
+    - DISPLAY=:99.0
+    - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+
+
+services:
+  - xvfb
+
 r_check_args: "--as-cran --install-args=--build"
 notifications:
   email:
@@ -17,6 +28,7 @@ before_install:
   - fname=travis_helpers.sh
   - wget -O ${fname} http://bit.ly/travis_helpers
   - cat ${fname}; source ${fname}; rm ${fname}
+  - start_xvfb ;  
   - fsl_install ;
   - freesurfer_install ;
   - Rscript -e 'install.packages("base64enc")' ;
