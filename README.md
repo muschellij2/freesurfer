@@ -2,7 +2,7 @@
 [![Build
 Status](https://travis-ci.org/muschellij2/freesurfer.svg?branch=master)](https://travis-ci.org/muschellij2/freesurfer)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/freesurfer)](http://cran.rstudio.com/web/packages/freesurfer/index.html)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/freesurfer)](http://cran.rstudio.com/web/packages/freesurfer/index.html)
+[![](https://cranlogs.r-pkg.org/badges/grand-total/freesurfer)](https://cran.r-project.org/package=freesurfer)
 [![DOI](https://zenodo.org/badge/67370835.svg)](https://zenodo.org/badge/latestdoi/67370835)
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
