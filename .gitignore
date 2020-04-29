@@ -11,3 +11,6 @@
 # RStudio files
 .Rproj.user/
 inst/doc
+
+# logs from freesurfer
+R/*.log

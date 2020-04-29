@@ -17,8 +17,21 @@
 #'    base_url = "https://surfer.nmr.mgh.harvard.edu/pub/dist/mri_deface"
 #'    url = file.path(base_url, "sample_T1_input.mgz")
 #'    x = tempfile(fileext = ".mgz")
+#'    out = try({
 #'    utils::download.file(url, destfile = x)
-#'    mri_deface(x)
+#'    })
+#'    if (!inherits(out, "try-error")) {
+#'       noface = mri_deface(x)
+#'    } else {
+#'       url = paste0(
+#'          "https://raw.githubusercontent.com/muschellij2/kirby21.t1/master/", 
+#'          "inst/visit_1/113/113-01-T1.nii.gz")
+#'       x = tempfile(fileext = ".nii.gz")
+#'       out = try({
+#'           utils::download.file(url, destfile = x)
+#'       })
+#'       noface = mri_deface(x)
+#'    }
 #' }
 #' }
 mri_deface = function(
