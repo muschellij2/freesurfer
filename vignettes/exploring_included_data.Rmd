@@ -115,8 +115,8 @@ We will explore the results in "mri", which contain imaging data, "stats", which
 The typical output format of brain volumes from Freesurfer is MGH/MGZ format, which is explained here: \url{https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat}.  As NIfTI formats are one of the most common formats and has been the common format for analysis in the \pkg{oro.nifti} and \CRANpkg{neurobase} packages, it is useful to convert these files to a NIfTI format to read into R.   The \code{mri\_convert} Freesurfer function will be used for that conversion.  Here we will use the T1-weighted image from the "bert" subject and convert it to NIfTI, and read it into R:
 
 ```{r mri_convert, echo = TRUE, eval = TRUE}
+library(freesurfer)
 if (have_fs()) {
-  library(freesurfer)
   bert_dir = file.path(fs_subj_dir(), "bert") # subject directory
   t1_mgz = file.path(bert_dir, "mri", "T1.mgz") # mgz file
   t1_nii_fname = tempfile(fileext = ".nii.gz") # temporary NIfTI file
