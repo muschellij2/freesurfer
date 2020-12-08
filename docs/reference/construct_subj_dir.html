@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 <meta property="og:description" content="This function copies files specified by the types of data, 
 determined by the folder Freesurfer put them in, into a temporary directory
 for easier separation of data and different structuring of data." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@ for easier separation of data and different structuring of data." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +74,7 @@ for easier separation of data and different structuring of data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">freesurfer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
       </span>
     </div>
 
@@ -103,7 +106,12 @@ for easier separation of data and different structuring of data." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/muschellij2/freesurfer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -118,7 +126,7 @@ for easier separation of data and different structuring of data." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Construct Subject Directory</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/freesurfer/blob/master/R/construct_subj_dir.R'><code>R/construct_subj_dir.R</code></a></small>
     <div class="hidden name"><code>construct_subj_dir.Rd</code></div>
     </div>
 
@@ -128,15 +136,15 @@ determined by the folder Freesurfer put them in, into a temporary directory
 for easier separation of data and different structuring of data.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>construct_subj_dir</span>(
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mri</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>stats</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>surf</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>touch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>subj_root_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>()
-)</pre>
+    <pre class="usage"><span class='fu'>construct_subj_dir</span><span class='op'>(</span>
+  label <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mri <span class='op'>=</span> <span class='cn'>NULL</span>,
+  stats <span class='op'>=</span> <span class='cn'>NULL</span>,
+  surf <span class='op'>=</span> <span class='cn'>NULL</span>,
+  touch <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subj <span class='op'>=</span> <span class='cn'>NULL</span>,
+  subj_root_dir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,26 +186,23 @@ If <code>NULL</code>, a temporary id will be generated</p></td>
 that contains the subject name), and the types of objects copied</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>freesurfer</span>)
-<span class='no'>label</span> <span class='kw'>=</span> <span class='st'>"/Applications/freesurfer/subjects/bert/label/aparc.annot.a2009s.ctab"</span>
-<span class='no'>mri</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>freesurfer</span><span class='op'>)</span>
+<span class='va'>label</span> <span class='op'>=</span> <span class='st'>"/Applications/freesurfer/subjects/bert/label/aparc.annot.a2009s.ctab"</span>
+<span class='va'>mri</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>
   <span class='st'>"/Applications/freesurfer/subjects/bert/mri/aparc.a2009s+aseg.mgz"</span>,
-  <span class='st'>"/Applications/freesurfer/subjects/bert/mri/aseg.auto.mgz"</span>)
-<span class='no'>stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"/Applications/freesurfer/subjects/bert/stats/lh.aparc.stats"</span>,
-          <span class='st'>"/Applications/freesurfer/subjects/bert/stats/aseg.stats"</span>)
-<span class='no'>surf</span> <span class='kw'>=</span> <span class='st'>"/Applications/freesurfer/subjects/bert/surf/lh.thickness"</span>
-<span class='no'>touch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-}</div></pre>
+  <span class='st'>"/Applications/freesurfer/subjects/bert/mri/aseg.auto.mgz"</span><span class='op'>)</span>
+<span class='va'>stats</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"/Applications/freesurfer/subjects/bert/stats/lh.aparc.stats"</span>,
+          <span class='st'>"/Applications/freesurfer/subjects/bert/stats/aseg.stats"</span><span class='op'>)</span>
+<span class='va'>surf</span> <span class='op'>=</span> <span class='st'>"/Applications/freesurfer/subjects/bert/surf/lh.thickness"</span>
+<span class='va'>touch</span> <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -208,7 +213,7 @@ that contains the subject name), and the types of objects copied</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

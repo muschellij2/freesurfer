@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Read Freesurfer Table Output — read_fs_table" />
 <meta property="og:description" content="This function reads output from a Freesurfer table command,
 e.g. aparcstats2table, asegstats2table" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ e.g. aparcstats2table, asegstats2table" />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ e.g. aparcstats2table, asegstats2table" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">freesurfer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
       </span>
     </div>
 
@@ -102,7 +105,12 @@ e.g. aparcstats2table, asegstats2table" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/muschellij2/freesurfer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,7 +125,7 @@ e.g. aparcstats2table, asegstats2table" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Read Freesurfer Table Output</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/freesurfer/blob/master/R/read_fs_table.R'><code>R/read_fs_table.R</code></a></small>
     <div class="hidden name"><code>read_fs_table.Rd</code></div>
     </div>
 
@@ -126,7 +134,7 @@ e.g. aparcstats2table, asegstats2table" />
 e.g. <code>aparcstats2table</code>, <code>asegstats2table</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_fs_table</span>(<span class='no'>file</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stringsAsFactors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>header</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>read_fs_table</span><span class='op'>(</span><span class='va'>file</span>, sep <span class='op'>=</span> <span class='cn'>NULL</span>, stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>, header <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,27 +167,27 @@ pass to <code><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></
     <p><code>data.frame</code> from the file</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='have_fs.html'>have_fs</a></span>()) {
-   <span class='no'>outfile</span> <span class='kw'>=</span> <span class='fu'><a href='aparcstats2table.html'>aparcstats2table</a></span>(<span class='kw'>subjects</span> <span class='kw'>=</span> <span class='st'>"bert"</span>,
-                    <span class='kw'>hemi</span> <span class='kw'>=</span> <span class='st'>"lh"</span>,
-                    <span class='kw'>meas</span> <span class='kw'>=</span> <span class='st'>"thickness"</span>)
-   <span class='no'>df</span> <span class='kw'>=</span> <span class='fu'>read_fs_table</span>(<span class='no'>outfile</span>)
-   <span class='no'>seg_outfile</span> <span class='kw'>=</span> <span class='fu'><a href='asegstats2table.html'>asegstats2table</a></span>(<span class='kw'>subjects</span> <span class='kw'>=</span> <span class='st'>"bert"</span>, <span class='kw'>meas</span> <span class='kw'>=</span> <span class='st'>"mean"</span>)
-   <span class='no'>df_seg</span> <span class='kw'>=</span> <span class='fu'>read_fs_table</span>(<span class='no'>seg_outfile</span>)
-}</div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; aparcstats2table --hemi lh --subjects bert --delimiter tab --parc aparc --debug --measure thickness --tablefile /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f34a6910a6.txt </span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; asegstats2table --subjects bert --delimiter tab --debug --meas mean --tablefile /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f3477c407a0.txt </span></div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='have_fs.html'>have_fs</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+   <span class='va'>outfile</span> <span class='op'>=</span> <span class='fu'><a href='aparcstats2table.html'>aparcstats2table</a></span><span class='op'>(</span>subjects <span class='op'>=</span> <span class='st'>"bert"</span>,
+                    hemi <span class='op'>=</span> <span class='st'>"lh"</span>,
+                    meas <span class='op'>=</span> <span class='st'>"thickness"</span><span class='op'>)</span>
+   <span class='va'>df</span> <span class='op'>=</span> <span class='fu'>read_fs_table</span><span class='op'>(</span><span class='va'>outfile</span><span class='op'>)</span>
+   <span class='va'>seg_outfile</span> <span class='op'>=</span> <span class='fu'><a href='asegstats2table.html'>asegstats2table</a></span><span class='op'>(</span>subjects <span class='op'>=</span> <span class='st'>"bert"</span>, meas <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span>
+   <span class='va'>df_seg</span> <span class='op'>=</span> <span class='fu'>read_fs_table</span><span class='op'>(</span><span class='va'>seg_outfile</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; aparcstats2table --hemi lh --subjects bert --delimiter tab --parc aparc --debug --measure thickness --tablefile /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpoaoS2X/file78e6aae495c.txt </span></div><div class='output co'>#&gt; <span class='error'>Error in check_fs_result(res = res, fe_before = fe_before, fe_after = fe_after): Command Failed, no output produced!</span></div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>### using the pipe</span>
-<span class='no'>df_seg</span> <span class='kw'>=</span> <span class='fu'><a href='asegstats2table.html'>asegstats2table</a></span>(<span class='kw'>subjects</span> <span class='kw'>=</span> <span class='st'>"bert"</span>, <span class='kw'>meas</span> <span class='kw'>=</span> <span class='st'>"mean"</span>) <span class='kw'>%&gt;%</span>
-            <span class='no'>read_fs_table</span>
-}</div></pre>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"magrittr"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>df_seg</span> <span class='op'>=</span> <span class='fu'><a href='asegstats2table.html'>asegstats2table</a></span><span class='op'>(</span>subjects <span class='op'>=</span> <span class='st'>"bert"</span>, meas <span class='op'>=</span> <span class='st'>"mean"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+            <span class='va'>read_fs_table</span>
+            <span class='op'>}</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -190,7 +198,7 @@ pass to <code><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

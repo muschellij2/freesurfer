@@ -6,28 +6,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Use Freesurfers <code>mri_surf2surf</code> function to 
+<title>Use Freesurfers mri_surf2surf function to 
 resamples one cortical surface onto another — mri_surf2surf • freesurfer</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -36,11 +40,10 @@ resamples one cortical surface onto another — mri_surf2surf • freesurfer</ti
 
 
 
-<meta property="og:title" content="Use Freesurfers <code>mri_surf2surf</code> function to 
+<meta property="og:title" content="Use Freesurfers mri_surf2surf function to 
 resamples one cortical surface onto another — mri_surf2surf" />
 <meta property="og:description" content="This function calls Freesurfer mri_surf2surf to 
 resample one cortical surface onto another" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -58,7 +61,7 @@ resample one cortical surface onto another" />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -72,7 +75,7 @@ resample one cortical surface onto another" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">freesurfer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
       </span>
     </div>
 
@@ -104,7 +107,12 @@ resample one cortical surface onto another" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/muschellij2/freesurfer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -120,7 +128,7 @@ resample one cortical surface onto another" />
     <div class="page-header">
     <h1>Use Freesurfers <code>mri_surf2surf</code> function to 
 resamples one cortical surface onto another</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/freesurfer/blob/master/R/mri_surf2surf.R'><code>R/mri_surf2surf.R</code></a></small>
     <div class="hidden name"><code>mri_surf2surf.Rd</code></div>
     </div>
 
@@ -129,18 +137,18 @@ resamples one cortical surface onto another</h1>
 resample one cortical surface onto another</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mri_surf2surf</span>(
-  <span class='kw'>subject</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>target_subject</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trg_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"curv"</span>, <span class='st'>"w"</span>, <span class='st'>"mgh"</span>, <span class='st'>"nii"</span>),
-  <span class='kw'>src_type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"curv"</span>, <span class='st'>"w"</span>),
-  <span class='kw'>outfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>hemi</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lh"</span>, <span class='st'>"rh"</span>),
-  <span class='kw'>sval</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"thickness"</span>),
-  <span class='kw'>subj_dir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>opts</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>mri_surf2surf</span><span class='op'>(</span>
+  subject <span class='op'>=</span> <span class='cn'>NULL</span>,
+  target_subject <span class='op'>=</span> <span class='cn'>NULL</span>,
+  trg_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"curv"</span>, <span class='st'>"w"</span>, <span class='st'>"mgh"</span>, <span class='st'>"nii"</span><span class='op'>)</span>,
+  src_type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"curv"</span>, <span class='st'>"w"</span><span class='op'>)</span>,
+  outfile <span class='op'>=</span> <span class='cn'>NULL</span>,
+  hemi <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lh"</span>, <span class='st'>"rh"</span><span class='op'>)</span>,
+  sval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"thickness"</span><span class='op'>)</span>,
+  subj_dir <span class='op'>=</span> <span class='cn'>NULL</span>,
+  opts <span class='op'>=</span> <span class='st'>""</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -195,24 +203,21 @@ the <code>SUBJECTS_DIR</code> back correctly after the error</p></td>
     <p>Name of output file</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='have_fs.html'>have_fs</a></span>()) {
-   <span class='no'>out</span> <span class='kw'>=</span> <span class='fu'>mri_surf2surf</span>(
-   <span class='kw'>subject</span> <span class='kw'>=</span> <span class='st'>'bert'</span>,
-   <span class='kw'>target_subject</span> <span class='kw'>=</span> <span class='st'>'fsaverage'</span>,
-   <span class='kw'>trg_type</span>  <span class='kw'>=</span> <span class='st'>'curv'</span>,
-   <span class='kw'>src_type</span>  <span class='kw'>=</span> <span class='st'>'curv'</span>,
-   <span class='kw'>hemi</span> <span class='kw'>=</span> <span class='st'>"rh"</span>,
-   <span class='kw'>sval</span> <span class='kw'>=</span> <span class='st'>"thickness"</span>)
-}</div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mri_surf2surf --hemi rh --s bert --trgsubject fsaverage --trg_type curv --sval thickness --src_type curv --tval /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f344d251f79 --debug </span></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='have_fs.html'>have_fs</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+   <span class='va'>out</span> <span class='op'>=</span> <span class='fu'>mri_surf2surf</span><span class='op'>(</span> 
+   subject <span class='op'>=</span> <span class='st'>'bert'</span>,
+   target_subject <span class='op'>=</span> <span class='st'>'fsaverage'</span>, 
+   trg_type  <span class='op'>=</span> <span class='st'>'curv'</span>, 
+   src_type  <span class='op'>=</span> <span class='st'>'curv'</span>, 
+   hemi <span class='op'>=</span> <span class='st'>"rh"</span>,
+   sval <span class='op'>=</span> <span class='st'>"thickness"</span><span class='op'>)</span>
+<span class='op'>}</span> 
+</div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mri_surf2surf --hemi rh --s bert --trgsubject fsaverage --trg_type curv --sval thickness --src_type curv --tval /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpoaoS2X/file78e667ac3e00 --debug </span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -223,7 +228,7 @@ the <code>SUBJECTS_DIR</code> back correctly after the error</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Convert Freesurfer Surface to Triangles — surface_to_triangles" />
 <meta property="og:description" content="Reads in a surface file from Freesurfer and 
 converts it into triangles" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ converts it into triangles" />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ converts it into triangles" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">freesurfer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.6.8</span>
       </span>
     </div>
 
@@ -102,7 +105,12 @@ converts it into triangles" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/muschellij2/freesurfer/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,7 +125,7 @@ converts it into triangles" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Convert Freesurfer Surface to Triangles</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/freesurfer/blob/master/R/convert_surface.R'><code>R/convert_surface.R</code></a></small>
     <div class="hidden name"><code>surface_to_triangles.Rd</code></div>
     </div>
 
@@ -126,7 +134,7 @@ converts it into triangles" />
 converts it into triangles</p>
     </div>
 
-    <pre class="usage"><span class='fu'>surface_to_triangles</span>(<span class='no'>infile</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>surface_to_triangles</span><span class='op'>(</span><span class='va'>infile</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,43 +156,40 @@ converts it into triangles</p>
 to the number of faces (not the triplets - total faces)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='have_fs.html'>have_fs</a></span>()) {
-<span class='no'>infile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span>(),
-                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"rh.pial"</span>)
-<span class='no'>right_triangles</span> <span class='kw'>=</span> <span class='fu'>surface_to_triangles</span>(<span class='kw'>infile</span> <span class='kw'>=</span> <span class='no'>infile</span>)
-<span class='no'>infile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span>(),
-                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"lh.pial"</span>)
-<span class='no'>left_triangles</span> <span class='kw'>=</span> <span class='fu'>surface_to_triangles</span>(<span class='kw'>infile</span> <span class='kw'>=</span> <span class='no'>infile</span>)
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"rgl"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='kw pkg'>rgl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/rgl.open.html'>rgl.open</a></span>()
-  <span class='kw pkg'>rgl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span>(<span class='no'>right_triangles</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>right_triangles</span>)))
-  <span class='kw pkg'>rgl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span>(<span class='no'>left_triangles</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>left_triangles</span>)))
-}
-<span class='no'>infile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span>(),
-                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"rh.inflated"</span>)
-<span class='no'>right_triangles</span> <span class='kw'>=</span> <span class='fu'>surface_to_triangles</span>(<span class='kw'>infile</span> <span class='kw'>=</span> <span class='no'>infile</span>)
-<span class='no'>infile</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span>(),
-                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"lh.inflated"</span>)
-<span class='no'>left_triangles</span> <span class='kw'>=</span> <span class='fu'>surface_to_triangles</span>(<span class='kw'>infile</span> <span class='kw'>=</span> <span class='no'>infile</span>)
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"rgl"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='kw pkg'>rgl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/rgl.open.html'>rgl.open</a></span>()
-  <span class='kw pkg'>rgl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span>(<span class='no'>left_triangles</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>left_triangles</span>)))
-  <span class='kw pkg'>rgl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span>(<span class='no'>right_triangles</span>,
-  <span class='kw'>color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='no'>right_triangles</span>)))
-}
-}</div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/rh.pial /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f343192fa49.asc</span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/lh.pial /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f34286de80c.asc</span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/rh.inflated /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f34479d8090.asc</span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/lh.inflated /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpFg6ZLZ/file4f34356392ab.asc</span></div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='have_fs.html'>have_fs</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>infile</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span><span class='op'>(</span><span class='op'>)</span>, 
+                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"rh.pial"</span><span class='op'>)</span>
+<span class='va'>right_triangles</span> <span class='op'>=</span> <span class='fu'>surface_to_triangles</span><span class='op'>(</span>infile <span class='op'>=</span> <span class='va'>infile</span><span class='op'>)</span>
+<span class='va'>infile</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span><span class='op'>(</span><span class='op'>)</span>, 
+                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"lh.pial"</span><span class='op'>)</span>
+<span class='va'>left_triangles</span> <span class='op'>=</span> <span class='fu'>surface_to_triangles</span><span class='op'>(</span>infile <span class='op'>=</span> <span class='va'>infile</span><span class='op'>)</span> 
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"rgl"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/rgl.open.html'>rgl.open</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span><span class='op'>(</span><span class='va'>right_triangles</span>, 
+  color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>right_triangles</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span><span class='op'>(</span><span class='va'>left_triangles</span>, 
+  color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>left_triangles</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>infile</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span><span class='op'>(</span><span class='op'>)</span>, 
+                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"rh.inflated"</span><span class='op'>)</span>
+<span class='va'>right_triangles</span> <span class='op'>=</span> <span class='fu'>surface_to_triangles</span><span class='op'>(</span>infile <span class='op'>=</span> <span class='va'>infile</span><span class='op'>)</span>  
+<span class='va'>infile</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span><span class='op'>(</span><span class='fu'><a href='fs_subj_dir.html'>fs_subj_dir</a></span><span class='op'>(</span><span class='op'>)</span>, 
+                   <span class='st'>"bert"</span>, <span class='st'>"surf"</span>, <span class='st'>"lh.inflated"</span><span class='op'>)</span> 
+<span class='va'>left_triangles</span> <span class='op'>=</span> <span class='fu'>surface_to_triangles</span><span class='op'>(</span>infile <span class='op'>=</span> <span class='va'>infile</span><span class='op'>)</span>  
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"rgl"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/rgl.open.html'>rgl.open</a></span><span class='op'>(</span><span class='op'>)</span>
+  <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span><span class='op'>(</span><span class='va'>left_triangles</span>, 
+  color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>left_triangles</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>rgl</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rgl/man/primitive.html'>rgl.triangles</a></span><span class='op'>(</span><span class='va'>right_triangles</span>, 
+  color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>right_triangles</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>   
+<span class='op'>}</span> 
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/rh.pial /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpoaoS2X/file78e626fa6dcd.asc</span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/lh.pial /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpoaoS2X/file78e633ec1b9.asc</span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/rh.inflated /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpoaoS2X/file78e64979f0cf.asc</span></div><div class='output co'>#&gt; <span class='message'>source '/Applications/freesurfer/FreeSurferEnv.sh' || true ; mris_convert   /Applications/freesurfer/subjects/bert/surf/lh.inflated /var/folders/1s/wrtqcpxn685_zk570bnx9_rr0000gr/T//RtmpoaoS2X/file78e664b0cbb8.asc</span></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -195,7 +200,7 @@ to the number of faces (not the triplets - total faces)</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
