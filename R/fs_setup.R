@@ -16,6 +16,11 @@
 get_fs = function(bin_app = c("bin", "mni/bin", "")) {
   cmd = NULL
   freesurferdir = Sys.getenv("FREESURFER_HOME")
+  if (!is.null(freesurferdir) && 
+      !file.exists(freesurferdir) &&
+      !freesurferdir %in% "") {
+    warning("FREESURFER_HOME is set but it does not exist!")
+  }
   if (is.null(freesurferdir)) {
     freesurferdir = ""
   }
@@ -158,6 +163,13 @@ get_fs = function(bin_app = c("bin", "mni/bin", "")) {
   }  
   if (is.null(freesurferdir)) stop("Can't find Freesurfer")
   if (freesurferdir %in% "") stop("Can't find Freesurfer")
+  if (!is.null(freesurferdir) && !file.exists(freesurferdir)) {
+    stop("Can't find Freesurfer")
+  }
+  fs_license = file.path(freesurferdir, "license.txt")
+  if (!file.exists(fs_license)) {
+    warning("Freesurfer is found, but no license!")
+  }
   return(cmd)
 }
 
@@ -201,13 +213,26 @@ fs_dir = function(){
 #' @description Uses \code{get_fs} to check if FreesurferDIR is accessible or the option
 #' \code{freesurfer.path} is set and returns logical
 #' @param ... options to pass to \code{\link{get_fs}}
+#' @param check_license Should a license file be checked to exist?
 #' @return Logical TRUE is Freesurfer is accessible, FALSE if not
 #' @export
 #' @examples
 #' have_fs()
-have_fs = function(...){
-  x = suppressWarnings(try(get_fs(...), silent = TRUE))
-  return(!inherits(x, "try-error"))
+have_fs = function(..., check_license = FALSE){
+  freesurferdir = suppressWarnings(try(fs_dir(...), silent = TRUE))
+  if (inherits(freesurferdir, "try-error")) {
+    return(FALSE)
+  }
+  if (!file.exists(freesurferdir)) {
+    return(FALSE)
+  }
+  if (check_license) {
+    fs_license = file.path(freesurferdir, "license.txt")
+    if (!file.exists(fs_license)) {
+      return(FALSE)
+    }
+  }
+  return(TRUE)
 }
 
 

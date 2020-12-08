@@ -4,10 +4,12 @@
 \alias{have_fs}
 \title{Logical check if Freesurfer is accessible}
 \usage{
-have_fs(...)
+have_fs(..., check_license = FALSE)
 }
 \arguments{
 \item{...}{options to pass to \code{\link{get_fs}}}
+
+\item{check_license}{Should a license file be checked to exist?}
 }
 \value{
 Logical TRUE is Freesurfer is accessible, FALSE if not

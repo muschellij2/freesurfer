@@ -2,6 +2,7 @@
 
 * Fixing vignette for `fslr` checking.
 * Fixing examples for Suggests.
+* Added argument for requirement for license for `have_fs`, 
 
 # freesurfer 1.6.7
 

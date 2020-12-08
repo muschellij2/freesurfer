@@ -12,7 +12,7 @@ vignette: >
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
 library(knitr)
-opts_chunk$set(
+knitr::opts_chunk$set(
   eval = FALSE,
   echo = TRUE, 
   prompt = FALSE, 
@@ -26,6 +26,7 @@ library(freesurfer)
 library(pander)
 library(neurobase)
 library(rgl)
+have_fs = have_fs(check_license = TRUE)
 ```
 
 
