@@ -1,7 +1,7 @@
 Package: freesurfer
 Type: Package
 Title: Wrapper Functions for 'Freesurfer'
-Version: 1.6.7.1
+Version: 1.6.8
 Authors@R: c(
     person(given = "John",
            family = "Muschelli",
@@ -41,6 +41,6 @@ Suggests:
     fslr (>= 2.9.2)
 BugReports: https://github.com/muschellij2/freesurfer/issues
 SystemRequirements: FSL, Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Encoding: UTF-8

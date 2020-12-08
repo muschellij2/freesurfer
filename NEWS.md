@@ -1,3 +1,8 @@
+# freesurfer 1.6.8
+
+* Fixing vignette for `fslr` checking.
+* Fixing examples for Suggests.
+
 # freesurfer 1.6.7
 
 * Trying to fix `source` vs `.` when using Linux machines.

@@ -147,8 +147,13 @@ The result is in figure \ref{fig:mri_plot}, which contains 3 slices of the head:
 Note, the image is not stored in the right/posterior/inferior (RPI) orientation which is assumed when displaying using the \pkg{neurobase} \code{ortho2} function [http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm](http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm).  We can use the `rpi_orient` function in \CRANpkg{fslr} (version $\geq$ 2.4.0) \citep{muschelli2015fslr} or `fslswapdim` to reorient the image to the assumed orientation.
 
 ```{r reorient_show, echo = TRUE, eval = FALSE}
+if (requireNamespace("fslr", quietly = TRUE)) {
+  fsl_check = fslr::have_fsl()
+} else {
+  fsl_check = FALSE
+}
 if (have_fs()) {
-  if (fslr::have_fsl()) {
+  if (fsl_check) {
     L = fslr::rpi_orient(img)
     reoriented_img = L[["img"]]
   } else {
@@ -158,8 +163,13 @@ if (have_fs()) {
 ```
 
 ```{r reorient, echo = FALSE, eval = TRUE}
+if (requireNamespace("fslr", quietly = TRUE)) {
+  fsl_check = fslr::have_fsl()
+} else {
+  fsl_check = FALSE
+}
 if (have_fs()) {
-  if (fslr::have_fsl()) {
+  if (fsl_check) {
     L = fslr::rpi_orient(img)
     reoriented_img = L$img
     rm(list = "L")
@@ -264,7 +274,7 @@ if (have_fs()) {
   # in mri_watershed, which is the default
   # so you reorient after
   #########################################
-  if (fslr::have_fsl()) {
+  if (fsl_check) {
     L = fslr::rpi_orient(ss)
   } else {
     L = list(img = ss)
@@ -321,7 +331,7 @@ if (have_fs()) {
   seg_file = file = file.path(fs_subj_dir(), 
                               "bert", "mri", "aseg.mgz")
   seg = readmgz(seg_file)
-  if (fslr::have_fsl()) {
+  if (fsl_check) {
     L = fslr::rpi_orient(seg)
   } else {
     L = list(img = seg)

@@ -8,7 +8,7 @@
 #' @importFrom R.utils gzip
 #' @export
 #' @examples 
-#' if (have_fs()) {
+#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
 #'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
 #'    mnc = nii2mnc(img)
 #'    img_file = mnc2nii(mnc, outfile = tempfile(fileext = ".nii"))

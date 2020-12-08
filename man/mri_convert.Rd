@@ -20,7 +20,7 @@ Result of \code{system} command
 This function calls \code{mri_convert} to convert an image
 }
 \examples{
-if (have_fs()) {
+if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5))) 
    res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
 } 

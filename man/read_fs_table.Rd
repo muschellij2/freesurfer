@@ -36,7 +36,9 @@ if (have_fs()) {
 }
 \dontrun{
 ### using the pipe
+if (requireNamespace("magrittr", quietly = TRUE)) {
 df_seg = asegstats2table(subjects = "bert", meas = "mean") \%>\% 
             read_fs_table
+            }
 }
 }
