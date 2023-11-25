@@ -38,8 +38,7 @@ read_annotation <- function(path, verbose = TRUE){
   label <- tmp[seq(2, by=2, length.out = length(tmp)/2)]
   
   bool <- readBin(ff, integer(), endian = "big")
-  
-  if(is.null(bool)){
+  if(length(bool) == 0 || is.null(bool)){
     colortable <- data.frame(matrix(NA, ncol=6, nrow = 0))
     names(colortable) <- c("label", "R", "G", "B", "A", "code")
     if(verbose) cat('No colortable in file.\n')
