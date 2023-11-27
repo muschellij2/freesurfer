@@ -6,6 +6,10 @@
 #' \code{\link{mris_convert}}
 #' @param ... additional arguments to \code{\link{mris_convert}}
 #' 
+#' @note The filename of the output may change due to how Freesurfer
+#' does curvature conversions and you may need to paste the prefix to get
+#' the correct filename, as seen in the example.
+#' 
 #' @return Result of \code{\link{mris_convert}}
 #' @export
 #' @examples 
@@ -14,7 +18,11 @@
 #'  asc_file = mris_convert_curv(
 #'  infile = file.path(bert_surf_dir, "lh.white"),
 #'  curv = file.path(bert_surf_dir, "lh.thickness")
-#'  )  
+#'  )
+#'  if (!file.exists(asc_file)) {
+#'    asc_file = file.path(dirname(asc_file), paste0("lh.",
+#'    basename(asc_file)))
+#'  }
 #'  res = read_fs_table(asc_file, header = FALSE)
 #'  colnames(res) = c("index", "coord_1", "coord_2", "coord_3", "value")
 #'  head(res)

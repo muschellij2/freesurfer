@@ -21,13 +21,22 @@ Result of \code{\link{mris_convert}}
 This function call \code{mris_convert}, 
 using the \code{-c} option
 }
+\note{
+The filename of the output may change due to how Freesurfer
+does curvature conversions and you may need to paste the prefix to get
+the correct filename, as seen in the example.
+}
 \examples{
 if (have_fs()) {
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
  asc_file = mris_convert_curv(
  infile = file.path(bert_surf_dir, "lh.white"),
  curv = file.path(bert_surf_dir, "lh.thickness")
- )  
+ )
+ if (!file.exists(asc_file)) {
+   asc_file = file.path(dirname(asc_file), paste0("lh.",
+   basename(asc_file)))
+ }
  res = read_fs_table(asc_file, header = FALSE)
  colnames(res) = c("index", "coord_1", "coord_2", "coord_3", "value")
  head(res)
