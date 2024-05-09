@@ -15,3 +15,4 @@ revdep/
 ^docs$
 ^pkgdown$
 ^CRAN-SUBMISSION$
+^revdep$
