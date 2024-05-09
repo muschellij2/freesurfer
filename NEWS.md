@@ -1,3 +1,7 @@
+# freesurfer 1.6.10
+
+* Fixes for new `neurobase` - need new push to CRAN.
+
 # freesurfer 1.6.8
 
 * Fixing vignette for `fslr` checking.
