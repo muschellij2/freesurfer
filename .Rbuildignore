@@ -16,3 +16,4 @@ revdep/
 ^pkgdown$
 ^CRAN-SUBMISSION$
 ^revdep$
+^\.github$
