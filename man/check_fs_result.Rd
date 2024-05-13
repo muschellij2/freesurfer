@@ -13,6 +13,9 @@ check_fs_result(res, fe_before, fe_after)
 
 \item{fe_after}{(logical) did the output file exist after the command ran}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Checks the Freesurfer system command result and will
 stop or warning based on whether output files exist.

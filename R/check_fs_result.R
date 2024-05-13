@@ -6,7 +6,7 @@
 #' @param fe_before (logical) did the output file exist before the command ran
 #' @param fe_after (logical) did the output file exist after the command ran
 #'
-#' @return NULL
+#' @return No return value, called for side effects
 #' @export
 check_fs_result = function(res, fe_before, fe_after) {
   if (res != 0 & !fe_after) {

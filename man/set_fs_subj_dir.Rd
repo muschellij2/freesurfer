@@ -9,6 +9,10 @@ set_fs_subj_dir(x = file.path(fs_dir(), "subjects"))
 \arguments{
 \item{x}{path to SUBJECTS_DIR defaults to \code{file.path(fs_dir(), "subjects")}}
 }
+\value{
+No return value, called for side effects (`SUBJECTS_DIR` 
+environment variable set, and `fs.subj_dir` option set)
+}
 \description{
 Sets the SUBJECTS_DIR variable in the system environment or 
 \code{options("fs.subj_dir" = x)}

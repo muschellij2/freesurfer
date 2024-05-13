@@ -321,7 +321,8 @@ fs_subj_dir  = function(){
 #' @description Sets the SUBJECTS_DIR variable in the system environment or 
 #' \code{options("fs.subj_dir" = x)} 
 #' @param x path to SUBJECTS_DIR defaults to \code{file.path(fs_dir(), "subjects")}
-#' @return NULL
+#' @return No return value, called for side effects (`SUBJECTS_DIR` 
+#' environment variable set, and `fs.subj_dir` option set)
 #' 
 #' @export
 set_fs_subj_dir  = function(x = file.path(fs_dir(), "subjects")){
