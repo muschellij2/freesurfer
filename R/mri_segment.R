@@ -9,11 +9,6 @@
 #' @return Character or nifti depending on \code{retimg}
 #' 
 #' @note NOT COMPLETE
-#' @examples \dontrun{
-#' if (have_fs()){
-#'     mri_segment("/path/to/T1.nii.gz")
-#' } 
-#' } 
 mri_segment = function(
   file, 
   outfile = NULL,                  
@@ -36,7 +31,6 @@ mri_segment = function(
 #' @description This calls Freesurfer's \code{mri_segment} help 
 #'
 #' @return Result of \code{fs_help}
-#' @export
 mri_segment.help = function(){
   fs_help(func_name = "mri_segment")
 }

@@ -27,10 +27,3 @@ to segment tissues from an image
 \note{
 NOT COMPLETE
 }
-\examples{
-\dontrun{
-if (have_fs()){
-    mri_segment("/path/to/T1.nii.gz")
-} 
-} 
-}
