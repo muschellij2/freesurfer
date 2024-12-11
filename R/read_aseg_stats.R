@@ -4,6 +4,8 @@
 #' @description Reads an \code{aseg.stats} file from an individual subject
 #' 
 #' @param file aseg.stats file from Freesurfer
+#' @param lowercase should the measures and values be lowercase (`TRUE`) or 
+#' kept as is?
 #'
 #' @return List of 2 \code{data.frame}s, one with the global measures and one 
 #' with the structure-specific measures.
@@ -14,7 +16,7 @@
 #'  file = file.path(fs_subj_dir(), "bert", "stats", "aseg.stats")
 #'  out = read_aseg_stats(file)
 #' }
-read_aseg_stats = function(file) {
+read_aseg_stats = function(file, lowercase = TRUE) {
   rl = readLines(file)
   start_subj =  grep("^# subjectname", rl)
   n_rl = length(rl)
@@ -30,7 +32,9 @@ read_aseg_stats = function(file) {
   vals = sapply(vals, function(x){
     x = gsub("^# Measure", "", x)
     x = trimws(x)
-    x = tolower(x)
+    if (lowercase) {
+      x = tolower(x)
+    }
     return(x)
   })
   vals = t(vals)

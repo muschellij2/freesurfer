@@ -4,10 +4,13 @@
 \alias{read_aseg_stats}
 \title{Read Anatomical Segmentation Statistics}
 \usage{
-read_aseg_stats(file)
+read_aseg_stats(file, lowercase = TRUE)
 }
 \arguments{
 \item{file}{aseg.stats file from Freesurfer}
+
+\item{lowercase}{should the measures and values be lowercase (`TRUE`) or 
+kept as is?}
 }
 \value{
 List of 2 \code{data.frame}s, one with the global measures and one 
