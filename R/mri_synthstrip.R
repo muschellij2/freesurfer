@@ -2,6 +2,7 @@
 #' @description This function calls \code{mri_mask} to mask an image
 #' @param file (character) input filename
 #' @param outfile (character) output filename
+#' @param maskfile (character) path for mask output
 #' @param retimg (logical) return image of class nifti
 #' @param opts (character) additional options to \code{mri_mask}
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
@@ -10,7 +11,7 @@
 #' @examples 
 #' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
 #'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
-#'    res = mri_synthstrip(img, mask)
+#'    res = mri_synthstrip(img)
 #' }
 mri_synthstrip = function(
     file, 

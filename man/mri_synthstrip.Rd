@@ -30,6 +30,8 @@ synthstrip(
 
 \item{retimg}{(logical) return image of class nifti}
 
+\item{maskfile}{(character) path for mask output}
+
 \item{opts}{(character) additional options to \code{mri_mask}}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
@@ -43,6 +45,6 @@ This function calls \code{mri_mask} to mask an image
 \examples{
 if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
-   res = mri_synthstrip(img, mask)
+   res = mri_synthstrip(img)
 }
 }

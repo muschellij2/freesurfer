@@ -1,3 +1,7 @@
+# freesurfer 1.8.0
+
+* Added `mri_synthstrip`. 
+
 # freesurfer 1.6.10
 
 * Fixes for new `neurobase` - need new push to CRAN.
