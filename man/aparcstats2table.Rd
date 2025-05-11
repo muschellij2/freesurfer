@@ -15,7 +15,8 @@ aparcstats2table(
   skip = FALSE,
   subj_dir = NULL,
   opts = "",
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -32,8 +33,8 @@ an attribute of \code{outfile}}
 
 \item{parc}{(character) parcellation to compute on}
 
-\item{skip}{(logical) if subject does not have parcellation, 
-should the command skip that subject (\code{TRUE}) or error 
+\item{skip}{(logical) if subject does not have parcellation,
+should the command skip that subject (\code{TRUE}) or error
 (\code{FALSE})}
 
 \item{subj_dir}{(character path) if a different subjects directory
@@ -44,13 +45,15 @@ the \code{SUBJECTS_DIR} back correctly after the error}
 \item{opts}{(character) additional options to \code{aparcstats2table}}
 
 \item{verbose}{(logical) print diagnostic messages}
+
+\item{...}{Additional arguments to pass to \code{\link{system}}}
 }
 \value{
-Character filename of output file, with the 
+Character filename of output file, with the
 attribute of the separator
 }
 \description{
-This function calls \code{aparcstats2table} to 
+This function calls \code{aparcstats2table} to
 convert parcellation statistics to a table
 }
 \examples{
