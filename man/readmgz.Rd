@@ -20,5 +20,5 @@ Object of class \code{nifti}
 \description{
 This function calls \code{mri_convert}
 to convert MGH/MGZ files to NIfTI, then reads it in using
-\code{\link{readnii}}
+\code{\link[neurobase]{readnii}}
 }

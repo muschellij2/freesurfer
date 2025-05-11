@@ -13,7 +13,8 @@
 #' }
 surf_convert = function(
   file,
-  outfile = NULL
+  outfile = NULL,
+  ...
 ) {
   if (is.null(outfile)) {
     outfile = tempfile(fileext = ".dat")

@@ -13,7 +13,7 @@ readmnc(file)
 Object of class \code{nifti}
 }
 \description{
-This function calls \code{mnc2nii} 
-to convert MNC files to NIfTI, then reads it in using 
-\code{\link{readnii}}
+This function calls \code{\link{mnc2nii}}
+to convert MNC files to NIfTI, then reads it in using
+\code{\link[neurobase]{readnii}}
 }

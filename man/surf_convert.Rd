@@ -4,7 +4,7 @@
 \alias{surf_convert}
 \title{Convert Surface Data to ASCII}
 \usage{
-surf_convert(file, outfile = NULL)
+surf_convert(file, outfile = NULL, ...)
 }
 \arguments{
 \item{file}{(character) input filename of curvature measure}
