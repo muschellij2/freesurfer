@@ -4,7 +4,7 @@
 \alias{run_check_fs_cmd}
 \title{Run and Check a Freesurfer Command}
 \usage{
-run_check_fs_cmd(cmd, outfile, verbose = TRUE)
+run_check_fs_cmd(cmd, outfile, verbose = TRUE, ...)
 }
 \arguments{
 \item{cmd}{Command to be run}
@@ -12,6 +12,8 @@ run_check_fs_cmd(cmd, outfile, verbose = TRUE)
 \item{outfile}{Output file to be produced}
 
 \item{verbose}{print diagnostic messages}
+
+\item{...}{Additional arguments to pass to \code{\link{system}}}
 }
 \value{
 Invisible NULL

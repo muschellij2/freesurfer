@@ -12,7 +12,7 @@ mri_info(file, ...)
 \item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
-Result of \code{fs_cmd}, which type depends on 
+Result of \code{fs_cmd}, which type depends on
 arguments to \code{...}
 }
 \description{
@@ -20,7 +20,7 @@ This calls Freesurfer's \code{mri_info}
 }
 \examples{
 if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)){
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
+   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
    mri_info(img)
 }
 }

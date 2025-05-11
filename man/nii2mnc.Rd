@@ -4,23 +4,25 @@
 \alias{nii2mnc}
 \title{Convert NIfTI to MNC}
 \usage{
-nii2mnc(file, outfile = NULL)
+nii2mnc(file, outfile = NULL, ...)
 }
 \arguments{
 \item{file}{(character) input filename}
 
 \item{outfile}{(character) output filename}
+
+\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
 Character filename of output
 }
 \description{
-This function calls \code{nii2mnc} 
+This function calls \code{nii2mnc}
 to convert NIfTI to MNC files
 }
 \examples{
 if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
+   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
    mnc = nii2mnc(img)
    img_file = mnc2nii(mnc)
 }

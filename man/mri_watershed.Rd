@@ -21,13 +21,13 @@ mri_watershed(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 Character or nifti depending on \code{retimg}
 }
 \description{
-This function calls \code{mri_watershed} to extract a brain 
+This function calls \code{mri_watershed} to extract a brain
 from an image, usually for skull stripping.
 }
 \examples{
 \dontrun{
 if (have_fs()){
     mri_watershed("/path/to/T1.nii.gz")
-} 
-}  
+}
+}
 }

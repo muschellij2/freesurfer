@@ -10,6 +10,8 @@ surf_convert(file, outfile = NULL)
 \item{file}{(character) input filename of curvature measure}
 
 \item{outfile}{(character) output filename (if wanted to be saved)}
+
+\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
 \code{data.frame}
