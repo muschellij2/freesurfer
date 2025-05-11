@@ -21,7 +21,8 @@ mris_convert = function(
   outfile = NULL,
   ext = ".asc",
   opts = "",
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 ) {
   ######################################################
   # Making output file if not specified
