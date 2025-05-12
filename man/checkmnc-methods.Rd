@@ -23,7 +23,7 @@ ensure_mnc(file, ...)
 \arguments{
 \item{file}{character or \code{nifti} object}
 
-\item{...}{options passed to \code{\link{checkimg}}}
+\item{...}{options passed to \code{\link[neurobase]{checkimg}}}
 }
 \value{
 Character filename of mnc image

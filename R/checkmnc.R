@@ -7,7 +7,7 @@
 #' 
 #' @title Force object to filename with .mnc extension
 #' @param file character or \code{nifti} object
-#' @param ... options passed to \code{\link{checkimg}}
+#' @param ... options passed to \code{\link[neurobase]{checkimg}}
 #' @return Character filename of mnc image
 #' 
 #' @export

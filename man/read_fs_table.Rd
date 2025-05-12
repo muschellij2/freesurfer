@@ -10,7 +10,7 @@ read_fs_table(file, sep = NULL, stringsAsFactors = FALSE, header = TRUE, ...)
 \item{file}{(character path) filename of text file}
 
 \item{sep}{separator to override attribute of file, to 
-pass to \code{\link{read.table}}.}
+pass to \code{\link[utils]{read.table}}.}
 
 \item{stringsAsFactors}{(logical) passed to \code{\link{read.table}}}
 
