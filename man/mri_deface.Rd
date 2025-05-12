@@ -16,7 +16,7 @@ mri_deface(file, brain_template = NULL, face_template = NULL, ...)
 \item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
-Result of \code{fs_cmd}, which type depends on 
+Result of \code{fs_cmd}, which type depends on
 arguments to \code{...}
 }
 \description{
@@ -39,7 +39,7 @@ if (have_fs()){
       noface = mri_deface(x)
    } else {
       url = paste0(
-         "https://raw.githubusercontent.com/muschellij2/kirby21.t1/master/", 
+         "https://raw.githubusercontent.com/muschellij2/kirby21.t1/master/",
          "inst/visit_1/113/113-01-T1.nii.gz")
       x = tempfile(fileext = ".nii.gz")
       out = try({

@@ -1,5 +1,5 @@
 #' @title Use Freesurfers MRI Watershed Algorithm
-#' @description This function calls \code{mri_watershed} to extract a brain 
+#' @description This function calls \code{mri_watershed} to extract a brain
 #' from an image, usually for skull stripping.
 #' @param file (character) input filename
 #' @param outfile (character) output filename
@@ -11,30 +11,27 @@
 #' @examples \dontrun{
 #' if (have_fs()){
 #'     mri_watershed("/path/to/T1.nii.gz")
-#' } 
-#' }  
-mri_watershed = function(file, 
-                         outfile = NULL,                  
-                         retimg = TRUE,
-                         opts="", 
-                         ...){
+#' }
+#' }
+mri_watershed = function(file, outfile = NULL, retimg = TRUE, opts = "", ...) {
   res = fs_cmd(
     func = "mri_watershed",
-         file = file,
-         outfile = outfile,
-         frontopts = opts,
-         retimg = retimg,
-         samefile = FALSE,
-         ...)
+    file = file,
+    outfile = outfile,
+    frontopts = opts,
+    retimg = retimg,
+    samefile = FALSE,
+    ...
+  )
   return(res)
 }
 
 
 #' @title MRI Watershed Help
-#' @description This calls Freesurfer's \code{mri_watershed} help 
+#' @description This calls Freesurfer's \code{mri_watershed} help
 #'
 #' @return Result of \code{fs_help}
 #' @export
-mri_watershed.help = function(){
+mri_watershed.help = function() {
   fs_help(func_name = "mri_watershed")
 }

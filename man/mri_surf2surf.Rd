@@ -2,7 +2,7 @@
 % Please edit documentation in R/mri_surf2surf.R
 \name{mri_surf2surf}
 \alias{mri_surf2surf}
-\title{Use Freesurfers \code{mri_surf2surf} function to 
+\title{Use Freesurfers \code{mri_surf2surf} function to
 resamples one cortical surface onto another}
 \usage{
 mri_surf2surf(
@@ -15,7 +15,8 @@ mri_surf2surf(
   sval = c("thickness"),
   subj_dir = NULL,
   opts = "",
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -41,22 +42,24 @@ the \code{SUBJECTS_DIR} back correctly after the error}
 \item{opts}{(character) additional options to \code{mri_surf2surf}}
 
 \item{verbose}{(logical) print diagnostic messages}
+
+\item{...}{Additional arguments to pass to \code{\link{system}}}
 }
 \value{
 Name of output file
 }
 \description{
-This function calls Freesurfer \code{mri_surf2surf} to 
+This function calls Freesurfer \code{mri_surf2surf} to
 resample one cortical surface onto another
 }
 \examples{
 if (have_fs()) {
-   out = mri_surf2surf( 
+   out = mri_surf2surf(
    subject = 'bert',
-   target_subject = 'fsaverage', 
-   trg_type  = 'curv', 
-   src_type  = 'curv', 
+   target_subject = 'fsaverage',
+   trg_type  = 'curv',
+   src_type  = 'curv',
    hemi = "rh",
    sval = "thickness")
-} 
+}
 }

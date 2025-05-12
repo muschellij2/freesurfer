@@ -21,13 +21,13 @@ nu_correct(file, mask = NULL, opts = "", verbose = TRUE, ...)
 Object of class nifti depending on \code{retimg}
 }
 \description{
-This function calls \code{nu_correct} 
+This function calls \code{nu_correct}
 to correct for non-uniformity
 }
 \examples{
 \dontrun{
 if (have_fs()){
     nu_correct("/path/to/T1.nii.gz")
-} 
-} 
+}
+}
 }

@@ -4,12 +4,14 @@
 \alias{surf_convert}
 \title{Convert Surface Data to ASCII}
 \usage{
-surf_convert(file, outfile = NULL)
+surf_convert(file, outfile = NULL, ...)
 }
 \arguments{
 \item{file}{(character) input filename of curvature measure}
 
 \item{outfile}{(character) output filename (if wanted to be saved)}
+
+\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
 \code{data.frame}

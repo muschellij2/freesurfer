@@ -31,7 +31,7 @@ fs_cmd(
 \item{retimg}{(logical) return image of class nifti}
 
 \item{reorient}{(logical) If retimg, should file be reoriented when read in?
-Passed to \code{\link{readnii}}.}
+Passed to \code{\link[neurobase]{readnii}}.}
 
 \item{intern}{(logical) to be passed to \code{\link{system}}}
 
@@ -41,12 +41,12 @@ Passed to \code{\link{readnii}}.}
 
 \item{samefile}{(logical) is the output the same file?}
 
-\item{opts_after_outfile}{(logical) should \code{opts} come after 
+\item{opts_after_outfile}{(logical) should \code{opts} come after
 the \code{outfile} in the Freesurfer command?}
 
 \item{frontopts}{(character) options/character to put in before filename}
 
-\item{add_ext}{(logical) should the extension be added to 
+\item{add_ext}{(logical) should the extension be added to
 the \code{outfile}}
 
 \item{bin_app}{(character) appendix to add to \code{\link{get_fs}}}

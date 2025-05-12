@@ -5,18 +5,20 @@
 \alias{readmgh}
 \title{Read MGH or MGZ File}
 \usage{
-readmgz(file)
+readmgz(file, ...)
 
-readmgh(file)
+readmgh(file, ...)
 }
 \arguments{
 \item{file}{(character) input filename}
+
+\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
 Object of class \code{nifti}
 }
 \description{
-This function calls \code{mri_convert} 
-to convert MGH/MGZ files to NIfTI, then reads it in using 
-\code{\link{readnii}}
+This function calls \code{mri_convert}
+to convert MGH/MGZ files to NIfTI, then reads it in using
+\code{\link[neurobase]{readnii}}
 }

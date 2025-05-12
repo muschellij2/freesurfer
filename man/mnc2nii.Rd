@@ -4,23 +4,25 @@
 \alias{mnc2nii}
 \title{Convert MNC to NIfTI}
 \usage{
-mnc2nii(file, outfile = NULL)
+mnc2nii(file, outfile = NULL, ...)
 }
 \arguments{
 \item{file}{(character) input filename}
 
 \item{outfile}{(character) output filename}
+
+\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
 Character filename of output
 }
 \description{
-This function calls \code{mnc2nii} 
+This function calls \code{mnc2nii}
 to convert MNC files to NIfTI
 }
 \examples{
 if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
+   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
    mnc = nii2mnc(img)
    img_file = mnc2nii(mnc, outfile = tempfile(fileext = ".nii"))
    neurobase::readnii(img_file, verbose = TRUE)

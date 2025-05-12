@@ -5,15 +5,15 @@
 #' @param outfile (character) resultant image name (optional)
 #' @param retimg (logical) return image of class nifti
 #' @param reorient (logical) If retimg, should file be reoriented when read in?
-#' Passed to \code{\link{readnii}}.
+#' Passed to \code{\link[neurobase]{readnii}}.
 #' @param intern (logical) to be passed to \code{\link{system}}
-#' @param opts (character) operations to be passed to \code{func} 
+#' @param opts (character) operations to be passed to \code{func}
 #' @param verbose (logical) print out command before running
 #' @param samefile (logical) is the output the same file?
-#' @param opts_after_outfile (logical) should \code{opts} come after 
+#' @param opts_after_outfile (logical) should \code{opts} come after
 #' the \code{outfile} in the Freesurfer command?
 #' @param frontopts (character) options/character to put in before filename
-#' @param add_ext (logical) should the extension be added to 
+#' @param add_ext (logical) should the extension be added to
 #' the \code{outfile}
 #' @param bin_app (character) appendix to add to \code{\link{get_fs}}
 #' @param ... additional arguments passed to \code{\link{system}}.
@@ -24,23 +24,23 @@
 fs_cmd = function(
   func,
   file,
-  outfile=NULL, 
+  outfile = NULL,
   retimg = TRUE,
   reorient = FALSE,
-  intern = FALSE, 
-  opts = "", 
+  intern = FALSE,
+  opts = "",
   verbose = TRUE,
   samefile = FALSE,
   opts_after_outfile = FALSE,
   frontopts = "",
   add_ext = TRUE,
   bin_app = "bin",
-  ...){
-  
+  ...
+) {
   cmd = get_fs(bin_app = bin_app)
   file = checkimg(file, ...)
   # file = path.expand(file)
-  
+
   ##########################
   # Add frontopts
   ##########################
@@ -50,20 +50,19 @@ fs_cmd = function(
   s = paste(s, sprintf('"%s"', file))
   cmd <- paste0(cmd, s)
   # cmd <- paste0(cmd, sprintf('%s "%s"', func, file))
-  
+
   no.outfile = is.null(outfile)
   if (no.outfile & samefile) {
-    outfile = ""  
+    outfile = ""
   }
   ext = fs_imgext()
-  outfile = check_outfile(outfile = outfile, 
-                          retimg = retimg, fileext = ext)
+  outfile = check_outfile(outfile = outfile, retimg = retimg, fileext = ext)
   if (add_ext) {
     outfile = nii.stub(outfile)
-    outfile = paste0(outfile, ext)  
+    outfile = paste0(outfile, ext)
   }
-  
-  if ( !(no.outfile & samefile) ) {
+
+  if (!(no.outfile & samefile)) {
     if (!opts_after_outfile) {
       cmd <- paste(cmd, sprintf(' %s "%s";', opts, outfile))
     } else {
@@ -80,7 +79,7 @@ fs_cmd = function(
     if (samefile) outfile = file
     img = readnii(outfile, reorient = reorient)
     return(img)
-  } 
-  
-  return(res)  
+  }
+
+  return(res)
 }

@@ -1,5 +1,5 @@
 #' @title Use Freesurfers Non-Uniformity Correction
-#' @description This function calls \code{nu_correct} 
+#' @description This function calls \code{nu_correct}
 #' to correct for non-uniformity
 #' @param file (character) input filename
 #' @param mask (character or nifti) Mask to use for correction.
@@ -7,20 +7,20 @@
 #' @param verbose print diagnostic messages
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Object of class nifti depending on \code{retimg}
-#' @importFrom neurobase parse_img_ext
+#' @importFrom neurobase parse_img_ext readnii
 #' @export
 #' @examples \dontrun{
 #' if (have_fs()){
 #'     nu_correct("/path/to/T1.nii.gz")
-#' } 
-#' } 
+#' }
+#' }
 nu_correct = function(
-  file, 
+  file,
   mask = NULL,
-  opts = "", 
+  opts = "",
   verbose = TRUE,
-  ...){
-  
+  ...
+) {
   file = checkimg(file)
   ext = neurobase::parse_img_ext(file)
   infile = file
@@ -32,13 +32,13 @@ nu_correct = function(
   outfile = tempfile(fileext = ".nii")
   # no.outfile = TRUE
   # }
-  
+
   out_ext = neurobase::parse_img_ext(outfile)
-  if ( !(ext %in% c("nii", "mnc"))) {
+  if (!(ext %in% c("nii", "mnc"))) {
     stop("outfile extension must be nii/nii.gz or mnc")
   }
   tmpfile = tempfile(fileext = ".mnc")
-  
+
   opts = trimws(opts)
   if (!is.null(mask)) {
     mask = ensure_mnc(mask)
@@ -57,7 +57,8 @@ nu_correct = function(
     add_ext = FALSE,
     verbose = verbose,
     bin_app = "mni/bin",
-    ...)
+    ...
+  )
   if (out_ext == "nii") {
     outfile = mnc2nii(tmpfile, outfile = outfile)
     outfile = readnii(outfile)
@@ -69,10 +70,10 @@ nu_correct = function(
 
 
 #' @title Non-Uniformity Correction Help
-#' @description This calls Freesurfer's \code{nu_correct} help 
+#' @description This calls Freesurfer's \code{nu_correct} help
 #'
 #' @return Result of \code{fs_help}
 #' @export
-nu_correct.help = function(){
+nu_correct.help = function() {
   fs_help(func_name = "nu_correct", help.arg = "-help", bin_app = "mni/bin")
 }
