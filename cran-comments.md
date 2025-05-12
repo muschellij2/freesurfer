@@ -4,4 +4,5 @@
 
 * This is a new release.
 ---
-New unarchiving push since new neurobase is updated.
+
+Fixing the links and updated docs.
