@@ -5,7 +5,7 @@
 #' @param call Should the calling function be included? Default TRUE
 #' @keywords internal
 #' @noRd
-fs_abort <- function(msg, cmd = NULL, details = NULL, call = TRUE) {
+fs_abort <- function(msg, cmd = NULL, details = NULL, .envir = parent.frame()) {
   error_msgs <- c("x" = msg)
 
   if (!is.null(cmd)) {
@@ -18,7 +18,7 @@ fs_abort <- function(msg, cmd = NULL, details = NULL, call = TRUE) {
 
   cli::cli_abort(
     error_msgs,
-    call = if (call) parent.frame() else NULL
+    .envir = .envir
   )
 }
 
@@ -28,7 +28,7 @@ fs_abort <- function(msg, cmd = NULL, details = NULL, call = TRUE) {
 #' @param details Additional details (optional)
 #' @keywords internal
 #' @noRd
-fs_warn <- function(msg, cmd = NULL, details = NULL) {
+fs_warn <- function(msg, cmd = NULL, details = NULL, .envir = parent.frame()) {
   warning_msgs <- c("!" = msg)
 
   if (!is.null(cmd)) {
@@ -39,7 +39,7 @@ fs_warn <- function(msg, cmd = NULL, details = NULL) {
     warning_msgs <- c(warning_msgs, "i" = details)
   }
 
-  cli::cli_warn(warning_msgs)
+  fs_warn(warning_msgs, .envir = .envir)
 }
 
 #' FreeSurfer-specific informational message
@@ -47,12 +47,12 @@ fs_warn <- function(msg, cmd = NULL, details = NULL) {
 #' @param details Additional details (optional)
 #' @keywords internal
 #' @noRd
-fs_inform <- function(msg, details = NULL) {
+fs_inform <- function(msg, details = NULL, .envir = parent.frame()) {
   info_msgs <- c("v" = msg)
 
   if (!is.null(details)) {
     info_msgs <- c(info_msgs, "i" = details)
   }
 
-  cli::cli_inform(info_msgs)
+  cli::cli_inform(info_msgs, .envir = .envir)
 }

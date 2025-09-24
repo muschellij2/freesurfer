@@ -1,6 +1,6 @@
 mock_mnc2nii <- function(input, outfile) {
   if (!file.exists(input)) {
-    stop("Input file does not exist for mnc2nii")
+    fs_abort("Input file does not exist for mnc2nii")
   }
   writeLines("Mock NIfTI data", outfile)
 }
@@ -45,7 +45,7 @@ test_that("handles mnc2nii errors", {
 
   # Mock a failure in mnc2nii
   mock_mnc2nii_fail <- function(input, outfile) {
-    stop("mnc2nii failed")
+    fs_abort("mnc2nii failed")
   }
 
   local_mocked_bindings(
@@ -67,7 +67,7 @@ test_that("handles readnii errors", {
 
   # Mock a failure in readnii
   mock_readnii_fail <- function(file) {
-    stop("readnii failed")
+    fs_abort("readnii failed")
   }
 
   local_mocked_bindings(

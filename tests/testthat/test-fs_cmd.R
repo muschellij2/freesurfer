@@ -145,7 +145,7 @@ test_that("errors when outfile or input paths are invalid", {
   local_mocked_bindings(
     checkimg = function(file) temp_file,
     check_outfile = function(outfile, retimg, fileext) {
-      stop("Invalid output file path")
+      fs_abort("Invalid output file path")
     },
     get_fs = function(bin_app) "freesurfer_bin"
   )

@@ -37,7 +37,7 @@ test_that("read_mgz handles mri_convert errors", {
 
   # Mock a failure in mri_convert
   mock_mri_convert_fail <- function(input, output, ...) {
-    stop("mri_convert failed")
+    fs_abort("mri_convert failed")
   }
 
   local_mocked_bindings(
@@ -61,7 +61,7 @@ test_that("read_mgz handles readnii errors", {
     temp_file = withr::local_tempfile,
     mri_convert = mock_mri_convert,
     readnii = function(file) {
-      stop("readnii failed")
+      fs_abort("readnii failed")
     }
   )
 

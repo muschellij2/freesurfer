@@ -39,7 +39,7 @@ get_fs = function(bin_app = c("bin", "mni/bin")) {
 
   # Check license
   if (!get_fs_license(simplify = FALSE)$exists && get_fs_verbosity()) {
-    cli::cli_warn(
+    fs_warn(
       "Freesurfer is found, but no license file ({.path license.txt} or {.path .license}) found!"
     )
   }

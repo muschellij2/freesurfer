@@ -12,10 +12,10 @@ check_fs_result = function(res, fe_before, fe_after) {
     cli::cli_abort("Command Failed, no output produced!")
   }
   if ((length(res) > 1 || res == 0) & !fe_after) {
-    cli::cli_warn("Command assumed passed, but no output produced")
+    fs_warn("Command assumed passed, but no output produced")
   }
   if ((length(res) == 1 && res != 0) & fe_after & fe_before) {
-    cli::cli_warn(
+    fs_warn(
       "Command had non-zero exit status (probably failed), 
       outfile exists but existed before command was run. 
       Please check output."
@@ -23,7 +23,7 @@ check_fs_result = function(res, fe_before, fe_after) {
   }
 
   if ((length(res) == 1 && res != 0) & fe_after & !fe_before) {
-    cli::cli_warn(
+    fs_warn(
       "Command had non-zero exit status (probably failed), 
       outfile exists and did {.strong not} before command was run. 
       Please check output."

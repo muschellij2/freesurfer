@@ -77,7 +77,7 @@ fs_cmd = function(
   # Warn if outfile and file are the same to prevent accidental overwrite
   if (!is.null(outfile)) {
     if (normalizePath(file) == normalizePath(outfile)) {
-      cli::cli_warn(
+      fs_warn(
         "Input file and output file are the same. This will overwrite the input file."
       )
     }

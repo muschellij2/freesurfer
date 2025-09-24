@@ -126,7 +126,7 @@ test_that("fs_help does not crash with invalid try_fs_cmd response", {
   testthat::local_mocked_bindings(
     get_fs = function(...) "/mock/freesurfer/",
     try_fs_cmd = function(cmd, intern) {
-      stop("Command not found")
+      fs_abort("Command not found")
     }
   )
 

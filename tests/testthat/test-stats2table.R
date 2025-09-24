@@ -318,7 +318,7 @@ test_that("stats2table handles `run_check_fs_cmd` failure", {
     run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
       # Custom mock for this test
       # Simulate an error from the system command
-      stop("FreeSurfer command failed!")
+      fs_abort("FreeSurfer command failed!")
     },
     temp_file = function(fileext = "") {
       tempfile(fileext = fileext)

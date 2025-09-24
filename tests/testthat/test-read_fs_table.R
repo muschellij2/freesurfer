@@ -97,7 +97,7 @@ test_that("respects additional arguments", {
 test_that("with mocked check_path validates input file", {
   local_mocked_bindings(
     check_path = function(...) {
-      stop("Mocked check_path triggered")
+      fs_abort("Mocked check_path triggered")
     }
   )
   expect_error(

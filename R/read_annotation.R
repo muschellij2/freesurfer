@@ -43,7 +43,7 @@ read_annotation <- function(path, verbose = get_fs_verbosity()) {
   if (bool == 0 || length(bool) == 0 || is.null(bool)) {
     colortable <- data.frame(matrix(NA, ncol = 6, nrow = 0))
     names(colortable) <- c("label", "R", "G", "B", "A", "code")
-    if (verbose) cli::cli_warn('No colortable in file')
+    if (verbose) fs_warn('No colortable in file')
   } else if (bool == 1) {
     # Read colortable
     numEntries <- readBin(ff, integer(), endian = "big")
@@ -55,7 +55,7 @@ read_annotation <- function(path, verbose = get_fs_verbosity()) {
 
       if (verbose) {
         if (version != 2) {
-          cli::cli_warn(
+          fs_warn(
             'Reading from version {.code {version}}, there may be issues.'
           )
         } else {

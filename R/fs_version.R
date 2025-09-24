@@ -11,7 +11,7 @@ fs_version = function() {
   fsdir = fs_dir()
   version_file = file.path(fsdir, "build-stamp.txt")
   if (!file.exists(version_file)) {
-    cli::cli_warn("No version file exists as {.path {version_file}}.")
+    fs_warn("No version file exists as {.path {version_file}}.")
     version = ""
   } else {
     version = readLines(version_file)

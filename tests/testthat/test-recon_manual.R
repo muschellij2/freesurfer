@@ -90,7 +90,7 @@ test_that("recon_con3 passes correct options to reconner", {
 
 test_that("Error is thrown if check_path fails in recon_con1", {
   local_mocked_bindings(
-    check_path = function(filepath) stop("Invalid path!")
+    check_path = function(filepath) fs_abort("Invalid path!")
   )
 
   expect_error(

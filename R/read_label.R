@@ -26,7 +26,7 @@ read_fs_label = function(file) {
   n_lines = as.numeric(header[2])
   header = header[-c(1:2)]
   if (length(header) != n_lines) {
-    cli::cli_warn("Number of lines do not match file specification! ")
+    fs_warn("Number of lines do not match file specification! ")
   }
   ss = strsplit(header, " ")
   ss = lapply(ss, function(x) {
@@ -34,7 +34,7 @@ read_fs_label = function(file) {
   })
   ss = do.call("rbind", ss)
   if (is.null(ss)) {
-    stop("The file is no valid label content.")
+    fs_abort("The file is no valid label content.")
   }
   colnames(ss) = c("vertex_num", "r_coord", "a_coord", "s_coord", "value")
   ss = data.frame(ss, stringsAsFactors = FALSE)
