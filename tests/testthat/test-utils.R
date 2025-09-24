@@ -154,25 +154,25 @@ test_that("check_outfile handles custom file extensions for tempfiles", {
 })
 
 
-test_that("try_cmd executes valid system commands", {
+test_that("try_fs_cmd executes valid system commands", {
   # Test a simple valid command
-  result <- try_cmd("echo 'Hello, World!'", intern = TRUE)
+  result <- try_fs_cmd("echo 'Hello, World!'", intern = TRUE)
   expect_type(result, "character")
   expect_equal(result, "Hello, World!")
 })
 
 
-test_that("try_cmd gracefully handles invalid commands", {
+test_that("try_fs_cmd gracefully handles invalid commands", {
   # Test an invalid command and expect an error with cli_abort
   expect_error(
-    try_cmd("nonexistent_command", intern = TRUE),
+    try_fs_cmd("nonexistent_command", intern = TRUE),
     regexp = "Error while running system command"
   )
 })
 
-test_that("try_cmd works with additional arguments passed via `...`", {
+test_that("try_fs_cmd works with additional arguments passed via `...`", {
   # Test using `wait = TRUE` or other arguments
-  result <- try_cmd("echo 'Wait Test'", wait = TRUE, intern = TRUE)
+  result <- try_fs_cmd("echo 'Wait Test'", wait = TRUE, intern = TRUE)
   expect_type(result, "character")
   expect_equal(result, "Wait Test")
 })

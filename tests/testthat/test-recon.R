@@ -7,7 +7,7 @@ test_that("recon function works for valid input", {
   # Mock bindings
   local_mocked_bindings(
     get_fs = mock_get_fs,
-    try_cmd = mock_try_cmd,
+    try_fs_cmd = mock_try_fs_cmd,
     checknii = mock_checknii,
     get_fs_verbosity = function() FALSE
   )
@@ -34,7 +34,7 @@ test_that("recon warns when subj dir exists", {
 
   local_mocked_bindings(
     get_fs = mock_get_fs,
-    try_cmd = mock_try_cmd,
+    try_fs_cmd = mock_try_fs_cmd,
     checknii = mock_checknii,
     get_fs_verbosity = function() FALSE
   )
@@ -60,7 +60,7 @@ test_that("recon handles missing subjid and generates correctly", {
 
   local_mocked_bindings(
     get_fs = mock_get_fs,
-    try_cmd = mock_try_cmd,
+    try_fs_cmd = mock_try_fs_cmd,
     checknii = mock_checknii,
     get_fs_verbosity = function() FALSE
   )
@@ -83,7 +83,7 @@ test_that("recon handles invalid file paths gracefully", {
 
   local_mocked_bindings(
     get_fs = mock_get_fs,
-    try_cmd = mock_try_cmd,
+    try_fs_cmd = mock_try_fs_cmd,
     checknii = mock_checknii,
     get_fs_verbosity = function() FALSE
   )
@@ -106,7 +106,7 @@ test_that("recon handles all parameters and edge cases correctly", {
 
   local_mocked_bindings(
     get_fs = mock_get_fs,
-    try_cmd = mock_try_cmd,
+    try_fs_cmd = mock_try_fs_cmd,
     checknii = mock_checknii,
     get_fs_verbosity = function() FALSE
   )

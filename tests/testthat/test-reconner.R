@@ -12,7 +12,7 @@ test_that("Warning is raised if subject directory exists and force is FALSE", {
 
   local_mocked_bindings(
     fs_subj_dir = function() outdir,
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -27,7 +27,7 @@ test_that("Warning is raised if subject directory exists and force is FALSE", {
 
 test_that("Verbose outputs command when verbose is TRUE", {
   local_mocked_bindings(
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -44,7 +44,7 @@ test_that("Verbose outputs command when verbose is TRUE", {
 
 test_that("Force flag is added when force = TRUE", {
   local_mocked_bindings(
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -59,7 +59,7 @@ test_that("Force flag is added when force = TRUE", {
 
 test_that("Options are correctly added to the command", {
   local_mocked_bindings(
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -75,7 +75,7 @@ test_that("Options are correctly added to the command", {
 test_that("Subject ID is auto-generated from the input file if subjid is NULL", {
   local_mocked_bindings(
     nii.stub = function(filepath, bn) gsub("\\.nii$", "", basename(filepath)),
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -88,7 +88,7 @@ test_that("Subject ID is auto-generated from the input file if subjid is NULL", 
 
 test_that("Subject directory path updates with custom output directory", {
   local_mocked_bindings(
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -102,7 +102,7 @@ test_that("Subject directory path updates with custom output directory", {
 
 test_that("Command runs without outfile if infile is not specified", {
   local_mocked_bindings(
-    try_cmd = function(cmd) cmd
+    try_fs_cmd = function(cmd) cmd
   )
 
   cmd <- reconner(
@@ -114,7 +114,7 @@ test_that("Command runs without outfile if infile is not specified", {
 test_that("checknii is called and used for infile processing", {
   local_mocked_bindings(
     checknii = function(filepath) "processed_file.nii",
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 
@@ -128,7 +128,7 @@ test_that("checknii is called and used for infile processing", {
 test_that("get_fs_verbosity() controls default verbosity", {
   local_mocked_bindings(
     get_fs_verbosity = function() FALSE,
-    try_cmd = function(cmd) cmd,
+    try_fs_cmd = function(cmd) cmd,
     check_path = function(...) TRUE
   )
 

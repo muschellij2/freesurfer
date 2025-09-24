@@ -6,7 +6,7 @@ test_that("fs_help returns correct help output for a valid Freesurfer function",
 
   testthat::local_mocked_bindings(
     get_fs = function(...) "/mock/freesurfer/",
-    try_cmd = function(...) {
+    try_fs_cmd = function(...) {
       expect_equal(..., "/mock/freesurfer/mri_watershed --help ")
       return(expected_output)
     }
@@ -21,7 +21,7 @@ test_that("fs_help returns correct help output for a valid Freesurfer function",
 test_that("fs_help supports extra arguments", {
   testthat::local_mocked_bindings(
     get_fs = function(...) "/mock/freesurfer/",
-    try_cmd = function(cmd, intern) {
+    try_fs_cmd = function(cmd, intern) {
       expect_equal(cmd, "/mock/freesurfer/mri_convert --help --debug")
       expect_true(intern)
       return(c("Usage: mri_convert [options]", "--debug: Enable debug mode"))
@@ -66,7 +66,7 @@ test_that("returns actual help from fs", {
 test_that("fs_help prints output and returns it invisibly", {
   testthat::local_mocked_bindings(
     get_fs = function(...) "/mock/freesurfer/",
-    try_cmd = function(cmd, intern) {
+    try_fs_cmd = function(cmd, intern) {
       return(c("Usage: mri_info [options]", "Example: mri_info input.mgz"))
     }
   )
@@ -84,7 +84,7 @@ test_that("fs_help prints output and returns it invisibly", {
 test_that("fs_help handles missing Freesurfer path", {
   testthat::local_mocked_bindings(
     get_fs = function(...) "",
-    try_cmd = function(cmd, intern) {
+    try_fs_cmd = function(cmd, intern) {
       expect_equal(cmd, "mri_annotation2label --help --verbose")
       return(c("Usage: mri_annotation2label [options]", "Verbose mode enabled"))
     }
@@ -104,7 +104,7 @@ test_that("fs_help handles missing Freesurfer path", {
 test_that("fs_help constructs correct command using custom Freesurfer path", {
   testthat::local_mocked_bindings(
     get_fs = function(...) "/custom/path/to/freesurfer/",
-    try_cmd = function(cmd, intern) {
+    try_fs_cmd = function(cmd, intern) {
       expect_equal(
         cmd,
         "/custom/path/to/freesurfer/mri_vol2surf --help --verbose"
@@ -122,10 +122,10 @@ test_that("fs_help constructs correct command using custom Freesurfer path", {
   expect_equal(result, expected_output)
 })
 
-test_that("fs_help does not crash with invalid try_cmd response", {
+test_that("fs_help does not crash with invalid try_fs_cmd response", {
   testthat::local_mocked_bindings(
     get_fs = function(...) "/mock/freesurfer/",
-    try_cmd = function(cmd, intern) {
+    try_fs_cmd = function(cmd, intern) {
       stop("Command not found")
     }
   )

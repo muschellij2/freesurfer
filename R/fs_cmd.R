@@ -117,7 +117,7 @@ fs_cmd = function(
     cli::cli_text("Freesurfer command: {.code {cmd}}")
   }
 
-  res <- try_cmd(cmd, intern = intern)
+  res <- try_fs_cmd(cmd, intern = intern)
 
   # Process output if retimg is TRUE
   if (retimg) {

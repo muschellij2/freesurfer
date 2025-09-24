@@ -46,5 +46,5 @@ tracker <- function(
   if (verbose) {
     cli::cli_code(cmd)
   }
-  try_cmd(cmd)
+  try_fs_cmd(cmd)
 }

@@ -4,7 +4,7 @@
 
 mock_get_fs <- function() "mock_fs/"
 
-mock_try_cmd <- function(cmd) {
+mock_try_fs_cmd <- function(cmd) {
   # Simulate system commands, errors, or results
   if (grepl("error", cmd)) {
     stop("Command error")

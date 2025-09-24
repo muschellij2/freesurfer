@@ -8,7 +8,7 @@ test_that("constructs the command correctly for valid inputs", {
     check_path = function(file, error) TRUE,
     check_outfile = function(outfile, retimg, fileext) temp_outfile,
     get_fs = function(bin_app) "freesurfer_bin",
-    try_cmd = function(cmd, intern) "Command Executed",
+    try_fs_cmd = function(cmd, intern) "Command Executed",
     readnii = function(file, reorient) "Image Content"
   )
 
@@ -34,7 +34,7 @@ test_that("warns when input and output file paths are identical", {
     checkimg = function(file) temp_file,
     check_path = function(file, error = FALSE) TRUE,
     get_fs = function(bin_app) "freesurfer_bin",
-    try_cmd = function(cmd, intern) NULL
+    try_fs_cmd = function(cmd, intern) NULL
   )
 
   # Expect warning when input and output files are the same
@@ -60,7 +60,7 @@ test_that("constructs commands with optional arguments", {
     checkimg = function(file) temp_file,
     check_fs_result = function(file) temp_file,
     get_fs = function(bin_app) "freesurfer_bin",
-    try_cmd = function(cmd, intern) cmd
+    try_fs_cmd = function(cmd, intern) cmd
   )
 
   opts = "-opt1 -opt2"
@@ -99,7 +99,7 @@ test_that("handles missing output files gracefully", {
     checkimg = function(file) temp_file,
     check_path = function(file, error) TRUE,
     get_fs = function(bin_app) "freesurfer_bin",
-    try_cmd = function(cmd, intern) "Command Executed",
+    try_fs_cmd = function(cmd, intern) "Command Executed",
     readnii = function(file, reorient) "Image Content"
   )
 
@@ -124,7 +124,7 @@ test_that("handles retimg = FALSE correctly", {
   local_mocked_bindings(
     checkimg = function(file) temp_file,
     get_fs = function(bin_app) "freesurfer_bin",
-    try_cmd = function(cmd, intern) "Command Executed"
+    try_fs_cmd = function(cmd, intern) "Command Executed"
   )
 
   # Execute with retimg = FALSE
@@ -170,7 +170,7 @@ test_that("respects verbosity settings", {
     checkimg = function(file) temp_file,
     check_path = function(file, error) TRUE,
     get_fs = function(bin_app) "freesurfer_bin",
-    try_cmd = function(cmd, intern) NULL
+    try_fs_cmd = function(cmd, intern) NULL
   )
 
   # Capture output with verbosity enabled

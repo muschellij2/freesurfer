@@ -36,7 +36,7 @@ test_that("run_check_fs_cmd validates the entire workflow", {
 
   # Mock system command
   local_mocked_bindings(
-    try_cmd = function(...) 0
+    try_fs_cmd = function(...) 0
   )
 
   expect_warning(

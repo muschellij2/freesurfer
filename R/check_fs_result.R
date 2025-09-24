@@ -50,7 +50,7 @@ run_check_fs_cmd = function(cmd, outfile, verbose = get_fs_verbosity(), ...) {
   if (verbose) {
     cli::cli_code(cmd)
   }
-  res = try_cmd(cmd, ...)
+  res = try_fs_cmd(cmd, ...)
   fe_after = check_path(outfile, error = FALSE)
 
   check_fs_result(res = res, fe_before = fe_before, fe_after = fe_after)
