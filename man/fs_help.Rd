@@ -24,7 +24,7 @@ This function takes in the function and returns the
 help from Freesurfer for that function
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 fs_help("mri_watershed")
-}
+\dontshow{\}) # examplesIf}
 }

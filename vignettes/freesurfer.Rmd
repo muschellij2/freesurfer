@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE
 )
-
 ```
 
 Freesurfer is a widely-used software package for processing and analyzing anatomical neuroimaging data [@fischl2012freesurfer].
@@ -68,6 +67,11 @@ This function provides useful information about which issues may be present rega
 Ideally all checks should pass with a green tick.
 Any red ticks or warnings should be addressed to ensure smooth use of this package.
 As you can see, there are several things to make sure are in order.
+As a minimun, you should have the  `freesurfer.home` option or `FREESURFER_HOME` variable set.
+If you see a red tick for `freesurfer.home` or `FREESURFER_HOME`, it means that the package cannot find your Freesurfer installation.
+However, as long as this is set and has a green tick, the remaining options are likely set to sensible defaults.
+
+### Setting Up Freesurfer Options
 
 When you're running R from a shell environment, `freesurfer` will automatically use the `FREESURFER_HOME` environment variable (which is typically set during Freesurfer installation) as the path to your Freesurfer directory.
 However, if you're using R through a graphical user interface (GUI) like RStudio, environment variables and paths might not be explicitly exported, meaning `FREESURFER_HOME` might not be set.
@@ -87,13 +91,30 @@ Possible options to set are:
 options(
     freesurfer.home = "/path/to/freesurfer",
     freesurfer.subj_dir = "/path/to/freesurfer/subjects",
+    freesurfer.license = "/path/to/freesurfer/.license",
     freesurfer.output_type = "hdr",
     freesurfer.sh = "/path/to/freesurfer/FreeSurferEnv.sh",
-    freesurfer.mni_path = "/Applications/freesurfer/mni/Library/Perl/Updates/5.12.3"
+    freesurfer.mni_dir = "/Applications/freesurfer/mni/Library/Perl/Updates/5.12.3",
+    freesurfer.verbose = TRUE
+)
+
+# or using environment variables
+Sys.setenv(
+    FREESURFER_HOME = "/path/to/freesurfer",
+    FREESURFER_SUBJ_DIR = "/path/to/freesurfer/subjects",
+    FS_LICENSE = "/path/to/freesurfer/.license",
+    FSF_OUTPUT_FORMAT = "hdr",
+    FREESURFER_SH = "/path/to/freesurfer/FreeSurferEnv.sh",
+    MNI_DIR = "/Applications/freesurfer/mni/Library/Perl/Updates/5.12.3",
+    FREESURFER_VERBOSE = TRUE
 )
 ```
 
+But if you are more comfortable using environment variables, you can also both have user and project specific `.Renviron`, just like `.Rprofile`. 
+You can open these with functions like `usethis::edit_r_environ("user")` and `usethis::edit_r_environ("project)`
+
 Once the options are set, restart your R session, and try another `fs_sitrep()` which should now use the options you have provided.
+The `freesurfer.verbose` option is particularly useful for debugging, as it will print out additional information about the Freesurfer commands being executed.
 
 
 ### Check if Freesurfer is installed
@@ -122,7 +143,7 @@ If it's not explicitly set, it typically defaults to `nii.gz`.
 You can also retrieve the corresponding file extension with `fs_imgext()`.
 
 ```{r fs_output_example}
-get_fs_output()$value
+get_fs_output()
 fs_imgext()
 ```
 

@@ -13,7 +13,7 @@ mri_normalize(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 
 \item{retimg}{(logical) return image of class nifti}
 
-\item{opts}{(character) additional options to \code{mri_normalize}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
@@ -26,8 +26,6 @@ values of the image, with white matter voxels around 110.
 }
 \examples{
 \dontrun{
-if (have_fs()){
-    mri_normalize("/path/to/T1.nii.gz")
-}
+mri_normalize("/path/to/T1.nii.gz")
 }
 }

@@ -20,8 +20,8 @@ with the structure-specific measures.
 Reads an \code{aseg.stats} file from an individual subject
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
  file = file.path(fs_subj_dir(), "bert", "stats", "aseg.stats")
  out = read_aseg_stats(file)
-}
+\dontshow{\}) # examplesIf}
 }

@@ -7,13 +7,11 @@
 #' @return Result of \code{fs_cmd}, which type depends on
 #' arguments to \code{...}
 #' @export
-#' @examples
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)){
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    mri_info(img)
-#' }
+#' @examplesIf have_fs()
+#' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+#' mri_info(img)
 mri_info = function(file, ...) {
-  fs_cmd(func = "mri_info", file = file, samefile = TRUE, ...)
+  fs_cmd(func = "mri_info", file = file, ...)
 }
 
 #' @title MRI information Help

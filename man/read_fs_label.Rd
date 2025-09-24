@@ -23,11 +23,11 @@ read_fs_label(file)
 Reads an \code{label} file from an individual subject
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1.label")
  if (!file.exists(file)) {
  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1_exvivo.label")
  }
  out = read_fs_label(file)
-}
+\dontshow{\}) # examplesIf}
 }

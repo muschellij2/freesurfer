@@ -24,11 +24,11 @@ Imports:
     methods,
     neurobase,
     R.utils,
-    reshape2,
     tools,
+    stats,
     utils
 Suggests:
-    fslr (>= 2.9.2),
+    covr,
     knitr,
     oro.nifti (>= 0.7),
     rgl,
@@ -37,12 +37,11 @@ Suggests:
     withr
 VignetteBuilder: 
     knitr
+Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
 LazyData: true
 LazyLoad: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-SystemRequirements: FSL, Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
-Config/testthat/edition: 3
-Config/testthat/parallel: true
-
+SystemRequirements: FreeSurfer (https://freesurfer.net/)

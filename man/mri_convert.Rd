@@ -11,7 +11,7 @@ mri_convert(file, outfile, opts = "", ...)
 
 \item{outfile}{(character) output filename}
 
-\item{opts}{(character) additional options to \code{mri_convert}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
@@ -22,8 +22,8 @@ Result of \code{system} command
 This function calls \code{mri_convert} to convert an image
 }
 \examples{
-if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-   res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
-}
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+res = mri_convert(img, outfile = temp_file(fileext = ".mgz"))
+\dontshow{\}) # examplesIf}
 }

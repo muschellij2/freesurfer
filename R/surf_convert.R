@@ -6,18 +6,16 @@
 #' @param ... Additional arguments to pass to \code{\link{fs_cmd}}
 #' @return \code{data.frame}
 #' @export
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs()
 #'    fname = file.path(fs_subj_dir(), "bert", "surf", "lh.thickness")
 #'    out = surf_convert(fname)
-#' }
 surf_convert = function(
   file,
   outfile = NULL,
   ...
 ) {
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".dat")
+    outfile = temp_file(fileext = ".dat")
   }
   opts = "--ascii+crsf"
   res = fs_cmd(
@@ -26,8 +24,6 @@ surf_convert = function(
     outfile = outfile,
     frontopts = opts,
     retimg = FALSE,
-    samefile = FALSE,
-    add_ext = FALSE,
     ...
   )
   stopifnot(res == 0)

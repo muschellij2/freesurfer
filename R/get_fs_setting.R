@@ -6,13 +6,15 @@
 #' @param opt_var [character] R option name to check.
 #' @param defaults [character] A vector of default paths to check; used as fallbacks if the environment or options are not set (optional).
 #' @param is_path [logical]. Does the setting point to a path. If `TRUE` the returned `exists` element will be `TRUE`/`FALSE` depending on whether the path exists or not. `
+#' @param simplify [logical] If `TRUE`, returns only the value of the setting; if `FALSE`, returns a list with detailed information about the setting.
 #'
-#' @return A list containing the following components:
+#' @return If `simplify` = `TRUE`, returns a single value, else returns a list containing the following components:
 #' \describe{
 #'   \item{value}{[character] The resolved configuration value (e.g., directory path, file path, or setting).}
 #'   \item{source}{[character] Indicates how the value was determined (in order of search; R option, environment variable, default location).}
 #'   \item{exists}{[logical] Whether the value corresponds to an existing file or path.}
 #' }
+#'
 #'
 #' @seealso [Sys.getenv()], [getOption()], [file.exists()], [file.path()]
 #'
@@ -69,8 +71,8 @@ get_fs_setting <- function(env_var, opt_var, defaults = NULL, is_path = TRUE) {
 
 #' @describeIn get_fs_setting Retrieve the FreeSurfer installation directory
 #' @export
-get_fs_home <- function() {
-  get_fs_setting(
+get_fs_home <- function(simplify = TRUE) {
+  ret <- get_fs_setting(
     "FREESURFER_HOME",
     "freesurfer.home",
     c(
@@ -80,26 +82,39 @@ get_fs_home <- function() {
       "/Applications/freesurfer"
     )
   )
+  if (simplify) {
+    return(ret$value)
+  }
+  ret
 }
 
 #' @describeIn get_fs_setting Retrieve the FreeSurfer license file path
 #' @export
-get_fs_license <- function() {
+get_fs_license <- function(simplify = TRUE) {
   fs_home <- get_fs_home()
-  lp <- file.path(fs_home$value, ".license")
-  if (file.exists(lp)) {
-    return(return_setting(lp, "fs_dir()"))
+
+  ret <- get_fs_setting(
+    "FS_LICENSE",
+    "freesurfer.license",
+    c(
+      file.path(fs_home, ".license"),
+      file.path(fs_home, "license.txt")
+    )
+  )
+
+  if (is.na(ret$value) && !ret$exists) {
+    ret <- return_setting(NA, "No license found.")
   }
-  lp <- file.path(fs_home$value, "license.txt")
-  if (file.exists(lp)) {
-    return(return_setting(lp, "fs_dir()"))
+
+  if (simplify) {
+    return(ret$value)
   }
-  return_setting(NA, "No license found.")
+  ret
 }
 
 #' @describeIn get_fs_setting Retrieve the FreeSurfer "subjects" directory
 #' @export
-get_fs_subdir <- function() {
+get_fs_subdir <- function(simplify = TRUE) {
   ret <- get_fs_setting(
     "SUBJECTS_DIR",
     "freesurfer.subj_dir",
@@ -112,54 +127,97 @@ get_fs_subdir <- function() {
     }
   }
 
+  if (simplify) {
+    return(ret$value)
+  }
   ret
 }
 
 #' @describeIn get_fs_setting Retrieve the FreeSurfer source script
 #' @export
-get_fs_source <- function() {
+get_fs_source <- function(simplify = TRUE) {
   ret <- get_fs_setting(
     "FREESURFER_SH",
     "freesurfer.sh",
     file.path(fs_dir(), "FreeSurferEnv.sh")
   )
-  if (ret$source == "Default") {
-    ret$source = "fs_dir()"
+  if (!is.na(ret$source)) {
+    if (ret$source == "Default") {
+      ret$source = "fs_dir()"
+    }
+  }
+  if (simplify) {
+    return(ret$value)
+  }
+  ret
+}
+
+#' @describeIn get_fs_setting Retrieve the FreeSurfer source script
+#' @export
+get_fs_verbosity <- function(simplify = TRUE) {
+  ret <- get_fs_setting(
+    "FREESURFER_VERBOSE",
+    "freesurfer.verbose",
+    is_path = FALSE
+  )
+  if (is.na(ret$value)) {
+    if (simplify) {
+      return(TRUE)
+    }
+    return(
+      list(
+        value = TRUE,
+        source = "Default",
+        exists = NA
+      )
+    )
+  }
+  ret$value <- as.logical(ret$value)
+
+  if (simplify) {
+    return(ret$value)
   }
   ret
 }
 
 #' @describeIn get_fs_setting Retrieve the output format for FreeSurfer
 #' @export
-get_fs_output <- function() {
+get_fs_output <- function(simplify = TRUE) {
   ret <- get_fs_setting(
     "FSF_OUTPUT_FORMAT",
     "freesurfer.output_type",
     is_path = FALSE
   )
   if (is.na(ret$value)) {
-    return(
-      return_setting(
-        "nii.gz",
-        "Default",
-        FALSE
-      )
+    ret <- return_setting(
+      "nii.gz",
+      "Default",
+      FALSE
     )
+  }
+  if (simplify) {
+    return(ret$value)
   }
   ret
 }
 
 #' @describeIn get_fs_setting Retrieve mni bin folder
 #' @export
-get_mni_bin <- function() {
+get_mni_bin <- function(simplify = TRUE) {
   ret <- get_fs_setting(
-    NA,
-    "freesurfer.mni_path",
+    "MNI_DIR",
+    "freesurfer.mni_dir",
     file.path(fs_dir(), "mni")
   )
 
   if (!ret$exists) {
-    return(ret)
+    return(
+      list(
+        value = NA,
+        source = "No MNI directory found",
+        exists = FALSE
+      )
+    )
   }
 
   mni <- list.files(
@@ -169,28 +227,42 @@ get_mni_bin <- function() {
     recursive = TRUE
   )
 
-  return_setting(
+  ret <- return_setting(
     dirname(mni),
     ret$source
   )
+
+  if (simplify) {
+    return(ret$value)
+  }
+  ret
 }
 
 #' @noRd
 return_setting <- function(value, source, is_path = TRUE) {
-  if (all(is.na(value))) {
-    exists <- FALSE
+  exists <- if (is_path) {
+    if (all(is.na(value))) {
+      rep(FALSE, length(value))
+    } else {
+      file.exists(value)
+    }
   } else {
-    exists <- file.exists(value)
+    NA
   }
 
   list(
     value = value,
     source = source,
-    exists = ifelse(is_path, exists, NA)
+    exists = exists
   )
 }
 
+#' @noRd
 return_single <- function(setting) {
+  if (length(setting$value) == 1 || all(is.na(setting$value))) {
+    return(setting)
+  }
+
   idx <- which(setting$exists)[1]
   setting$value <- setting$value[idx]
   setting$exists <- setting$exists[idx]

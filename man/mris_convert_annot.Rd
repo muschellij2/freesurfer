@@ -9,8 +9,7 @@ mris_convert_annot(annot, opts = "", ...)
 \arguments{
 \item{annot}{(character) annotation or gifti label data}
 
-\item{opts}{(character) additional options to
-\code{\link{mris_convert}}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{additional arguments to \code{\link{mris_convert}}}
 }
@@ -22,17 +21,17 @@ This function call \code{mris_convert},
 using the \code{--annot} option
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
  bert_dir = file.path(fs_subj_dir(), "bert")
  gii_file = mris_convert_annot(
  infile = file.path(bert_dir, "surf", "lh.white"),
  annot = file.path(bert_dir, "label", "lh.aparc.annot"),
  ext = ".gii"
- )  
+ )
  gii = mris_convert_annot(
  infile = file.path(bert_dir, "surf", "lh.white"),
  annot = gii_file,
  ext = ".gii"
- )  
-}   
+ )
+\dontshow{\}) # examplesIf}
 }

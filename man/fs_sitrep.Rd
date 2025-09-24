@@ -12,8 +12,8 @@ within R. This function helps diagnose problems by showing how Freesurfer
 paths and options are determined.
 }
 \examples{
-\dontrun{
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Report all Freesurfer settings
 fs_sitrep()
-}
+\dontshow{\}) # examplesIf}
 }

@@ -77,14 +77,14 @@ Since NIfTI is one of the most common and widely supported formats for analysis 
 The `mri_convert` Freesurfer function is the perfect tool for this conversion, and we've wrapped it conveniently in the `freesurfer` R package.
 
 Let's use the T1-weighted image from the "bert" subject, which is included with your Freesurfer installation for reproducible examples.
-The `readmgz()` function converts this `.mgz` file to NIfTI format and then read it into R:
+The `read_mgz()` function converts this `.mgz` file to NIfTI format and then read it into R:
 
 ```{r mri_convert}
 library(freesurfer)
 
 bert_mri = file.path(fs_subj_dir(), "bert", "mri", "T1.mgz")
 
-bert_nii = readmgz(bert_mri)
+bert_nii = read_mgz(bert_mri)
 ```
 
 Now that `bert_nii` is a `nifti` object, we can easily plot it using the `neurobase` package:
@@ -150,7 +150,7 @@ Ultimately, this correction helps to make the intensities within the brain more 
 It's worth noting that this method is different from what's implemented in FSL [@jenkinson_fsl_2012] (and consequently in `fslr`), offering you an alternative correction method that wasn't previously available to R users.
 You can also pass in a mask of the brain (we'll cover brain extraction next) to apply the correction only to specific areas of interest within the brain.
 
-In addition to `readmgz` and `readmgh`, we also provide a `readmnc` wrapper function for directly reading MINC files after they've been converted to NIfTI.
+In addition to `read_mgz` and `read_mgh`, we also provide a `read_mnc` wrapper function for directly reading MINC files after they've been converted to NIfTI.
 A useful feature: if you pass a `nifti` object directly into the `mri_convert` function, it will automatically handle the conversion of that NIfTI input file before running the Freesurfer conversion.
 
 ## Brain Extraction with `mri_watershed`

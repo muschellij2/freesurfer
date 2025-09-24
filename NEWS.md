@@ -1,5 +1,8 @@
-# freesurfer 1.8.0.902
+# freesurfer 1.8.1.900
 
+- Simplify management of common parameter information
+- Creates containing folder of tempfiles if necessary
+- Improved handling of running examples with @examplesIf
 - Split single vignette into several smaller vignettes with more tutorial like sctructure and language.
   - Original vignette is saved as "paper.Rmd" and is ignored by R build.
 - Add function `fs_sitrep()` whose intent is to check, verify and output information on Freesurfer-R communication for the user.

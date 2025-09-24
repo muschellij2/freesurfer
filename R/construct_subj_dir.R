@@ -15,7 +15,8 @@
 #' that contains the subject name), and the types of objects copied
 #' @export
 #'
-#' @examples \dontrun{
+#' @examples
+#' \dontrun{
 #' library(freesurfer)
 #' label = "/Applications/freesurfer/subjects/bert/label/aparc.annot.a2009s.ctab"
 #' mri = c(
@@ -24,7 +25,11 @@
 #' stats = c("/Applications/freesurfer/subjects/bert/stats/lh.aparc.stats",
 #'           "/Applications/freesurfer/subjects/bert/stats/aseg.stats")
 #' surf = "/Applications/freesurfer/subjects/bert/surf/lh.thickness"
-#' touch = NULL
+#' construct_subj_dir(
+#'   label = label,
+#'   mri = mri,
+#'   stats = stats,
+#'   surf = surf)
 #' }
 construct_subj_dir = function(
   label = NULL,
@@ -33,13 +38,13 @@ construct_subj_dir = function(
   surf = NULL,
   touch = NULL,
   subj = NULL,
-  subj_root_dir = tempdir()
+  subj_root_dir = tempdir(check = TRUE)
 ) {
   if (is.null(subj)) {
-    subj = basename(tempfile())
+    subj = basename(temp_file())
   }
   base_dir = file.path(subj_root_dir, subj)
-  dir.create(base_dir)
+  mkdir(base_dir)
 
   L = list(label = label, mri = mri, stats = stats, surf = surf, touch = touch)
   # REMOVE NULL
@@ -48,7 +53,7 @@ construct_subj_dir = function(
   type_names = fol_names = names(L)
   fol_names = file.path(base_dir, fol_names)
 
-  sapply(fol_names, dir.create)
+  sapply(fol_names, mkdir)
 
   res = mapply(
     function(y, fol) {
@@ -57,9 +62,7 @@ construct_subj_dir = function(
       out_names = file.path(fol, basename(y))
       for (ix in seq(N)) {
         x = y[ix]
-        if (!file.exists(x)) {
-          cli::cli_abort(x)
-        }
+        check_path(x)
         out = out_names[ix]
         res[ix] = file.copy(from = x, to = out)
       }
@@ -78,11 +81,11 @@ construct_subj_dir = function(
   res = unlist(res)
   stopifnot(all(res))
 
-  R = list(subj = subj, subj_dir = subj_root_dir, types = type_names)
+  invisible(
+    list(
+      subj = subj,
+      subj_dir = subj_root_dir,
+      types = type_names
+    )
+  )
 }
-#
-# aparcstats2table(subjects = subj, subj_dir = subj_dir,
-#                  measure = "thickness")
-# asegstats2table(subjects = subj, subj_dir = subj_dir,
-#                  measure = "mean")
-# out =

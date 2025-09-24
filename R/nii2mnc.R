@@ -9,12 +9,10 @@
 #' @importFrom R.utils gzip gunzip
 #' @importFrom neurobase checknii
 #' @export
-#' @examples
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    mnc = nii2mnc(img)
-#'    img_file = mnc2nii(mnc)
-#' }
+#' @examplesIf have_fs()
+#' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+#' mnc = nii2mnc(img)
+#' img_file = mnc2nii(mnc)
 nii2mnc = function(
   file,
   outfile = tempfile(fileext = ".mnc"),
@@ -29,7 +27,9 @@ nii2mnc = function(
   #                          temporary = TRUE,
   #                          overwrite = TRUE)
   # }
-
+  if (is.null(outfile)) {
+    outfile = temp_file(fileext = ".mnc")
+  }
   out_ext = file_ext(tolower(outfile))
   if (out_ext != "mnc") {
     cli::cli_abort("File format of output not MNC")
@@ -39,8 +39,6 @@ nii2mnc = function(
     file = file,
     outfile = outfile,
     retimg = FALSE,
-    samefile = FALSE,
-    add_ext = FALSE,
     bin_app = "mni/bin",
     ...
   )

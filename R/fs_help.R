@@ -8,16 +8,14 @@
 #' @param ... additional arguments to \code{\link{get_fs}}
 #' @return Prints help output and returns output as character vector
 #' @export
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs()
 #' fs_help("mri_watershed")
-#' }
 fs_help = function(func_name, help.arg = "--help", extra.args = "", ...) {
   cmd = get_fs(...)
   cmd <- paste0(cmd, sprintf('%s %s %s', func_name, help.arg, extra.args))
   #     args = paste(help.arg, extra.args, sep=" ", collapse = " ")
   suppressWarnings({
-    res = system(cmd, intern = TRUE)
+    res = try_cmd(cmd, intern = TRUE)
   })
   #     res = system2(func_name, args = args, stdout=TRUE, stderr=TRUE)
   cli::cli_code(res)

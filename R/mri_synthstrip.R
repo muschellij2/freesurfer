@@ -4,15 +4,14 @@
 #' @param outfile (character) output filename
 #' @param maskfile (character) path for mask output
 #' @param retimg (logical) return image of class nifti
-#' @param opts (character) additional options to \code{mri_mask}
+#' @template opts
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Character or nifti depending on \code{retimg}
 #' @export
-#' @examples
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    res = mri_synthstrip(img)
-#' }
+#' @examplesIf have_fs()
+#' mock_nifti = array(rnorm(5*5*5), dim = c(5,5,5))
+#' img = oro.nifti::nifti(mock_nifti)
+#' res = mri_synthstrip(img)
 mri_synthstrip = function(
   file,
   outfile = NULL,
@@ -22,7 +21,7 @@ mri_synthstrip = function(
   ...
 ) {
   if (is.null(maskfile)) {
-    maskfile = tempfile(fileext = "_mask.nii.gz")
+    maskfile = temp_file(fileext = "_mask.nii.gz")
   }
   maskfile = normalizePath(path.expand(maskfile), mustWork = FALSE)
   maskfile_attr = maskfile
@@ -34,7 +33,7 @@ mri_synthstrip = function(
     frontopts = "-i",
     opts = paste(c(opts, c("-m", maskfile), "-o"), collapse = " "),
     retimg = retimg,
-    samefile = FALSE,
+
     ...
   )
   attr(res, "maskfile") = maskfile_attr

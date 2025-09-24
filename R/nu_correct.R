@@ -3,22 +3,21 @@
 #' to correct for non-uniformity
 #' @param file (character) input filename
 #' @param mask (character or nifti) Mask to use for correction.
-#' @param opts (character) additional options to \code{mri_segment}
-#' @param verbose print diagnostic messages
+#' @template opts
+#' @template verbose
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Object of class nifti depending on \code{retimg}
 #' @importFrom neurobase parse_img_ext readnii
 #' @export
-#' @examples \dontrun{
-#' if (have_fs()){
-#'     nu_correct("/path/to/T1.nii.gz")
-#' }
+#' @examples
+#' \dontrun{
+#' nu_correct("/path/to/T1.nii.gz")
 #' }
 nu_correct = function(
   file,
   mask = NULL,
   opts = "",
-  verbose = TRUE,
+  verbose = get_fs_verbosity(),
   ...
 ) {
   file = checkimg(file)
@@ -29,7 +28,7 @@ nu_correct = function(
   }
   # no.outfile = FALSE
   # if (is.null(outfile)) {
-  outfile = tempfile(fileext = ".nii")
+  outfile = temp_file(fileext = ".nii")
   # no.outfile = TRUE
   # }
 
@@ -37,7 +36,7 @@ nu_correct = function(
   if (!(ext %in% c("nii", "mnc"))) {
     cli::cli_abort("outfile extension must be nii/nii.gz or mnc")
   }
-  tmpfile = tempfile(fileext = ".mnc")
+  tmpfile = temp_file(fileext = ".mnc")
 
   opts = trimws(opts)
   if (!is.null(mask)) {
@@ -53,8 +52,6 @@ nu_correct = function(
     outfile = tmpfile,
     frontopts = opts,
     retimg = FALSE,
-    samefile = FALSE,
-    add_ext = FALSE,
     verbose = verbose,
     bin_app = "mni/bin",
     ...

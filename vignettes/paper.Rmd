@@ -160,11 +160,11 @@ mri_convert(t1_mgz, t1_nii_fname) # conversion
 img = readnii(t1_nii_fname) # read in outputs
 ```
 
-As this is a commonly-used process, we have wrapped these two steps into the `readmgz` and `readmgh` functions, which combine the `mri_convert` and `readnii` functions.
-Here we show that these steps are equivalent to the `readmgz` function:
+As this is a commonly-used process, we have wrapped these two steps into the `read_mgz` and `read_mgh` functions, which combine the `mri_convert` and `readnii` functions.
+Here we show that these steps are equivalent to the `read_mgz` function:
 
 ```{r comp_mri}
-img_mgz = readmgz(t1_mgz)
+img_mgz = read_mgz(t1_mgz)
 identical(img, img_mgz)
 ```
 
@@ -240,7 +240,7 @@ double_ortho(
 )
 ```
 
-In addition to the `readmgz` and `readmgh` functions above, we have a `readmnc` wrapper function for reading in MINC files, after conversion to NIfTI files. 
+In addition to the `read_mgz` and `read_mgh` functions above, we have a `read_mnc` wrapper function for reading in MINC files, after conversion to NIfTI files. 
 If you pass in a `nifti` object in directly into `nu_correct`, the function will automatically convert any NIfTI input files, and then run the correction (shown below). 
 We can also pass in a mask of the brain (see next section) to run the correction only the areas of the brain.
 
@@ -305,7 +305,7 @@ seg_file = file = file.path(
   "mri",
   "aseg.mgz"
 )
-seg = readmgz(seg_file)
+seg = read_mgz(seg_file)
 breaks = c(-1, fs_lut$index)
 colors = rgb(
   fs_lut$R,

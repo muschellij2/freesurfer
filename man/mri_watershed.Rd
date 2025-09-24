@@ -13,7 +13,7 @@ mri_watershed(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 
 \item{retimg}{(logical) return image of class nifti}
 
-\item{opts}{(character) additional options to \code{mri_watershed}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
@@ -26,8 +26,6 @@ from an image, usually for skull stripping.
 }
 \examples{
 \dontrun{
-if (have_fs()){
-    mri_watershed("/path/to/T1.nii.gz")
-}
+mri_watershed("/path/to/T1.nii.gz")
 }
 }

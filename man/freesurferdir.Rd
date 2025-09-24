@@ -20,9 +20,9 @@ Finds the \code{FREESURFER_HOME} from system environment or
 \code{getOption("freesurfer.home")} for location of Freesurfer functions and returns its value.
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
  freesurferdir()
  freesurfer_dir()
  fs_dir()
-}
+\dontshow{\}) # examplesIf}
 }

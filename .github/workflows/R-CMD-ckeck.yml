@@ -1,0 +1,123 @@
+name: R-CMD-Check
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions: read-all
+
+concurrency:
+  group: R-CMD-check-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  RGL_USE_NULL: "TRUE"
+
+jobs:
+  R-CMD-check:
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          # Non-Docker configurations
+          - { os: macos-latest, r: "release" }
+          - { os: windows-latest, r: "release" }
+          - { os: ubuntu-latest, r: "release" }
+          - { os: ubuntu-latest, r: "devel", http-user-agent: "release" }
+          - { os: ubuntu-latest, r: "oldrel-1" }
+    runs-on: ${{ matrix.config.os }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      # Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Install Pandoc
+      - name: Setup Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      # Common R setup for all configurations
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          use-public-rspm: true
+
+      - name: Setup R Dependencies
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+
+      # Run standard R CMD check (non-Docker)
+      - name: Run R CMD check (standard)
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          upload-snapshots: true
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+  R-CMD-check-fs:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - { r: "4.5.1", fs: "7.4.1" }
+          #- { r: "4.5.1", fs: "8.0.0" }
+    # 8.0.0 Needs large runner, image is 34GB!
+    # https://docs.github.com/en/actions/how-tos/manage-runners/larger-runners/manage-larger-runners
+    runs-on: ubuntu-latest 
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+    steps:
+      # Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      # FreeSurfer + Docker-based checks
+      - name: Check if Docker Image Exists
+        id: image_check
+        run: |
+          IMAGE_TAG="r_${{ matrix.config.r }}-fs_${{ matrix.config.fs }}"
+          FULL_IMAGE_NAME="ghcr.io/${{ github.repository_owner }}/freesurfer-r:${IMAGE_TAG}"
+          echo "Checking if image exists: $FULL_IMAGE_NAME"
+          echo "image_exists=false" >> $GITHUB_ENV
+          if docker pull $FULL_IMAGE_NAME; then
+            echo "image_exists=true" >> $GITHUB_ENV
+          fi
+
+      - name: Pull Image
+        run: |
+          IMAGE_TAG="fs_${{ matrix.config.fs }}-r_${{ matrix.config.r }}"
+          FULL_IMAGE_NAME="ghcr.io/${{ github.repository_owner }}/freesurfer-r:${IMAGE_TAG}"
+          docker pull $FULL_IMAGE_NAME
+          echo "DOCKER_IMAGE=$FULL_IMAGE_NAME" >> $GITHUB_ENV
+
+
+      - name: Run R CMD Check in Docker
+        run: |
+          docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          ${{ env.DOCKER_IMAGE }} \
+          bash -c "cd /workspace \
+            && Rscript -e 'pak::local_install_deps(dependencies = TRUE)' \
+            && Rscript -e 'devtools::check()'"
+
+      - name: Archive Logs (Docker-based failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r-cmd-check-logs
+          path: /workspace/*.Rcheck
+

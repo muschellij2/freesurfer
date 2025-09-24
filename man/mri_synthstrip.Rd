@@ -32,7 +32,7 @@ synthstrip(
 
 \item{maskfile}{(character) path for mask output}
 
-\item{opts}{(character) additional options to \code{mri_mask}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
@@ -43,8 +43,9 @@ Character or nifti depending on \code{retimg}
 This function calls \code{mri_mask} to mask an image
 }
 \examples{
-if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-   res = mri_synthstrip(img)
-}
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+mock_nifti = array(rnorm(5*5*5), dim = c(5,5,5))
+img = oro.nifti::nifti(mock_nifti)
+res = mri_synthstrip(img)
+\dontshow{\}) # examplesIf}
 }

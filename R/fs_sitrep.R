@@ -5,25 +5,46 @@
 #' paths and options are determined.
 #'
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf have_fs()
 #' # Report all Freesurfer settings
 #' fs_sitrep()
-#' }
 fs_sitrep <- function() {
   cli::cli_h2("Freesurfer Setup Report")
 
-  alert_info(get_fs_home(), "Freesurfer Directory")
+  alert_info(
+    get_fs_home(simplify = FALSE),
+    "Freesurfer Directory"
+  )
 
-  alert_info(get_fs_source(), "Source script")
+  alert_info(
+    get_fs_source(simplify = FALSE),
+    "Source script"
+  )
 
-  alert_info(get_fs_license(), "License File")
+  alert_info(
+    get_fs_license(simplify = FALSE),
+    "License File"
+  )
 
-  alert_info(get_mni_bin(), "MNI functionality")
+  alert_info(
+    get_fs_subdir(simplify = FALSE),
+    "Subjects Directory",
+  )
 
-  alert_info(get_fs_subdir(), "Subjects Directory", )
+  alert_info(
+    get_fs_verbosity(simplify = FALSE),
+    "Verbose mode",
+  )
 
-  alert_info(get_fs_output(), "Output Format")
+  alert_info(
+    get_mni_bin(simplify = FALSE),
+    "MNI functionality"
+  )
+
+  alert_info(
+    get_fs_output(simplify = FALSE),
+    "Output Format"
+  )
 
   # --- Testing installation ---- #
 

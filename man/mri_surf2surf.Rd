@@ -15,7 +15,7 @@ mri_surf2surf(
   sval = c("thickness"),
   subj_dir = NULL,
   opts = "",
-  verbose = TRUE,
+  verbose = get_fs_verbosity(),
   ...
 )
 }
@@ -39,7 +39,7 @@ is to be used other than \code{SUBJECTS_DIR} from shell, it can be
 specified here.  Use with care as if the command fail, it may not reset
 the \code{SUBJECTS_DIR} back correctly after the error}
 
-\item{opts}{(character) additional options to \code{mri_surf2surf}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{verbose}{(logical) print diagnostic messages}
 
@@ -53,13 +53,13 @@ This function calls Freesurfer \code{mri_surf2surf} to
 resample one cortical surface onto another
 }
 \examples{
-if (have_fs()) {
-   out = mri_surf2surf(
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+out = mri_surf2surf(
    subject = 'bert',
    target_subject = 'fsaverage',
    trg_type  = 'curv',
    src_type  = 'curv',
    hemi = "rh",
    sval = "thickness")
-}
+\dontshow{\}) # examplesIf}
 }

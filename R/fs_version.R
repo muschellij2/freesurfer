@@ -5,15 +5,13 @@
 #' @return If the version file does not exist, it will throw a warning, but
 #' it will return an empty string.  Otherwise it will be a string of the version.
 #' @export
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs()
 #'  fs_version()
-#' }
 fs_version = function() {
   fsdir = fs_dir()
   version_file = file.path(fsdir, "build-stamp.txt")
   if (!file.exists(version_file)) {
-    cli::cli_warn("No version file exists, run fs to see version")
+    cli::cli_warn("No version file exists as {.path {version_file}}.")
     version = ""
   } else {
     version = readLines(version_file)

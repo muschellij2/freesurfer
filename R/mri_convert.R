@@ -2,15 +2,13 @@
 #' @description This function calls \code{mri_convert} to convert an image
 #' @param file (character) input filename
 #' @param outfile (character) output filename
-#' @param opts (character) additional options to \code{mri_convert}
+#' @template opts
 #' @param ... Additional arguments to pass to \code{\link{fs_cmd}}
 #' @return Result of \code{system} command
 #' @export
-#' @examples
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
-#' }
+#' @examplesIf have_fs()
+#' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+#' res = mri_convert(img, outfile = temp_file(fileext = ".mgz"))
 mri_convert = function(
   file,
   outfile,
@@ -23,8 +21,6 @@ mri_convert = function(
     outfile = outfile,
     frontopts = opts,
     retimg = FALSE,
-    samefile = FALSE,
-    add_ext = FALSE,
     ...
   )
 }

@@ -2,37 +2,72 @@
 % Please edit documentation in R/reconner.R
 \name{reconner}
 \alias{reconner}
-\title{Reconstruction Helper for recon from Freesurfer}
+\title{Reconstruction Helper for Freesurfer's \code{recon-all}}
 \usage{
 reconner(
+  subjid = NULL,
   infile = NULL,
   outdir = NULL,
-  subjid = NULL,
-  verbose = TRUE,
   opts = "-all",
-  force = FALSE
+  force = FALSE,
+  verbose = get_fs_verbosity()
 )
 }
 \arguments{
-\item{infile}{Input filename (dcm or nii)}
+\item{subjid}{Subject ID used to name the reconstructed directory. If \code{NULL},
+it is auto-generated from the filename.}
 
-\item{outdir}{Output directory}
+\item{infile}{Input filename (DICOM or NIfTI format). If \code{NULL}, the \code{-i} flag
+will be omitted from the command.}
 
-\item{subjid}{subject id}
+\item{outdir}{Output directory where reconstruction results will be stored.
+If \code{NULL}, Freesurfer's default subject directory (\code{fs_subj_dir}) will
+be used.}
 
-\item{verbose}{print diagnostic messages}
+\item{opts}{Additional options for \code{recon-all}. Default is \code{"-all"}, which
+runs all available reconstruction steps. You can include other flags or
+custom options.}
 
-\item{opts}{Additional options}
+\item{force}{Logical flag to force execution of \code{recon-all}, even if the
+subject directory already exists. Default is \code{FALSE}.}
 
-\item{force}{Force running of the reconstruction}
+\item{verbose}{Logical flag controlling verbosity of logs and command-line
+outputs.}
 }
 \value{
-Result of \code{\link{system}}
+Returns the result of executing the \code{recon-all}.
 }
 \description{
-Wrapper for the \code{recon-all} function in Freesurfer
+This function is a wrapper around Freesurfer's \code{recon-all} command used
+for reconstructing brain surfaces or handling input files (DICOM or NIfTI
+format) for medical image analysis. It provides convenient interfaces
+for specifying input/output paths, subject IDs, custom options, and
+additional flags.
 }
-\note{
-If you set \code{infile = NULL}, then you can omit the
-\code{-i} flag in \code{recon-all}
+\section{Overview}{
+
+Freesurfer’s \code{recon-all} is a robust tool for brain image processing,
+including cortical reconstruction and segmentation. The \code{reconner} function
+simplifies its usage by automating subject directory creation, flag handling,
+and input processing.
+}
+
+\examples{
+\dontrun{
+# Example 1: Run reconstruction with infile and default opts
+reconner(infile = "input_01.nii", outdir = "/output_dir", subjid = "subj01")
+
+# Example 2: Auto-generate subject ID from input file
+reconner(infile = "input_02.nii", outdir = "/output_dir")
+
+# Example 3: Run with custom options and force execution
+reconner(infile = "input_03.nii", opts = "-autorecon2", force = TRUE)
+
+# Example 4: Run reconstruction in default subject directory
+reconner(infile = "input_04.nii", subjid = "subj04")
+
+# Example 5: Run without verbosity
+reconner(infile = "input_05.nii", verbose = FALSE)
+}
+
 }

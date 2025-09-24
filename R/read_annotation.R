@@ -18,18 +18,21 @@
 #'
 #' @return list of 3 with vertices, labels, and colortable
 #' @export
-#' @examples
-#' if (have_fs()) {
-#'     bert_dir = file.path(fs_subj_dir(), "bert")
-#'     annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
-#'     res = read_annotation(annot_file)
-#' }
-read_annotation <- function(path, verbose = TRUE) {
-  # indicate this is binary
+#' @examplesIf have_fs()
+#' bert_dir = file.path(fs_subj_dir(), "bert")
+#' annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
+#' res = read_annotation(annot_file)
+read_annotation <- function(path, verbose = get_fs_verbosity()) {
+  check_path(path)
+
   ff <- file(path, "rb")
   on.exit(close(ff))
 
   annot <- readBin(ff, integer(), endian = "big")
+
+  if (length(annot) == 0) {
+    cli::cli_abort("File {.path {path}} does not have the expected content")
+  }
 
   tmp <- readBin(ff, integer(), n = 2 * annot, endian = "big")
 
@@ -37,7 +40,7 @@ read_annotation <- function(path, verbose = TRUE) {
   label <- tmp[seq(2, by = 2, length.out = length(tmp) / 2)]
 
   bool <- readBin(ff, integer(), endian = "big")
-  if (length(bool) == 0 || is.null(bool)) {
+  if (bool == 0 || length(bool) == 0 || is.null(bool)) {
     colortable <- data.frame(matrix(NA, ncol = 6, nrow = 0))
     names(colortable) <- c("label", "R", "G", "B", "A", "code")
     if (verbose) cli::cli_warn('No colortable in file')
@@ -48,13 +51,13 @@ read_annotation <- function(path, verbose = TRUE) {
     if (numEntries > 0) {
       if (verbose) cli::cli_text('Reading from Original Version')
     } else {
-      # if (! numEntries > 0)
-
-      version <- -numEntries
+      version <- numEntries
 
       if (verbose) {
         if (version != 2) {
-          cli::cli_abort('Error! Does not handle version {.code {version}}')
+          cli::cli_warn(
+            'Reading from version {.code {version}}, there may be issues.'
+          )
         } else {
           cli::cli_text('Reading from version {.code {version}}')
         }
@@ -69,46 +72,44 @@ read_annotation <- function(path, verbose = TRUE) {
     colortable.orig_tab <- t(colortable.orig_tab)
 
     numEntriesToRead <- readBin(ff, integer(), endian = "big")
-
-    colortable <- data.frame(matrix(NA, ncol = 6, nrow = numEntriesToRead))
+    colortable <- data.frame(
+      matrix(NA, ncol = 6, nrow = numEntriesToRead)
+    )
     names(colortable) <- c("label", "R", "G", "B", "A", "code")
 
     for (i in 1:numEntriesToRead) {
-      structure <- readBin(ff, integer(), endian = "big") + 1
+      struct <- readBin(ff, integer(), endian = "big")
 
-      if (structure < 0 & verbose) {
-        cli::cli_alert_danger('Error! Read entry, index {.val {structure}}')
+      if (struct < 0 & verbose) {
+        cli::cli_alert_danger('Error! Read entry, index {.val {struct}}')
       }
 
-      if ((structure %in% colortable$label) & verbose) {
-        cli::cli_alert_danger('Error! Duplicate Structure: {.val {structure}}')
+      if ((struct %in% colortable$label) & verbose) {
+        cli::cli_alert_danger('Error! Duplicate Structure: {.val {struct}}')
       }
 
       len <- readBin(ff, integer(), endian = "big")
-      colortable$label[structure] = t(readBin(
+
+      colortable$label[struct] = t(readBin(
         ff,
         character(),
         n = 1,
         endian = "big"
       ))
 
-      colortable$R[structure] <- readBin(ff, integer(), endian = "big")
-      colortable$G[structure] <- readBin(ff, integer(), endian = "big")
-      colortable$B[structure] <- readBin(ff, integer(), endian = "big")
-      colortable$A[structure] <- readBin(ff, integer(), endian = "big")
+      colortable$R[struct] <- readBin(ff, integer(), endian = "big")
+      colortable$G[struct] <- readBin(ff, integer(), endian = "big")
+      colortable$B[struct] <- readBin(ff, integer(), endian = "big")
+      colortable$A[struct] <- readBin(ff, integer(), endian = "big")
 
-      colortable$code[structure] <- colortable$R[structure] +
-        colortable$G[structure] * 2^8 +
-        colortable$B[structure] * 2^16
+      colortable$code[struct] <- colortable$R[struct] +
+        colortable$G[struct] * 2^8 +
+        colortable$B[struct] * 2^16
     } # for i
 
     if (verbose) {
       cli::cli_text(
-        'colortable with',
-        colortable.numEntries,
-        'entries read (originally',
-        colortable.orig_tab,
-        ')'
+        'colortable with {.val {nrow(colortable)}} entries read (from {.val {colortable.orig_tab}}'
       )
     }
   } else {
@@ -122,6 +123,10 @@ read_annotation <- function(path, verbose = TRUE) {
   }
 
   return(
-    list(vertices = vertices, label = label, colortable = colortable)
+    list(
+      vertices = vertices,
+      label = label,
+      colortable = colortable
+    )
   )
 }

@@ -4,16 +4,16 @@
 \alias{nu_correct}
 \title{Use Freesurfers Non-Uniformity Correction}
 \usage{
-nu_correct(file, mask = NULL, opts = "", verbose = TRUE, ...)
+nu_correct(file, mask = NULL, opts = "", verbose = get_fs_verbosity(), ...)
 }
 \arguments{
 \item{file}{(character) input filename}
 
 \item{mask}{(character or nifti) Mask to use for correction.}
 
-\item{opts}{(character) additional options to \code{mri_segment}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{verbose}{print diagnostic messages}
+\item{verbose}{(logical) print diagnostic messages}
 
 \item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
 }
@@ -26,8 +26,6 @@ to correct for non-uniformity
 }
 \examples{
 \dontrun{
-if (have_fs()){
-    nu_correct("/path/to/T1.nii.gz")
-}
+nu_correct("/path/to/T1.nii.gz")
 }
 }

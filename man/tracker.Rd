@@ -4,18 +4,18 @@
 \alias{tracker}
 \title{Tract Reconstruction Helper for trac-all from Freesurfer}
 \usage{
-tracker(infile, outdir = NULL, subjid, verbose = TRUE, opts = "")
+tracker(infile, outdir = NULL, subjid, verbose = get_fs_verbosity(), opts = "")
 }
 \arguments{
 \item{infile}{Input filename (dcm or nii)}
 
-\item{outdir}{Output directory}
+\item{outdir}{Character, Path to output directory.}
 
 \item{subjid}{subject id, if NULL, the basename of the infile will be used}
 
-\item{verbose}{print diagnostic messages}
+\item{verbose}{(logical) print diagnostic messages}
 
-\item{opts}{Additional options}
+\item{opts}{Character. Additional options to Freesurfer function.}
 }
 \value{
 Result of \code{\link{system}}

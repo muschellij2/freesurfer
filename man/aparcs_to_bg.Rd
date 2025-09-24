@@ -23,9 +23,9 @@ Converts Freesurfer aparcs table to brainGraph naming
 convention, relying on \code{\link{aparcstats2table}}
 }
 \examples{
-if (have_fs()) {
-   fs_subj_dir() 
-   df = aparcs_to_bg(subjects = "bert", measure = "thickness")
-   print(head(df))
-}
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+fs_subj_dir()
+df = aparcs_to_bg(subjects = "bert", measure = "thickness")
+print(head(df))
+\dontshow{\}) # examplesIf}
 }

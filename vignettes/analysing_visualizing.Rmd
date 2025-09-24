@@ -82,11 +82,11 @@ reorient <- function(...) {
 # Read in t1 for background image
 # and reorient it
 t1_file = file.path(fs_subj_dir(), "bert", "mri", "T1.mgz")
-bert_t1 = readmgz(t1_file) |>
+bert_t1 = read_mgz(t1_file) |>
   reorient()
 
 seg_file = file.path(fs_subj_dir(), "bert", "mri", "aseg.mgz")
-seg = readmgz(seg_file) |>
+seg = read_mgz(seg_file) |>
   reorient()
 
 breaks = c(-1, fs_lut$index)
@@ -155,12 +155,12 @@ Let's demonstrate this by reading in the left and right pial surfaces of the bra
 
 ```{r, include=FALSE}
 library(rgl)
-
+rgl.useNULL()
 knitr::knit_hooks$set(webgl = hook_webgl)
 ```
 
 ```{r rgl_prep, results='hide', webgl=TRUE}
-
+rgl.useNULL()
 library(rgl)
 right_file = file.path(
   fs_subj_dir(),
@@ -199,6 +199,7 @@ view3d(0, -70)
 ```
 
 ```{r rgl_plot, webgl=TRUE, echo=FALSE, fig.cap="3D rendering of the pial surfaces of the left and right hemispheres from Freesurfer output, displayed using rgl."}
+rgl.useNULL()
 
 # Open an rgl window
 open3d()

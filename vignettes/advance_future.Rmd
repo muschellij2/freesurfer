@@ -8,10 +8,8 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-have_fs = freesurfer::have_fs()
-
 knitr::opts_chunk$set(
-  eval = have_fs,
+  eval = freesurfer::have_fs(),
   collapse = TRUE,
   comment = "#>"
 )

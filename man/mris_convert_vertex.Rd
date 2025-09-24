@@ -7,8 +7,7 @@
 mris_convert_vertex(opts = "", ...)
 }
 \arguments{
-\item{opts}{(character) additional options to
-\code{\link{mris_convert}}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{additional arguments to \code{\link{mris_convert}}}
 }
@@ -20,12 +19,11 @@ This function call \code{mris_convert},
 using the \code{-v} option
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
  asc_file = mris_convert_vertex(
  infile = file.path(bert_surf_dir, "lh.white")
- )  
+ )
  readLines(asc_file, n = 6)
- 
-} 
+\dontshow{\}) # examplesIf}
 }

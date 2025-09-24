@@ -25,9 +25,9 @@ This was adapted from the gist:
 \url{https://gist.github.com/mm--/4a4fc7badacfad874102}
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 infile = file.path(fs_subj_dir(),
                    "bert", "surf", "rh.pial")
 res = convert_surface(infile = infile)
-}
+\dontshow{\}) # examplesIf}
 }

@@ -9,25 +9,20 @@
 #' @param src_type (character) source file type, can be curv or paint (w)
 #' @param trg_type (character) target file type, can be curv, paint (w), mgh, or nii
 #' @param sval (character) source file
-#' @param subj_dir (character path) if a different subjects directory
-#' is to be used other than \code{SUBJECTS_DIR} from shell, it can be
-#' specified here.  Use with care as if the command fail, it may not reset
-#' the \code{SUBJECTS_DIR} back correctly after the error
-#' @param opts (character) additional options to \code{mri_surf2surf}
-#' @param verbose (logical) print diagnostic messages
+#' @template subj_dir
+#' @template opts
+#' @template verbose
 #' @param ... Additional arguments to pass to \code{\link{system}}
 #' @return Name of output file
 #' @export
-#' @examples
-#' if (have_fs()) {
-#'    out = mri_surf2surf(
+#' @examplesIf have_fs()
+#' out = mri_surf2surf(
 #'    subject = 'bert',
 #'    target_subject = 'fsaverage',
 #'    trg_type  = 'curv',
 #'    src_type  = 'curv',
 #'    hemi = "rh",
 #'    sval = "thickness")
-#' }
 mri_surf2surf = function(
   subject = NULL,
   target_subject = NULL,
@@ -38,7 +33,7 @@ mri_surf2surf = function(
   sval = c("thickness"),
   subj_dir = NULL,
   opts = "",
-  verbose = TRUE,
+  verbose = get_fs_verbosity(),
   ...
 ) {
   ###########################
@@ -81,7 +76,7 @@ mri_surf2surf = function(
   # Making output file if not specified
   ###########################
   if (is.null(outfile)) {
-    outfile = tempfile()
+    outfile = temp_file()
   }
   args = c(args, paste0("--tval ", outfile))
   outfile = file.path(dirname(outfile), paste0(xhemi, ".", basename(outfile)))

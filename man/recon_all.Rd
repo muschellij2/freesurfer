@@ -2,37 +2,70 @@
 % Please edit documentation in R/recon_all.R
 \name{recon_all}
 \alias{recon_all}
-\title{Reconstruction from Freesurfer for All Steps}
+\title{Freesurfer Reconstruction Pipeline for All Processing Steps}
 \usage{
 recon_all(
+  subjid = NULL,
   infile = NULL,
   outdir = NULL,
-  subjid = NULL,
-  verbose = TRUE,
+  verbose = get_fs_verbosity(),
   opts = "-all",
   ...
 )
 }
 \arguments{
-\item{infile}{Input filename (dcm or nii)}
+\item{subjid}{subject id, if NULL, the basename of the infile will be used}
 
-\item{outdir}{Output directory}
+\item{infile}{A character string specifying the input filename, which must
+be in DICOM (\code{.dcm}) or NIfTI (\code{.nii}) format.}
 
-\item{subjid}{subject id}
+\item{outdir}{An optional character string specifying the output directory.
+If provided, the results of the pipeline will be saved to this directory.}
 
-\item{verbose}{print diagnostic messages}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{opts}{Additional options}
-
-\item{...}{arguments passed to \code{\link{reconner}}}
+\item{...}{Additional arguments passed to \code{\link{reconner}}, which
+handles execution of the reconstruction pipeline with customizable options
+for individual steps.}
 }
 \value{
-Result of \code{\link{system}}
+The result of executing the Freesurfer command via \code{\link{system}}.
 }
 \description{
-Reconstruction from Freesurfer for All Steps
+This function is a streamlined interface to Freesurfer's
+\code{recon-all} command, designed to perform full MRI processing and cortical
+reconstruction workflow. It executes all processing steps, including motion
+correction, skull stripping, intensity normalization, cortical and subcortical
+segmentation, and generating cortical surfaces. Customization is possible
+through additional arguments passed to \code{\link{reconner}}.
+}
+\details{
+This function acts as a wrapper for the Freesurfer \code{recon-all}
+command, handling preprocessing, segmentation, and cortical surface analysis
+in a single pipeline. Users can specify inputs, outputs, and additional
+options to adjust the behavior of the pipeline. It provides an easy way
+to restart a reconstruction by modifying the \code{opts} parameter, giving
+users flexibility for iterative processing.
 }
 \note{
-If you would like to restart a \code{recon-all} run,
-change opts so that \code{opts = "-make all"}
+To restart or refine a prior reconstruction, modify the \code{opts} parameter,
+e.g., use \code{opts = "-make all"} to initiate the pipeline from an intermediate step.
+}
+\examples{
+\dontrun{
+# Full reconstruction pipeline with default options
+recon_all(
+  infile = "subject.nii",
+  subjid = "subject01",
+  outdir = "output_dir"
+)
+
+# Restart pipeline processing from existing data
+recon_all(
+  infile = "subject.nii",
+  subjid = "subject01",
+  opts = "-make all",
+  verbose = TRUE
+)
+}
 }

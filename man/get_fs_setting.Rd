@@ -6,23 +6,26 @@
 \alias{get_fs_license}
 \alias{get_fs_subdir}
 \alias{get_fs_source}
+\alias{get_fs_verbosity}
 \alias{get_fs_output}
 \alias{get_mni_bin}
 \title{Get FreeSurfer Configuration Settings}
 \usage{
 get_fs_setting(env_var, opt_var, defaults = NULL, is_path = TRUE)
 
-get_fs_home()
+get_fs_home(simplify = TRUE)
 
-get_fs_license()
+get_fs_license(simplify = TRUE)
 
-get_fs_subdir()
+get_fs_subdir(simplify = TRUE)
 
-get_fs_source()
+get_fs_source(simplify = TRUE)
 
-get_fs_output()
+get_fs_verbosity(simplify = TRUE)
 
-get_mni_bin()
+get_fs_output(simplify = TRUE)
+
+get_mni_bin(simplify = TRUE)
 }
 \arguments{
 \item{env_var}{\link{character} Environment variable name to check.}
@@ -32,9 +35,11 @@ get_mni_bin()
 \item{defaults}{\link{character} A vector of default paths to check; used as fallbacks if the environment or options are not set (optional).}
 
 \item{is_path}{\link{logical}. Does the setting point to a path. If \code{TRUE} the returned \code{exists} element will be \code{TRUE}/\code{FALSE} depending on whether the path exists or not. `}
+
+\item{simplify}{\link{logical} If \code{TRUE}, returns only the value of the setting; if \code{FALSE}, returns a list with detailed information about the setting.}
 }
 \value{
-A list containing the following components:
+If \code{simplify} = \code{TRUE}, returns a single value, else returns a list containing the following components:
 \describe{
 \item{value}{\link{character} The resolved configuration value (e.g., directory path, file path, or setting).}
 \item{source}{\link{character} Indicates how the value was determined (in order of search; R option, environment variable, default location).}
@@ -53,6 +58,8 @@ Functions to manage FreeSurfer configuration settings, including determining dir
 \item \code{get_fs_subdir()}: Retrieve the FreeSurfer "subjects" directory
 
 \item \code{get_fs_source()}: Retrieve the FreeSurfer source script
+
+\item \code{get_fs_verbosity()}: Retrieve the FreeSurfer source script
 
 \item \code{get_fs_output()}: Retrieve the output format for FreeSurfer
 

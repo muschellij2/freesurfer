@@ -18,7 +18,7 @@ checkmnc(file, ...)
 
 \S4method{checkmnc}{list}(file, ...)
 
-ensure_mnc(file, ...)
+checkmnc(file, ...)
 }
 \arguments{
 \item{file}{character or \code{nifti} object}

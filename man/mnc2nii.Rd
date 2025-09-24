@@ -21,10 +21,10 @@ This function calls \code{mnc2nii}
 to convert MNC files to NIfTI
 }
 \examples{
-if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-   mnc = nii2mnc(img)
-   img_file = mnc2nii(mnc, outfile = tempfile(fileext = ".nii"))
-   neurobase::readnii(img_file, verbose = TRUE)
-}
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+mnc = nii2mnc(img)
+img_file = mnc2nii(mnc, outfile = temp_file(fileext = ".nii"))
+neurobase::readnii(img_file, verbose = get_fs_verbosity())
+\dontshow{\}) # examplesIf}
 }

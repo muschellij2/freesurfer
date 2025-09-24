@@ -12,12 +12,10 @@
 #'
 #' @note This was adapted from the gist:
 #' \url{https://gist.github.com/mm--/4a4fc7badacfad874102}
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs()
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' res = convert_surface(infile = infile)
-#' }
 convert_surface = function(infile, ...) {
   ########
   # adapted from
@@ -30,6 +28,13 @@ convert_surface = function(infile, ...) {
 
   ## Get the number of vertices and the number of faces
   infos <- as.numeric(unlist(strsplit(lines[1], " ")))
+  if (is.na(infos)) {
+    cli::cli_abort(c(
+      "Invalid header in {infile}",
+      "The first line should contain two numbers: number of vertices and faces."
+    ))
+  }
+
   ## Skip header
   splits <- split(
     lines,
@@ -65,35 +70,31 @@ convert_surface = function(infile, ...) {
 #' to the number of faces (not the triplets - total faces)
 #' @export
 #'
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs() && requireNamespace("rgl", quietly = TRUE)
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' right_triangles = surface_to_triangles(infile = infile)
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "lh.pial")
 #' left_triangles = surface_to_triangles(infile = infile)
-#' if (requireNamespace("rgl", quietly = TRUE)) {
-#'   rgl::open3d()
-#'   rgl::triangles3d(right_triangles,
-#'   color = rainbow(nrow(right_triangles)))
-#'   rgl::triangles3d(left_triangles,
-#'   color = rainbow(nrow(left_triangles)))
-#' }
+#' rgl::open3d()
+#' rgl::triangles3d(right_triangles,
+#' color = rainbow(nrow(right_triangles)))
+#' rgl::triangles3d(left_triangles,
+#' color = rainbow(nrow(left_triangles)))
+#'
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.inflated")
 #' right_triangles = surface_to_triangles(infile = infile)
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "lh.inflated")
 #' left_triangles = surface_to_triangles(infile = infile)
-#' if (requireNamespace("rgl", quietly = TRUE)) {
-#'   rgl::open3d()
-#'   rgl::triangles3d(left_triangles,
-#'   color = rainbow(nrow(left_triangles)))
-#'   rgl::triangles3d(right_triangles,
-#'   color = rainbow(nrow(right_triangles)))
-#' }
-#' }
+#' rgl::open3d()
+#' rgl::triangles3d(left_triangles,
+#' color = rainbow(nrow(left_triangles)))
+#' rgl::triangles3d(right_triangles,
+#' color = rainbow(nrow(right_triangles)))
+#'
 surface_to_triangles = function(infile, ...) {
   splits = convert_surface(infile, ...)
 
@@ -116,17 +117,16 @@ surface_to_triangles = function(infile, ...) {
 #' @return Character filename of output file
 #' @export
 #'
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs()
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' res = surface_to_obj(infile = infile)
-#' }
+
 surface_to_obj = function(infile, outfile = NULL, ...) {
   splits = convert_surface(infile, ...)
 
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".obj")
+    outfile = temp_file(fileext = ".obj")
   }
   scipen = getOption("scipen")
   on.exit({

@@ -14,7 +14,7 @@ Finds the \code{SUBJECTS_DIR} from system environment or
 \code{getOption("freesurfer.subj_dir")} and returns its value.
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
    fs_subj_dir()
-}
+\dontshow{\}) # examplesIf}
 }

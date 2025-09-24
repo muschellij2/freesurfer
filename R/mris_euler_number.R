@@ -3,16 +3,13 @@
 #' calculate the Euler Number
 #' @param file (character) input filename
 #' @param outfile (character) output filename
-#' @param opts (character) additional options to \code{mris_euler_number}
+#' @template opts
 #' @param ... Additional arguments to pass to \code{\link{fs_cmd}}
 #' @return Result of \code{system} command
 #' @export
-#' @examples \dontrun{
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    res = mris_euler_number(img, outfile = tempfile(fileext = ".mgz"))
-#' }
-#' }
+#' @examplesIf have_fs()
+#' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+#' res = mris_euler_number(img, outfile = temp_file(fileext = ".mgz"))
 mris_euler_number = function(
   file,
   outfile = NULL,
@@ -23,7 +20,7 @@ mris_euler_number = function(
   # Making output file if not specified
   ###########################
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".txt")
+    outfile = temp_file(fileext = ".txt")
   }
   # args = paste0("-o ", outfile)
   args = paste0("2> ", outfile)
@@ -34,11 +31,9 @@ mris_euler_number = function(
   res = fs_cmd(
     func = "mris_euler_number",
     file = file,
-    outfile = NULL,
+    outfile = file,
     opts = opts,
     retimg = FALSE,
-    samefile = TRUE,
-    add_ext = FALSE,
     ...
   )
 

@@ -8,24 +8,22 @@
 #' @importFrom tools file_ext
 #' @importFrom R.utils gzip
 #' @export
-#' @examples
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    mnc = nii2mnc(img)
-#'    img_file = mnc2nii(mnc, outfile = tempfile(fileext = ".nii"))
-#'    neurobase::readnii(img_file, verbose = TRUE)
-#' }
+#' @examplesIf have_fs()
+#' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+#' mnc = nii2mnc(img)
+#' img_file = mnc2nii(mnc, outfile = temp_file(fileext = ".nii"))
+#' neurobase::readnii(img_file, verbose = get_fs_verbosity())
 mnc2nii = function(file, outfile = NULL, ...) {
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ".nii.gz")
+    outfile = temp_file(fileext = ".nii.gz")
   }
   out_ext = file_ext(tolower(outfile))
   outfile = paste0(nii.stub(outfile), ".nii")
 
   # copy for bs stuff
   stopifnot(all(file.exists(file)))
-  tfile = tempfile()
-  dir.create(tfile, showWarnings = FALSE)
+  tfile = temp_file()
+  mkdir(tfile)
   infile = file.path(tfile, basename(file))
   file.copy(from = file, to = infile, overwrite = TRUE)
 
@@ -35,8 +33,6 @@ mnc2nii = function(file, outfile = NULL, ...) {
     outfile = outfile,
     retimg = FALSE,
     frontopts = "-float",
-    samefile = FALSE,
-    add_ext = FALSE,
     bin_app = "mni/bin",
     ...
   )

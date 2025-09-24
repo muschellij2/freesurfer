@@ -11,7 +11,7 @@ construct_subj_dir(
   surf = NULL,
   touch = NULL,
   subj = NULL,
-  subj_root_dir = tempdir()
+  subj_root_dir = tempdir(check = TRUE)
 )
 }
 \arguments{
@@ -49,6 +49,10 @@ mri = c(
 stats = c("/Applications/freesurfer/subjects/bert/stats/lh.aparc.stats",
           "/Applications/freesurfer/subjects/bert/stats/aseg.stats")
 surf = "/Applications/freesurfer/subjects/bert/surf/lh.thickness"
-touch = NULL
+construct_subj_dir(
+  label = label,
+  mri = mri,
+  stats = stats,
+  surf = surf)
 }
 }

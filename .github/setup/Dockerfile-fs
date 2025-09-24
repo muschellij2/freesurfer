@@ -1,0 +1,51 @@
+# Stage 1: FreeSurfer Base
+FROM ubuntu:22.04
+ARG FS_VERSION=8.0.0
+
+## Set a default user. Available via runtime flag `--user docker`
+## Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
+## User should also have & own a home directory (for rstudio or linked volumes to work properly).
+RUN useradd -s /bin/bash -m docker \
+    && usermod -a -G staff docker
+
+## This was not needed before but we need it now
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        wget \
+        software-properties-common \
+        dirmngr \
+        ed \
+        gpg-agent \
+        less \
+        vim-tiny \
+        gnupg \
+        curl \
+        ca-certificates \
+        build-essential \
+        libxt-dev \
+        libglu1-mesa-dev \
+        libncurses6 \
+        libffi8 \
+        locales \
+        locales-all
+
+# Configure default locale
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+    && locale-gen en_US.utf8 \
+    && /usr/sbin/update-locale LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV TZ=UTC
+
+# Set environment variables for FreeSurfer
+ENV FREESURFER_HOME=/usr/local/freesurfer
+ENV SUBJECTS_DIR=${FREESURFER_HOME}/subjects
+
+# Download and install FreeSurfer
+RUN wget -q https://surfer.nmr.mgh.harvard.edu/pub/dist/freesurfer/${FS_VERSION}/freesurfer_ubuntu22-${FS_VERSION}_amd64.deb -O freesurfer.deb \
+    && apt-get install -y ./freesurfer.deb \
+    && rm freesurfer.deb
+
+CMD ["bash"]

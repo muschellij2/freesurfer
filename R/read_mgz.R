@@ -7,12 +7,18 @@
 #' @return Object of class \code{nifti}
 #' @importFrom neurobase readnii
 #' @export
-readmgz = function(file, ...) {
-  outfile = tempfile(fileext = ".nii.gz")
+read_mgz = function(file, ...) {
+  check_path(file)
+  outfile = temp_file(fileext = ".nii.gz")
+  dir.create(
+    dirname(outfile),
+    showWarnings = FALSE,
+    recursive = TRUE
+  )
   mri_convert(file, outfile, ...)
   readnii(outfile)
 }
 
-#' @rdname readmgz
+#' @rdname read_mgz
 #' @export
-readmgh = readmgz
+read_mgh = read_mgz

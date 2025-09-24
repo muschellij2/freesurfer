@@ -23,9 +23,9 @@ Reads in a surface file from Freesurfer and converts it
 to a Wavefront OBJ file
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 infile = file.path(fs_subj_dir(),
                    "bert", "surf", "rh.pial")
 res = surface_to_obj(infile = infile)
-}
+\dontshow{\}) # examplesIf}
 }

@@ -12,51 +12,80 @@ fs_cmd(
   reorient = FALSE,
   intern = FALSE,
   opts = "",
-  verbose = TRUE,
-  samefile = FALSE,
+  verbose = get_fs_verbosity(),
   opts_after_outfile = FALSE,
   frontopts = "",
-  add_ext = TRUE,
   bin_app = "bin",
   ...
 )
 }
 \arguments{
-\item{func}{(character) Freesurfer function}
+\item{func}{(character) Freesurfer command to be executed.}
 
-\item{file}{(character) image to be manipulated}
+\item{file}{(character) Path to the input image file.}
 
-\item{outfile}{(character) resultant image name (optional)}
+\item{outfile}{(character, optional) Path to the output image file. If \code{NULL} (default), the command assumes no separate output file.
+Set \code{outfile = file} to overwrite the input file.}
 
-\item{retimg}{(logical) return image of class nifti}
+\item{retimg}{(logical, default = \code{TRUE}) Whether to return the output as an image of class \code{nifti}.}
 
-\item{reorient}{(logical) If retimg, should file be reoriented when read in?
-Passed to \code{\link[neurobase]{readnii}}.}
+\item{reorient}{(logical, default = \code{FALSE}) If \code{retimg = TRUE}, determines whether the image is reoriented when loaded. Passed to \code{\link[neurobase:readNIfTI2]{neurobase::readnii()}}.}
 
-\item{intern}{(logical) to be passed to \code{\link{system}}}
+\item{intern}{(logical, default = \code{FALSE}) Specifies whether to capture the command's output. Passed to \code{\link[base:system]{base::system()}}.}
 
-\item{opts}{(character) operations to be passed to \code{func}}
+\item{opts}{(character, default = \code{""}) Additional options to be passed to the Freesurfer command.}
 
-\item{verbose}{(logical) print out command before running}
+\item{verbose}{(logical, default = \code{TRUE}) Whether to print the generated command before execution. Useful for debugging.}
 
-\item{samefile}{(logical) is the output the same file?}
+\item{opts_after_outfile}{(logical, default = \code{FALSE}) Determines whether \code{opts} appear after \code{outfile} in the command.}
 
-\item{opts_after_outfile}{(logical) should \code{opts} come after
-the \code{outfile} in the Freesurfer command?}
+\item{frontopts}{(character, default = \code{""}) Options to prepend before the input file in the command.}
 
-\item{frontopts}{(character) options/character to put in before filename}
+\item{bin_app}{(character, default = \code{"bin"}) Appendix for the Freesurfer bin directory, as returned by \code{\link[=get_fs]{get_fs()}}.}
 
-\item{add_ext}{(logical) should the extension be added to
-the \code{outfile}}
-
-\item{bin_app}{(character) appendix to add to \code{\link{get_fs}}}
-
-\item{...}{additional arguments passed to \code{\link{system}}.}
+\item{...}{Additional arguments passed to \code{\link[base:system]{base::system()}}.}
 }
 \value{
-If \code{retimg} then object of class nifti.  Otherwise,
-Result from system command, depends if intern is TRUE or FALSE.
+If \code{retimg = TRUE}, returns an object of class \code{nifti} containing the output image.
+Otherwise, returns the result of the system command execution.
 }
 \description{
-This function calls Freesurfer command passed to \code{func}
+This function serves as a wrapper for Freesurfer commands,
+enabling flexible execution of image manipulation tasks.
+It allows users to define input and output files, manage
+command-line arguments, and optionally process images in memory.
+}
+\details{
+\itemize{
+\item To overwrite the input file, set \code{outfile = file}. A warning will be displayed for safety.
+\item \code{opts} and \code{frontopts} let you define custom options fielded before or after the file inputs.
+\item If opts_after_outfile is \code{TRUE}, the \code{opts} string will be placed after the output file in the command.
+}
+}
+\examples{
+\dontrun{
+
+# Basic usage
+fs_cmd(
+  func = "mri_convert",
+  file = "input.mgz",
+  outfile = "output.nii.gz",
+  opts = "--conform"
+)
+
+# Overwriting the input file
+fs_cmd(
+  func = "mri_convert",
+  file = "image.nii.gz",
+  outfile = "image.nii.gz",
+  opts = "--conform"
+)
+
+# Returning output as a nifti object
+img <- fs_cmd(
+  func = "mri_convert",
+  file = "input.mgz",
+  retimg = TRUE
+)
+}
 }
