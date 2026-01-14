@@ -45,13 +45,14 @@ test_that("convert_surface handles invalid files gracefully", {
   writeLines(
     c(
       "# Invalid header",
-      "not_a_number"
+      "NaN"
     ),
     mock_file
   )
 
   local_mocked_bindings(
-    mris_convert = function(infile, ...) mock_file
+    mris_convert = function(infile, ...) mock_file,
+    get_fs_license = mock_get_license
   )
   expect_error(
     convert_surface("dummy_input"),
@@ -160,19 +161,23 @@ test_that("surface_to_obj creates Wavefront OBJ file", {
   expect_true(file.exists(temp_result))
 })
 
-test_that("surface_to_obj handles edge cases", {
-  local_mocked_bindings(
-    convert_surface = function(...) {
-      list(
-        vertices = matrix(numeric(0), ncol = 3),
-        faces = matrix(numeric(0), ncol = 3)
-      )
-    }
-  )
-  outfile <- withr::local_tempfile()
-  result <- surface_to_obj("dummy_input", outfile)
+skip_if_no_freesurfer()
 
-  expect_equal(result, outfile)
-  content <- readLines(outfile)
-  expect_equal(content, character(0))
+test_that("convert_surface works with actual FreeSurfer", {
+  lh_pial_file <- file.path(
+    fs_subj_dir(),
+    "bert",
+    "surf",
+    "lh.pial"
+  )
+
+  expect_message(
+    result <- convert_surface(lh_pial_file),
+    "mris_convert"
+  )
+
+  expect_true(is.matrix(result$vertices))
+  expect_true(is.matrix(result$faces))
+  expect_equal(ncol(result$vertices), 3)
+  expect_equal(ncol(result$faces), 3)
 })

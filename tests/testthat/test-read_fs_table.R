@@ -28,11 +28,17 @@ test_that("handles default separator", {
     mock_data,
     file = tempfile
   )
-  result <- read_fs_table(file)
+  expect_message(
+    result <- read_fs_table(file),
+    regexp = "Successfully read table|Auto-detected separator|Successfully read"
+  )
   expect_s3_class(result, "data.frame")
   expect_equal(result, mock_data)
 
-  result_stats <- read_stats_table(file)
+  expect_message(
+    result_stats <- read_stats_table(file),
+    "Successfully read table: 2 rows, 2 columns"
+  )
   expect_equal(result_stats, result)
 })
 
@@ -43,11 +49,13 @@ test_that("handles custom separator", {
     sep = "\t",
     file = tempfile
   )
-  result <- read_fs_table(file)
+  expect_message(
+    result <- read_fs_table(file),
+    regexp = "Successfully read table|Auto-detected separator"
+  )
   expect_s3_class(result, "data.frame")
   expect_equal(result, mock_data)
 })
-
 
 test_that("works when header is set to FALSE", {
   tempfile <- withr::local_tempfile(fileext = ".txt")
@@ -55,7 +63,10 @@ test_that("works when header is set to FALSE", {
     mock_data,
     file = tempfile
   )
-  result <- read_fs_table(file, header = FALSE)
+  expect_message(
+    result <- read_fs_table(file, header = FALSE),
+    regexp = "Successfully read table|Auto-detected separator"
+  )
   expect_s3_class(result, "data.frame")
   expect_equal(ncol(result), 2)
   expect_equal(nrow(result), 3)
@@ -72,10 +83,13 @@ test_that("handles non-existent file gracefully", {
 
 test_that("handles invalid file format gracefully", {
   file <- withr::local_tempfile(fileext = ".txt")
-  writeLines("This is not a valid\ntable format, at all", file)
+  writeLines("This is not a valid\ntable format, at all\nshould error", file)
   expect_error(
-    read_fs_table(file),
-    "line 1 did not have 5 elements"
+    expect_message(
+      read_fs_table(file),
+      "Analyzed 3 data lines"
+    ),
+    "line 2 did not have 2 elements"
   )
 })
 
@@ -85,10 +99,13 @@ test_that("respects additional arguments", {
     mock_data,
     file = tempfile
   )
-  result <- read_fs_table(
-    file,
-    stringsAsFactors = TRUE,
-    header = FALSE
+  expect_message(
+    result <- read_fs_table(
+      file,
+      stringsAsFactors = TRUE,
+      header = FALSE
+    ),
+    regexp = "Successfully read table|Auto-detected separator"
   )
   expect_true(is.factor(result$V1))
   expect_true(is.factor(result$V2))

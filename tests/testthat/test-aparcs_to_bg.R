@@ -1,137 +1,65 @@
-# test_that("aparcs_to_bg handles basic functionality correctly", {
-#   # Mocking necessary external dependencies
-#   mock_aparcstats2table <- function(subjects, measure, ...) {
-#     tmp <- withr::local_tempfile(fileext = ".csv")
-#     write.csv(
-#       data.frame(
-#         subject_id = c("subj1", "subj2"),
-#         lh_thickness = c(1.5, 1.8),
-#         rh_thickness = c(2.5, 2.8)
-#       ),
-#       file = tmp,
-#       row.names = FALSE
-#     )
-#     tmp
-#   }
+test_that("aparcs_to_bg handles basic functionality correctly", {
+  local_mocked_bindings(
+    aparcstats2table = function(...) {},
+    read_fs_table = function(file, ...) {
+      subjects <- c("subj1", "subj2")
 
-#   local_mocked_bindings(
-#     aparcstats2table = mock_aparcstats2table,
-#     read_fs_table = function(file) {
-#       read.csv(file)
-#     }
-#   )
+      data.frame(
+        subject_id = subjects,
+        lh_lingual = rnorm(length(subjects), mean = 2, sd = 0.1),
+        rh_lingual = rnorm(length(subjects), mean = 1, sd = 0.4),
+        Accumbens.area = rnorm(length(subjects), mean = 0.5, sd = 0.05)
+      )
+    }
+  )
 
-#   # Tests for successful transformation
-#   result <- aparcs_to_bg(subjects = c("subj1", "subj2"), measure = "thickness")
-#   expect_is(result, "data.frame")
-#   expect_equal(
-#     colnames(result),
-#     c("id", "name", "thickness")
-#   )
-#   expect_equal(nrow(result), 4) # Derived from reshaped data
+  # Tests for successful transformation
+  result <- aparcs_to_bg(subjects = c("subj1", "subj2"), measure = "thickness")
+  expect_s3_class(result, "data.frame")
+  expect_equal(
+    colnames(result),
+    c("id", "name", "thickness")
+  )
+  expect_equal(nrow(result), 6)
 
-#   # Testing variable renaming and reshaping
-#   expect_identical(
-#     unique(result$name),
-#     c("l_thickness", "r_thickness")
-#   )
-# })
+  # Testing variable renaming and reshaping
+  expect_identical(
+    unique(result$name),
+    c("ACCU", "lLING", "rLING")
+  )
 
-# test_that("aparcs_to_bg handles empty data correctly", {
-#   # Mock for empty data
-#   mock_aparcstats2table <- function(subjects, measure, ...) {
-#     tempfile <- withr::local_tempfile(fileext = ".csv")
-#     write.csv(data.frame(), tempfile, row.names = FALSE)
-#     tempfile
-#   }
+  result2 <- aparcs_to_bg(
+    subjects = c("subj1", "subj2"),
+    measure = "thickness",
+    clean_col_names = FALSE
+  )
+  expect_identical(
+    unique(result2$name),
+    c("Accumbens.area", "lh_lingual", "rh_lingual")
+  )
+})
 
-#   local_mocked_bindings(
-#     aparcstats2table = mock_aparcstats2table
-#   )
+test_that("aparcs_to_bg handles invalid files gracefully", {
+  local_mocked_bindings(
+    aparcstats2table = function(subjects, measure, ...) {
+      withr::local_tempfile(fileext = ".csv")
+    }
+  )
 
-#   expect_warning(
-#     result <- aparcs_to_bg(subjects = NULL, measure = "thickness"),
-#     "Empty data"
-#   )
-#   expect_equal(nrow(result), 0)
-#   expect_equal(ncol(result), 0)
-# })
+  expect_error(
+    aparcs_to_bg(subjects = "test", measure = "invalid"),
+    "File does not exist"
+  )
+})
 
-# test_that("aparcs_to_bg handles invalid files gracefully", {
-#   mock_aparcstats2table <- function(subjects, measure, ...) {
-#     withr::local_tempfile(fileext = ".csv")
-#   }
+skip_if_no_freesurfer()
 
-#   local_mocked_bindings(
-#     aparcstats2table = mock_aparcstats2table
-#   )
+test_that("aparcs_to_bg works with actual FreeSurfer data", {
+  withr::local_envvar(FREESURFER_VERBOSE = "FALSE")
+  result <- aparcs_to_bg(subjects = "bert", measure = "thickness")
 
-#   expect_error(
-#     aparcs_to_bg(subjects = "test", measure = "invalid"),
-#     "Error in `read_fs_table`"
-#   )
-# })
-
-# test_that("aparcs_to_bg handles edge cases", {
-#   # Mock for edge cases
-#   mock_aparcstats2table <- function(subjects, measure, ...) {
-#     tempfile <- withr::local_tempfile(fileext = ".csv")
-#     write.csv(
-#       data.frame(
-#         subject_id = c("subj1"),
-#         column_with_div = c(1.5),
-#         lh_meanThickness = c(2.0)
-#       ),
-#       tempfile,
-#       row.names = FALSE
-#     )
-#     tempfile
-#   }
-
-#   mock_read_fs_table <- function(file) {
-#     read.csv(file)
-#   }
-
-#   local_mocked_bindings(
-#     aparcstats2table = mock_aparcstats2table,
-#     read_fs_table = mock_read_fs_table
-#   )
-
-#   result <- aparcs_to_bg(subjects = "subj1", measure = "thickness")
-#   expect_equal(
-#     unique(result$name),
-#     c("column_with", "l_meanThickness")
-#   )
-#   expect_false(any(grepl("div", result$name))) # Ensure `_div` is removed
-# })
-
-# test_that("aparcs_to_bg handles additional arguments", {
-#   # Mock the additional arguments scenario
-#   mock_aparcstats2table <- function(subjects, measure, ...) {
-#     args <- list(...)
-#     expect_true("arg1" %in% names(args))
-#     tempfile <- withr::local_tempfile(fileext = ".csv")
-#     write.csv(
-#       data.frame(
-#         subject_id = c("subj1", "subj2"),
-#         lh_thickness = c(1.5, 1.8),
-#         rh_thickness = c(2.5, 2.8)
-#       ),
-#       tempfile,
-#       row.names = FALSE
-#     )
-#     tempfile
-#   }
-
-#   local_mocked_bindings(
-#     aparcstats2table = mock_aparcstats2table
-#   )
-
-#   result <- aparcs_to_bg(
-#     subjects = c("subj1", "subj2"),
-#     measure = "thickness",
-#     arg1 = "value"
-#   )
-#   expect_is(result, "data.frame")
-#   expect_equal(nrow(result), 4)
-# })
+  expect_s3_class(result, "data.frame")
+  expect_true(all(c("id", "name", "thickness") %in% colnames(result)))
+  expect_true(nrow(result) == 36)
+  expect_true(all(result$id == "bert"))
+})

@@ -5,16 +5,13 @@ test_that("fs_version works correctly when version file exists", {
   writeLines("Freesurfer v7.2.0", temp_version_file)
 
   # Mock fs_dir to return the temporary directory
-  testthat::local_mocked_bindings(
+  local_mocked_bindings(
     fs_dir = function() temp_dir
   )
 
   # Test: Check that fs_version reads the correct version
   version <- fs_version()
   expect_equal(version, "Freesurfer v7.2.0")
-
-  # Teardown: Remove temporary directory
-  unlink(temp_dir, recursive = TRUE)
 })
 
 test_that("fs_version returns empty string and warns when version file does not exist", {
@@ -22,7 +19,7 @@ test_that("fs_version returns empty string and warns when version file does not 
   temp_dir <- withr::local_tempdir()
 
   # Mock fs_dir to return the temporary directory
-  testthat::local_mocked_bindings(
+  local_mocked_bindings(
     fs_dir = function() temp_dir
   )
 
@@ -41,7 +38,7 @@ test_that("fs_version handles an empty version file gracefully", {
   file.create(temp_version_file)
 
   # Mock fs_dir to return the temporary directory
-  testthat::local_mocked_bindings(
+  local_mocked_bindings(
     fs_dir = function() temp_dir
   )
 
@@ -60,7 +57,7 @@ test_that("fs_version handles multi-line version files", {
   )
 
   # Mock fs_dir to return the temporary directory
-  testthat::local_mocked_bindings(
+  local_mocked_bindings(
     fs_dir = function() temp_dir
   )
 

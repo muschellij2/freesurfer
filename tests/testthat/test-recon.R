@@ -67,13 +67,16 @@ test_that("recon handles missing subjid and generates correctly", {
 
   # Ensure subjid is auto-generated from infile when missing
   expect_message(
-    out <- recon(
-      infile = tmp_file,
-      outdir = tempdr,
-      subjid = NULL,
-      verbose = TRUE
+    expect_message(
+      out <- recon(
+        infile = tmp_file,
+        outdir = tempdr,
+        subjid = NULL,
+        verbose = TRUE
+      ),
+      "Subject set to: "
     ),
-    "Subject set to: "
+    "mock_fs/recon-all  -subjid file"
   )
   expect_true(out)
 })

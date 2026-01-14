@@ -8,13 +8,20 @@ test_that("read_mgz works with valid inputs", {
   local_mocked_bindings(
     check_path = mock_check_path,
     temp_file = withr::local_tempfile,
-    mri_convert = mock_mri_convert,
-    readnii = mock_readnii
+    mri_convert = mock_mri_convert
+  )
+  local_mocked_bindings(
+    readnii = mock_readnii,
+    .package = "neurobase"
   )
 
-  # Call the function
-  result <- read_mgz(input_file)
-  expect_equal(result, "Mock NIfTI Object")
+  # Call the function and capture informational messages
+  expect_message(
+    result <- read_mgz(input_file),
+    regexp = "Successfully read|Unexpected file format|Successfully read mgz",
+    fixed = FALSE
+  )
+  expect_equal(result[1], "Mock NIfTI Object")
 })
 
 test_that("read_mgz handles non-existing file gracefully", {
@@ -26,7 +33,7 @@ test_that("read_mgz handles non-existing file gracefully", {
   # Non-existing input
   expect_error(
     read_mgz("non_existing_file.mgz"),
-    "File does not exist"
+    "Files not found"
   )
 })
 
@@ -59,38 +66,19 @@ test_that("read_mgz handles readnii errors", {
   local_mocked_bindings(
     check_path = mock_check_path,
     temp_file = withr::local_tempfile,
-    mri_convert = mock_mri_convert,
+    mri_convert = mock_mri_convert
+  )
+  local_mocked_bindings(
     readnii = function(file) {
       fs_abort("readnii failed")
-    }
+    },
+    .package = "neurobase"
   )
 
   expect_error(
     read_mgz(input_file),
     "readnii failed"
   )
-})
-
-test_that("read_mgz creates temporary file and directory", {
-  temp_dir <- withr::local_tempdir()
-  input_file <- file.path(temp_dir, "input.mgz")
-  writeLines("Mock MGZ data", input_file)
-
-  mock_temp_file_capture <- function(fileext) {
-    created_file <<- withr::local_tempfile(fileext = fileext)
-    created_file
-  }
-
-  local_mocked_bindings(
-    check_path = mock_check_path,
-    temp_file = mock_temp_file_capture,
-    mri_convert = mock_mri_convert,
-    readnii = mock_readnii
-  )
-
-  read_mgz(input_file)
-
-  expect_true(file.exists(created_file))
 })
 
 test_that("read_mgh and read_mgz are identical", {

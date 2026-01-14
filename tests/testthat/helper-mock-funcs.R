@@ -2,10 +2,13 @@
 # to simulate file operations and avoid actual file system dependencies
 # Mock functions used in single files are defined within those files
 
+withr::local_envvar(
+  FREESURFER_VERBOSE = "FALSE"
+)
+
 mock_get_fs <- function() "mock_fs/"
 
 mock_try_fs_cmd <- function(cmd) {
-  # Simulate system commands, errors, or results
   if (grepl("error", cmd)) {
     fs_abort("Command error")
   }
@@ -37,4 +40,16 @@ mock_mri_convert <- function(input, output, ...) {
     fs_abort("Input file does not exist for mri_convert")
   }
   writeLines("Mock NIfTI data", output)
+}
+
+mock_get_license <- function(simplify = FALSE) {
+  x <- list(
+    value = "/path/to/license.txt",
+    source = "Default",
+    exists = TRUE
+  )
+  if (simplify) {
+    return(x$value)
+  }
+  x
 }

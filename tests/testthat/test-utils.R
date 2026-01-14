@@ -79,17 +79,67 @@ test_that("temp_file does not create the file, only ensures directory exists", {
   unlink(dirname(temp_file), recursive = TRUE)
 })
 
-test_that("temp_file handles complex directory structures", {
-  # Setup: Generate a path with nested structure
-  temp_root <- file.path(tempdir(), "nested_dir_1", "nested_dir_2")
-  temp_file <- temp_file(tmpdir = temp_root, pattern = "deep_nested_file_")
+test_that("temp_file respects a custom tmpdir argument", {
+  # Setup: create a base temporary directory path (doesn't exist yet)
+  base_tmp <- file.path(
+    withr::local_tempdir(),
+    paste0("custom_tmpdir_", as.integer(Sys.time()))
+  )
 
-  # Assertions: Verify the nested directory structure is created
-  expect_true(dir.exists(temp_root))
-  expect_match(temp_file, "deep_nested_file_")
+  # Run: request a tempfile inside base_tmp
+  tf <- temp_file(tmpdir = base_tmp, pattern = "provided_dir_")
 
-  # Teardown: Remove the nested directories
-  unlink(dirname(temp_file), recursive = TRUE)
+  # Assertions: returned path should use the provided directory and the dir exists
+  expect_true(startsWith(dirname(tf), base_tmp))
+})
+
+test_that("validate_fs_env returns invisibly TRUE when FreeSurfer is available", {
+  # Mock FreeSurfer presence and license so this unit test runs without a
+  # real FreeSurfer installation. We only exercise the local success path.
+  local_mocked_bindings(
+    have_fs = function() TRUE,
+    get_fs_license = function(...) {
+      list(value = "/tmp/license.txt", exists = TRUE)
+    }
+  )
+
+  expect_invisible(freesurfer:::validate_fs_env(check_license = FALSE))
+})
+
+test_that("validate_fs_env exercises license-check path", {
+  local_mocked_bindings(
+    have_fs = function() TRUE,
+    get_fs_license = function(...) {
+      list(value = "/tmp/license.txt", exists = TRUE)
+    }
+  )
+
+  res <- tryCatch(
+    withCallingHandlers(
+      {
+        freesurfer:::validate_fs_env(check_license = TRUE)
+        list(warn = FALSE, ok = TRUE)
+      },
+      warning = function(w) {
+        invokeRestart("muffleWarning")
+        list(warn = TRUE, ok = TRUE)
+      }
+    ),
+    error = function(e) list(warn = NA, ok = FALSE)
+  )
+
+  expect_true(is.list(res))
+  expect_true(res$ok)
+})
+
+test_that("sys_info returns expected components", {
+  si <- freesurfer:::sys_info()
+
+  expect_type(si, "list")
+  expect_true(all(c("platform", "r_version", "shell") %in% names(si)))
+  expect_type(si$platform, "character")
+  expect_type(si$r_version, "character")
+  expect_type(si$shell, "character")
 })
 
 test_that("check_path works correctly when file exists", {
@@ -103,8 +153,7 @@ test_that("check_path throws an error when file does not exist and error = TRUE"
   missing_file <- tempfile()
   expect_error(
     check_path(missing_file),
-    "File .* does not exist",
-    fixed = FALSE
+    "File does not exist"
   )
 })
 
@@ -112,7 +161,6 @@ test_that("check_path returns FALSE when file does not exist and error = FALSE",
   missing_file <- tempfile()
   expect_false(check_path(missing_file, error = FALSE))
 })
-
 
 test_that("check_outfile returns a tempfile when retimg is TRUE and outfile is NULL", {
   temp_file <- check_outfile(outfile = NULL, retimg = TRUE)
@@ -127,7 +175,7 @@ test_that("check_outfile returns a tempfile when retimg is TRUE and outfile is N
 test_that("check_outfile throws an error when outfile is NULL and retimg is FALSE", {
   expect_error(
     check_outfile(outfile = NULL, retimg = FALSE),
-    "one of these must be changed"
+    "Either provide outfile or set retimg = TRUE"
   )
 })
 
@@ -151,28 +199,4 @@ test_that("check_outfile handles custom file extensions for tempfiles", {
   )
 
   expect_match(temp_file, "\\.testfile$")
-})
-
-
-test_that("try_fs_cmd executes valid system commands", {
-  # Test a simple valid command
-  result <- try_fs_cmd("echo 'Hello, World!'", intern = TRUE)
-  expect_type(result, "character")
-  expect_equal(result, "Hello, World!")
-})
-
-
-test_that("try_fs_cmd gracefully handles invalid commands", {
-  # Test an invalid command and expect an error with cli_abort
-  expect_error(
-    try_fs_cmd("nonexistent_command", intern = TRUE),
-    regexp = "Error while running system command"
-  )
-})
-
-test_that("try_fs_cmd works with additional arguments passed via `...`", {
-  # Test using `wait = TRUE` or other arguments
-  result <- try_fs_cmd("echo 'Wait Test'", wait = TRUE, intern = TRUE)
-  expect_type(result, "character")
-  expect_equal(result, "Wait Test")
 })

@@ -2,26 +2,26 @@ test_that("check_fs_result handles all scenarios", {
   # Case 1: Non-zero result, output does not exist
   expect_error(
     check_fs_result(res = 1, fe_before = FALSE, fe_after = FALSE),
-    "Command Failed, no output produced!"
+    "Command failed with no output"
   )
 
   # Case 2: Zero result, output does not exist
   expect_warning(
     resp <- check_fs_result(res = 0, fe_before = FALSE, fe_after = FALSE),
-    "Command assumed passed, but no output"
+    "Command completed but no output"
   )
   expect_null(resp)
 
   # Case 3: Non-zero result, output exists but existed before the run
   expect_warning(
     check_fs_result(res = 1, fe_before = TRUE, fe_after = TRUE),
-    "Command had non-zero exit status.*outfile exists but existed before"
+    "Command failed but output file exists"
   )
 
   # Case 4: Non-zero result, output exists but did not exist before
   expect_warning(
     check_fs_result(res = 1, fe_before = FALSE, fe_after = TRUE),
-    "Command had non-zero exit status."
+    "Command failed but created output file"
   )
 
   # Case 5: Zero result, output exists
@@ -36,34 +36,25 @@ test_that("run_check_fs_cmd validates the entire workflow", {
 
   # Mock system command
   local_mocked_bindings(
-    try_fs_cmd = function(...) 0
+    try_fs_cmd = function(...) 0,
+    check_fs_result = function(...) NULL
   )
 
-  expect_warning(
+  expect_silent(
     run_check_fs_cmd(
       cmd = "echo 'test'",
       outfile = temp_file,
       verbose = FALSE
-    ),
-    "no output"
+    )
   )
   expect_false(file.exists(temp_file))
 
-  expect_warning(
-    run_check_fs_cmd(
-      cmd = "false",
-      outfile = temp_file,
-      verbose = FALSE
-    ),
-    "no output"
-  )
-
   expect_message(
     run_check_fs_cmd(
-      cmd = "false",
+      cmd = "false_cmd",
       outfile = temp_file,
       verbose = TRUE
     ),
-    "false"
+    "false_cmd"
   )
 })

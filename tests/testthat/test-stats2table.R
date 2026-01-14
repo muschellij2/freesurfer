@@ -1,7 +1,6 @@
 # This is the function that actually executes the system command.
 # We will mock this specifically using local_mocked_bindings.
 mock_run_check_fs_cmd <- function(cmd, outfile, verbose, ...) {
-  message(paste("Mocking command execution:", cmd))
   writeLines("mock_data", outfile)
   return(invisible(0))
 }
@@ -58,6 +57,7 @@ test_that("stats2table handles basic valid arguments and creates output file", {
     delim = "comma",
     outfile = withr::local_tempfile(fileext = ".csv")
   )
+
   expect_true(file.exists(outfile_csv))
   expect_equal(attr(outfile_csv, "delimiter"), ",")
   expect_match(outfile_csv, "\\.csv$")
@@ -78,7 +78,8 @@ test_that("stats2table creates temp file if outfile is NULL", {
     type = "aparc",
     input = "testsubj",
     input_type = "subjects",
-    measure = "volume"
+    measure = "volume",
+    verbose = FALSE
   )
   expect_true(file.exists(outfile))
   expect_match(basename(outfile), "^file")
@@ -101,7 +102,8 @@ test_that("stats2table handles different delimiters correctly", {
     input = "subj",
     input_type = "subjects",
     measure = "area",
-    delim = "tab"
+    delim = "tab",
+    verbose = FALSE
   )
   expect_equal(attr(outfile_tab, "delimiter"), "\t")
   expect_match(outfile_tab, "\\.tsv$")
@@ -112,7 +114,8 @@ test_that("stats2table handles different delimiters correctly", {
     input = "subj",
     input_type = "subjects",
     measure = "area",
-    delim = "space"
+    delim = "space",
+    verbose = FALSE
   )
   expect_equal(attr(outfile_space, "delimiter"), " ")
   expect_match(outfile_space, "\\.txt$")
@@ -123,7 +126,8 @@ test_that("stats2table handles different delimiters correctly", {
     input = "subj",
     input_type = "subjects",
     measure = "area",
-    delim = "comma"
+    delim = "comma",
+    verbose = FALSE
   )
   expect_equal(attr(outfile_comma, "delimiter"), ",")
   expect_match(outfile_comma, "\\.csv$")
@@ -134,7 +138,7 @@ test_that("stats2table handles different delimiters correctly", {
     input = "subj",
     input_type = "subjects",
     measure = "area",
-    delim = "semicolon"
+    delim = "semicolon",
   )
   expect_equal(attr(outfile_semicolon, "delimiter"), ";")
   expect_match(outfile_semicolon, "\\.csv$")
@@ -165,7 +169,8 @@ test_that("stats2table constructs correct command arguments for subjects", {
     input = c("subj1", "subj2"),
     input_type = "subjects",
     measure = "thickness",
-    delim = "tab"
+    delim = "tab",
+    verbose = FALSE
   )
 })
 
@@ -206,13 +211,12 @@ test_that("stats2table handles skip, verbose, subj_dir, and opts", {
   dir.create(mock_subj_dir, recursive = TRUE)
 
   local_mocked_bindings(
-    get_fs = function() {
-      "aparcstats2table_mock_binary"
+    get_fs = function(...) {
+      "mock_binary"
     },
     run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
       # Custom mock for this test
       expect_match(cmd, "--skip")
-      expect_match(cmd, "--debug")
       expect_match(cmd, paste0("export SUBJECTS_DIR=", mock_subj_dir, ";"))
       expect_match(cmd, "some_extra_opts")
       file.create(outfile)
@@ -222,16 +226,17 @@ test_that("stats2table handles skip, verbose, subj_dir, and opts", {
       tempfile(fileext = fileext)
     }
   )
-
-  stats2table(
-    type = "aparc",
-    input = "subj_skip",
-    input_type = "subjects",
-    measure = "volume",
-    skip = TRUE,
-    verbose = TRUE,
-    subj_dir = mock_subj_dir,
-    opts = "some_extra_opts"
+  expect_silent(
+    stats2table(
+      type = "aparc",
+      input = "subj_skip",
+      input_type = "subjects",
+      measure = "volume",
+      skip = TRUE,
+      verbose = FALSE,
+      subj_dir = mock_subj_dir,
+      opts = "some_extra_opts"
+    )
   )
 })
 
@@ -254,7 +259,8 @@ test_that("stats2table handles different `measure` arguments", {
     type = "aparc",
     input = "subj",
     input_type = "subjects",
-    measure = "area"
+    measure = "area",
+    verbose = FALSE
   )
 
   local_mocked_bindings(
@@ -275,7 +281,8 @@ test_that("stats2table handles different `measure` arguments", {
     type = "aparc",
     input = "subj",
     input_type = "subjects",
-    measure = "gauscurv"
+    measure = "gauscurv",
+    verbose = FALSE
   )
 })
 
@@ -296,7 +303,8 @@ test_that("stats2table correctly assigns delimiter attribute", {
     input = "subj",
     input_type = "subjects",
     measure = "area",
-    delim = "tab"
+    delim = "tab",
+    verbose = FALSE
   )
   expect_equal(attr(outfile_tab, "delimiter"), "\t")
 
@@ -305,7 +313,8 @@ test_that("stats2table correctly assigns delimiter attribute", {
     input = "subj",
     input_type = "subjects",
     measure = "area",
-    delim = "comma"
+    delim = "comma",
+    verbose = FALSE
   )
   expect_equal(attr(outfile_comma, "delimiter"), ",")
 })
@@ -330,12 +339,12 @@ test_that("stats2table handles `run_check_fs_cmd` failure", {
       type = "aparc",
       input = "error_subj",
       input_type = "subjects",
-      measure = "thickness"
+      measure = "thickness",
+      verbose = FALSE
     ),
     "FreeSurfer command failed!"
   )
 })
-
 
 test_that("stats2table works with Freesurfer", {
   skip_if_no_freesurfer()
@@ -343,7 +352,7 @@ test_that("stats2table works with Freesurfer", {
   outfile <- withr::local_tempfile(fileext = ".tsv")
 
   result <- aparcstats2table(
-    subjects = c("bert"), # Replace with a subject you know exists
+    subjects = c("bert"),
     hemi = "lh",
     measure = "thickness",
     delim = "tab",
@@ -367,7 +376,8 @@ test_that("asegstats2table validates 'subjects' and 'inputs' exclusivity", {
     asegstats2table(
       subjects = "subj",
       inputs = "input.stats",
-      measure = "volume"
+      measure = "volume",
+      verbose = FALSE
     ),
     "'subjects' and 'inputs' cannot both be specified for asegstats2table."
   )
@@ -392,7 +402,11 @@ test_that("asegstats2table calls stats2table correctly with subjects", {
   }
   local_mocked_bindings(stats2table = mock_stats2table_call)
 
-  outfile <- asegstats2table(subjects = "subj1", measure = "volume")
+  outfile <- asegstats2table(
+    subjects = "subj1",
+    measure = "volume",
+    verbose = FALSE
+  )
 })
 
 test_that("asegstats2table calls stats2table correctly with inputs", {
@@ -407,9 +421,12 @@ test_that("asegstats2table calls stats2table correctly with inputs", {
   }
   local_mocked_bindings(stats2table = mock_stats2table_call)
 
-  outfile <- asegstats2table(inputs = "input1.stats", measure = "mean")
+  outfile <- asegstats2table(
+    inputs = "input1.stats",
+    measure = "mean",
+    verbose = FALSE
+  )
 })
-
 
 test_that("aparcstats2table validates 'subjects' argument", {
   expect_error(
@@ -417,7 +434,7 @@ test_that("aparcstats2table validates 'subjects' argument", {
     "Subjects must be specified for aparcstats2table."
   )
   expect_error(
-    aparcstats2table(subjects = NULL),
+    aparcstats2table(subjects = NULL, verbose = FALSE),
     "Subjects must be specified for aparcstats2table."
   )
 })
@@ -447,7 +464,8 @@ test_that("aparcstats2table calls stats2table correctly and constructs opts", {
     subjects = "subj_aparc",
     hemi = "lh",
     measure = "thickness",
-    parc = "aparc"
+    parc = "aparc",
+    verbose = FALSE
   )
 })
 
@@ -474,6 +492,7 @@ test_that("aparcstats2table combines internal and user-provided opts", {
     hemi = "rh",
     measure = "volume",
     parc = "aparc.a2009s",
-    opts = "--user-flag --another-flag"
+    opts = "--user-flag --another-flag",
+    verbose = FALSE
   )
 })

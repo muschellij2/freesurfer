@@ -70,7 +70,6 @@ mock_annotation <- function(path, num_vertices, include_colortable = TRUE) {
   }
 }
 
-
 test_that("throws an error if file does not exist", {
   nonexistent_path <- tempfile(fileext = ".annot")
   expect_error(

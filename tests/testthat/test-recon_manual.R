@@ -28,7 +28,6 @@ test_that("recon_con1 passes correct options to reconner", {
   expect_equal(recon_con1, autorecon1)
 })
 
-
 test_that("recon_con2 passes correct options to reconner", {
   local_mocked_bindings(
     reconner = function(infile, outdir, subjid, verbose, opts) {
@@ -57,7 +56,6 @@ test_that("recon_con2 passes correct options to reconner", {
 
   expect_equal(recon_con2, autorecon2)
 })
-
 
 test_that("recon_con3 passes correct options to reconner", {
   local_mocked_bindings(

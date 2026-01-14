@@ -41,7 +41,6 @@ test_that("have_fs returns FALSE when Freesurfer is inaccessible and license is 
   expect_false(have_fs(check_license = TRUE))
 })
 
-
 test_that("get_fs throws error when FREESURFER_HOME is missing or invalid", {
   local_mocked_bindings(
     get_fs_home = function(simplify = FALSE) {
@@ -56,18 +55,32 @@ test_that("get_fs throws error when FREESURFER_HOME is missing or invalid", {
 
 test_that("get_fs warns when license file is missing", {
   local_mocked_bindings(
-    get_fs_home = function(simplify = FALSE) {
-      list(value = "/valid/path", source = "Default", exists = TRUE)
+    get_fs_home = function(simplify = TRUE) {
+      ret <- list(
+        exists = TRUE,
+        source = "Default",
+        value = "/valid/path"
+      )
+      if (simplify) {
+        return(ret$value)
+      }
+      ret
     },
     get_fs_license = function(simplify = FALSE) {
-      list(value = NA, source = NA, exists = FALSE)
+      list(
+        value = NA,
+        source = NA,
+        exists = FALSE
+      )
     }
   )
   expect_warning(
     home <- get_fs(),
     "no license file*"
   )
-  expect_true(grepl("export FREESURFER_HOME='/valid/path'", home))
+  expect_true(
+    grepl("export FREESURFER_HOME='/valid/path'", home)
+  )
 })
 
 test_that("get_fs constructs command for default `bin` directory", {
@@ -119,7 +132,15 @@ test_that("get_fs constructs command for `mni/bin` with MNI initialization", {
 test_that("get_fs handles case where source file is missing", {
   local_mocked_bindings(
     get_fs_home = function(simplify = FALSE) {
-      list(value = "/valid/path", exists = TRUE, source = "Default")
+      ret <- list(
+        value = "/valid/path",
+        exists = TRUE,
+        source = "Default"
+      )
+      if (simplify) {
+        return(ret$value)
+      }
+      ret
     },
     get_fs_license = function(simplify = FALSE) {
       list(exists = TRUE)
@@ -139,16 +160,24 @@ test_that("get_fs handles case where source file is missing", {
 
 test_that("get_fs throws error on invalid bin_app argument", {
   local_mocked_bindings(
-    get_fs_home = function(simplify = FALSE) {
-      list(value = "/valid/path", exists = TRUE, source = "Default")
-    }
+    get_fs_home = function(simplify = TRUE) {
+      ret <- list(
+        value = "/valid/path",
+        exists = TRUE,
+        source = "Default"
+      )
+      if (simplify) {
+        return(ret$value)
+      }
+      ret
+    },
+    get_fs_license = mock_get_license
   )
   expect_error(
     get_fs("invalid"),
     "should be one of"
   )
 })
-
 
 # ---- fs_imgext ---- #
 
@@ -290,13 +319,26 @@ test_that("fs_subj_dir works when SUBJECTS_DIR is set via environment variable",
 })
 
 test_that("fs_subj_dir works when SUBJECTS_DIR is set via R options", {
-  withr::local_options(freesurfer.subj_dir = "/mocked/option/subjects")
+  local_fs_unset()
+  sub_dir <- "/mocked/option/subjects"
+  withr::local_options(
+    freesurfer.subj_dir = sub_dir
+  )
 
-  expect_equal(fs_subj_dir(), "/mocked/option/subjects")
+  expect_equal(fs_subj_dir(), sub_dir)
 })
 
 test_that("fs_subj_dir prioritizes R options over environment variable", {
-  withr::local_envvar(SUBJECTS_DIR = "/mocked/env/subjects")
-  withr::local_options(freesurfer.subj_dir = "/mocked/option/subjects")
-  expect_equal(fs_subj_dir(), "/mocked/option/subjects")
+  local_fs_unset()
+  sub_dir <- "/mocked/option/subjects"
+  withr::local_envvar(
+    SUBJECTS_DIR = sub_dir
+  )
+  withr::local_options(
+    freesurfer.subj_dir = sub_dir
+  )
+  expect_equal(
+    fs_subj_dir(),
+    sub_dir
+  )
 })

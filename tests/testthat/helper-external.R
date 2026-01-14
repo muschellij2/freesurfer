@@ -1,3 +1,5 @@
+library(withr)
+
 #' Skip test if FreeSurfer is not installed
 #'
 #' @keywords internal
@@ -20,7 +22,7 @@ mock_nifti_image <- function(dims = c(2, 2, 2)) {
 
 #' Temporarily unset FreeSurfer environment variables and options
 #' @keywords internal
-local_fs_unset <- function(env = parent.frame()) {
+local_fs_unset <- function(env = new.env()) {
   withr::local_options(
     freesurfer.home = NULL,
     freesurfer.subj_dir = NULL,
