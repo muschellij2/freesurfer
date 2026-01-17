@@ -11,6 +11,7 @@
 #'   - `"bin"`: Default FreeSurfer binary directory.
 #'   - `"mni/bin"`: Includes MNI initialization.
 #'   - `""`: Base directory with no specific subdirectories.
+#' @template fs_home
 #'
 #' @return [character] A bash command string that includes environment setup for FreeSurfer.
 #'   If the FreeSurfer environment or required configurations cannot be initialized, the function
@@ -26,12 +27,14 @@
 #'
 #' @seealso [get_fs_home()], [get_fs_license()], [get_fs_output()]
 #' @export
-get_fs = function(bin_app = c("bin", "mni/bin")) {
-  fs_home_info <- get_fs_home(simplify = FALSE)
-  freesurferdir <- fs_home_info$value
+get_fs <- function(
+  bin_app = c("bin", "mni/bin"),
+  fs_home = get_fs_home(simplify = FALSE)
+) {
+  freesurferdir <- fs_home$value
   cmd <- ""
 
-  if (is.null(freesurferdir) || !fs_home_info$exists) {
+  if (is.null(freesurferdir) || !fs_home$exists) {
     cli::cli_abort(
       "Can't find Freesurfer installation. Please set {.code FREESURFER_HOME} environment variable or {.code freesurfer.home} R option."
     )
@@ -47,7 +50,7 @@ get_fs = function(bin_app = c("bin", "mni/bin")) {
   bin_app <- match.arg(bin_app)
   start_up_path <- file.path("${FREESURFER_HOME}", bin_app)
   add_home <- ifelse(
-    grepl("Default", fs_home_info$source),
+    grepl("Default", fs_home$source),
     TRUE,
     FALSE
   )
@@ -93,7 +96,10 @@ get_fs = function(bin_app = c("bin", "mni/bin")) {
         shQuote(freesurferdir)
       ),
       sh_file_cmd,
-      sprintf("export FSF_OUTPUT_FORMAT=%s", get_fs_output()),
+      sprintf(
+        "export FSF_OUTPUT_FORMAT=%s",
+        get_fs_output()
+      ),
       paste0(start_up_path, "/")
     ),
     collapse = "; ",
@@ -102,37 +108,46 @@ get_fs = function(bin_app = c("bin", "mni/bin")) {
 }
 
 
-#' @title Get Freesurfer's Directory
-#' @description Finds the `FREESURFER_HOME` from system environment or
-#' `getOption("freesurfer.home")` for location of Freesurfer functions and returns its value.
-#' @return Character path to the Freesurfer home directory.
-#' @aliases freesurfer_dir
-#' @export
+#' Get FreeSurfer Directory Paths
+#'
+#' @description
+#' Functions to retrieve FreeSurfer's installation and subjects directories.
+#' Multiple aliases are provided for convenience and backward compatibility.
+#'
+#' @return Character; path to the FreeSurfer home or subjects directory.
+#'
+#' @seealso
+#' [get_fs_home()] for more detailed information,
+#' [have_fs()] to check if FreeSurfer is accessible
+#'
+#' @name fs_dir
 #' @examplesIf have_fs()
-#'  freesurferdir()
-#'  freesurfer_dir()
-#'  fs_dir()
-freesurferdir = function() {
+#' # All return the same value
+#' freesurferdir()
+#' freesurfer_dir()
+#' fs_dir()
+#'
+#' # Get subjects directory
+#' fs_subj_dir()
+NULL
+
+#' @describeIn fs_dir Get FreeSurfer installation directory
+#' @export
+freesurferdir <- function() {
   get_fs_home()
 }
 
-#' @rdname freesurferdir
+#' @describeIn fs_dir Alias for freesurferdir
 #' @export
-freesurfer_dir = freesurferdir
+freesurfer_dir <- freesurferdir
 
-
-#' @rdname freesurferdir
+#' @describeIn fs_dir Short alias for freesurferdir
 #' @export
-fs_dir = freesurferdir
+fs_dir <- freesurferdir
 
-#' @title Determine Freesurfer Subjects Directory
-#' @description Finds the `SUBJECTS_DIR` from system environment or
-#' `getOption("freesurfer.subj_dir")` and returns its value.
-#' @return Character path to the Freesurfer subjects directory.
+#' @describeIn fs_dir Get FreeSurfer subjects directory
 #' @export
-#' @examplesIf have_fs()
-#'    fs_subj_dir()
-fs_subj_dir = function() {
+fs_subj_dir <- function() {
   get_fs_subdir()
 }
 
@@ -149,7 +164,7 @@ have_fs = function(check_license = TRUE) {
     lic <- get_fs_license(simplify = FALSE)
     return(fs_home$exists && lic$exists)
   }
-  return(fs_home$exists)
+  fs_home$exists
 }
 
 
