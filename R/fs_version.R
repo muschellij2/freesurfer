@@ -8,10 +8,14 @@
 #' @examplesIf have_fs()
 #'  fs_version()
 fs_version = function() {
-  fsdir = fs_dir()
-  version_file = file.path(fsdir, "build-stamp.txt")
+  version_file = file.path(
+    fs_dir(),
+    "build-stamp.txt"
+  )
   if (!file.exists(version_file)) {
-    fs_warn("No version file exists as {.path {version_file}}.")
+    fs_warn(
+      "No version file exists at {.path {version_file}}."
+    )
     version = ""
   } else {
     version = readLines(version_file)
