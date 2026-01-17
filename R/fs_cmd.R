@@ -1,37 +1,79 @@
-#' FS Command Wrapper
+#' Execute FreeSurfer Commands from R
 #'
-#' This function serves as a wrapper for Freesurfer commands,
-#' enabling flexible execution of image manipulation tasks.
-#' It allows users to define input and output files, manage
-#' command-line arguments, and optionally process images in memory.
+#' @description
+#' `fs_cmd()` is the core wrapper function that executes FreeSurfer command-line
+#' tools from within R. It handles file path validation, command construction,
+#' execution, and optional return of neuroimaging data as nifti objects.
 #'
-#' @param func (character) Freesurfer command to be executed.
-#' @param file (character) Path to the input image file.
-#' @param outfile (character, optional) Path to the output image file. If `NULL` (default), the command assumes no separate output file.
-#'                Set `outfile = file` to overwrite the input file.
-#' @param retimg (logical, default = `TRUE`) Whether to return the output as an image of class `nifti`.
-#' @param reorient (logical, default = `FALSE`) If `retimg = TRUE`, determines whether the image is reoriented when loaded. Passed to [neurobase::readnii()].
-#' @param intern (logical, default = `FALSE`) Specifies whether to capture the command's output. Passed to [base::system()].
-#' @param opts (character, default = `""`) Additional options to be passed to the Freesurfer command.
-#' @param verbose (logical, default = `TRUE`) Whether to print the generated command before execution. Useful for debugging.
-#' @param opts_after_outfile (logical, default = `FALSE`) Determines whether `opts` appear after `outfile` in the command.
-#' @param frontopts (character, default = `""`) Options to prepend before the input file in the command.
-#' @param bin_app (character, default = `"bin"`) Appendix for the Freesurfer bin directory, as returned by [get_fs()].
+#' @details
+#' This function provides a unified interface to FreeSurfer's command-line tools,
+#' with several key features:
+#'
+#' * Automatic validation of input/output files
+#' * Support for nifti objects as inputs
+#' * Optional timeout for long-running commands
+#' * Flexible command option placement
+#' * Automatic result verification
+#' * Integration with FreeSurfer environment setup
+#'
+#' ## Overwriting Files
+#' To overwrite the input file, set `outfile = file`. A warning will be
+#' displayed for safety. The function checks file existence before and after
+#' command execution to verify successful completion.
+#'
+#' ## Command Construction
+#' The command is constructed in the following order:
+#' 1. FreeSurfer environment setup (from `get_fs()`)
+#' 2. Command name (`func`)
+#' 3. Front options (`frontopts`)
+#' 4. Input file path (quoted)
+#' 5. Output file path (quoted, if provided)
+#' 6. Additional options (`opts`)
+#'
+#' Use `opts_after_outfile = TRUE` to place `opts` after the output file.
+#'
+#' @param func Character string specifying the FreeSurfer command to execute
+#'   (e.g., `"mri_convert"`, `"mri_watershed"`).
+#' @param file Character path to the input image file, or a nifti object.
+#'   If a nifti object is provided, it will be temporarily written to disk.
+#' @param outfile Character path to the output image file. If `NULL` (default),
+#'   and `retimg = TRUE`, a temporary file will be created. Set `outfile = file`
+#'   to overwrite the input file (with warning).
+#' @param retimg Logical; if `TRUE` (default), returns output as a nifti object.
+#'   If `FALSE`, returns the system command result.
+#' @param reorient Logical; if `TRUE` and `retimg = TRUE`, reorients the image
+#'   when loading. Passed to [neurobase::readnii()]. Default is `FALSE`.
+#' @param intern Logical; if `TRUE`, captures command output. Passed to
+#'   [base::system()]. Default is `FALSE`.
+#' @template opts
+#' @template verbose
+#' @param opts_after_outfile Logical; if `TRUE`, places `opts` after `outfile`
+#'   in the command string. Default is `FALSE`.
+#' @param frontopts Character string of options to prepend before the input
+#'   file in the command. Default is `""`.
+#' @param bin_app Character string specifying the FreeSurfer bin directory
+#'   appendix. Options are `"bin"` (default) or `"mni/bin"`.
+#' @param timeout_seconds Numeric; command timeout in seconds. If specified,
+#'   requires the \pkg{R.utils} package. Default is `NULL` (no timeout).
+#' @param validate_inputs Logical; if `TRUE` (default), validates that input
+#'   files exist before running the command.
 #' @param ... Additional arguments passed to [base::system()].
 #'
 #' @return
-#' If `retimg = TRUE`, returns an object of class `nifti` containing the output image.
-#' Otherwise, returns the result of the system command execution.
+#' If `retimg = TRUE`: A nifti object containing the output image, or `NULL`
+#' if output creation failed. If `retimg = FALSE`: The result from
+#' [base::system()], typically the exit status or captured output.
 #'
-#' @details
-#' - To overwrite the input file, set `outfile = file`. A warning will be displayed for safety.
-#' - `opts` and `frontopts` let you define custom options fielded before or after the file inputs.
-#' - If opts_after_outfile is `TRUE`, the `opts` string will be placed after the output file in the command.
+#' @seealso
+#' [get_fs()] for FreeSurfer environment setup,
+#' [mri_convert()] for format conversion,
+#' [neurobase::readnii()] for reading nifti files
 #'
-#' @examples
+#' @export
+#'
+#' @examplesIf have_fs()
 #' \dontrun{
-#'
-#' # Basic usage
+#' # Basic usage: convert MGZ to NIfTI
 #' fs_cmd(
 #'   func = "mri_convert",
 #'   file = "input.mgz",
@@ -39,94 +81,194 @@
 #'   opts = "--conform"
 #' )
 #'
-#' # Overwriting the input file
-#' fs_cmd(
-#'   func = "mri_convert",
-#'   file = "image.nii.gz",
-#'   outfile = "image.nii.gz",
-#'   opts = "--conform"
-#' )
-#'
-#' # Returning output as a nifti object
+#' # Return as nifti object
 #' img <- fs_cmd(
 #'   func = "mri_convert",
 #'   file = "input.mgz",
 #'   retimg = TRUE
 #' )
+#'
+#' # Use nifti object as input
+#' library(oro.nifti)
+#' img <- nifti(array(rnorm(10*10*10), dim = c(10, 10, 10)))
+#' result <- fs_cmd(
+#'   func = "mri_convert",
+#'   file = img,
+#'   outfile = "output.nii.gz"
+#' )
 #' }
-#' @importFrom neurobase checkimg check_outfile readnii nii.stub
-#' @importFrom cli cli_warn cli_code
-#' @export
-fs_cmd = function(
+#'
+#' @importFrom neurobase checkimg readnii writenii
+#' @importFrom cli cli_code
+fs_cmd <- function(
   func,
   file,
   outfile = NULL,
   retimg = TRUE,
   reorient = FALSE,
-  intern = FALSE,
-  opts = "",
   verbose = get_fs_verbosity(),
+  intern = verbose,
+  opts = "",
   opts_after_outfile = FALSE,
   frontopts = "",
   bin_app = "bin",
+  timeout_seconds = NULL,
+  validate_inputs = TRUE,
   ...
 ) {
-  # Ensure file exists
-  file <- checkimg(file)
+  # Simple validation
+  validate_fs_env(check_license = FALSE)
 
-  # Warn if outfile and file are the same to prevent accidental overwrite
+  # Handle nifti objects
+  if (inherits(file, "nifti")) {
+    temp_input <- temp_file(fileext = ".nii.gz")
+    neurobase::writenii(file, filename = temp_input)
+    file <- temp_input
+    on.exit(unlink(temp_input), add = TRUE)
+  } else if (validate_inputs) {
+    file <- validate_fs_inputs(file, must_exist = TRUE)
+  } else {
+    file <- neurobase::checkimg(file)
+  }
+
+  # Validate and prepare output file
+  outfile <- validate_outfile(outfile, retimg = retimg)
+
+  # Warn if input and output are the same
+  if (
+    !is.null(outfile) &&
+      length(file) == 1 &&
+      file == outfile
+  ) {
+    fs_warn(
+      "Input and output files are identical - file will be overwritten",
+      details = paste("File:", outfile)
+    )
+  }
+
+  file <- normalizePath(file, mustWork = FALSE)
+  outfile <- normalizePath(
+    outfile,
+    mustWork = FALSE
+  )
+
+  # Check output file existence before command
+  fe_before <- if (!is.null(outfile)) file.exists(outfile) else FALSE
+
+  # Build command string
+  fs_prefix <- get_fs(bin_app = bin_app)
+  cmd_parts <- paste0(fs_prefix, func)
+
+  if (nzchar(frontopts)) {
+    cmd_parts <- c(cmd_parts, frontopts)
+  }
+
+  # Add input file (quoted to handle spaces)
+  cmd_parts <- c(cmd_parts, shQuote(file))
+
+  # Add outfile and opts based on placement preference
   if (!is.null(outfile)) {
-    if (normalizePath(file) == normalizePath(outfile)) {
-      fs_warn(
-        "Input file and output file are the same. This will overwrite the input file."
-      )
+    if (!opts_after_outfile) {
+      cmd_parts <- c(cmd_parts, shQuote(outfile))
+      if (nzchar(opts)) cmd_parts <- c(cmd_parts, opts)
+    } else {
+      if (nzchar(opts)) {
+        cmd_parts <- c(cmd_parts, opts)
+      }
+      cmd_parts <- c(cmd_parts, shQuote(outfile))
+    }
+  } else if (nzchar(opts)) {
+    cmd_parts <- c(cmd_parts, opts)
+  }
+
+  cmd <- paste(cmd_parts, collapse = " ")
+
+  # Print command if verbose
+  if (verbose) {
+    cli::cli_code(cmd)
+  }
+
+  # Execute command
+  res <- try_fs_cmd(
+    cmd,
+    context = paste("FreeSurfer", func, "command"),
+    timeout_seconds = timeout_seconds,
+    intern = intern,
+    ...
+  )
+
+  # Check output file existence after command
+  fe_after <- if (!is.null(outfile)) file.exists(outfile) else FALSE
+
+  # Use unified result checking
+  if (!is.null(outfile)) {
+    check_fs_result(
+      res = res,
+      fe_before = fe_before,
+      fe_after = fe_after,
+      outfile = outfile,
+      func_name = func
+    )
+  }
+
+  # Return appropriate result
+  if (retimg && !is.null(outfile)) {
+    if (fe_after) {
+      return(neurobase::readnii(
+        outfile,
+        reorient = reorient
+      ))
+    } else {
+      fs_warn("Cannot return image - output file was not created")
+      return(NULL)
     }
   }
 
-  # Get Freesurfer command base
-  cmd = get_fs(bin_app = bin_app)
-
-  # Construct the command with frontopts
-  base_cmd <- sprintf('%s %s', func, frontopts)
-  base_cmd <- gsub("\\s\\s+", " ", base_cmd)
-  base_cmd <- sub("[ \t\r\n]+$", "", base_cmd, perl = TRUE)
-  cmd <- sprintf('%s %s "%s"', cmd, base_cmd, file)
-
-  # Handle outfile and extensions
-  no_outfile = is.null(outfile)
-
-  if (!no_outfile) {
-    outfile <- check_outfile(
-      outfile = outfile,
-      retimg = retimg,
-      fileext = ext
-    )
-
-    cmd <- sprintf(
-      '%s %s "%s"',
-      cmd,
-      ifelse(!opts_after_outfile, opts, outfile),
-      ifelse(opts_after_outfile, opts, outfile)
-    )
-  } else {
-    cmd <- paste(cmd, opts)
-  }
-
-  # Debug log
-  if (verbose) {
-    cli::cli_text("Freesurfer command: {.code {cmd}}")
-  }
-
-  res <- try_fs_cmd(cmd, intern = intern)
-
-  # Process output if retimg is TRUE
-  if (retimg) {
-    img_path <- if (no_outfile) file else outfile
-    check_path(img_path, error = TRUE)
-
-    img <- readnii(img_path, reorient = reorient)
-    return(img)
-  }
-
   return(res)
+}
+
+#' Execute system command with minimal wrapper
+#' @param cmd Command to execute
+#' @param context Description of command
+#' @param timeout_seconds Timeout in seconds (optional)
+#' @param ... Additional arguments passed to system()
+#' @return Result of system command
+#' @noRd
+try_fs_cmd <- function(
+  cmd,
+  context = NULL,
+  timeout_seconds = NULL,
+  verbose = get_fs_verbosity(),
+  intern = verbose,
+  ...
+) {
+  ignore_out <- !isTRUE(intern) && !isTRUE(verbose)
+
+  # Helper to call system with appropriate ignore flags
+  call_system <- function() {
+    system(
+      cmd,
+      intern = intern,
+      ignore.stdout = ignore_out,
+      ignore.stderr = ignore_out,
+      ...
+    )
+  }
+
+  # Use timeout if requested and available
+  if (
+    !is.null(timeout_seconds) && requireNamespace("R.utils", quietly = TRUE)
+  ) {
+    return(R.utils::withTimeout(
+      call_system(),
+      timeout = timeout_seconds,
+      onTimeout = "error"
+    ))
+  }
+
+  if (!is.null(timeout_seconds)) {
+    fs_warn("Timeout requested but R.utils not available")
+  }
+
+  call_system()
 }
