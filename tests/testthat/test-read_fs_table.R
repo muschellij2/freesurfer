@@ -1,3 +1,4 @@
+describe("read_fs_table", {
 # Create a temporary file with sample data for testing
 mock_stats_table <- function(
   content,
@@ -22,7 +23,7 @@ mock_data <-
     col2 = c(2, 4)
   )
 
-test_that("handles default separator", {
+it("handles default separator", {
   tempfile <- withr::local_tempfile(fileext = ".txt")
   file <- mock_stats_table(
     mock_data,
@@ -42,7 +43,7 @@ test_that("handles default separator", {
   expect_equal(result_stats, result)
 })
 
-test_that("handles custom separator", {
+it("handles custom separator", {
   tempfile <- withr::local_tempfile(fileext = ".txt")
   file <- mock_stats_table(
     mock_data,
@@ -57,7 +58,7 @@ test_that("handles custom separator", {
   expect_equal(result, mock_data)
 })
 
-test_that("works when header is set to FALSE", {
+it("works when header is set to FALSE", {
   tempfile <- withr::local_tempfile(fileext = ".txt")
   file <- mock_stats_table(
     mock_data,
@@ -74,14 +75,14 @@ test_that("works when header is set to FALSE", {
   expect_equal(result$V2, c("col2", 2, 4))
 })
 
-test_that("handles non-existent file gracefully", {
+it("handles non-existent file gracefully", {
   expect_error(
     read_fs_table("nonexistent_file.txt"),
     "does not exist"
   )
 })
 
-test_that("handles invalid file format gracefully", {
+it("handles invalid file format gracefully", {
   file <- withr::local_tempfile(fileext = ".txt")
   writeLines("This is not a valid\ntable format, at all\nshould error", file)
   expect_error(
@@ -93,7 +94,7 @@ test_that("handles invalid file format gracefully", {
   )
 })
 
-test_that("respects additional arguments", {
+it("respects additional arguments", {
   tempfile <- withr::local_tempfile(fileext = ".txt")
   file <- mock_stats_table(
     mock_data,
@@ -111,7 +112,7 @@ test_that("respects additional arguments", {
   expect_true(is.factor(result$V2))
 })
 
-test_that("with mocked check_path validates input file", {
+it("with mocked check_path validates input file", {
   local_mocked_bindings(
     check_path = function(...) {
       fs_abort("Mocked check_path triggered")
@@ -121,4 +122,133 @@ test_that("with mocked check_path validates input file", {
     read_fs_table("dummy.txt"),
     "Mocked check_path triggered"
   )
+})
+
+it("warns for unexpected file extension", {
+  file <- withr::local_tempfile(fileext = ".xyz")
+  writeLines(c("col1\tcol2", "1\t2", "3\t4"), file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  expect_warning(
+    read_fs_table(file, validate_format = TRUE),
+    "Unexpected file extension"
+  )
+})
+
+it("does not warn for valid extensions", {
+  file <- withr::local_tempfile(fileext = ".stats")
+  writeLines(c("col1\tcol2", "1\t2", "3\t4"), file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  expect_no_warning(
+    read_fs_table(file, validate_format = TRUE)
+  )
+})
+
+it("skips format validation when validate_format = FALSE", {
+  file <- withr::local_tempfile(fileext = ".xyz")
+  writeLines(c("col1\tcol2", "1\t2", "3\t4"), file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  expect_no_warning(
+    read_fs_table(file, validate_format = FALSE)
+  )
+})
+
+it("errors on empty file", {
+  file <- withr::local_tempfile(fileext = ".txt")
+  writeLines(character(0), file)
+
+  expect_error(
+    read_fs_table(file),
+    "empty"
+  )
+})
+
+it("warns when result has zero rows", {
+  file <- withr::local_tempfile(fileext = ".txt")
+  writeLines("col1\tcol2", file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  expect_warning(
+    read_fs_table(file),
+    "empty or contains no data rows"
+  )
+})
+
+it("warns when result has only one column with non-space separator", {
+  file <- withr::local_tempfile(fileext = ".txt")
+  writeLines("col1\n1\n2\n3", file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  expect_warning(
+    read_fs_table(file, sep = "\t"),
+    "only one column"
+  )
+})
+
+it("uses delimiter attribute from file if present", {
+  file <- withr::local_tempfile(fileext = ".txt")
+  writeLines("col1\tcol2\n1\t2\n3\t4", file)
+  attr(file, "delimiter") <- "\t"
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  result <- read_fs_table(file)
+  expect_equal(ncol(result), 2)
+})
+
+it("auto-detects tab separator", {
+  file <- withr::local_tempfile(fileext = ".txt")
+  writeLines("col1\tcol2\n1\t2\n3\t4", file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  result <- read_fs_table(file)
+  expect_equal(ncol(result), 2)
+})
+
+it("reads comma-separated file with explicit separator", {
+  file <- withr::local_tempfile(fileext = ".csv")
+  writeLines(c("col1,col2", "1,2", "3,4"), file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  result <- read_fs_table(file, sep = ",")
+  expect_equal(ncol(result), 2)
+})
+
+it("handles files with comment lines", {
+  file <- withr::local_tempfile(fileext = ".txt")
+  writeLines(c("# comment", "col1\tcol2", "1\t2", "3\t4"), file)
+
+  local_mocked_bindings(
+    get_fs_verbosity = function() FALSE
+  )
+
+  result <- read_fs_table(file, comment.char = "#")
+  expect_equal(ncol(result), 2)
+  expect_equal(nrow(result), 2)
+})
 })

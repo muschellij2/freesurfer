@@ -1,4 +1,5 @@
-test_that("recon_con1 passes correct options to reconner", {
+describe("recon_manual", {
+it("recon_con1 passes correct options to reconner", {
   local_mocked_bindings(
     check_path = function(...) TRUE,
     reconner = function(infile, outdir, subjid, verbose, opts) {
@@ -28,7 +29,7 @@ test_that("recon_con1 passes correct options to reconner", {
   expect_equal(recon_con1, autorecon1)
 })
 
-test_that("recon_con2 passes correct options to reconner", {
+it("recon_con2 passes correct options to reconner", {
   local_mocked_bindings(
     reconner = function(infile, outdir, subjid, verbose, opts) {
       list(
@@ -57,7 +58,7 @@ test_that("recon_con2 passes correct options to reconner", {
   expect_equal(recon_con2, autorecon2)
 })
 
-test_that("recon_con3 passes correct options to reconner", {
+it("recon_con3 passes correct options to reconner", {
   local_mocked_bindings(
     reconner = function(infile, outdir, subjid, verbose, opts) {
       list(
@@ -86,7 +87,7 @@ test_that("recon_con3 passes correct options to reconner", {
   expect_equal(recon_con3, autorecon3)
 })
 
-test_that("Error is thrown if check_path fails in recon_con1", {
+it("Error is thrown if check_path fails in recon_con1", {
   local_mocked_bindings(
     check_path = function(filepath) fs_abort("Invalid path!")
   )
@@ -99,4 +100,5 @@ test_that("Error is thrown if check_path fails in recon_con1", {
     ),
     "Invalid path!"
   )
+})
 })

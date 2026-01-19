@@ -22,7 +22,7 @@ mock_nifti_image <- function(dims = c(2, 2, 2)) {
 
 #' Temporarily unset FreeSurfer environment variables and options
 #' @keywords internal
-local_fs_unset <- function(env = new.env()) {
+local_fs_unset <- function(env = parent.frame()) {
   withr::local_options(
     freesurfer.home = NULL,
     freesurfer.subj_dir = NULL,

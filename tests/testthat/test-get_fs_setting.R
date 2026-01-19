@@ -1,4 +1,5 @@
-test_that("get_fs_setting correctly uses R options if set", {
+describe("get_fs_setting", {
+it("get_fs_setting correctly uses R options if set", {
   local_fs_unset()
   opt_name <- "freesurfer.test_option"
   value <- normalizePath("/this/weird/path", mustWork = FALSE)
@@ -27,7 +28,7 @@ test_that("get_fs_setting correctly uses R options if set", {
   expect_true(result$exists)
 })
 
-test_that("get_fs_setting correctly uses environment variables if set", {
+it("get_fs_setting correctly uses environment variables if set", {
   local_fs_unset()
   env_var <- "FREESURFER_TEST_ENV"
   value <- "/path/to/env_value"
@@ -49,7 +50,7 @@ test_that("get_fs_setting correctly uses environment variables if set", {
   expect_true(result$exists)
 })
 
-test_that("get_fs_setting falls back to defaults if neither option nor environment variable is set", {
+it("get_fs_setting falls back to defaults if neither option nor environment variable is set", {
   local_fs_unset()
   temp_dir <- withr::local_tempdir()
 
@@ -63,7 +64,7 @@ test_that("get_fs_setting falls back to defaults if neither option nor environme
   expect_true(result$exists)
 })
 
-test_that("get_fs_setting returns NA when all options fail", {
+it("get_fs_setting returns NA when all options fail", {
   local_fs_unset()
   result <- get_fs_setting(
     env_var = "MISSING_ENV_VAR",
@@ -75,7 +76,7 @@ test_that("get_fs_setting returns NA when all options fail", {
   expect_false(result$exists)
 })
 
-test_that("get_fs_setting returns options over envvar", {
+it("get_fs_setting returns options over envvar", {
   local_fs_unset()
   opt_name <- "freesurfer.test_option"
   opt_val <- withr::local_tempdir("opt")
@@ -92,7 +93,7 @@ test_that("get_fs_setting returns options over envvar", {
 })
 
 # ---- get_fs_home function ----
-test_that("get_fs_home retrieves value from R option", {
+it("get_fs_home retrieves value from R option", {
   local_fs_unset()
   withr::local_options(freesurfer.home = "/mock/path/from/option")
   result <- get_fs_home(simplify = FALSE)
@@ -104,7 +105,7 @@ test_that("get_fs_home retrieves value from R option", {
   expect_equal(result$value, result_simple)
 })
 
-test_that("get_fs_home retrieves value from environment variable", {
+it("get_fs_home retrieves value from environment variable", {
   local_fs_unset()
   withr::local_envvar(FREESURFER_HOME = "/mock/path/from/env")
   result <- get_fs_home(simplify = FALSE)
@@ -113,7 +114,7 @@ test_that("get_fs_home retrieves value from environment variable", {
   expect_false(result$exists)
 })
 
-test_that("get_fs_home retrieves value from default paths", {
+it("get_fs_home retrieves value from default paths", {
   local_fs_unset()
   mock_default_path <- withr::local_tempdir("mock_fs_home")
 
@@ -136,7 +137,7 @@ test_that("get_fs_home retrieves value from default paths", {
   expect_true(result$exists)
 })
 
-test_that("get_fs_home handles missing values gracefully", {
+it("get_fs_home handles missing values gracefully", {
   local_fs_unset()
   withr::local_envvar(FREESURFER_HOME = "")
   withr::local_options(freesurfer.home = NULL)
@@ -157,7 +158,7 @@ test_that("get_fs_home handles missing values gracefully", {
 
 # ---- get_fs_license function ----
 
-test_that("get_fs_license prioritizes correct license file paths", {
+it("get_fs_license prioritizes correct license file paths", {
   local_fs_unset()
   temp_dir <- withr::local_tempdir()
   withr::local_options(freesurfer.home = temp_dir)
@@ -190,7 +191,7 @@ test_that("get_fs_license prioritizes correct license file paths", {
 })
 
 # ---- get_fs_output function ----
-test_that("get_fs_output returns correct output format", {
+it("get_fs_output returns correct output format", {
   local_fs_unset()
 
   result <- get_fs_output(simplify = FALSE)
@@ -214,7 +215,7 @@ test_that("get_fs_output returns correct output format", {
 })
 
 # ---- get_fs_mni function ----
-test_that("get_mni_bin does not find path when not there", {
+it("get_mni_bin does not find path when not there", {
   local_fs_unset()
   # correct file, but not inside /mni
   temp_bin <- withr::local_tempfile(
@@ -232,7 +233,7 @@ test_that("get_mni_bin does not find path when not there", {
   expect_false(result$exists)
 })
 
-test_that("get_mni_bin identifies default path", {
+it("get_mni_bin identifies default path", {
   local_fs_unset()
 
   temp_dir <- withr::local_tempdir()
@@ -252,7 +253,7 @@ test_that("get_mni_bin identifies default path", {
   expect_true(result$exists)
 })
 
-test_that("get_mni_bin identifies option", {
+it("get_mni_bin identifies option", {
   local_fs_unset()
 
   temp_dir <- withr::local_tempdir()
@@ -275,7 +276,7 @@ test_that("get_mni_bin identifies option", {
   expect_equal(result$value, result2)
 })
 
-test_that("get_mni_bin returns several paths when present", {
+it("get_mni_bin returns several paths when present", {
   local_fs_unset()
 
   temp_dir <- withr::local_tempdir()
@@ -302,7 +303,7 @@ test_that("get_mni_bin returns several paths when present", {
 })
 
 # ---- get_fs_subdir function ----
-test_that("get_fs_subdir retrieves value from R option", {
+it("get_fs_subdir retrieves value from R option", {
   local_fs_unset()
 
   withr::local_options(freesurfer.subj_dir = "/mock/path/from/option")
@@ -312,7 +313,7 @@ test_that("get_fs_subdir retrieves value from R option", {
   expect_false(result$exists) # Since this is a mock path
 })
 
-test_that("get_fs_subdir retrieves value from environment variable", {
+it("get_fs_subdir retrieves value from environment variable", {
   local_fs_unset()
 
   withr::local_envvar(SUBJECTS_DIR = "/mock/path/from/env")
@@ -322,7 +323,7 @@ test_that("get_fs_subdir retrieves value from environment variable", {
   expect_false(result$exists) # Since this is a mock path
 })
 
-test_that("get_fs_subdir retrieves value from default fs_dir() + '/subjects'", {
+it("get_fs_subdir retrieves value from default fs_dir() + '/subjects'", {
   local_fs_unset()
 
   mock_fs_dir <- withr::local_tempdir()
@@ -345,7 +346,7 @@ test_that("get_fs_subdir retrieves value from default fs_dir() + '/subjects'", {
   expect_true(result$exists)
 })
 
-test_that("get_fs_subdir handles missing values gracefully", {
+it("get_fs_subdir handles missing values gracefully", {
   local_fs_unset()
 
   local_mocked_bindings(
@@ -360,7 +361,7 @@ test_that("get_fs_subdir handles missing values gracefully", {
   expect_false(result$exists)
 })
 
-test_that("return_setting correctly handles valid paths", {
+it("return_setting correctly handles valid paths", {
   # Create temporary files for path testing
   temp_files <- c(
     withr::local_tempfile(),
@@ -382,7 +383,7 @@ test_that("return_setting correctly handles valid paths", {
   )
 })
 
-test_that("return_setting correctly handles NA values", {
+it("return_setting correctly handles NA values", {
   # Test with NA values
   result <- return_setting(
     value = c(NA, NA),
@@ -397,7 +398,7 @@ test_that("return_setting correctly handles NA values", {
   )
 })
 
-test_that("return_setting handles non-path scenarios", {
+it("return_setting handles non-path scenarios", {
   # Test when is_path is FALSE
   result <- return_setting(
     value = c("example_value"),
@@ -409,7 +410,7 @@ test_that("return_setting handles non-path scenarios", {
   expect_true(is.na(result$exists))
 })
 
-test_that("return_single selects the first valid existing value", {
+it("return_single selects the first valid existing value", {
   # Mock setting with valid existing entries
   setting <- list(
     value = c("valid_path_1", "valid_path_2"),
@@ -421,7 +422,7 @@ test_that("return_single selects the first valid existing value", {
   expect_equal(result$exists, TRUE)
 })
 
-test_that("return_single handles cases with no existing paths", {
+it("return_single handles cases with no existing paths", {
   # Mock setting with no valid existing entries
   setting <- list(
     value = c("invalid_path_1", "invalid_path_2"),
@@ -434,7 +435,7 @@ test_that("return_single handles cases with no existing paths", {
   expect_false(result$exists)
 })
 
-test_that("return_single asis when there is only one", {
+it("return_single asis when there is only one", {
   # Mock setting with no valid existing entries
   setting <- list(
     value = "invalid_path_1",
@@ -449,7 +450,7 @@ test_that("return_single asis when there is only one", {
 
 # -- verbosity tests
 
-test_that("get_fs_verbosity gets envvar", {
+it("get_fs_verbosity gets envvar", {
   local_fs_unset()
   withr::local_envvar(
     FREESURFER_VERBOSE = TRUE
@@ -474,7 +475,7 @@ test_that("get_fs_verbosity gets envvar", {
   expect_true(is.na(result$exists))
 })
 
-test_that("get_fs_verbosity deals with NA", {
+it("get_fs_verbosity deals with NA", {
   # Mock get_fs_setting with a valid value
   local_mocked_bindings(
     get_fs_setting = function(...) {
@@ -502,7 +503,7 @@ test_that("get_fs_verbosity deals with NA", {
   expect_match(res$source, "Default")
 })
 
-test_that("get_fs_verbosity deals with non-boolean", {
+it("get_fs_verbosity deals with non-boolean", {
   withr::local_envvar(
     FREESURFER_VERBOSE = "high"
   )
@@ -514,7 +515,7 @@ test_that("get_fs_verbosity deals with non-boolean", {
 })
 
 # ---- source ----
-test_that("get_fs_source behaves correctly", {
+it("get_fs_source behaves correctly", {
   # Mocking get_fs_setting and fs_dir
   local_mocked_bindings(
     get_fs_setting = function(var, option, default) {
@@ -572,4 +573,5 @@ test_that("get_fs_source behaves correctly", {
 
   result <- get_fs_source(simplify = FALSE)
   expect_match(result$source, "Default")
+})
 })
