@@ -114,9 +114,15 @@ describe("mnc2nii", {
   })
 
   it("errors when input file does not exist", {
+    local_mocked_bindings(
+      validate_fs_env = function(...) {
+        TRUE
+      }
+    )
+
     expect_error(
       mnc2nii("nonexistent.mnc"),
-      "exist"
+      "Files not found"
     )
   })
 
@@ -323,6 +329,22 @@ describe("nii2mnc", {
     expect_error(
       nii2mnc(temp_file, outfile = out_file),
       "nii2mnc did not produce outfile"
+    )
+  })
+
+  it("calls mnc when available", {
+    skip_if_not(get_mni_bin(simplify = FALSE)$exists)
+
+    withr::local_options(freesurfer.verbose = FALSE)
+    img <- oro.nifti::nifti(array(rnorm(5 * 5 * 5), dim = c(5, 5, 5)))
+    mnc <- nii2mnc(img)
+
+    outfile <- withr::local_tempfile(fileext = ".nii")
+    img_file <- mnc2nii(mnc, outfile = outfile)
+    expect_equal(outfile, img_file)
+    expect_message(
+      res <- neurobase::readnii(img_file),
+      "Malformed"
     )
   })
 })
