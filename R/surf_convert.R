@@ -9,16 +9,16 @@
 #' @examplesIf have_fs()
 #'    fname = file.path(fs_subj_dir(), "bert", "surf", "lh.thickness")
 #'    out = surf_convert(fname)
-surf_convert = function(
+surf_convert <- function(
   file,
   outfile = NULL,
   ...
 ) {
   if (is.null(outfile)) {
-    outfile = temp_file(fileext = ".dat")
+    outfile <- temp_file(fileext = ".dat")
   }
-  opts = "--ascii+crsf"
-  res = fs_cmd(
+  opts <- "--ascii+crsf"
+  res <- fs_cmd(
     func = "mri_convert",
     file = file,
     outfile = outfile,
@@ -31,13 +31,13 @@ surf_convert = function(
   ###############################
   # Reading the data back in
   ###############################
-  rl = readLines(outfile)
-  rl = trimws(rl)
-  rl = gsub("\\s+", " ", rl)
-  rl = strsplit(rl, " ")
-  rl = do.call("rbind", rl)
-  class(rl) = "numeric"
-  colnames(rl) = c("col", "row", "slice", "frame", "value")
+  rl <- readLines(outfile)
+  rl <- trimws(rl)
+  rl <- gsub("\\s+", " ", rl)
+  rl <- strsplit(rl, " ")
+  rl <- do.call("rbind", rl)
+  class(rl) <- "numeric"
+  colnames(rl) <- c("col", "row", "slice", "frame", "value")
 
-  return(rl)
+  rl
 }

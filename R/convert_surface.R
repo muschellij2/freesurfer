@@ -13,22 +13,26 @@
 #' @note This was adapted from the gist:
 #' \url{https://gist.github.com/mm--/4a4fc7badacfad874102}
 #' @examplesIf have_fs()
+#' \dontshow{
+#' options(freesurfer.verbose = FALSE)
+#' }
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' res = convert_surface(infile = infile)
-convert_surface = function(infile, ...) {
+convert_surface <- function(infile, ...) {
   ########
   # adapted from
   # https://gist.github.com/mm--/4a4fc7badacfad874102
   ##########
-  file = mris_convert(infile = infile, ...)
-  lines = readLines(file)
+  file <- mris_convert(infile = infile, ...)
+  lines <- readLines(file)
   ## Read in lines, filtering out comments
   lines <- grep("^(#.*)?$", lines, value = TRUE, invert = TRUE)
 
   ## Get the number of vertices and the number of faces
   infos <- as.numeric(unlist(strsplit(lines[1], " ")))
-  if (is.na(infos)) {
+
+  if (length(infos) != 2) {
     cli::cli_abort(c(
       "Invalid header in {infile}",
       "The first line should contain two numbers: number of vertices and faces."
@@ -43,19 +47,19 @@ convert_surface = function(infile, ...) {
 
   ## Strings to 3 column numeric matrix
   str_to_matrix <- function(strings) {
-    strings = strsplit(strings, split = " +")
-    strings = lapply(strings, as.numeric)
-    strings = do.call("rbind", strings)
-    strings = strings[, 1:3]
-    return(strings)
+    strings <- strsplit(strings, split = " +")
+    strings <- lapply(strings, as.numeric)
+    strings <- do.call("rbind", strings)
+    strings <- strings[, 1:3]
+    strings
   }
   ## Convert vertices and faces
   # verts <- str_to_matrix(splits$Vertices)
-  splits$vertices = str_to_matrix(splits$vertices)
+  splits$vertices <- str_to_matrix(splits$vertices)
   #Faces have to start at 1
-  splits$faces = str_to_matrix(splits$faces) + 1
+  splits$faces <- str_to_matrix(splits$faces) + 1
 
-  return(splits)
+  splits
 }
 
 #' @title Convert Freesurfer Surface to Triangles
@@ -71,6 +75,9 @@ convert_surface = function(infile, ...) {
 #' @export
 #'
 #' @examplesIf have_fs() && requireNamespace("rgl", quietly = TRUE)
+#' \dontshow{
+#' options(freesurfer.verbose = FALSE)
+#' }
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' right_triangles = surface_to_triangles(infile = infile)
@@ -95,12 +102,11 @@ convert_surface = function(infile, ...) {
 #' rgl::triangles3d(right_triangles,
 #' color = rainbow(nrow(right_triangles)))
 #'
-surface_to_triangles = function(infile, ...) {
-  splits = convert_surface(infile, ...)
+surface_to_triangles <- function(infile, ...) {
+  splits <- convert_surface(infile, ...)
 
-  faces = as.vector(t(splits$faces))
-  triangles <- splits$vertices[faces, ]
-  return(triangles)
+  faces <- as.vector(t(splits$faces))
+  splits$vertices[faces, ]
 }
 
 
@@ -118,17 +124,20 @@ surface_to_triangles = function(infile, ...) {
 #' @export
 #'
 #' @examplesIf have_fs()
+#' \dontshow{
+#' options(freesurfer.verbose = FALSE)
+#' }
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' res = surface_to_obj(infile = infile)
 
-surface_to_obj = function(infile, outfile = NULL, ...) {
-  splits = convert_surface(infile, ...)
+surface_to_obj <- function(infile, outfile = NULL, ...) {
+  splits <- convert_surface(infile, ...)
 
   if (is.null(outfile)) {
-    outfile = temp_file(fileext = ".obj")
+    outfile <- temp_file(fileext = ".obj")
   }
-  scipen = getOption("scipen")
+  scipen <- getOption("scipen")
   on.exit({
     options(scipen = scipen)
   })
@@ -148,5 +157,5 @@ surface_to_obj = function(infile, outfile = NULL, ...) {
   )
 
   writeLines(c(vertLines, faceLines), con = outfile)
-  return(outfile)
+  outfile
 }

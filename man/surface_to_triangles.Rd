@@ -21,7 +21,10 @@ Reads in a surface file from Freesurfer and
 converts it into triangles
 }
 \examples{
-\dontshow{if (have_fs() && requireNamespace("rgl", quietly = TRUE)) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs() && requireNamespace("rgl", quietly = TRUE)) withAutoprint(\{ # examplesIf}
+\dontshow{
+options(freesurfer.verbose = FALSE)
+}
 infile = file.path(fs_subj_dir(),
                    "bert", "surf", "rh.pial")
 right_triangles = surface_to_triangles(infile = infile)

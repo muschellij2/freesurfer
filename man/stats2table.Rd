@@ -4,6 +4,8 @@
 \alias{stats2table}
 \alias{asegstats2table}
 \alias{aparcstats2table}
+\alias{aparcstats2table.help}
+\alias{asegstats2table.help}
 \title{Generalized Stats to Table}
 \usage{
 stats2table(
@@ -36,6 +38,10 @@ aparcstats2table(
   opts = "",
   ...
 )
+
+aparcstats2table.help(display = TRUE, warn = TRUE, ...)
+
+asegstats2table.help(display = TRUE, warn = TRUE, ...)
 }
 \arguments{
 \item{type}{(character) Either "aparc" for cortical parcellation or
@@ -70,7 +76,7 @@ the \code{SUBJECTS_DIR} back correctly after the error}
 
 \item{verbose}{(logical) print diagnostic messages}
 
-\item{...}{Additional arguments passed to \link{stats2table}.}
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 
 \item{subjects}{(character) A vector of subject identifiers. This is
 the primary way to specify inputs when using this function.}
@@ -83,6 +89,10 @@ Options are "lh" (left hemisphere) or "rh" (right hemisphere).}
 
 \item{parc}{(character) Specifies the parcellation scheme to be used.
 Options include "aparc" or "aparc.a2009s".}
+
+\item{display}{Logical; whether to display help output}
+
+\item{warn}{Logical; whether to warn if help is not available}
 }
 \value{
 A character string: the path to the output file with its
@@ -110,9 +120,13 @@ into tabular format by calling the FreeSurfer \code{aparcstats2table}
 command.
 \code{...} is passed to \link{stats2table} for additional options.`
 
+\item \code{aparcstats2table.help()}: Display FreeSurfer help for aparcstats2table
+
+\item \code{asegstats2table.help()}: Display FreeSurfer help for asegstats2table
+
 }}
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 # Example for asegstats2table
 outfile_aseg <- asegstats2table(
     subjects = "bert",

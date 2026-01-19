@@ -25,8 +25,8 @@
 #'   delimiter is stored as an attribute for programmatic access.
 #' @param skip (logical) If `TRUE`, skips invalid inputs (e.g., missing
 #'   files or data) without throwing errors.
-#' @param ... Additional arguments passed to the internal
-#'   [run_check_fs_cmd] function. These might include extra FreeSurfer
+#' @param ... Additional arguments passed to the internal function.
+#'   These might include extra FreeSurfer
 #'   flags or configurations.
 #' @template subj_dir
 #' @template opts
@@ -121,7 +121,7 @@ stats2table <- function(
   )
 
   attr(outfile, "delimiter") <- delim_values$delim
-  return(outfile)
+  outfile
 }
 
 #' @describeIn stats2table Converts subcortical segmentation statistics
@@ -218,49 +218,17 @@ aparcstats2table <- function(
   )
 }
 
-#' Get Help for `aparcstats2table` Freesurfer Command
-#'
-#' This function displays the help documentation for the Freesurfer command
-#' `aparcstats2table`. The `aparcstats2table` command is used to extract
-#' cortical parcellation statistics and output them in a tabular format, making
-#' it easier to perform analyses or further processing.
-#'
-#' @details
-#' The `aparcstats2table` command is commonly used when working with data
-#' generated from Freesurfer's cortical parcellations. It allows users to
-#' extract statistics from cortical surfaces and output them in a structured
-#' format that can be easily analyzed or visualized.
-#'
-#' @return
-#' This function does not return a value. It prints help documentation to the
-#' console.
-#'
-#' @examplesIf have_fs()
-#' aparcstats2table.help()
-#'
+#' @describeIn stats2table Display FreeSurfer help for aparcstats2table
+#' @param display Logical; whether to display help output
+#' @param warn Logical; whether to warn if help is not available
+#' @param ... Additional arguments passed to [fs_help()]
 #' @export
-aparcstats2table.help <- function() {
-  fs_help("aparcstats2table")
+aparcstats2table.help <- function(...) {
+  fs_help("aparcstats2table", ...)
 }
 
-#' Get Help for `asegstats2table` Freesurfer Command
-#'
-#' This function displays the help documentation for the Freesurfer command
-#' `asegstats2table`. The `asegstats2table` command is used to extract
-#' subcortical segmentation statistics and output them in a tabular format.
-#'
-#' @details
-#' The `asegstats2table` command facilitates the analysis of data generated
-#' from Freesurfer's automated anatomical segmentation into table formats.
-#'
-#' @return
-#' This function does not return a value. It prints help documentation to the
-#' console.
-#'
-#' @examplesIf have_fs()
-#' asegstats2table.help()
-#'
+#' @describeIn stats2table Display FreeSurfer help for asegstats2table
 #' @export
-asegstats2table.help <- function() {
-  fs_help("asegstats2table")
+asegstats2table.help <- function(...) {
+  fs_help("asegstats2table", ...)
 }

@@ -21,7 +21,7 @@ This function calls \code{mri_convert} to convert a measure
 from surfaces to an ASCII file and reads it in.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
    fname = file.path(fs_subj_dir(), "bert", "surf", "lh.thickness")
    out = surf_convert(fname)
 \dontshow{\}) # examplesIf}

@@ -25,7 +25,10 @@ This was adapted from the gist:
 \url{https://gist.github.com/mm--/4a4fc7badacfad874102}
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontshow{
+options(freesurfer.verbose = FALSE)
+}
 infile = file.path(fs_subj_dir(),
                    "bert", "surf", "rh.pial")
 res = convert_surface(infile = infile)

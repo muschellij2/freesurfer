@@ -4,7 +4,7 @@
 \alias{aparcs_to_bg}
 \title{Convert Freesurfer aparcs Table to brainGraph}
 \usage{
-aparcs_to_bg(subjects, measure, ...)
+aparcs_to_bg(subjects, measure, clean_col_names = TRUE, ...)
 }
 \arguments{
 \item{subjects}{subjects to analyze,
@@ -12,6 +12,8 @@ passed to \code{\link{aparcstats2table}}}
 
 \item{measure}{measure to be analyzed,
 passed to \code{\link{aparcstats2table}}}
+
+\item{clean_col_names}{logical indicating whether to clean column names}
 
 \item{...}{additional arguments passed to \code{\link{aparcstats2table}}}
 }
@@ -23,7 +25,7 @@ Converts Freesurfer aparcs table to brainGraph naming
 convention, relying on \code{\link{aparcstats2table}}
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 fs_subj_dir()
 df = aparcs_to_bg(subjects = "bert", measure = "thickness")
 print(head(df))
