@@ -4,36 +4,16 @@
 \alias{temp_file}
 \title{Create a Temporary File with a Newly Created Directory}
 \usage{
-temp_file(...)
+temp_file(tmpdir = tempdir(check = TRUE), ...)
 }
 \arguments{
-\item{...}{Arguments passed to the \code{\link{tempfile}} function, typically
-used to customize the prefix, suffix, or pattern of the
-temporary file name.}
+\item{tmpdir}{Directory in which to create the temporary file}
+
+\item{...}{Arguments passed to tempfile()}
 }
 \value{
-A character string representing the full file path to the
-temporary file. The directory containing the file will be
-created if it does not already exist.
+Full file path to temporary file with created directory
 }
 \description{
-The \code{temp_file} function generates a temporary file path and ensures
-that the directory containing the file exists by creating it if necessary.
-}
-\details{
-This function leverages \code{\link{tempfile}} to create a unique
-file path within the system's temporary directory. Before
-returning the file path, it ensures any required
-directories are created using the \code{\link{dir.create}} function.
-}
-\examples{
-# Create a temporary file and its directory
-file_path <- temp_file(pattern = "example_")
-
-# Print the file path
-print(file_path)
-
-# Check if the directory exists
-dir.exists(dirname(file_path))
-
+Create a Temporary File with a Newly Created Directory
 }
