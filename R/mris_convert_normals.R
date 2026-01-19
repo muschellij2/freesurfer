@@ -12,15 +12,14 @@
 #'  infile = file.path(bert_dir, "surf", "lh.white")
 #'  )
 #' readLines(asc_file, n = 6)
-mris_convert_normals = function(
+mris_convert_normals <- function(
   opts = "",
   ...
 ) {
   ######################################################
   # Making output file if not specified
   ######################################################
-  opts = paste(opts, collapse = " ")
-  opts = paste0(opts, " ", "-n ")
-  outfile = mris_convert(..., opts = opts)
-  return(outfile)
+  opts <- paste(opts, collapse = " ")
+  opts <- paste0(opts, " ", "-n ")
+  mris_convert(..., opts = opts)
 }

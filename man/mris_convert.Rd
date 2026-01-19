@@ -34,7 +34,7 @@ This function call  \code{mris_convert}, a
 general conversion program for converting between cortical surface file formats
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
  asc_file = mris_convert(
  infile = file.path(bert_surf_dir, "lh.white")

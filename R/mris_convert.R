@@ -1,6 +1,8 @@
 #' @title Use Freesurfers MRIs Converter
 #' @description This function call  \code{mris_convert}, a
 #' general conversion program for converting between cortical surface file formats
+#'
+#'
 #' @param infile (character) file path for input file
 #' @param outfile (character) output file path
 #' @param ext (character) output file extension, default is set to .asc
@@ -14,7 +16,7 @@
 #'  asc_file = mris_convert(
 #'  infile = file.path(bert_surf_dir, "lh.white")
 #'  )
-mris_convert = function(
+mris_convert <- function(
   infile,
   outfile = NULL,
   ext = ".asc",
@@ -26,24 +28,26 @@ mris_convert = function(
   # Making output file if not specified
   ######################################################
   if (is.null(outfile)) {
-    outfile = tempfile(fileext = ext)
+    outfile <- tempfile(fileext = ext)
   }
 
-  opts = paste(opts, collapse = " ")
+  opts <- paste(opts, collapse = " ")
   cmd <- paste("mris_convert ", opts, infile, outfile, sep = " ")
   cmd <- paste0(get_fs(), cmd)
 
   run_check_fs_cmd(cmd = cmd, outfile = outfile, verbose = verbose, ...)
-  attr(outfile, "separator") = " "
-  return(outfile)
+  attr(outfile, "separator") <- " "
+  outfile
 }
 
 
 #' @title Help file for Freesurfers MRIs Converter
 #' @description This calls Freesurfer's \code{mris_convert} help
 #'
-#' @return Result of \code{fs_help}
+#' @param display Logical; whether to display help output
+#' @param warn Logical; whether to warn if help is not available
+#' @param ... Additional arguments passed to [fs_help()]
 #' @export
-mris_convert.help = function() {
-  fs_help("mris_convert")
+mris_convert.help <- function(...) {
+  fs_help("mris_convert", ...)
 }

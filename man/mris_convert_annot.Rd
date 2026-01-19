@@ -2,36 +2,39 @@
 % Please edit documentation in R/mris_convert_annot.R
 \name{mris_convert_annot}
 \alias{mris_convert_annot}
-\title{Convert Annotation file}
+\title{Convert Surface Annotation Files}
 \usage{
 mris_convert_annot(annot, opts = "", ...)
 }
 \arguments{
-\item{annot}{(character) annotation or gifti label data}
+\item{annot}{Character; annotation or gifti label data file path.}
 
 \item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{...}{additional arguments to \code{\link{mris_convert}}}
+\item{...}{Additional arguments passed to \code{\link[=mris_convert]{mris_convert()}}.}
 }
 \value{
-Result of \code{\link{mris_convert}}
+Result of \code{\link[=mris_convert]{mris_convert()}}.
 }
 \description{
-This function call \code{mris_convert},
-using the \code{--annot} option
+This function calls \code{mris_convert} with the \code{--annot} option to convert
+annotation or gifti label data.
+}
+\details{
+This is a convenience wrapper around \code{\link[=mris_convert]{mris_convert()}} specifically for
+annotation files. See \code{\link[=mris_convert.help]{mris_convert.help()}} for full command options.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
- bert_dir = file.path(fs_subj_dir(), "bert")
- gii_file = mris_convert_annot(
- infile = file.path(bert_dir, "surf", "lh.white"),
- annot = file.path(bert_dir, "label", "lh.aparc.annot"),
- ext = ".gii"
- )
- gii = mris_convert_annot(
- infile = file.path(bert_dir, "surf", "lh.white"),
- annot = gii_file,
- ext = ".gii"
- )
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+bert_dir <- file.path(fs_subj_dir(), "bert")
+gii_file <- mris_convert_annot(
+  infile = file.path(bert_dir, "surf", "lh.white"),
+  annot = file.path(bert_dir, "label", "lh.aparc.annot"),
+  ext = ".gii"
+)
 \dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=mris_convert]{mris_convert()}} for the underlying conversion function,
+\code{\link[=mris_convert.help]{mris_convert.help()}} for FreeSurfer help
 }

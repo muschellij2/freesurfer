@@ -19,7 +19,7 @@ This function call \code{mris_convert},
 using the \code{-n} option
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
  bert_dir = file.path(fs_subj_dir(), "bert")
  asc_file = mris_convert_normals(
  infile = file.path(bert_dir, "surf", "lh.white")

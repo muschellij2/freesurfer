@@ -12,15 +12,14 @@
 #'  infile = file.path(bert_surf_dir, "lh.white")
 #'  )
 #'  readLines(asc_file, n = 6)
-mris_convert_vertex = function(
+mris_convert_vertex <- function(
   opts = "",
   ...
 ) {
   ######################################################
   # Making output file if not specified
   ######################################################
-  opts = paste(opts, collapse = " ")
-  opts = paste0(opts, " ", "-v ")
-  outfile = mris_convert(..., opts = opts)
-  return(outfile)
+  opts <- paste(opts, collapse = " ")
+  opts <- paste0(opts, " ", "-v ")
+  mris_convert(..., opts = opts)
 }

@@ -24,7 +24,7 @@
 #'  res = read_fs_table(asc_file, header = FALSE)
 #'  colnames(res) = c("index", "coord_1", "coord_2", "coord_3", "value")
 #'  head(res)
-mris_convert_curv = function(
+mris_convert_curv <- function(
   curv,
   opts = "",
   ...
@@ -32,8 +32,7 @@ mris_convert_curv = function(
   ######################################################
   # Making output file if not specified
   ######################################################
-  opts = paste(opts, collapse = " ")
-  opts = paste0("-c ", curv, " ", opts)
-  outfile = mris_convert(..., opts = opts)
-  return(outfile)
+  opts <- paste(opts, collapse = " ")
+  opts <- paste0("-c ", curv, " ", opts)
+  mris_convert(..., opts = opts)
 }

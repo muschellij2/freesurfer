@@ -2,28 +2,42 @@
 % Please edit documentation in R/mris_euler_number.R
 \name{mris_euler_number}
 \alias{mris_euler_number}
-\title{MRI Euler Number}
+\title{MRIs Euler Number}
 \usage{
-mris_euler_number(file, outfile = NULL, opts = "", ...)
+mris_euler_number(
+  file,
+  outfile = NULL,
+  opts = "",
+  cleanup_temp = TRUE,
+  timeout_seconds = 120,
+  validate_format = TRUE,
+  ...
+)
 }
 \arguments{
-\item{file}{(character) input filename}
+\item{file}{(character) input filename - surface file}
 
-\item{outfile}{(character) output filename}
+\item{outfile}{(character) output filename for results (optional)}
 
-\item{opts}{Character. Additional options to Freesurfer function.}
+\item{opts}{Character. Additional options to FreeSurfer function.}
+
+\item{cleanup_temp}{(logical) Whether to clean up temporary files}
+
+\item{timeout_seconds}{(numeric) Command timeout in seconds (default 120)}
+
+\item{validate_format}{(logical) Whether to validate input format}
 
 \item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
 \value{
-Result of \code{system} command
+Character vector containing the Euler number results
 }
 \description{
-This function calls \code{mris_euler_number} to
-calculate the Euler Number
+This function calls \code{mris_euler_number} to calculate the Euler Number
+with improved error handling and output management.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 res = mris_euler_number(img, outfile = temp_file(fileext = ".mgz"))
 \dontshow{\}) # examplesIf}
