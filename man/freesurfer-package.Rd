@@ -4,7 +4,7 @@
 \name{freesurfer-package}
 \alias{freesurfer}
 \alias{freesurfer-package}
-\title{freesurfer: Wrapper Functions for 'Freesurfer'}
+\title{freesurfer: Wrapper Functions for 'FreeSurfer'}
 \description{
 Wrapper functions that interface with 'Freesurfer' \url{https://surfer.nmr.mgh.harvard.edu/}, a powerful and commonly-used 'neuroimaging' software, using system commands. The goal is to be able to interface with 'Freesurfer' completely in R, where you pass R objects of class 'nifti', implemented by package 'oro.nifti', and the function executes an 'Freesurfer' command and returns an R object of class 'nifti' or necessary output.
 }
@@ -16,7 +16,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: John Muschelli \email{muschellij2@gmail.com} (\href{https://orcid.org/0000-0001-6469-1750}{ORCID})
+\strong{Maintainer}: John Muschelli \email{muschellij2@gmail.com} (\href{https://orcid.org/0000-0001-6469-1750}{ORCID}) [copyright holder]
 
 Other contributors:
 \itemize{

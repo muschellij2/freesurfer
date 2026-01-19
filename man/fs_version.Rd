@@ -17,7 +17,7 @@ Finds the Freesurfer version from \code{FREESURFER_HOME/build-stamp.txt}
 This will use \code{fs_dir()} to get the directory of FREESURFER
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
  fs_version()
 \dontshow{\}) # examplesIf}
 }

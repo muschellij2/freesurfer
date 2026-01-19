@@ -7,8 +7,8 @@
 #' @export
 #' @examplesIf have_fs()
 #'  fs_version()
-fs_version = function() {
-  version_file = file.path(
+fs_version <- function() {
+  version_file <- file.path(
     fs_dir(),
     "build-stamp.txt"
   )
@@ -16,9 +16,7 @@ fs_version = function() {
     fs_warn(
       "No version file exists at {.path {version_file}}."
     )
-    version = ""
-  } else {
-    version = readLines(version_file)
+    return("")
   }
-  return(version)
+  readLines(version_file)
 }

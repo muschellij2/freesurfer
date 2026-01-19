@@ -31,7 +31,7 @@
 #'   stats = stats,
 #'   surf = surf)
 #' }
-construct_subj_dir = function(
+construct_subj_dir <- function(
   label = NULL,
   mri = NULL,
   stats = NULL,
@@ -41,44 +41,43 @@ construct_subj_dir = function(
   subj_root_dir = tempdir(check = TRUE)
 ) {
   if (is.null(subj)) {
-    subj = basename(temp_file())
+    subj <- basename(temp_file())
   }
-  base_dir = file.path(subj_root_dir, subj)
+  base_dir <- file.path(subj_root_dir, subj)
   mkdir(base_dir)
 
-  L = list(label = label, mri = mri, stats = stats, surf = surf, touch = touch)
+  L <- list(label = label, mri = mri, stats = stats, surf = surf, touch = touch)
   # REMOVE NULL
-  nulls = sapply(L, is.null)
-  L = L[!nulls]
-  type_names = fol_names = names(L)
-  fol_names = file.path(base_dir, fol_names)
+  nulls <- sapply(L, is.null)
+  L <- L[!nulls]
+  type_names <- fol_names <- names(L)
+  fol_names <- file.path(base_dir, fol_names)
 
   sapply(fol_names, mkdir)
 
-  res = mapply(
+  res <- mapply(
     function(y, fol) {
-      N = length(y)
-      res = rep(TRUE, length = N)
-      out_names = file.path(fol, basename(y))
+      N <- length(y)
+      res <- rep(TRUE, length = N)
+      out_names <- file.path(fol, basename(y))
       for (ix in seq(N)) {
-        x = y[ix]
+        x <- y[ix]
         check_path(x)
-        out = out_names[ix]
-        res[ix] = file.copy(from = x, to = out)
+        out <- out_names[ix]
+        res[ix] <- file.copy(from = x, to = out)
       }
-      R = list(
+      list(
         res = res,
         out_names = out_names
       )
-      return(R)
     },
     L,
     fol_names,
     SIMPLIFY = FALSE
   )
-  out_names = lapply(res, `[[`, "out_names")
-  res = lapply(res, `[[`, "res")
-  res = unlist(res)
+  out_names <- lapply(res, `[[`, "out_names")
+  res <- lapply(res, `[[`, "res")
+  res <- unlist(res)
   stopifnot(all(res))
 
   invisible(

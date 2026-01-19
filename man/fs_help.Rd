@@ -2,17 +2,35 @@
 % Please edit documentation in R/fs_help.R
 \name{fs_help}
 \alias{fs_help}
-\title{Wrapper for getting Freesurfer help}
+\title{Wrapper for getting FreeSurfer help}
 \usage{
-fs_help(func_name, help.arg = "--help", extra.args = "", ...)
+fs_help(
+  func_name,
+  help_arg = "--help",
+  extra_args = "",
+  timeout_seconds = 30,
+  display = TRUE,
+  warn = TRUE,
+  bin_app = "bin",
+  ...
+)
 }
 \arguments{
-\item{func_name}{Freesurfer function name}
+\item{func_name}{FreeSurfer function name}
 
-\item{help.arg}{Argument to print help, usually "--help"}
+\item{help_arg}{Argument to print help, usually "--help"}
 
-\item{extra.args}{Extra arguments to be passed other than
+\item{extra_args}{Extra arguments to be passed other than
 \code{--help}}
+
+\item{timeout_seconds}{Timeout for help command (default 30 seconds)}
+
+\item{display}{Logical; whether to display help output}
+
+\item{warn}{Logical; whether to warn if help is not available}
+
+\item{bin_app}{Character string specifying the FreeSurfer bin directory
+appendix. Options are \code{"bin"} (default) or \code{"mni/bin"} for MNI tools.}
 
 \item{...}{additional arguments to \code{\link{get_fs}}}
 }
@@ -21,10 +39,13 @@ Prints help output and returns output as character vector
 }
 \description{
 This function takes in the function and returns the
-help from Freesurfer for that function
+help from FreeSurfer for that function with simple validation.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 fs_help("mri_watershed")
+
+# For MNI tools
+fs_help("nu_correct", help_arg = "-help", bin_app = "mni/bin")
 \dontshow{\}) # examplesIf}
 }

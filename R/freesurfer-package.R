@@ -12,7 +12,7 @@ release_bullets <- function() {
   c(
     sprintf(
       "Coverage is at: %s",
-      covr::coverage_to_list(pkg_cov)$totalcoverage
+      covr::coverage_to_list(package_cov)$totalcoverage
     ),
     knit_vignettes()
   )
