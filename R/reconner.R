@@ -12,22 +12,17 @@
 #' simplifies its usage by automating subject directory creation, flag handling,
 #' and input processing.
 #'
-#' @param infile Input filename (DICOM or NIfTI format). If `NULL`, the `-i` flag
-#' will be omitted from the command.
-#' @param outdir Output directory where reconstruction results will be stored.
-#' If `NULL`, Freesurfer's default subject directory (`fs_subj_dir`) will
-#' be used.
-#' @param subjid Subject ID used to name the reconstructed directory. If `NULL`,
-#' it is auto-generated from the filename.
-#' @param opts Additional options for `recon-all`. Default is `"-all"`, which
-#' runs all available reconstruction steps. You can include other flags or
-#' custom options.
+#' @template subjid
+#' @param infile Character; path to input file in DICOM or NIfTI format.
+#' @template outdir
+#' @template verbose
+#' @template opts
 #' @param force Logical flag to force execution of `recon-all`, even if the
 #' subject directory already exists. Default is `FALSE`.
-#' @param verbose Logical flag controlling verbosity of logs and command-line
-#' outputs.
 #'
 #' @return Returns the result of executing the `recon-all`.
+#'
+#'
 #'
 #' @examples
 #' \dontrun{
@@ -48,6 +43,7 @@
 #' }
 #'
 #' @importFrom tools file_path_sans_ext
+#' @importFrom neurobase nii.stub
 #' @export
 reconner <- function(
   subjid = NULL,
@@ -62,16 +58,16 @@ reconner <- function(
   }
   if (!is.null(infile)) {
     check_path(infile)
-    infile = checknii(infile)
+    infile <- checknii(infile)
   }
 
   cmd <- paste0(get_fs(), "recon-all")
-  subject_directory = file.path(fs_subj_dir(), subjid)
+  subject_directory <- file.path(fs_subj_dir(), subjid)
 
   if (is.null(subjid)) {
-    subjid = gsub("[.]mg(z|h)$", "", infile)
-    subjid = nii.stub(subjid, bn = TRUE)
-    subjid = file_path_sans_ext(subjid)
+    subjid <- gsub("[.]mg(z|h)$", "", infile)
+    subjid <- nii.stub(subjid, bn = TRUE)
+    subjid <- file_path_sans_ext(subjid)
     if (verbose) {
       cli::cli_alert_info("Subject set to: {.val {subjid}}")
     }
@@ -80,7 +76,7 @@ reconner <- function(
 
   if (!is.null(outdir)) {
     cmd <- c(cmd, paste(" -sd", shQuote(outdir)))
-    subject_directory = file.path(outdir, subjid)
+    subject_directory <- file.path(outdir, subjid)
   }
 
   if (!is.null(infile)) {

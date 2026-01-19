@@ -2,8 +2,19 @@
 % Please edit documentation in R/recon_all.R
 \name{recon}
 \alias{recon}
-\title{Reconstruction from Freesurfer}
+\alias{recon_all}
+\alias{recon_steps}
+\title{FreeSurfer Reconstruction Pipeline Functions}
 \usage{
+recon_all(
+  subjid = NULL,
+  infile = NULL,
+  outdir = NULL,
+  verbose = get_fs_verbosity(),
+  opts = "-all",
+  ...
+)
+
 recon(
   subjid = NULL,
   infile = NULL,
@@ -12,152 +23,99 @@ recon(
   options = recon_steps(),
   verbose = get_fs_verbosity()
 )
+
+recon_steps()
 }
 \arguments{
-\item{subjid}{A string specifying the subject identifier. If left
-\code{NULL}, it will be derived from the input filename.}
+\item{subjid}{subject id, if NULL, the basename of the infile will be used}
 
-\item{infile}{A string specifying the input filename, which must be
-either a DICOM file (\code{.dcm}) or a NIfTI file (\code{.nii}).}
+\item{infile}{Character; path to input file in DICOM or NIfTI format.}
 
-\item{outdir}{An optional string specifying the output directory. If
-provided, the results will be saved to this location.}
+\item{outdir}{Character, Path to output directory.}
 
-\item{opts}{Additional optional arguments passed to the Freesurfer
-reconstruction command as a string.}
+\item{verbose}{(logical) print diagnostic messages}
 
-\item{options}{A named list of logical values specifying which
-steps to include in the pipeline. Each option corresponds to a
-specific stage in the Freesurfer processing workflow. Defaults
-to enabling all options (\code{TRUE}). The possible options are:
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\itemize{
-\item \code{motioncor}: Corrects small motions between multiple source
-volumes and averages them. Input: volumes in \verb{mri/orig/}. Output:
-\code{mri/orig.mgz}.
-\item \code{nuintensitycor}: Applies Non-parametric Non-uniform intensity
-Normalization (N3) to correct MR intensity non-uniformity.
-\item \code{talairach}: Computes an affine transform to the MNI305 atlas,
-outputting the files \code{mri/transform/talairach.auto.xfm} and
-\code{talairach.xfm}.
-\item \code{normalization}: Performs intensity normalization of the orig
-volume, storing the result at \code{mri/T1.mgz}.
-\item \code{skullstrip}: Removes the skull from the normalized T1 volume
-and stores the result as \code{mri/brainmask.auto.mgz} and \code{mri/brainmask.mgz}.
-\item \code{gcareg}: Computes a transform to align the \code{mri/nu.mgz} volume
-with the General Cortical Atlas (GCA).
-\item \code{canorm}: Performs further normalization based on the GCA
-model, outputting the file \code{mri/norm.mgz}.
-\item \code{careg}: Computes a nonlinear transform to align with the GCA
-atlas, producing \code{mri/transform/talairach.m3z}.
-\item \code{rmneck}: Removes the neck region from the NU-corrected volume,
-saving it as \code{mri/nu_noneck.mgz}.
-\item \code{skull-lta}: Computes a transform to include the skull in the
-alignment process, generating
-\code{mri/transforms/talairach_with_skull.lta}.
-\item \code{calabel}: Labels subcortical structures, outputting
-\code{mri/aseg.auto.mgz} and \code{mri/aseg.mgz}.
-\item \code{normalization2}: Applies another normalization step using the
-brain-only volume, creating \code{brain.mgz}.
-\item \code{segmentation}: Segments white matter, stores the output in
-\code{mri/wm.mgz}, and optionally skips using \code{aseg.mgz} if the \code{-noaseg} flag
-is applied.
-\item \code{fill}: Prepares a subcortical mass, creating the direct input
-for cortical tessellation. Produces \code{mri/filled.mgz}.
-\item \code{tessellate}: Generates an initial tessellated cortical
-surface. Output: \code{surf/?h.orig.nofix}.
-\item \code{smooth1}: Runs the first smoothing process post-tessellation.
-\item \code{inflate1}: Inflates the smooth surface for better topology
-analysis. Output: \code{surf/?h.inflated}.
-\item \code{qsphere}: Identifies topological defects with a quasi-spherical
-transformation, outputting \code{surf/?h.qsphere.nofix}.
-\item \code{fix}: Fixes topological defects, updating \code{surf/?h.orig.nofix}
-to create \code{surf/?h.orig}.
-\item \code{finalsurfs}: Generates pial and white surfaces (\code{?h.pial} and
-\code{?h.white}), and computes cortical thickness and curvature.
-\item \code{smooth2}: Runs the second smoothing process post-topology
-fixing.
-\item \code{inflate2}: Further refines the inflated surface post-fixing.
-\item \code{cortribbon}: Creates binary volume masks for the cortical
-ribbon saved as \code{?h.ribbon.mgz}.
-\item \code{sphere}: Inflates the surface into a sphere while minimizing
-distortion, required for registration to the spherical atlas.
-\item \code{surfreg}: Registers the cortical surface to a spherical atlas
-based on folding patterns.
-\item \code{contrasurfreg}: Registers to the contralateral atlas, creating
-\code{lh.rh.sphere.reg} and \code{rh.lh.sphere.reg}.
-\item \code{avgcurv}: Resamples average curvature from the atlas, enabling
-group-level visualization.
-\item \code{cortparc}: Assigns neuroanatomical labels to the cortical
-surface, creating annotation files like \code{?h.aparc.annot}.
-\item \code{parcstats}: Computes summary statistics for cortical
-parcellation, outputting files such as \code{stats/?h.aparc.stats}.
-\item \code{cortparc2}: Generates annotation files with alternative
-parcellation schemes.
-\item \code{parcstats2}: Computes statistics for the alternative
-parcellations, outputting statistics like \code{stats/?h.aparc.a2005s.stats}.
-\item \code{aparc2aseg}: Maps cortical parcellation labels to the segmentation
-volume. Produces a modified \code{aseg} volume.
-}}
+\item{...}{Additional arguments passed to \code{\link[=reconner]{reconner()}}.}
 
-\item{verbose}{A logical value controlling verbose output of the
-reconstruction command. Defaults to the setting from
-\code{\link{get_fs_verbosity}}.}
+\item{options}{Named list of logical values for \code{\link[=recon]{recon()}}, specifying which
+pipeline steps to include. See \code{\link[=recon_steps]{recon_steps()}} for available options.}
 }
 \value{
-The result of executing the Freesurfer command via \code{\link{system}}.
+Result from \code{\link[base:system]{base::system()}} call, typically exit status (0 = success).
 }
 \description{
-Performs a reconstruction pipeline using Freesurfer. This
-function enables precise customization of the reconstruction process
-through a unified \code{options} argument, simplifying control over the
-various stages of processing.
+Functions to run FreeSurfer's cortical reconstruction pipeline with varying
+levels of control and customization.
 }
 \details{
-The function provides an interface to Freesurfer's
-reconstruction tools, allowing users to process input MRI files,
-correct motion artifacts, perform cortical and subcortical segmentation,
-generate 3D cortical surfaces, and apply various transformations and
-labelings. Each process can be activated or skipped using the \code{options}
-parameter, which controls specific steps in the pipeline.
+\subsection{Pipeline Overview}{
+
+The reconstruction pipeline performs:
+\enumerate{
+\item Motion correction and intensity normalization
+\item Skull stripping and subcortical segmentation
+\item White matter segmentation
+\item Surface generation (white and pial)
+\item Cortical parcellation and thickness calculation
 }
+}
+
+\subsection{Processing Time}{
+
+A full reconstruction typically takes 6-24 hours. Use \code{opts = "-parallel"}
+for parallel processing if available.
+}
+
+\subsection{Output Location}{
+
+Results stored in \verb{$SUBJECTS_DIR/<subjid>/} with subdirectories:
+\verb{mri/}, \verb{surf/}, \verb{label/}, \verb{stats/}
+}
+}
+\section{Functions}{
+\itemize{
+\item \code{recon_all()}: Run complete reconstruction pipeline with default settings
+
+\item \code{recon()}: Run reconstruction with step-by-step control
+
+\item \code{recon_steps()}: Get named vector of available reconstruction steps
+
+}}
 \examples{
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 \dontrun{
-# Basic usage with all steps enabled
-recon(
-  infile = "subject.nii",
+# Full reconstruction with recon_all
+recon_all(
+  infile = "T1_scan.nii",
   subjid = "subject01",
-  outdir = "output_dir"
+  outdir = "~/freesurfer_output"
 )
 
-# Custom pipeline disabling certain steps
+# Step-by-step control with recon
+steps <- recon_steps()
+steps["normalization"] <- FALSE
 recon(
-  infile = "subject.nii",
-  subjid = "subject01",
-  options = list(
-    motioncor = TRUE,
-    nuintensitycor = TRUE,
-    talairach = FALSE, # Skip Talairach alignment
-    skullstrip = TRUE
-  )
+  infile = "T1_scan.nii",
+  subjid = "subject02",
+  options = steps
 )
 
-# Adding verbose output
-recon(
-  infile = "subject.nii",
-  subjid = "subject01",
-  verbose = TRUE
-)
-
-# Example with custom options
-custom_steps <- recon_steps()
-#' # Disable normalization step
-custom_steps["normalization"] <- FALSE
-
-recon(
-  infile = "subject.nii",
-  subjid = "subject01",
-  options = custom_steps
+# Low-level control with reconner
+reconner(
+  infile = "T1_scan.nii",
+  subjid = "subject03",
+  opts = "-autorecon1 -parallel"
 )
 }
+\dontshow{\}) # examplesIf}
+}
+\references{
+Dale et al. (1999) Neuroimage 9:179-194.
+Fischl et al. (1999) Neuroimage 9:195-207.
+}
+\seealso{
+\code{\link[=read_aseg_stats]{read_aseg_stats()}} to read segmentation statistics
+\code{\link[=reconner]{reconner()}} for low-level control of \code{recon-all}
 }

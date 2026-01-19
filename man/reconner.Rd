@@ -14,25 +14,18 @@ reconner(
 )
 }
 \arguments{
-\item{subjid}{Subject ID used to name the reconstructed directory. If \code{NULL},
-it is auto-generated from the filename.}
+\item{subjid}{subject id, if NULL, the basename of the infile will be used}
 
-\item{infile}{Input filename (DICOM or NIfTI format). If \code{NULL}, the \code{-i} flag
-will be omitted from the command.}
+\item{infile}{Character; path to input file in DICOM or NIfTI format.}
 
-\item{outdir}{Output directory where reconstruction results will be stored.
-If \code{NULL}, Freesurfer's default subject directory (\code{fs_subj_dir}) will
-be used.}
+\item{outdir}{Character, Path to output directory.}
 
-\item{opts}{Additional options for \code{recon-all}. Default is \code{"-all"}, which
-runs all available reconstruction steps. You can include other flags or
-custom options.}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{force}{Logical flag to force execution of \code{recon-all}, even if the
 subject directory already exists. Default is \code{FALSE}.}
 
-\item{verbose}{Logical flag controlling verbosity of logs and command-line
-outputs.}
+\item{verbose}{(logical) print diagnostic messages}
 }
 \value{
 Returns the result of executing the \code{recon-all}.
