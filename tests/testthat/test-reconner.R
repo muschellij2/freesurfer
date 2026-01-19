@@ -12,6 +12,7 @@ describe("reconner", {
     dir.create(file.path(outdir, subj))
 
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       fs_subj_dir = function() outdir,
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
@@ -32,6 +33,7 @@ describe("reconner", {
 
   it("outputs command when verbose is TRUE", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
@@ -50,6 +52,7 @@ describe("reconner", {
 
   it("adds force flag when force = TRUE", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
@@ -69,6 +72,7 @@ describe("reconner", {
 
   it("correctly adds options to the command", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
@@ -88,6 +92,7 @@ describe("reconner", {
 
   it("auto-generates subject ID from input file if subjid is NULL", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
@@ -113,6 +118,7 @@ describe("reconner", {
 
   it("updates subject directory path with custom output directory", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
@@ -131,6 +137,7 @@ describe("reconner", {
 
   it("runs command without outfile if infile is not specified", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
       get_fs_license = mock_get_license
     )
@@ -146,6 +153,7 @@ describe("reconner", {
 
   it("calls checknii and uses it for infile processing", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       checknii = function(filepath) "processed_file.nii",
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE,
@@ -162,6 +170,7 @@ describe("reconner", {
 
   it("controls default verbosity via get_fs_verbosity()", {
     local_mocked_bindings(
+      get_fs = function() "mock/path",
       get_fs_verbosity = function() FALSE,
       try_fs_cmd = function(cmd) cmd,
       check_path = function(...) TRUE
