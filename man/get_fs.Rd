@@ -4,7 +4,7 @@
 \alias{get_fs}
 \title{Generate FreeSurfer Command Line Environment Setup}
 \usage{
-get_fs(bin_app = c("bin", "mni/bin"))
+get_fs(bin_app = c("bin", "mni/bin"), fs_home = get_fs_home(simplify = FALSE))
 }
 \arguments{
 \item{bin_app}{\link{character} A vector of options for the binary application directory.
@@ -14,6 +14,10 @@ Possible options include:
 \item \code{"mni/bin"}: Includes MNI initialization.
 \item \code{""}: Base directory with no specific subdirectories.
 }}
+
+\item{fs_home}{Character string specifying FreeSurfer installation
+directory. Usually this is determined automatically via
+\code{\link{get_fs_home}}.}
 }
 \value{
 \link{character} A bash command string that includes environment setup for FreeSurfer.
@@ -29,7 +33,7 @@ binaries like \code{bin}, \code{mni/bin}, and others, while ensuring proper init
 the MNI environment if required.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 # Generate a shell command to set up FreeSurfer with the default `bin`
 get_fs(bin_app = "bin")
 

@@ -2,18 +2,23 @@
 % Please edit documentation in R/fs_sitrep.R
 \name{fs_sitrep}
 \alias{fs_sitrep}
-\title{Freesurfer Situation Report}
+\title{FreeSurfer Situation Report}
 \usage{
-fs_sitrep()
+fs_sitrep(clear_cache = FALSE, test_commands = TRUE)
+}
+\arguments{
+\item{clear_cache}{(logical) Whether to clear settings cache before reporting}
+
+\item{test_commands}{(logical) Whether to test actual FreeSurfer commands}
 }
 \description{
-Get a situation report on your current Freesurfer installation and settings
-within R. This function helps diagnose problems by showing how Freesurfer
+Get a situation report on your current FreeSurfer installation and settings
+within R. This function helps diagnose problems by showing how FreeSurfer
 paths and options are determined.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-# Report all Freesurfer settings
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+# Report all FreeSurfer settings
 fs_sitrep()
 \dontshow{\}) # examplesIf}
 }

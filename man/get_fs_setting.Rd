@@ -9,76 +9,115 @@
 \alias{get_fs_verbosity}
 \alias{get_fs_output}
 \alias{get_mni_bin}
-\title{Get FreeSurfer Configuration Settings}
+\title{Retrieve FreeSurfer Configuration Settings}
 \usage{
 get_fs_setting(env_var, opt_var, defaults = NULL, is_path = TRUE)
 
 get_fs_home(simplify = TRUE)
 
-get_fs_license(simplify = TRUE)
+get_fs_license(fs_home = get_fs_home(), simplify = TRUE)
 
-get_fs_subdir(simplify = TRUE)
+get_fs_subdir(fs_home = get_fs_home(), simplify = TRUE)
 
-get_fs_source(simplify = TRUE)
+get_fs_source(fs_home = get_fs_home(), simplify = TRUE)
 
 get_fs_verbosity(simplify = TRUE)
 
 get_fs_output(simplify = TRUE)
 
-get_mni_bin(simplify = TRUE)
+get_mni_bin(fs_home = get_fs_home(), simplify = TRUE)
 }
 \arguments{
-\item{env_var}{\link{character} Environment variable name to check.}
+\item{env_var}{Character; name of the environment variable to check.}
 
-\item{opt_var}{\link{character} R option name to check.}
+\item{opt_var}{Character; name of the R option to check.}
 
-\item{defaults}{\link{character} A vector of default paths to check; used as fallbacks if the environment or options are not set (optional).}
+\item{defaults}{Character vector of default paths to try.}
 
-\item{is_path}{\link{logical}. Does the setting point to a path. If \code{TRUE} the returned \code{exists} element will be \code{TRUE}/\code{FALSE} depending on whether the path exists or not. `}
+\item{is_path}{Logical; whether this setting represents a file/directory path.}
 
-\item{simplify}{\link{logical} If \code{TRUE}, returns only the value of the setting; if \code{FALSE}, returns a list with detailed information about the setting.}
+\item{simplify}{Logical; if \code{TRUE}, returns only the value. If \code{FALSE},
+returns a list with detailed information (value, source, exists).}
+
+\item{fs_home}{Character; FreeSurfer home directory.}
 }
 \value{
-If \code{simplify} = \code{TRUE}, returns a single value, else returns a list containing the following components:
-\describe{
-\item{value}{\link{character} The resolved configuration value (e.g., directory path, file path, or setting).}
-\item{source}{\link{character} Indicates how the value was determined (in order of search; R option, environment variable, default location).}
-\item{exists}{\link{logical} Whether the value corresponds to an existing file or path.}
-}
+When \code{simplify = TRUE}: Character string with the setting value, or \code{NA}.
+When \code{simplify = FALSE}: List with \code{value}, \code{source}, and \code{exists} components.
 }
 \description{
-Functions to manage FreeSurfer configuration settings, including determining directories, license files, and output formats. These settings are prioritized based on environment variables, R options, default fallback paths, and other predefined rules.
+These functions retrieve FreeSurfer configuration settings using a
+hierarchical lookup system: R options → environment variables → defaults.
+}
+\details{
+\subsection{Lookup Hierarchy}{
+
+Settings are resolved in the following order (first match wins):
+\enumerate{
+\item \strong{R options} (set with \code{options()})
+\item \strong{Environment variables} (set with \code{Sys.setenv()})
+\item \strong{Default paths} (platform-specific)
+}
+}
+
+\subsection{Setting Options}{
+
+You can set R options in your \code{.Rprofile}:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{options(
+  freesurfer.home = "/usr/local/freesurfer",
+  freesurfer.subj_dir = "~/freesurfer_subjects",
+  freesurfer.verbose = TRUE
+)
+}\if{html}{\out{</div>}}
+}
 }
 \section{Functions}{
 \itemize{
-\item \code{get_fs_home()}: Retrieve the FreeSurfer installation directory
+\item \code{get_fs_setting()}: Core function for retrieving settings
 
-\item \code{get_fs_license()}: Retrieve the FreeSurfer license file path
+\item \code{get_fs_home()}: Retrieve FreeSurfer installation directory
 
-\item \code{get_fs_subdir()}: Retrieve the FreeSurfer "subjects" directory
+\item \code{get_fs_license()}: Retrieve FreeSurfer license file path
 
-\item \code{get_fs_source()}: Retrieve the FreeSurfer source script
+\item \code{get_fs_subdir()}: Retrieve FreeSurfer subjects directory
 
-\item \code{get_fs_verbosity()}: Retrieve the FreeSurfer source script
+\item \code{get_fs_source()}: Retrieve FreeSurfer source script path
 
-\item \code{get_fs_output()}: Retrieve the output format for FreeSurfer
+\item \code{get_fs_verbosity()}: Retrieve FreeSurfer verbosity setting
 
-\item \code{get_mni_bin()}: Retrieve mni bin folder
+\item \code{get_fs_output()}: Retrieve FreeSurfer output format
+
+\item \code{get_mni_bin()}: Retrieve MNI tools directory
 
 }}
 \examples{
-# Retrieve FreeSurfer home directory
-get_fs_home()
+# Get FreeSurfer home directory
+fs_home <- get_fs_home()
 
-# Retrieve FreeSurfer license file
-get_fs_license()
+# Get detailed information
+fs_home_info <- get_fs_home(simplify = FALSE)
 
-# Retrieve FreeSurfer subjects directory
-get_fs_subdir()
+# Check license file
+license <- get_fs_license()
 
-# Retrieve FreeSurfer output format
-get_fs_output()
+# Get subjects directory
+subj_dir <- get_fs_subdir()
+
+# Check output format
+format <- get_fs_output()  # Returns "nii.gz", "nii", "mgz", etc.
+
+# Check verbosity
+verbose <- get_fs_verbosity()  # Returns TRUE/FALSE
+
+\dontrun{
+# Set custom options
+options(freesurfer.home = "/custom/path/freesurfer")
+get_fs_home()  # Returns: "/custom/path/freesurfer"
+}
 }
 \seealso{
-\code{\link[=Sys.getenv]{Sys.getenv()}}, \code{\link[=getOption]{getOption()}}, \code{\link[=file.exists]{file.exists()}}, \code{\link[=file.path]{file.path()}}
+\code{\link[=have_fs]{have_fs()}} to check if FreeSurfer is accessible,
+\code{\link[=fs_sitrep]{fs_sitrep()}} for comprehensive diagnostics,
+\code{\link[=get_fs]{get_fs()}} to generate environment setup commands
 }

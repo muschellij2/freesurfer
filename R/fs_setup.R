@@ -158,7 +158,7 @@ fs_subj_dir <- function() {
 #' @export
 #' @examples
 #' have_fs()
-have_fs = function(check_license = TRUE) {
+have_fs <- function(check_license = TRUE) {
   fs_home <- get_fs_home(simplify = FALSE)
   if (check_license) {
     lic <- get_fs_license(simplify = FALSE)
@@ -175,7 +175,7 @@ have_fs = function(check_license = TRUE) {
 #' @export
 #' @examples
 #' fs_imgext()
-fs_imgext = function() {
+fs_imgext <- function() {
   switch(
     get_fs_output(),
     "hdr" = ".hdr",
