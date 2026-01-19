@@ -156,6 +156,14 @@ describe("fs_help", {
   })
 
   it("errors on empty func_name", {
+    local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
+      get_fs = function(...) "/mock/freesurfer/",
+      try_fs_cmd = function(cmd, intern, ...) {
+        fs_abort("Command not found")
+      }
+    )
+
     expect_error(
       fs_help(func_name = ""),
       "non-empty character string"
@@ -163,6 +171,13 @@ describe("fs_help", {
   })
 
   it("errors on non-character func_name", {
+    local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
+      get_fs = function(...) "/mock/freesurfer/",
+      try_fs_cmd = function(cmd, intern, ...) {
+        fs_abort("Command not found")
+      }
+    )
     expect_error(
       fs_help(func_name = 123),
       "non-empty character string"
@@ -170,6 +185,10 @@ describe("fs_help", {
   })
 
   it("errors on vector func_name", {
+    local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
+      get_fs = function(...) "/mock/freesurfer/"
+    )
     expect_error(
       fs_help(func_name = c("cmd1", "cmd2")),
       "non-empty character string"
