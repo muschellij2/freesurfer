@@ -20,13 +20,6 @@ mnc2nii <- function(file, outfile = NULL, ...) {
   out_ext <- file_ext(tolower(outfile))
   outfile <- paste0(nii.stub(outfile), ".nii")
 
-  # copy for bs stuff
-  stopifnot(all(file.exists(file)))
-  tfile <- temp_file()
-  mkdir(tfile)
-  infile <- file.path(tfile, basename(file))
-  file.copy(from = file, to = infile, overwrite = TRUE)
-
   fs_cmd(
     func = "mnc2nii",
     file = file,
@@ -36,6 +29,7 @@ mnc2nii <- function(file, outfile = NULL, ...) {
     bin_app = "mni/bin",
     ...
   )
+
   if (!file.exists(outfile)) {
     real_outfile <- outfile
     outfile <- paste0(outfile, ".nii")
