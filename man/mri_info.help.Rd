@@ -4,10 +4,14 @@
 \alias{mri_info.help}
 \title{MRI information Help}
 \usage{
-mri_info.help()
+mri_info.help(display = TRUE, warn = TRUE, ...)
 }
-\value{
-Result of \code{fs_help}
+\arguments{
+\item{display}{Logical; whether to display help output}
+
+\item{warn}{Logical; whether to warn if help is not available}
+
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \description{
 This calls Freesurfer's \code{mri_info} help

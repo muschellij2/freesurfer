@@ -2,6 +2,8 @@
 #' resamples one cortical surface onto another
 #' @description This function calls Freesurfer \code{mri_surf2surf} to
 #' resample one cortical surface onto another
+#'
+#'
 #' @param subject (character) vector of subject name
 #' @param outfile (character) output filename
 #' @param hemi (character) hemisphere to run statistics
@@ -23,7 +25,7 @@
 #'    src_type  = 'curv',
 #'    hemi = "rh",
 #'    sval = "thickness")
-mri_surf2surf = function(
+mri_surf2surf <- function(
   subject = NULL,
   target_subject = NULL,
   trg_type = c('curv', 'w', 'mgh', 'nii'),
@@ -39,53 +41,53 @@ mri_surf2surf = function(
   ###########################
   # Making Hemisphere
   ###########################
-  hemi = match.arg(hemi)
-  xhemi = hemi
-  hemi = paste0("--hemi ", hemi)
-  args = hemi
+  hemi <- match.arg(hemi)
+  xhemi <- hemi
+  hemi <- paste0("--hemi ", hemi)
+  args <- hemi
   ###########################
   # Making Subject Vector
   ###########################
-  subject = paste0("--s ", subject)
-  args = c(args, subject)
+  subject <- paste0("--s ", subject)
+  args <- c(args, subject)
   ###########################
   # Making Target Subject
   ###########################
-  target_subject = paste0("--trgsubject ", target_subject)
-  args = c(args, target_subject)
+  target_subject <- paste0("--trgsubject ", target_subject)
+  args <- c(args, target_subject)
   ###########################
   # Making Target Type
   ###########################
-  trg_type = match.arg(trg_type)
-  trg_type = paste0("--trg_type ", trg_type)
-  args = c(args, trg_type)
+  trg_type <- match.arg(trg_type)
+  trg_type <- paste0("--trg_type ", trg_type)
+  args <- c(args, trg_type)
   ###########################
   # Making Source File
   ###########################
-  sval = match.arg(sval)
+  sval <- match.arg(sval)
   # ext = paste0(".", sval)
-  sval = paste0("--sval ", sval)
-  args = c(args, sval)
+  sval <- paste0("--sval ", sval)
+  args <- c(args, sval)
   ###########################
   # Making Source Type
   ###########################
-  src_type = match.arg(src_type)
-  src_type = paste0("--src_type ", src_type)
-  args = c(args, src_type)
+  src_type <- match.arg(src_type)
+  src_type <- paste0("--src_type ", src_type)
+  args <- c(args, src_type)
   ###########################
   # Making output file if not specified
   ###########################
   if (is.null(outfile)) {
-    outfile = temp_file()
+    outfile <- temp_file()
   }
-  args = c(args, paste0("--tval ", outfile))
-  outfile = file.path(dirname(outfile), paste0(xhemi, ".", basename(outfile)))
+  args <- c(args, paste0("--tval ", outfile))
+  outfile <- file.path(dirname(outfile), paste0(xhemi, ".", basename(outfile)))
 
   ###########################
   # Adding verbose option
   ###########################
   if (verbose) {
-    args = c(args, "--debug")
+    args <- c(args, "--debug")
   }
 
   ###########################
@@ -95,38 +97,41 @@ mri_surf2surf = function(
   # Need ability to have
   # non-standard subjects directory
   ###########################
-  cmd_pre = ""
+  cmd_pre <- ""
   if (!is.null(subj_dir)) {
-    orig_subj_dir = Sys.getenv("SUBJECTS_DIR")
-    old_reset = sprintf("export SUBJECTS_DIR=%s; ", orig_subj_dir)
+    orig_subj_dir <- Sys.getenv("SUBJECTS_DIR")
+    old_reset <- sprintf("export SUBJECTS_DIR=%s; ", orig_subj_dir)
     on.exit({
       system(old_reset)
     })
-    subj_dir = path.expand(subj_dir)
-    cmd_pre = sprintf("export SUBJECTS_DIR=%s; ", subj_dir)
+    subj_dir <- path.expand(subj_dir)
+    cmd_pre <- sprintf("export SUBJECTS_DIR=%s; ", subj_dir)
   }
 
   ###########################
   # Add the Subjects DIR Stuff to the command first
   ###########################
-  cmd = paste0(get_fs(), "mri_surf2surf")
-  cmd = paste0(cmd_pre, cmd)
+  cmd <- paste0(get_fs(), "mri_surf2surf")
+  cmd <- paste0(cmd_pre, cmd)
 
-  args = paste(args, collapse = " ")
-  cmd = paste(cmd, args)
-  cmd = paste(cmd, opts)
+  args <- paste(args, collapse = " ")
+  cmd <- paste(cmd, args)
+  cmd <- paste(cmd, opts)
 
   run_check_fs_cmd(cmd = cmd, outfile = outfile, verbose = verbose, ...)
 
-  return(outfile)
+  outfile
 }
 
 
 #' @title Freesurfers mri_surf2surf Help
 #' @description This calls Freesurfer's \code{mri_surf2surf} help
 #'
+#' @param display Logical; whether to display help output
+#' @param warn Logical; whether to warn if help is not available
+#' @param ... Additional arguments to pass to \code{fs_help}
 #' @return Result of \code{fs_help}
 #' @export
-mri_surf2surf.help = function() {
-  fs_help("mri_surf2surf", help.arg = "--help")
+mri_surf2surf.help <- function(...) {
+  fs_help("mri_surf2surf", ...)
 }

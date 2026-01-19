@@ -27,7 +27,8 @@ If \code{brain_template} or\code{face_template} is \code{NULL},
 they will be downloaded.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 base_url = "https://surfer.nmr.mgh.harvard.edu/pub/dist/mri_deface"
 url = file.path(base_url, "sample_T1_input.mgz")
 x = temp_file(fileext = ".mgz")
@@ -46,5 +47,6 @@ if (!inherits(out, "try-error")) {
    })
    noface = mri_deface(x)
  }
+}
 \dontshow{\}) # examplesIf}
 }

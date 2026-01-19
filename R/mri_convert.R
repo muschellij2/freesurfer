@@ -139,58 +139,8 @@ mri_convert <- function(
 }
 
 #' @describeIn mri_convert Display FreeSurfer help for mri_convert
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
-mri_convert.help <- function(
-  display = TRUE,
-  warn = TRUE,
-  show_r_help = TRUE,
-  ...
-) {
-  if (show_r_help && display) {
-    # Show R help first in the help viewer
-    cat("=== R Function Help ===\n")
-    help_result <- utils::help("mri_convert", package = "freesurfer")
-    print(help_result)
-    cat("\n")
-  }
-
-  if (display) {
-    # Display FreeSurfer CLI help in console
-    cat("=== FreeSurfer Command Help: mri_convert ===\n")
-
-    if (have_fs()) {
-      # Get and display FreeSurfer help
-      help_text <- tryCatch(
-        {
-          fs_help("mri_convert", display = FALSE, warn = warn, ...)
-        },
-        error = function(e) NULL
-      )
-
-      if (!is.null(help_text) && length(help_text) > 0) {
-        cat(paste(help_text, collapse = "\n"))
-        cat(
-          "\n\nNote: This FreeSurfer help is loaded dynamically when FreeSurfer is available.\n"
-        )
-        invisible(help_text)
-      } else {
-        cat("FreeSurfer help not available for mri_convert\n")
-        invisible(character(0))
-      }
-    } else {
-      cat("FreeSurfer not found. Install FreeSurfer to see CLI help.\n")
-      cat("See https://freesurfer.net/ for installation instructions.\n")
-      invisible(character(0))
-    }
-  } else {
-    # Return FreeSurfer help text for programmatic use
-    if (have_fs()) {
-      fs_help("mri_convert", display = FALSE, warn = warn, ...)
-    } else {
-      character(0)
-    }
-  }
+mri_convert.help <- function(...) {
+  fs_help("mri_convert", ...)
 }

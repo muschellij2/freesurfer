@@ -26,7 +26,7 @@ Character or nifti depending on \code{retimg}
 This function calls \code{mri_mask} to mask an image
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 mask = img > 1
 res = mri_mask(img, mask)

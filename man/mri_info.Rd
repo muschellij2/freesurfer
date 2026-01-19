@@ -19,7 +19,7 @@ arguments to \code{...}
 This calls Freesurfer's \code{mri_info}
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 mri_info(img)
 \dontshow{\}) # examplesIf}

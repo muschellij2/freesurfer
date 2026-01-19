@@ -43,7 +43,7 @@ Character or nifti depending on \code{retimg}
 This function calls \code{mri_mask} to mask an image
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 mock_nifti = array(rnorm(5*5*5), dim = c(5,5,5))
 img = oro.nifti::nifti(mock_nifti)
 res = mri_synthstrip(img)

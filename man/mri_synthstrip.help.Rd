@@ -4,7 +4,14 @@
 \alias{mri_synthstrip.help}
 \title{MRI Normalize Help}
 \usage{
-mri_synthstrip.help()
+mri_synthstrip.help(display = TRUE, warn = TRUE, ...)
+}
+\arguments{
+\item{display}{Logical; whether to display help output}
+
+\item{warn}{Logical; whether to warn if help is not available}
+
+\item{...}{additional arguments to \code{\link{get_fs}}}
 }
 \value{
 Result of \code{fs_help}

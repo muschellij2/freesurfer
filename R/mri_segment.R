@@ -1,6 +1,7 @@
 #' @title Use Freesurfers MRI Segmentation Algorithm
 #' @description This function calls \code{mri_segment}
-#' to segment tissues from an image
+#'
+#'
 #' @param file (character) input filename
 #' @param outfile (character) output filename
 #' @param retimg (logical) return image of class nifti
@@ -9,14 +10,14 @@
 #' @return Character or nifti depending on \code{retimg}
 #'
 #' @note NOT COMPLETE
-mri_segment = function(
+mri_segment <- function(
   file,
   outfile = NULL,
   retimg = TRUE,
   opts = "",
   ...
 ) {
-  res = fs_cmd(
+  fs_cmd(
     func = "mri_segment",
     file = file,
     outfile = outfile,
@@ -25,7 +26,6 @@ mri_segment = function(
 
     ...
   )
-  return(res)
 }
 
 
@@ -33,6 +33,11 @@ mri_segment = function(
 #' @description This calls Freesurfer's \code{mri_segment} help
 #'
 #' @return Result of \code{fs_help}
-mri_segment.help = function() {
-  fs_help("mri_segment")
+#' @describeIn mri_segment Display FreeSurfer help for mri_segment
+#' @param display Logical; whether to display help output
+#' @param warn Logical; whether to warn if help is not available
+#' @param ... Additional arguments passed to [fs_help()]
+#' @export
+mri_segment.help <- function(...) {
+  fs_help("mri_segment", ...)
 }
