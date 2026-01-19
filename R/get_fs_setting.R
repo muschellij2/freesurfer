@@ -350,6 +350,7 @@ return_setting <- function(value, source, is_path = TRUE) {
   }
 
   if (is_path && !all(is.na(value))) {
+    value <- normalizePath(value, mustWork = FALSE)
     if (length(value) == 1) {
       exists <- file.exists(value)
     } else {

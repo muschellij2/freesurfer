@@ -4,7 +4,8 @@
 #' @return Full file path to temporary file with created directory
 #' @export
 temp_file <- function(tmpdir = tempdir(check = TRUE), ...) {
-  tempfile(..., tmpdir = tmpdir)
+  tempfile(..., tmpdir = tmpdir) |>
+    normalizePath(mustWork = FALSE)
 }
 
 #' Utility to silently create directories

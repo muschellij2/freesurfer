@@ -59,8 +59,10 @@ describe("utils-files", {
 
   it("checks formats and reports invalid files", {
     td <- local_tempdir()
-    a <- file.path(td, "a.nii.gz")
-    b <- file.path(td, "b.mgz")
+    a <- file.path(td, "a.nii.gz") |>
+      normalizePath(mustWork = FALSE)
+    b <- file.path(td, "b.mgz") |>
+      normalizePath(mustWork = FALSE)
     file.create(a)
     file.create(b)
     expect_error(
@@ -71,7 +73,7 @@ describe("utils-files", {
     # when formats match there is no error
     expect_equal(
       validate_fs_inputs(a, formats = c("nii.gz")),
-      path.expand(a)
+      normalizePath(a, mustWork = FALSE)
     )
   })
 
@@ -87,7 +89,7 @@ describe("utils-files", {
 
     # must_exist = FALSE should return expanded paths even if missing
     out <- validate_fs_inputs(c(exists, missing), must_exist = FALSE)
-    expect_equal(out, path.expand(c(exists, missing)))
+    expect_equal(out, normalizePath(c(exists, missing), mustWork = FALSE))
   })
 
   it("returns temp path when retimg = TRUE and outfile is NULL", {

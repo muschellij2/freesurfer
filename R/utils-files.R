@@ -63,7 +63,7 @@ validate_fs_inputs <- function(files, must_exist = TRUE, formats = NULL) {
     fs_abort("No input files provided")
   }
 
-  files <- path.expand(files)
+  files <- normalizePath(files, mustWork = FALSE)
 
   # Check file extensions if specified
   if (!is.null(formats)) {
@@ -119,7 +119,7 @@ validate_outfile <- function(outfile, retimg = TRUE, default_ext = ".nii.gz") {
     }
   }
 
-  outfile
+  normalizePath(outfile, mustWork = FALSE)
 }
 
 # Legacy function for backward compatibility
