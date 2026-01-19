@@ -1,9 +1,9 @@
 Type: Package
 Package: freesurfer
-Title: Wrapper Functions for 'Freesurfer'
+Title: Wrapper Functions for 'FreeSurfer'
 Version: 1.8.1.902
 Authors@R: c(
-    person("John", "Muschelli", , "muschellij2@gmail.com", role = c("aut", "cre"),
+    person("John", "Muschelli", , "muschellij2@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-6469-1750")),
     person("Athanasia Mo", "Mowinckel", role = "ctb",
            comment = c(ORCID = "0000-0002-5756-0223"))
@@ -43,5 +43,5 @@ Encoding: UTF-8
 LazyData: true
 LazyLoad: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 SystemRequirements: FreeSurfer (https://freesurfer.net/)
