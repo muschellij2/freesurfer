@@ -22,7 +22,9 @@ from surfaces to an ASCII file and reads it in.
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
    fname = file.path(fs_subj_dir(), "bert", "surf", "lh.thickness")
    out = surf_convert(fname)
+}
 \dontshow{\}) # examplesIf}
 }

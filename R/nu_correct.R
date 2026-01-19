@@ -93,8 +93,6 @@ nu_correct <- function(
 }
 
 #' @describeIn nu_correct Display information about nu_correct
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 nu_correct.help <- function(...) {

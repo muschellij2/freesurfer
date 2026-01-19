@@ -18,6 +18,7 @@
 #' @return Name of output file
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #' out = mri_surf2surf(
 #'    subject = 'bert',
 #'    target_subject = 'fsaverage',
@@ -25,6 +26,7 @@
 #'    src_type  = 'curv',
 #'    hemi = "rh",
 #'    sval = "thickness")
+#' }
 mri_surf2surf <- function(
   subject = NULL,
   target_subject = NULL,
@@ -127,8 +129,6 @@ mri_surf2surf <- function(
 #' @title Freesurfers mri_surf2surf Help
 #' @description This calls Freesurfer's \code{mri_surf2surf} help
 #'
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments to pass to \code{fs_help}
 #' @return Result of \code{fs_help}
 #' @export

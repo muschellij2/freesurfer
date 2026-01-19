@@ -34,6 +34,7 @@
 #' @return A character string: the path to the output file with its
 #'   delimiter stored as an attribute.
 #' @examplesIf have_fs()
+#' \dontrun{
 #' # Example for asegstats2table
 #' outfile_aseg <- asegstats2table(
 #'     subjects = "bert",
@@ -51,6 +52,7 @@
 #'   opts = "--etiv --scale=1.0"
 #' )
 #' print(outfile_aparc)
+#' }
 #'
 #' @export
 stats2table <- function(
@@ -219,8 +221,6 @@ aparcstats2table <- function(
 }
 
 #' @describeIn stats2table Display FreeSurfer help for aparcstats2table
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 aparcstats2table.help <- function(...) {

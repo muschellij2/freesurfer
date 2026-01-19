@@ -20,10 +20,12 @@ using the \code{-n} option
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
  bert_dir = file.path(fs_subj_dir(), "bert")
  asc_file = mris_convert_normals(
  infile = file.path(bert_dir, "surf", "lh.white")
  )
 readLines(asc_file, n = 6)
+}
 \dontshow{\}) # examplesIf}
 }

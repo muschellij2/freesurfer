@@ -12,9 +12,11 @@
 #' @return Long \code{data.frame}
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #' fs_subj_dir()
 #' df = aparcs_to_bg(subjects = "bert", measure = "thickness")
 #' print(head(df))
+#' }
 aparcs_to_bg <- function(subjects, measure, clean_col_names = TRUE, ...) {
   file <- aparcstats2table(subjects = subjects, measure = measure, ...)
   # nstart = substr(hemi, 1, 1)

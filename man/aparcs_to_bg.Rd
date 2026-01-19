@@ -26,8 +26,10 @@ convention, relying on \code{\link{aparcstats2table}}
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 fs_subj_dir()
 df = aparcs_to_bg(subjects = "bert", measure = "thickness")
 print(head(df))
+}
 \dontshow{\}) # examplesIf}
 }

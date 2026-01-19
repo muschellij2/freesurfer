@@ -26,12 +26,14 @@ annotation files. See \code{\link[=mris_convert.help]{mris_convert.help()}} for 
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 bert_dir <- file.path(fs_subj_dir(), "bert")
 gii_file <- mris_convert_annot(
   infile = file.path(bert_dir, "surf", "lh.white"),
   annot = file.path(bert_dir, "label", "lh.aparc.annot"),
   ext = ".gii"
 )
+}
 \dontshow{\}) # examplesIf}
 }
 \seealso{

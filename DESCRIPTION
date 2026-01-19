@@ -18,9 +18,10 @@ Description: Wrapper functions that interface with 'Freesurfer'
 License: GPL-3
 BugReports: https://github.com/muschellij2/freesurfer/issues
 Depends:
-    R (>= 3.5)
+    R (>= 4.1)
 Imports:
     cli,
+    lifecycle,
     methods,
     neurobase,
     R.utils,

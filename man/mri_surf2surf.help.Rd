@@ -4,13 +4,9 @@
 \alias{mri_surf2surf.help}
 \title{Freesurfers mri_surf2surf Help}
 \usage{
-mri_surf2surf.help(display = TRUE, warn = TRUE, ...)
+mri_surf2surf.help(...)
 }
 \arguments{
-\item{display}{Logical; whether to display help output}
-
-\item{warn}{Logical; whether to warn if help is not available}
-
 \item{...}{Additional arguments to pass to \code{fs_help}}
 }
 \value{

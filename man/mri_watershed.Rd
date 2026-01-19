@@ -7,7 +7,7 @@
 \usage{
 mri_watershed(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 
-mri_watershed.help(display = TRUE, warn = TRUE, ...)
+mri_watershed.help(...)
 }
 \arguments{
 \item{file}{(character) input filename}
@@ -19,10 +19,6 @@ mri_watershed.help(display = TRUE, warn = TRUE, ...)
 \item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
-
-\item{display}{Logical; whether to display help output}
-
-\item{warn}{Logical; whether to warn if help is not available}
 }
 \value{
 Character or nifti depending on \code{retimg}

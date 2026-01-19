@@ -35,9 +35,11 @@ general conversion program for converting between cortical surface file formats
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
  asc_file = mris_convert(
  infile = file.path(bert_surf_dir, "lh.white")
  )
+}
 \dontshow{\}) # examplesIf}
 }

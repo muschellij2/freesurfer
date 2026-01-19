@@ -3,6 +3,8 @@
 \name{read_mgz}
 \alias{read_mgz}
 \alias{read_mgh}
+\alias{readmgz}
+\alias{readmgh}
 \title{Read MGH or MGZ File}
 \usage{
 read_mgz(file, validate_format = TRUE, cleanup_temp = TRUE, ...)

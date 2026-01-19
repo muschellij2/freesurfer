@@ -22,3 +22,4 @@ man-roxygen
 ^data-raw$
 Dockerfile
 .continue
+^\.claude$

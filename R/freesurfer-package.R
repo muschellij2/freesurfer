@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @importFrom lifecycle deprecated
 "_PACKAGE"
 
 ## quiets concerns of R CMD check

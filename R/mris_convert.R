@@ -12,10 +12,12 @@
 #' @return Name of output file
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #'  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
 #'  asc_file = mris_convert(
 #'  infile = file.path(bert_surf_dir, "lh.white")
 #'  )
+#' }
 mris_convert <- function(
   infile,
   outfile = NULL,
@@ -44,8 +46,6 @@ mris_convert <- function(
 #' @title Help file for Freesurfers MRIs Converter
 #' @description This calls Freesurfer's \code{mris_convert} help
 #'
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 mris_convert.help <- function(...) {

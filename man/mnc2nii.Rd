@@ -2,9 +2,12 @@
 % Please edit documentation in R/mnc.R
 \name{mnc2nii}
 \alias{mnc2nii}
+\alias{mnc2nii.help}
 \title{Convert MNC to NIfTI}
 \usage{
 mnc2nii(file, outfile = NULL, ...)
+
+mnc2nii.help()
 }
 \arguments{
 \item{file}{(character) input filename}
@@ -20,6 +23,11 @@ Character filename of output
 This function calls \code{mnc2nii}
 to convert MNC files to NIfTI
 }
+\section{Functions}{
+\itemize{
+\item \code{mnc2nii.help()}: Display information about mnc2nii command
+
+}}
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))

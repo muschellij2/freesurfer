@@ -38,7 +38,9 @@ with improved error handling and output management.
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 res = mris_euler_number(img, outfile = temp_file(fileext = ".mgz"))
+}
 \dontshow{\}) # examplesIf}
 }

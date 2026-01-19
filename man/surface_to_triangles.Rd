@@ -22,9 +22,7 @@ converts it into triangles
 }
 \examples{
 \dontshow{if (have_fs() && requireNamespace("rgl", quietly = TRUE)) withAutoprint(\{ # examplesIf}
-\dontshow{
-options(freesurfer.verbose = FALSE)
-}
+\dontrun{
 infile = file.path(fs_subj_dir(),
                    "bert", "surf", "rh.pial")
 right_triangles = surface_to_triangles(infile = infile)
@@ -48,5 +46,6 @@ rgl::triangles3d(left_triangles,
 color = rainbow(nrow(left_triangles)))
 rgl::triangles3d(right_triangles,
 color = rainbow(nrow(right_triangles)))
+}
 \dontshow{\}) # examplesIf}
 }

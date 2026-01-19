@@ -7,11 +7,13 @@
 #' @return Result of \code{\link{mris_convert}}
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #'  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
 #'  asc_file = mris_convert_vertex(
 #'  infile = file.path(bert_surf_dir, "lh.white")
 #'  )
 #'  readLines(asc_file, n = 6)
+#' }
 mris_convert_vertex <- function(
   opts = "",
   ...

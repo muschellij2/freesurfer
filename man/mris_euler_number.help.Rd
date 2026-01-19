@@ -4,13 +4,9 @@
 \alias{mris_euler_number.help}
 \title{MRI Euler Number Help}
 \usage{
-mris_euler_number.help(display = TRUE, warn = TRUE, ...)
+mris_euler_number.help(...)
 }
 \arguments{
-\item{display}{Logical; whether to display help output}
-
-\item{warn}{Logical; whether to warn if help is not available}
-
 \item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \description{

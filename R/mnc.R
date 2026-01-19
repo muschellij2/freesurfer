@@ -51,33 +51,22 @@ mnc2nii <- function(file, outfile = NULL, ...) {
   outfile
 }
 
-
-#' @title MNC to NIfTI Help
-#' @description This calls Freesurfer's \code{mnc2nii} help
-#'
-#' @return Result of \code{fs_help}
+#' @describeIn mnc2nii Display information about mnc2nii command
 #' @export
-#' @describeIn mnc_convert Display information about mnc2nii command
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
-#' @param ... Additional arguments passed to [fs_help()]
-mnc2nii.help <- function(display = TRUE, ...) {
-  if (display) {
-    cli::cli_inform(c(
-      "i" = "{.fn mnc2nii}: Convert MINC to NIfTI format",
-      " " = "",
-      "!" = "This command does not provide standard help output.",
-      " " = "",
-      "Usage:" = "{.code mnc2nii [-float] input.mnc output.nii}",
-      " " = "",
-      "Options:" = "",
-      "*" = "{.code -float}: Output as floating point (automatically used)",
-      " " = "",
-      "i" = "Part of the MNI tools included with FreeSurfer.",
-      "i" = "Converts MINC format (.mnc) to NIfTI format (.nii, .nii.gz)."
-    ))
-  }
-  invisible(NULL)
+mnc2nii.help <- function() {
+  cli::cli_inform(c(
+    "i" = "{.fn mnc2nii}: Convert MINC to NIfTI format",
+    " " = "",
+    "!" = "This command does not provide standard help output.",
+    " " = "",
+    "Usage:" = "{.code mnc2nii [-float] input.mnc output.nii}",
+    " " = "",
+    "Options:" = "",
+    "*" = "{.code -float}: Output as floating point (automatically used)",
+    " " = "",
+    "i" = "Part of the MNI tools included with FreeSurfer.",
+    "i" = "Converts MINC format (.mnc) to NIfTI format (.nii, .nii.gz)."
+  ))
 }
 
 
@@ -124,20 +113,18 @@ nii2mnc <- function(
   outfile
 }
 
+#' @describeIn nii2mnc Display information about nii2mnc command
 #' @export
-#' @describeIn mnc_convert Display information about nii2mnc command
-nii2mnc.help <- function(display = TRUE, ...) {
-  if (display) {
-    cli::cli_inform(c(
-      "i" = "{.fn nii2mnc}: Convert NIfTI to MINC format",
-      " " = "",
-      "!" = "This command does not provide standard help output.",
-      " " = "",
-      "Usage:" = "{.code nii2mnc input.nii output.mnc}",
-      " " = "",
-      "i" = "Part of the MNI tools included with FreeSurfer.",
-      "i" = "Converts NIfTI format (.nii, .nii.gz) to MINC format (.mnc)."
-    ))
-  }
+nii2mnc.help <- function() {
+  cli::cli_inform(c(
+    "i" = "{.fn nii2mnc}: Convert NIfTI to MINC format",
+    " " = "",
+    "!" = "This command does not provide standard help output.",
+    " " = "",
+    "Usage:" = "{.code nii2mnc input.nii output.mnc}",
+    " " = "",
+    "i" = "Part of the MNI tools included with FreeSurfer.",
+    "i" = "Converts NIfTI format (.nii, .nii.gz) to MINC format (.mnc)."
+  ))
   invisible(NULL)
 }

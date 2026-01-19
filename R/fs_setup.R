@@ -83,9 +83,9 @@ get_fs <- function(
 
   # Construct the main command string
   if (!add_home) {
-    return(
-      paste(c(cmd, sh_file_cmd), sep = "; ")
-    )
+    parts <- c(cmd, sh_file_cmd)
+    parts <- parts[nzchar(parts)]
+    return(paste(parts, collapse = "; "))
   }
 
   paste(
@@ -149,6 +149,34 @@ fs_dir <- freesurferdir
 #' @export
 fs_subj_dir <- function() {
   get_fs_subdir()
+}
+
+#' Set FreeSurfer Subjects Directory
+#'
+#' @description
+#' `r lifecycle::badge("deprecated")`
+#'
+#' This function is deprecated. Set the subjects directory using
+#' `Sys.setenv(SUBJECTS_DIR = path)` or the R option
+#' `options(freesurfer.subj_dir = path)` instead.
+#'
+#' @param path Character path to the subjects directory
+#' @return Invisibly returns the previous value of SUBJECTS_DIR
+#' @export
+#' @keywords internal
+set_fs_subj_dir <- function(path) {
+  lifecycle::deprecate_warn(
+    "1.8.2",
+    "set_fs_subj_dir()",
+    details = c(
+      "i" = "Use `Sys.setenv(SUBJECTS_DIR = path)` or",
+      "i" = "`options(freesurfer.subj_dir = path)` instead."
+    )
+  )
+
+  old_value <- Sys.getenv("SUBJECTS_DIR", unset = NA)
+  Sys.setenv(SUBJECTS_DIR = path)
+  invisible(old_value)
 }
 
 #' @title Logical check if Freesurfer is accessible

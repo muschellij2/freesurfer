@@ -29,7 +29,7 @@ mri_normalize <- function(file, outfile = NULL, retimg = TRUE, opts = "", ...) {
 
 #' @title MRI Normalize Help
 #' @description This calls Freesurfer's \code{mri_normalize} help
-#'
+#' @inheritParams fs_help
 #' @return Result of \code{fs_help}
 #' @export
 mri_normalize.help <- function(...) {

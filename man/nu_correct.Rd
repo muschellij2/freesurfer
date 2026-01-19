@@ -7,7 +7,7 @@
 \usage{
 nu_correct(file, mask = NULL, opts = "", verbose = get_fs_verbosity(), ...)
 
-nu_correct.help(display = TRUE, warn = TRUE, ...)
+nu_correct.help(...)
 }
 \arguments{
 \item{file}{Character; input filename.}
@@ -19,10 +19,6 @@ nu_correct.help(display = TRUE, warn = TRUE, ...)
 \item{verbose}{(logical) print diagnostic messages}
 
 \item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
-
-\item{display}{Logical; whether to display help output}
-
-\item{warn}{Logical; whether to warn if help is not available}
 }
 \value{
 Object of class nifti.

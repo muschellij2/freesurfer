@@ -11,9 +11,11 @@
 #' @return Character or nifti depending on \code{retimg}
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 #' mask = img > 1
 #' res = mri_mask(img, mask)
+#' }
 mri_mask <- function(
   file,
   mask,
@@ -24,14 +26,16 @@ mri_mask <- function(
 ) {
   mask <- neurobase::checkimg(mask)
 
+  # mri_mask expects: <input> <mask> <output>
+  # Use opts_after_outfile = TRUE to place outfile after mask
   fs_cmd(
     func = "mri_mask",
     file = file,
     outfile = outfile,
     frontopts = opts,
     opts = mask,
+    opts_after_outfile = TRUE,
     retimg = retimg,
-
     ...
   )
 }
@@ -40,8 +44,6 @@ mri_mask <- function(
 #' @title MRI Normalize Help
 #' @description This calls Freesurfer's \code{mri_mask} help
 #'
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 mri_mask.help <- function(...) {

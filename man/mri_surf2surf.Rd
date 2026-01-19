@@ -54,6 +54,7 @@ resample one cortical surface onto another
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 out = mri_surf2surf(
    subject = 'bert',
    target_subject = 'fsaverage',
@@ -61,5 +62,6 @@ out = mri_surf2surf(
    src_type  = 'curv',
    hemi = "rh",
    sval = "thickness")
+}
 \dontshow{\}) # examplesIf}
 }

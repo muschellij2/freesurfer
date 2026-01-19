@@ -72,3 +72,24 @@ read_mgz <- function(file, validate_format = TRUE, cleanup_temp = TRUE, ...) {
 #' @rdname read_mgz
 #' @export
 read_mgh <- read_mgz
+
+# Deprecated aliases ----
+
+#' @rdname read_mgz
+#' @export
+#' @usage NULL
+readmgz <- function(file, ...) {
+
+  lifecycle::deprecate_warn("1.8.2", "readmgz()", "read_mgz()")
+
+  read_mgz(file, ...)
+}
+
+#' @rdname read_mgz
+#' @export
+#' @usage NULL
+readmgh <- function(file, ...) {
+
+  lifecycle::deprecate_warn("1.8.2", "readmgh()", "read_mgh()")
+  read_mgh(file, ...)
+}

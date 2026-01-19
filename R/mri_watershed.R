@@ -33,8 +33,6 @@ mri_watershed <- function(file, outfile = NULL, retimg = TRUE, opts = "", ...) {
 #' @return Result of \code{fs_help}
 #' @export
 #' @describeIn mri_watershed Display FreeSurfer help for mri_watershed
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 mri_watershed.help <- function(...) {

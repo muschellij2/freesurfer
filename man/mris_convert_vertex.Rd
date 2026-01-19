@@ -20,10 +20,12 @@ using the \code{-v} option
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
  bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
  asc_file = mris_convert_vertex(
  infile = file.path(bert_surf_dir, "lh.white")
  )
  readLines(asc_file, n = 6)
+}
 \dontshow{\}) # examplesIf}
 }

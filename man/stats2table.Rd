@@ -39,9 +39,9 @@ aparcstats2table(
   ...
 )
 
-aparcstats2table.help(display = TRUE, warn = TRUE, ...)
+aparcstats2table.help(...)
 
-asegstats2table.help(display = TRUE, warn = TRUE, ...)
+asegstats2table.help(...)
 }
 \arguments{
 \item{type}{(character) Either "aparc" for cortical parcellation or
@@ -89,10 +89,6 @@ Options are "lh" (left hemisphere) or "rh" (right hemisphere).}
 
 \item{parc}{(character) Specifies the parcellation scheme to be used.
 Options include "aparc" or "aparc.a2009s".}
-
-\item{display}{Logical; whether to display help output}
-
-\item{warn}{Logical; whether to warn if help is not available}
 }
 \value{
 A character string: the path to the output file with its
@@ -127,6 +123,7 @@ command.
 }}
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 # Example for asegstats2table
 outfile_aseg <- asegstats2table(
     subjects = "bert",
@@ -144,5 +141,6 @@ outfile_aparc <- aparcstats2table(
   opts = "--etiv --scale=1.0"
 )
 print(outfile_aparc)
+}
 \dontshow{\}) # examplesIf}
 }

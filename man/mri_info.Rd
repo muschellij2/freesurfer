@@ -20,7 +20,9 @@ This calls Freesurfer's \code{mri_info}
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
 img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 mri_info(img)
+}
 \dontshow{\}) # examplesIf}
 }

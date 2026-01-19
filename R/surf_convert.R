@@ -7,8 +7,10 @@
 #' @return \code{data.frame}
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #'    fname = file.path(fs_subj_dir(), "bert", "surf", "lh.thickness")
 #'    out = surf_convert(fname)
+#' }
 surf_convert <- function(
   file,
   outfile = NULL,

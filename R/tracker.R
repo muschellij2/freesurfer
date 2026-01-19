@@ -14,8 +14,6 @@
 #' @template subjid
 #' @template verbose
 #' @template opts
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #'
 #' @return Result of [base::system()] call, typically exit status (0 = success).

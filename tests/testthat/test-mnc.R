@@ -328,14 +328,9 @@ describe("nii2mnc", {
 })
 
 describe("mnc2nii.help", {
-  it("returns NULL invisibly when display = FALSE", {
-    result <- mnc2nii.help(display = FALSE)
-    expect_null(result)
-  })
-
-  it("displays help info when display = TRUE", {
+  it("displays help info when", {
     expect_message(
-      result <- mnc2nii.help(display = TRUE),
+      result <- mnc2nii.help(),
       "Convert MINC to NIfTI"
     )
     expect_null(result)
@@ -343,14 +338,9 @@ describe("mnc2nii.help", {
 })
 
 describe("nii2mnc.help", {
-  it("returns NULL invisibly when display = FALSE", {
-    result <- nii2mnc.help(display = FALSE)
-    expect_null(result)
-  })
-
-  it("displays help info when display = TRUE", {
+  it("displays help info when", {
     expect_message(
-      result <- nii2mnc.help(display = TRUE),
+      result <- nii2mnc.help(),
       "Convert NIfTI to MINC"
     )
     expect_null(result)

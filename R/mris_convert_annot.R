@@ -21,12 +21,14 @@
 #' [mris_convert.help()] for FreeSurfer help
 #'
 #' @examplesIf have_fs()
+#' \dontrun{
 #' bert_dir <- file.path(fs_subj_dir(), "bert")
 #' gii_file <- mris_convert_annot(
 #'   infile = file.path(bert_dir, "surf", "lh.white"),
 #'   annot = file.path(bert_dir, "label", "lh.aparc.annot"),
 #'   ext = ".gii"
 #' )
+#' }
 mris_convert_annot <- function(annot, opts = "", ...) {
   ######################################################
   # Making output file if not specified

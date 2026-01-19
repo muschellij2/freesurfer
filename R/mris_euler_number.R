@@ -14,8 +14,10 @@
 #' @return Character vector containing the Euler number results
 #' @export
 #' @examplesIf have_fs()
+#' \dontrun{
 #' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
 #' res = mris_euler_number(img, outfile = temp_file(fileext = ".mgz"))
+#' }
 mris_euler_number <- function(
   file,
   outfile = NULL,
@@ -146,8 +148,6 @@ mris_euler_number <- function(
 #' @title MRI Euler Number Help
 #' @description This calls FreeSurfer's \code{mris_euler_number} help
 #'
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 mris_euler_number.help <- function(...) {

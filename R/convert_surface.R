@@ -13,12 +13,11 @@
 #' @note This was adapted from the gist:
 #' \url{https://gist.github.com/mm--/4a4fc7badacfad874102}
 #' @examplesIf have_fs()
-#' \dontshow{
-#' options(freesurfer.verbose = FALSE)
-#' }
+#' \dontrun{
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' res = convert_surface(infile = infile)
+#' }
 convert_surface <- function(infile, ...) {
   ########
   # adapted from
@@ -75,9 +74,7 @@ convert_surface <- function(infile, ...) {
 #' @export
 #'
 #' @examplesIf have_fs() && requireNamespace("rgl", quietly = TRUE)
-#' \dontshow{
-#' options(freesurfer.verbose = FALSE)
-#' }
+#' \dontrun{
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' right_triangles = surface_to_triangles(infile = infile)
@@ -101,6 +98,7 @@ convert_surface <- function(infile, ...) {
 #' color = rainbow(nrow(left_triangles)))
 #' rgl::triangles3d(right_triangles,
 #' color = rainbow(nrow(right_triangles)))
+#' }
 #'
 surface_to_triangles <- function(infile, ...) {
   splits <- convert_surface(infile, ...)
@@ -124,13 +122,11 @@ surface_to_triangles <- function(infile, ...) {
 #' @export
 #'
 #' @examplesIf have_fs()
-#' \dontshow{
-#' options(freesurfer.verbose = FALSE)
-#' }
+#' \dontrun{
 #' infile = file.path(fs_subj_dir(),
 #'                    "bert", "surf", "rh.pial")
 #' res = surface_to_obj(infile = infile)
-
+#' }
 surface_to_obj <- function(infile, outfile = NULL, ...) {
   splits <- convert_surface(infile, ...)
 

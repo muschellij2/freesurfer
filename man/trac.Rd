@@ -32,7 +32,7 @@ trac_bedpost(infile, outdir = NULL, subjid, verbose = get_fs_verbosity())
 
 trac_path(infile, outdir = NULL, subjid, verbose = get_fs_verbosity())
 
-tracker.help(display = TRUE, warn = TRUE, ...)
+tracker.help(...)
 }
 \arguments{
 \item{infile}{Character; input DWI (diffusion-weighted imaging) filename
@@ -45,10 +45,6 @@ in DICOM or NIfTI format. Required for initial processing.}
 \item{verbose}{(logical) print diagnostic messages}
 
 \item{opts}{Character. Additional options to Freesurfer function.}
-
-\item{display}{Logical; whether to display help output}
-
-\item{warn}{Logical; whether to warn if help is not available}
 
 \item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }

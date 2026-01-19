@@ -26,11 +26,10 @@ This was adapted from the gist:
 }
 \examples{
 \dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
-\dontshow{
-options(freesurfer.verbose = FALSE)
-}
+\dontrun{
 infile = file.path(fs_subj_dir(),
                    "bert", "surf", "rh.pial")
 res = convert_surface(infile = infile)
+}
 \dontshow{\}) # examplesIf}
 }

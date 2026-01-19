@@ -34,8 +34,6 @@ mri_segment <- function(
 #'
 #' @return Result of \code{fs_help}
 #' @describeIn mri_segment Display FreeSurfer help for mri_segment
-#' @param display Logical; whether to display help output
-#' @param warn Logical; whether to warn if help is not available
 #' @param ... Additional arguments passed to [fs_help()]
 #' @export
 mri_segment.help <- function(...) {
