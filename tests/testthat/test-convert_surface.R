@@ -171,6 +171,7 @@ describe("convert_surface", {
       "surf",
       "lh.pial"
     )
+    skip_if_not(file.exists(lh_pial_file), "bert subject not available")
 
     expect_message(
       result <- convert_surface(lh_pial_file),

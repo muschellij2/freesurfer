@@ -350,6 +350,9 @@ describe("stats2table", {
   it("works with Freesurfer", {
     skip_if_no_freesurfer()
 
+    bert_stats <- file.path(fs_subj_dir(), "bert", "stats", "lh.aparc.stats")
+    skip_if_not(file.exists(bert_stats), "bert subject not available")
+
     outfile <- withr::local_tempfile(fileext = ".tsv")
 
     result <- aparcstats2table(

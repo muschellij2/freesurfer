@@ -224,6 +224,7 @@ describe("read_mgz", {
       "mri",
       "brain.mgz"
     )
+    skip_if_not(file.exists(valid_mgz_file), "bert subject not available")
 
     result <- read_mgz(valid_mgz_file)
     expect_s4_class(result, "nifti")

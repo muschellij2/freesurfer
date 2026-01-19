@@ -127,6 +127,7 @@ describe("read_annot", {
       "label",
       "lh.aparc.annot"
     )
+    skip_if_not(file.exists(annot_file), "bert subject not available")
 
     expect_warning(
       result <- read_annotation(annot_file),

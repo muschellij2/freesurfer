@@ -111,6 +111,7 @@ describe("freesurfer_read3", {
     skip_if_no_freesurfer()
 
     fp <- file.path(fs_subj_dir(), "bert", "surf", "lh.inflated")
+    skip_if_not(file.exists(fp), "bert subject not available")
 
     expect_message(
       surf_data_fs <- freesurfer_read_surf(fp),

@@ -166,6 +166,8 @@ describe("read_aseg_stats", {
         "stats",
         "aseg.stats"
       )
+      skip_if_not(file.exists(af), "bert subject not available")
+
       result <- read_aseg_stats(af)
       measures <- result$measures
 

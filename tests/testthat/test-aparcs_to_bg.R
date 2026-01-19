@@ -59,6 +59,9 @@ describe("aparcs_to_bg", {
   it("works with actual FreeSurfer data", {
     skip_if_no_freesurfer()
 
+    bert_stats <- file.path(fs_subj_dir(), "bert", "stats", "lh.aparc.stats")
+    skip_if_not(file.exists(bert_stats), "bert subject not available")
+
     withr::local_envvar(FREESURFER_VERBOSE = "FALSE")
     result <- aparcs_to_bg(subjects = "bert", measure = "thickness")
 

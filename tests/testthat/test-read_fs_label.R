@@ -71,6 +71,8 @@ describe("read_fs_label", {
         "label",
         "lh.cortex.label"
       )
+      skip_if_not(file.exists(crt), "bert subject not available")
+
       result <- read_fs_label(crt)
 
       expect_equal(nrow(result), 125558)
