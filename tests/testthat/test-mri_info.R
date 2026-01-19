@@ -58,7 +58,10 @@ describe("mri_info integration", {
 
     img <- oro.nifti::nifti(array(rnorm(8), dim = c(2, 2, 2)))
 
-    result <- mri_info(img, retimg = FALSE, intern = TRUE)
+    expect_warning(
+      result <- mri_info(img, retimg = FALSE, intern = TRUE),
+      "Input and output files are identical"
+    )
 
     expect_type(result, "character")
     expect_true(length(result) > 0)

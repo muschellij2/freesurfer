@@ -100,7 +100,7 @@ fs_sitrep <- function(clear_cache = FALSE, test_commands = TRUE) {
       "Set FreeSurfer home: {.code options(freesurfer.home = '/path/to/freesurfer')}"
     )
   } else if (is.na(license_info$value) || !license_info$exists) {
-    cli::cli_li("Install FreeSurfer license file in {fs_home}")
+    cli::cli_li("Install FreeSurfer license file in {fs_home$value}")
   } else if (!verbosity$value) {
     cli::cli_li(
       "Enable verbose mode for better debugging: {.code options(freesurfer.verbose = TRUE)}"
