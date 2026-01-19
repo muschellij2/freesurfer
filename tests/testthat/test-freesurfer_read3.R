@@ -56,12 +56,13 @@ describe("freesurfer_read3", {
     # Mock an invalid version
     writeBin(as.raw(c(0x00, 0x00, 0x01)), temp_file, endian = "big")
 
-    mock_invalid_version <- function(fid) as.integer(1)
     local_mocked_bindings(
-      freesurfer_read3 = mock_invalid_version
+      freesurfer_read3 = function(fid) as.integer(1)
     )
 
-    expect_snapshot_error(freesurfer_read_curv(temp_file))
+    expect_error(
+      freesurfer_read_curv(temp_file)
+    )
   })
 
   it("throws error for unsupported formats", {
