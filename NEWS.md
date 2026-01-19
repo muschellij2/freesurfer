@@ -1,14 +1,32 @@
 # freesurfer 1.8.1.900
 
+## General Changes
+
+- Consolidate MNC conversion functions: `nii2mnc()` and `mnc2nii()` now in single file with shared validation
+- Consolidate trac functions: `trac_all()` and `trac_manual()` merged into `tracker.R`
+- Refactor `fs_cmd()` with improved same-file handling and error checking
+- New `check_fs_result()` for consistent FreeSurfer command result validation
+
+## CLI Messaging
+
+- New internal functions `fs_abort()`, `fs_warn()`, `fs_inform()` wrapping cli package
+- Substitute `warning`, `stop`, `message` and `cat` with corresponding `cli` functions for more modern stdout and stderr output
+
+## FreeSurfer Environment
+
+- Add function `fs_sitrep()` to check, verify and output information on FreeSurfer-R communication
+- Refactor `get_fs()` with new `get_fs_*` functions for fine-grained control of each setting
+- New roxygen2 templates for consistent parameter documentation
+
+## Other Improvements
+
 - Simplify management of common parameter information
 - Creates containing folder of tempfiles if necessary
 - Improved handling of running examples with @examplesIf
-- Split single vignette into several smaller vignettes with more tutorial like sctructure and language.
-  - Original vignette is saved as "paper.Rmd" and is ignored by R build.
-- Add function `fs_sitrep()` whose intent is to check, verify and output information on Freesurfer-R communication for the user.
-- Refactor of `get_fs()` as a result of `fs_sitrep()` and the need to consolidate how to check for Freesurfer system setup.
-  - New `get_fs_*` functions underlie both the approaches and provide more fine grained control for each setting.
-- Substitute `warning`, `stop`, `message` and `cat` with corresponding `cli` functions for more modern stdout and stderr output.
+- Split single vignette into several smaller vignettes with more tutorial-like structure and language
+  - Original vignette is saved as "paper.Rmd" and is ignored by R build
+- Major test suite expansion: 803 tests with ~96% code coverage
+- Remove duplicate code in utils.R
 
 # freesurfer 1.8.0
 
