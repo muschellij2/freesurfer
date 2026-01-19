@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(freesurfer.verbose = FALSE)
+
 ```
 
 
@@ -31,9 +33,11 @@ Optionally, you can specify an output directory using `outdir`.
 
 Here’s a simple example:
 
-```r
+```{r}
 library(freesurfer)
+```
 
+```r
 # Run the full Freesurfer pipeline on an input NIfTI file
 recon_all(
   infile = "subject01.nii",

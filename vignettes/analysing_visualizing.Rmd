@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE
 )
+options(freesurfer.verbose = FALSE)
 ```
 
 Welcome to this tutorial on analyzing and visualizing Freesurfer outputs using the `freesurfer` R package.
@@ -73,8 +74,9 @@ Since the `neurobase::orient_rpi` returns a list with an image and the orientati
 
 ```{r seg_file, fig.cap="Overlay of anatomical segmentation from Freesurfer recon-all command. Different colors represent distinct brain structures according to the Freesurfer LUT.", results = 'hide'}
 
-library(neurobase)
-
+#' Helper function to reorient images to RPI
+#' @param ... Arguments passed to neurobase::orient_rpi
+#' @return Reoriented image
 reorient <- function(...) {
   neurobase::orient_rpi(...)$img
 }
@@ -99,7 +101,7 @@ colors = rgb(
   maxColorValue = 255
 )
 
-ortho2(
+neurobase::ortho2(
   bert_t1,
   seg,
   col.y = colors,

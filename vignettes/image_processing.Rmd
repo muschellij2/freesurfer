@@ -15,6 +15,8 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE
 )
+options(freesurfer.verbose = FALSE)
+
 ```
 
 Welcome to this tutorial on core image processing with the `freesurfer` package!
@@ -92,20 +94,20 @@ Now that `bert_nii` is a `nifti` object, we can easily plot it using the `neurob
 ```{r mri_plot, fig.cap = "Slices of the Bert T1 image", fig.asp=0.8}
 library(neurobase)
 
-ortho2(bert_nii)
+neurobase::ortho2(bert_nii)
 ```
 
 We can now see a display of three slices of the head: the top-left panel shows an axial view (looking down from the top of the head), the top-right panel shows a sagittal view (looking from the right side of the brain), and the bottom-left panel shows a coronal view (looking from the back of the head).
-You might notice that the image is not stored in the right/posterior/inferior (RPI) orientation, which is typically assumed when displaying with the `neurobase::ortho2` function.
+You might notice that the image is not stored in the right/posterior/inferior (RPI) orientation, which is typically assumed when displaying with the `neurobase::neurobase::ortho2` function.
 To correct this, we can use the `orient_rpi` function from the `neurobase` package, whose function returns a list, with the nii image in the "img" element, and the orientation in the "orientation" element.
 
 ```{r mri_plot2, fig.cap = "Slices of the Bert T1 image after reorientation", fig.asp=0.8}
 bert_nii_rpi = orient_rpi(bert_nii)
 
-ortho2(bert_nii_rpi$img)
+neurobase::ortho2(bert_nii_rpi$img)
 ```
 The image above shows the reoriented image.
-Notice how the views now align correctly with the assumed orientation markers of `ortho2`, changing which panel corresponds to which view.
+Notice how the views now align correctly with the assumed orientation markers of `neurobase::ortho2`, changing which panel corresponds to which view.
 
 ## Correcting for Bias Fields with `nu_correct`
 
@@ -161,7 +163,7 @@ With `freesurfer`, you can simply pass in your `nifti` object, and the function 
 
 ```{r watershed_plot, fig.cap = "Brain extracted image using mri_watershed", fig.asp = 0.8, results = 'hide'}
 bert_brain = mri_watershed(bert_nii_rpi$img)
-ortho2(bert_brain)
+neurobase::ortho2(bert_brain)
 ```
 
 The figure above shows the result: areas like the skull, eyes, face, and other parts of the image have been successfully removed.
@@ -172,7 +174,7 @@ As MRI scans typically have positive intensity values, the positive areas of the
 
 ```{r brain_mask}
 brain_mask = bert_brain > 0
-ortho2(
+neurobase::ortho2(
   bert_nii_rpi$img,
   col.y = c(NA, "red"),
   mask = brain_mask,

@@ -17,6 +17,8 @@ knitr::opts_chunk$set(
   fig.height = 3,
   cache = TRUE
 )
+options(freesurfer.verbose = FALSE)
+
 ```
 
 
@@ -170,12 +172,12 @@ identical(img, img_mgz)
 
 Now that we have the image in R, we can plot it using the standard plotting tools for `nifti` objects:
 ```{r mri_plot, fig.cap="Plot of T1-weighted image from bert subject in Freesurfer."}
-ortho2(img, add.orient = FALSE, mask = img > 40)
+neurobase::ortho2(img, add.orient = FALSE, mask = img > 40)
 ```
 
 The result is in figure \@ref(fig:mri_plot), which contains 3 slices of the head: axially, viewing the brain from the top of the head (top left), sagittally, viewing the brain from the right side (top right) and coronally, viewing the brain from the back of the head (bottom left).
 
-Note, the image is not stored in the right/posterior/inferior (RPI) orientation which is assumed when displaying using the `neurobase` `ortho2` function [@neurobase].
+Note, the image is not stored in the right/posterior/inferior (RPI) orientation which is assumed when displaying using the `neurobase` `neurobase::ortho2` function [@neurobase].
 We can use the `rpi_orient` function in \fslr (version $\geq$ 2.4.0) [@muschelli2015fslr] or `fslswapdim` to reorient the image to the assumed orientation.
 
 ```{r reorient_show}
@@ -186,14 +188,14 @@ reoriented_img
 reoriented_img <- reoriented_img$img
 ```
 
-We see that this function puts this image in the RPI orientation, which matches the assumed orientation for `ortho2`:
+We see that this function puts this image in the RPI orientation, which matches the assumed orientation for `neurobase::ortho2`:
 
 ```{r mri_plot2, fig.cap="Plot of T1-weighted image from bert subject in Freesurfer after re-orientation to RPI orientation. Note, the letters denote the orientation of right/left (R/L), posterior/anterior (P/A), inferior/superior (I/S). "}
 
-ortho2(reoriented_img, mask = reoriented_img > 40)
+neurobase::ortho2(reoriented_img, mask = reoriented_img > 40)
 ```
 
-The result is in figure \@ref(fig:mri_plot2), which changes the views in reference to which panel they are located and matches the orientation markers assumed by `ortho2`.
+The result is in figure \@ref(fig:mri_plot2), which changes the views in reference to which panel they are located and matches the orientation markers assumed by `neurobase::ortho2`.
 
 
 ## Bias-field correction: the `nu_correct` function
@@ -263,7 +265,7 @@ In `freesurfer`, we can pass in the `nifti` object and the output is a brain-ext
 ```{r watershed_plot, fig.cap="Brain-extracted image after using Freesurfer 'mri_watershed' algorithm. We see that the areas outside of the brain have been removed from the image."}
 ss = mri_watershed(img)
 ss = orient_rpi(img)$img
-ortho2(img, mask = ss)
+neurobase::ortho2(img, mask = ss)
 ```
 
 
@@ -314,7 +316,7 @@ colors = rgb(
   alpha = 255 / 2,
   maxColorValue = 255
 )
-ortho2(ss, seg, col.y = colors, ybreaks = breaks)
+neurobase::ortho2(ss, seg, col.y = colors, ybreaks = breaks)
 ```
 
 Note above that the number of breaks must be one larger than the number of colors and the indices start at zero, so we add an additional element to the indices.
