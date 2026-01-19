@@ -5,12 +5,16 @@
 \alias{read_mgh}
 \title{Read MGH or MGZ File}
 \usage{
-read_mgz(file, ...)
+read_mgz(file, validate_format = TRUE, cleanup_temp = TRUE, ...)
 
-read_mgh(file, ...)
+read_mgh(file, validate_format = TRUE, cleanup_temp = TRUE, ...)
 }
 \arguments{
-\item{file}{(character) input filename}
+\item{file}{(character) input filename - MGH or MGZ file}
+
+\item{validate_format}{(logical) Whether to validate file format}
+
+\item{cleanup_temp}{(logical) Whether to clean up temporary files}
 
 \item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
 }
@@ -20,5 +24,5 @@ Object of class \code{nifti}
 \description{
 This function calls \code{mri_convert}
 to convert MGH/MGZ files to NIfTI, then reads it in using
-\code{\link[neurobase]{readnii}}
+\code{\link[neurobase]{readnii}} with enhanced validation.
 }

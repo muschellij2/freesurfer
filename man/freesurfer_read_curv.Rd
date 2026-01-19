@@ -17,7 +17,10 @@ Reads a Freesurfer curvature file according to the
 FREESURFER_HOME/matlab/read_curv.m file.
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontshow{
+options(freesurfer.verbose = FALSE)
+}
 bert_dir = file.path(fs_subj_dir(), "bert", "surf")
 file = file.path(bert_dir, "lh.thickness")
 fid = file(file, open = "rb")

@@ -43,7 +43,7 @@ read_annotation <- function(path, verbose = get_fs_verbosity()) {
   if (bool == 0 || length(bool) == 0 || is.null(bool)) {
     colortable <- data.frame(matrix(NA, ncol = 6, nrow = 0))
     names(colortable) <- c("label", "R", "G", "B", "A", "code")
-    if (verbose) fs_warn('No colortable in file')
+    if (verbose) fs_warn("No colortable in file")
   } else if (bool == 1) {
     # Read colortable
     numEntries <- readBin(ff, integer(), endian = "big")
@@ -56,10 +56,10 @@ read_annotation <- function(path, verbose = get_fs_verbosity()) {
       if (verbose) {
         if (version != 2) {
           fs_warn(
-            'Reading from version {.code {version}}, there may be issues.'
+            "Reading from version {.code {version}}, there may be issues."
           )
         } else {
-          cli::cli_text('Reading from version {.code {version}}')
+          cli::cli_text("Reading from version {.code {version}}")
         }
       }
     }
@@ -85,12 +85,12 @@ read_annotation <- function(path, verbose = get_fs_verbosity()) {
       }
 
       if ((struct %in% colortable$label) & verbose) {
-        cli::cli_alert_danger('Error! Duplicate Structure: {.val {struct}}')
+        cli::cli_alert_danger("Error! Duplicate Structure: {.val {struct}}")
       }
 
       len <- readBin(ff, integer(), endian = "big")
 
-      colortable$label[struct] = t(readBin(
+      colortable$label[struct] <- t(readBin(
         ff,
         character(),
         n = 1,
@@ -109,24 +109,22 @@ read_annotation <- function(path, verbose = get_fs_verbosity()) {
 
     if (verbose) {
       cli::cli_text(
-        'colortable with {.val {nrow(colortable)}} entries read (from {.val {colortable.orig_tab}}'
+        "colortable with {.val {nrow(colortable)}} entries read (from {.val {colortable.orig_tab}}"
       )
     }
   } else {
-    cli::cli_abort('Error! Should not be expecting bool == {.val 0}')
+    cli::cli_abort("Error! Should not be expecting bool == {.val 0}")
   }
 
   # This makes it so that each empty entry at least has a string, even
   # if it is an empty string. This can happen with average subjects.
   if (any(is.na(colortable$label))) {
-    colortable$label[is.na(colortable$label)] = ""
+    colortable$label[is.na(colortable$label)] <- ""
   }
 
-  return(
-    list(
-      vertices = vertices,
-      label = label,
-      colortable = colortable
-    )
+  list(
+    vertices = vertices,
+    label = label,
+    colortable = colortable
   )
 }

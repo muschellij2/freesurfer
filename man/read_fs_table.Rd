@@ -3,11 +3,25 @@
 \name{read_fs_table}
 \alias{read_fs_table}
 \alias{read_stats_table}
-\title{Read Freesurfer Table Output}
+\title{Read FreeSurfer Table Output}
 \usage{
-read_fs_table(file, sep = NULL, header = TRUE, ...)
+read_fs_table(
+  file,
+  sep = NULL,
+  header = TRUE,
+  validate_format = TRUE,
+  stringsAsFactors = FALSE,
+  ...
+)
 
-read_stats_table(file, sep = NULL, header = TRUE, ...)
+read_stats_table(
+  file,
+  sep = NULL,
+  header = TRUE,
+  validate_format = TRUE,
+  stringsAsFactors = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{(character path) filename of text file}
@@ -17,19 +31,21 @@ pass to \code{\link[utils]{read.table}}.}
 
 \item{header}{Is there a header in the data}
 
-\item{...}{additional arguments to \code{\link{read.table}}}
+\item{validate_format}{(logical) Whether to warn about unexpected formats}
 
 \item{stringsAsFactors}{(logical) passed to \code{\link{read.table}}}
+
+\item{...}{additional arguments to \code{\link{read.table}}}
 }
 \value{
 \code{data.frame} from the file
 }
 \description{
-This function reads output from a Freesurfer table command,
+This function reads output from a FreeSurfer table command,
 e.g. \code{aparcstats2table}, \code{asegstats2table}
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 outfile = aparcstats2table(
    subjects = "bert",
    hemi = "lh",

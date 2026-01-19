@@ -30,7 +30,7 @@ $Date: 2014/02/25 19:54:10 $
 $Revision: 1.10 $
 }
 \examples{
-\dontshow{if (have_fs()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 bert_dir = file.path(fs_subj_dir(), "bert")
 annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
 res = read_annotation(annot_file)

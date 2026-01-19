@@ -3,26 +3,28 @@
 #' rotated value,
 #' for checking for other functions.
 #' @param file thickness file or anything in surf/ directory
-#' from Freesurfer
-#' subject
+#' from Freesurfer subject
 #'
 #' @return Numeric
-#' @noMd
+#' @noRd
 #' @keywords internal
 #' @examplesIf have_fs()
+#' \dontshow{
+#' options(freesurfer.verbose = FALSE)
+#' }
 #' bert_dir = file.path(fs_subj_dir(), "bert", "surf")
 #' file = file.path(bert_dir, "lh.thickness")
 #' out = freesurfer_read3(file)
-freesurfer_read3 = function(file) {
+freesurfer_read3 <- function(file) {
   fid <- file
   if (!inherits(file, "connection")) {
-    fid = file(file, open = "rb")
+    fid <- file(file, open = "rb")
     on.exit({
       close(fid)
     })
   }
 
-  b = as.integer(readBin(fid, 3, what = "raw", endian = "big"))
+  b <- as.integer(readBin(fid, 3, what = "raw", endian = "big"))
   bitwShiftL(b[1], 16) + bitwShiftL(b[2], 8) + b[3]
 }
 
@@ -35,26 +37,29 @@ freesurfer_read3 = function(file) {
 #' @export
 #'
 #' @examplesIf have_fs()
+#' \dontshow{
+#' options(freesurfer.verbose = FALSE)
+#' }
 #' bert_dir = file.path(fs_subj_dir(), "bert", "surf")
 #' file = file.path(bert_dir, "lh.thickness")
 #' fid = file(file, open = "rb")
 #' out = freesurfer_read_curv(file)
-freesurfer_read_curv = function(file) {
-  fid = file(file, open = "rb")
+freesurfer_read_curv <- function(file) {
+  fid <- file(file, open = "rb")
   on.exit({
     close(fid)
   })
-  vnum = freesurfer_read3(fid)
+  vnum <- freesurfer_read3(fid)
 
   if (vnum != 16777215) {
     cli::cli_abort(
       "Unknown version of curv file ({.val {vnum}}) - may not implemented yet"
     )
   }
-  vnum = readBin(fid, 1, what = integer(), endian = "big")
-  fnum = readBin(fid, 1, what = integer(), endian = "big")
+  vnum <- readBin(fid, 1, what = integer(), endian = "big")
+  fnum <- readBin(fid, 1, what = integer(), endian = "big")
 
-  vals_per_vertex = readBin(fid, 1, what = integer(), endian = "big")
+  vals_per_vertex <- readBin(fid, 1, what = integer(), endian = "big")
   readBin(fid, double(), n = vnum, size = 4, endian = "big")
 }
 
@@ -70,17 +75,20 @@ freesurfer_read_curv = function(file) {
 #' @export
 #'
 #' @examplesIf have_fs()
+#' \dontshow{
+#' options(freesurfer.verbose = FALSE)
+#' }
 #' fname = file.path(fs_subj_dir(), "bert", "surf", "lh.inflated")
 #' out = freesurfer_read_surf(fname)
-freesurfer_read_surf = function(file, verbose = get_fs_verbosity()) {
-  fid = file(file, open = "rb")
+freesurfer_read_surf <- function(file, verbose = get_fs_verbosity()) {
+  fid <- file(file, open = "rb")
   on.exit({
     close(fid)
   })
-  TRIANGLE_FILE_MAGIC_NUMBER = 16777214
-  QUAD_FILE_MAGIC_NUMBER = 16777215
+  TRIANGLE_FILE_MAGIC_NUMBER <- 16777214
+  QUAD_FILE_MAGIC_NUMBER <- 16777215
 
-  magic = freesurfer_read3(fid)
+  magic <- freesurfer_read3(fid)
 
   if (
     magic != TRIANGLE_FILE_MAGIC_NUMBER &&
@@ -92,13 +100,19 @@ freesurfer_read_surf = function(file, verbose = get_fs_verbosity()) {
   }
 
   if (magic == QUAD_FILE_MAGIC_NUMBER) {
-    vnum = freesurfer_read3(fid)
-    fnum = freesurfer_read3(fid)
+    vnum <- freesurfer_read3(fid)
+    fnum <- freesurfer_read3(fid)
     # int16
-    vertices = readBin(fid, n = vnum * 3, integer(), endian = "big", size = 2) /
+    vertices <- readBin(
+      fid,
+      n = vnum * 3,
+      integer(),
+      endian = "big",
+      size = 2
+    ) /
       100
 
-    faces = matrix(nrow = fnum, ncol = 4)
+    faces <- matrix(nrow = fnum, ncol = 4)
     for (iface in seq(fnum)) {
       for (n in 1:4) {
         faces[iface, n] = freesurfer_read3(fid)
@@ -121,26 +135,26 @@ freesurfer_read_surf = function(file, verbose = get_fs_verbosity()) {
     # }
     # faces = NULL
   } else if (magic == TRIANGLE_FILE_MAGIC_NUMBER) {
-    tline = readLines(fid, 1) # fgets similar to matlab
+    tline <- readLines(fid, 1) # fgets similar to matlab
     if (verbose) {
       cli::cli_text(tline)
     }
-    tline = readLines(fid, 1)
+    tline <- readLines(fid, 1)
     if (verbose) {
       cli::cli_text(tline)
     }
-    vnum = readBin(fid, 1, what = integer(), endian = "big")
-    fnum = readBin(fid, 1, what = integer(), endian = "big")
+    vnum <- readBin(fid, 1, what = integer(), endian = "big")
+    fnum <- readBin(fid, 1, what = integer(), endian = "big")
     # size = 4
     # "16" = readBin(fid, double(), n, nim@"bitpix"/8, endian=endian)
     # vertex_coords = fread(fid, vnum*3, 'float32') ;
-    vertices = readBin(fid, double(), n = vnum * 3, size = 4, endian = "big")
-    faces = readBin(fid, fnum * 3, what = integer(), endian = "big")
-    faces = matrix(faces, nrow = 3, ncol = fnum, byrow = FALSE)
-    faces = t(faces)
+    vertices <- readBin(fid, double(), n = vnum * 3, size = 4, endian = "big")
+    faces <- readBin(fid, fnum * 3, what = integer(), endian = "big")
+    faces <- matrix(faces, nrow = 3, ncol = fnum, byrow = FALSE)
+    faces <- t(faces)
   }
-  vertices = matrix(vertices, nrow = 3, byrow = FALSE)
-  vertices = t(vertices)
+  vertices <- matrix(vertices, nrow = 3, byrow = FALSE)
+  vertices <- t(vertices)
 
   list(vertices = vertices, faces = faces)
 }
