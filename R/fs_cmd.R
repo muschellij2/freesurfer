@@ -118,11 +118,19 @@ fs_cmd <- function(
 ) {
   # Simple validation
   validate_fs_env(check_license = FALSE)
+  samefile <- ifelse(
+    is.null(outfile),
+    FALSE,
+    identical(file, outfile)
+  )
 
   # Handle nifti objects
   if (inherits(file, "nifti")) {
     temp_input <- temp_file(fileext = ".nii.gz")
     neurobase::writenii(file, filename = temp_input)
+    if (samefile) {
+      outfile <- temp_input
+    }
     file <- temp_input
     on.exit(unlink(temp_input), add = TRUE)
   } else if (validate_inputs) {
@@ -135,11 +143,7 @@ fs_cmd <- function(
   outfile <- validate_outfile(outfile, retimg = retimg)
 
   # Warn if input and output are the same
-  if (
-    !is.null(outfile) &&
-      length(file) == 1 &&
-      file == outfile
-  ) {
+  if (samefile) {
     fs_warn(
       "Input and output files are identical - file will be overwritten",
       details = paste("File:", outfile)
@@ -218,13 +222,12 @@ fs_cmd <- function(
         outfile,
         reorient = reorient
       ))
-    } else {
-      fs_warn("Cannot return image - output file was not created")
-      return(NULL)
     }
+    fs_warn("Cannot return image - output file was not created")
+    return(NULL)
   }
 
-  return(res)
+  res
 }
 
 #' Execute system command with minimal wrapper
