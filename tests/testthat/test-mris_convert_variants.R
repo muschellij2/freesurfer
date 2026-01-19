@@ -276,3 +276,17 @@ describe("mris_convert_vertex", {
     expect_match(captured_opts, "-a -b.*-v")
   })
 })
+
+describe("mris_convert integration", {
+  it("converts surface file to ascii", {
+    skip_if_no_freesurfer()
+
+    bert_surf <- file.path(fs_subj_dir(), "bert", "surf", "lh.white")
+    skip_if_not(file.exists(bert_surf), "bert subject not available")
+
+    outfile <- withr::local_tempfile(fileext = ".asc")
+    result <- mris_convert(infile = bert_surf, outfile = outfile)
+
+    expect_true(file.exists(result))
+  })
+})

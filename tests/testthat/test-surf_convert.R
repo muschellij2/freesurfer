@@ -140,3 +140,18 @@ describe("surf_convert", {
     expect_error(surf_convert(temp_file, outfile = out_file))
   })
 })
+
+describe("surf_convert integration", {
+  it("converts surface measure to matrix", {
+    skip_if_no_freesurfer()
+
+    bert_thickness <- file.path(fs_subj_dir(), "bert", "surf", "lh.thickness")
+    skip_if_not(file.exists(bert_thickness), "bert subject not available")
+
+    withr::local_options(freesurfer.verbose = FALSE)
+    result <- surf_convert(bert_thickness)
+
+    expect_true(is.matrix(result))
+    expect_equal(ncol(result), 5)
+  })
+})

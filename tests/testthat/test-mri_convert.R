@@ -183,3 +183,17 @@ describe("mri_convert.help", {
     expect_equal(captured_func, "mri_convert")
   })
 })
+
+describe("mri_convert integration", {
+  it("converts nifti to nifti", {
+    skip_if_no_freesurfer()
+
+    img <- oro.nifti::nifti(array(rnorm(8), dim = c(2, 2, 2)))
+    outfile <- withr::local_tempfile(fileext = ".nii.gz")
+
+    withr::local_options(freesurfer.verbose = FALSE)
+    mri_convert(img, outfile = outfile)
+
+    expect_true(file.exists(outfile))
+  })
+})

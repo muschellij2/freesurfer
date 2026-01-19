@@ -51,3 +51,16 @@ describe("mri_info.help", {
     expect_equal(captured_func, "mri_info")
   })
 })
+
+describe("mri_info integration", {
+  it("returns info for nifti image", {
+    skip_if_no_freesurfer()
+
+    img <- oro.nifti::nifti(array(rnorm(8), dim = c(2, 2, 2)))
+
+    result <- mri_info(img, retimg = FALSE, intern = TRUE)
+
+    expect_type(result, "character")
+    expect_true(length(result) > 0)
+  })
+})

@@ -220,3 +220,16 @@ describe("mris_euler_number.help", {
     expect_equal(captured_func, "mris_euler_number")
   })
 })
+
+describe("mris_euler_number integration", {
+  it("calculates euler number for surface", {
+    skip_if_no_freesurfer()
+
+    bert_surf <- file.path(fs_subj_dir(), "bert", "surf", "lh.white")
+    skip_if_not(file.exists(bert_surf), "bert subject not available")
+
+    result <- suppressWarnings(mris_euler_number(bert_surf))
+
+    expect_true(is.character(result) || is.null(result))
+  })
+})
