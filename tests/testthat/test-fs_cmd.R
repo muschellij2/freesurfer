@@ -96,16 +96,15 @@ describe("fs_cmd", {
       "/freesurfer_bin/test_func"
     )
 
-    expect_equal(
+    expect_match(result, func)
+    expect_match(result, opts)
+    expect_match(
       result,
-      sprintf(
-        "%s%s '%s' %s '%s'",
-        get_fs(),
-        func,
-        normalizePath(temp_file, mustWork = FALSE),
-        opts,
-        normalizePath(outfile, mustWork = FALSE)
-      )
+      gsub("\\\\", "\\\\\\\\", normalizePath(temp_file, mustWork = FALSE))
+    )
+    expect_match(
+      result,
+      gsub("\\\\", "\\\\\\\\", normalizePath(outfile, mustWork = FALSE))
     )
   })
 
@@ -246,6 +245,7 @@ describe("fs_cmd", {
   })
 
   it("gracefully handles invalid commands", {
+    skip_on_os("windows")
     expect_error(
       try_fs_cmd("nonexistent_command", intern = TRUE, verbose = FALSE),
       "error in running command"

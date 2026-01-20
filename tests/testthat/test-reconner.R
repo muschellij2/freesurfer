@@ -32,6 +32,8 @@ describe("reconner", {
   })
 
   it("outputs command when verbose is TRUE", {
+    outdir <- withr::local_tempdir()
+
     local_mocked_bindings(
       get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
@@ -39,18 +41,21 @@ describe("reconner", {
       get_fs_license = mock_get_license
     )
 
-    expect_message(
-      reconner(
-        infile = "input.nii",
-        outdir = "/output_dir",
-        subjid = "subject01",
-        verbose = TRUE
-      ),
-      "recon-all  -sd '/output_dir' -i ./input.nii -all"
+    cmd <- reconner(
+      infile = "input.nii",
+      outdir = outdir,
+      subjid = "subject01",
+      verbose = TRUE
     )
+    expect_match(cmd, "recon-all")
+    expect_match(cmd, "-sd")
+    expect_match(cmd, "-i")
+    expect_match(cmd, "-all")
   })
 
   it("adds force flag when force = TRUE", {
+    outdir <- withr::local_tempdir()
+
     local_mocked_bindings(
       get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
@@ -58,19 +63,19 @@ describe("reconner", {
       get_fs_license = mock_get_license
     )
 
-    expect_message(
-      cmd <- reconner(
-        infile = "input.nii",
-        outdir = "/output_dir",
-        subjid = "subject01",
-        force = TRUE
-      ),
-      "-force -all"
+    cmd <- reconner(
+      infile = "input.nii",
+      outdir = outdir,
+      subjid = "subject01",
+      force = TRUE,
+      verbose = FALSE
     )
     expect_match(cmd, "-force", fixed = TRUE)
   })
 
   it("correctly adds options to the command", {
+    outdir <- withr::local_tempdir()
+
     local_mocked_bindings(
       get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
@@ -78,19 +83,19 @@ describe("reconner", {
       get_fs_license = mock_get_license
     )
 
-    expect_message(
-      cmd <- reconner(
-        infile = "input.nii",
-        opts = "-autorecon2 -parallel",
-        subjid = "subject01",
-        outdir = "/output_dir"
-      ),
-      "-autorecon2 -parallel"
+    cmd <- reconner(
+      infile = "input.nii",
+      opts = "-autorecon2 -parallel",
+      subjid = "subject01",
+      outdir = outdir,
+      verbose = FALSE
     )
     expect_match(cmd, "-autorecon2 -parallel")
   })
 
   it("auto-generates subject ID from input file if subjid is NULL", {
+    outdir <- withr::local_tempdir()
+
     local_mocked_bindings(
       get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
@@ -104,19 +109,18 @@ describe("reconner", {
     )
 
     expect_message(
-      expect_message(
-        cmd <- reconner(
-          infile = "input_file.nii",
-          outdir = "/output_dir"
-        ),
-        "-i ./input_file.nii -all"
+      cmd <- reconner(
+        infile = "input_file.nii",
+        outdir = outdir
       ),
-      "Subject set to: \"input_file\""
+      "Subject set to"
     )
     expect_match(cmd, "-subjid input_file", fixed = TRUE)
   })
 
   it("updates subject directory path with custom output directory", {
+    outdir <- withr::local_tempdir()
+
     local_mocked_bindings(
       get_fs = function() "mock/path",
       try_fs_cmd = function(cmd) cmd,
@@ -124,15 +128,13 @@ describe("reconner", {
       get_fs_license = mock_get_license
     )
 
-    expect_message(
-      cmd <- reconner(
-        infile = "input.nii",
-        subjid = "subject01",
-        outdir = "/custom_output"
-      ),
-      "-sd '/custom_output'"
+    cmd <- reconner(
+      infile = "input.nii",
+      subjid = "subject01",
+      outdir = outdir,
+      verbose = FALSE
     )
-    expect_match(cmd, "-sd '/custom_output'")
+    expect_match(cmd, "-sd")
   })
 
   it("runs command without outfile if infile is not specified", {

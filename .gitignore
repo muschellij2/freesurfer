@@ -17,3 +17,5 @@ R/*.log
 revdep
 
 docs/
+figure/
+cache/

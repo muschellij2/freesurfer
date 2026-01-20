@@ -87,7 +87,7 @@ describe("utils", {
     tf <- temp_file(tmpdir = base_tmp, pattern = "provided_dir_")
 
     # Assertions: returned path should use the provided directory and the dir exists
-    expect_true(startsWith(dirname(tf), base_tmp))
+    expect_true(startsWith(dirname(tf), normalizePath(base_tmp, mustWork = FALSE)))
   })
 
   it("returns invisibly TRUE when FreeSurfer is available", {
@@ -183,7 +183,7 @@ describe("utils", {
     result <- check_outfile(outfile = outfile_path, retimg = FALSE)
 
     # Check that the returned value matches the input (path-expanded)
-    expect_identical(result, outfile_path)
+    expect_equal(result, normalizePath(outfile_path, mustWork = FALSE))
   })
 
   it("handles custom file extensions for tempfiles", {

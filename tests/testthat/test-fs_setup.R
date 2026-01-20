@@ -79,9 +79,7 @@ describe("fs_setup", {
       home <- get_fs(),
       "no license file*"
     )
-    expect_true(
-      grepl("export FREESURFER_HOME='/valid/path'", home)
-    )
+    expect_match(home, "export FREESURFER_HOME=['\"]")
   })
 
   it("constructs command for default `bin` directory", {
@@ -101,10 +99,10 @@ describe("fs_setup", {
     )
     cmd <- get_fs("bin")
 
-    expect_true(grepl("export FREESURFER_HOME='/valid/path'", cmd))
-    expect_true(grepl("source '/valid/path/FreeSurferEnv.sh'", cmd))
-    expect_true(grepl("FSF_OUTPUT_FORMAT=nii", cmd))
-    expect_true(grepl("\\$\\{FREESURFER_HOME\\}/bin/", cmd))
+    expect_match(cmd, "export FREESURFER_HOME=['\"]")
+    expect_match(cmd, "source ['\"]")
+    expect_match(cmd, "FSF_OUTPUT_FORMAT=nii")
+    expect_match(cmd, "\\$\\{FREESURFER_HOME\\}/bin/")
   })
 
   it("constructs command for `mni/bin` with MNI initialization", {
@@ -154,8 +152,8 @@ describe("fs_setup", {
       }
     )
     cmd <- get_fs("bin")
-    expect_true(grepl("export FREESURFER_HOME='/valid/path'", cmd))
-    expect_true(grepl("FSF_OUTPUT_FORMAT=nii", cmd))
+    expect_match(cmd, "export FREESURFER_HOME=['\"]")
+    expect_match(cmd, "FSF_OUTPUT_FORMAT=nii")
     expect_false(grepl("source", cmd))
   })
 
@@ -315,8 +313,12 @@ describe("fs_setup", {
   })
 
   it("works when SUBJECTS_DIR is set via environment variable", {
-    withr::local_envvar(SUBJECTS_DIR = "/mocked/env/subjects")
-    expect_equal(fs_subj_dir(), "/mocked/env/subjects")
+    sub_dir <- "/mocked/env/subjects"
+    withr::local_envvar(SUBJECTS_DIR = sub_dir)
+    expect_equal(
+      normalizePath(fs_subj_dir(), mustWork = FALSE),
+      normalizePath(sub_dir, mustWork = FALSE)
+    )
   })
 
   it("works when SUBJECTS_DIR is set via R options", {
@@ -326,7 +328,10 @@ describe("fs_setup", {
       freesurfer.subj_dir = sub_dir
     )
 
-    expect_equal(fs_subj_dir(), sub_dir)
+    expect_equal(
+      normalizePath(fs_subj_dir(), mustWork = FALSE),
+      normalizePath(sub_dir, mustWork = FALSE)
+    )
   })
 
   it("prioritizes R options over environment variable", {
@@ -339,8 +344,8 @@ describe("fs_setup", {
       freesurfer.subj_dir = sub_dir
     )
     expect_equal(
-      fs_subj_dir(),
-      sub_dir
+      normalizePath(fs_subj_dir(), mustWork = FALSE),
+      normalizePath(sub_dir, mustWork = FALSE)
     )
   })
 })

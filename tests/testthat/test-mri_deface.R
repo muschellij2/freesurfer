@@ -43,8 +43,14 @@ describe("mri_deface", {
       face_template = face_template
     )
 
-    expect_match(captured_args$opts, normalizePath(brain_template))
-    expect_match(captured_args$opts, normalizePath(face_template))
+    expect_match(
+      captured_args$opts,
+      gsub("\\\\", "\\\\\\\\", normalizePath(brain_template))
+    )
+    expect_match(
+      captured_args$opts,
+      gsub("\\\\", "\\\\\\\\", normalizePath(face_template))
+    )
   })
 
   it("sets opts_after_outfile = FALSE", {

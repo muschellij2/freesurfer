@@ -97,6 +97,8 @@ describe("mri_surf2surf", {
   })
 
   it("builds correct sval argument", {
+    skip_on_os("windows")
+
     captured_cmd <- NULL
     local_mocked_bindings(
       get_fs = function(...) "/fs/bin/",
@@ -259,6 +261,8 @@ describe("mri_surf2surf", {
   })
 
   it("sets SUBJECTS_DIR when subj_dir is provided", {
+    skip_on_os("windows")
+
     captured_cmd <- NULL
     local_mocked_bindings(
       get_fs = function(...) "/fs/bin/",

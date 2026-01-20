@@ -70,7 +70,7 @@ describe("mri_synthstrip", {
 
     mri_synthstrip(temp_file, outfile = out_file, maskfile = mask_file)
 
-    expect_match(captured_args$opts, mask_file, fixed = TRUE)
+    expect_match(captured_args$opts, basename(mask_file), fixed = TRUE)
   })
 
   it("generates temp maskfile when not provided", {

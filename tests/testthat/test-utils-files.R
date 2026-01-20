@@ -111,7 +111,7 @@ describe("utils-files", {
     # ensure parent does not exist yet
     expect_false(dir.exists(parent))
     res <- validate_outfile(outfile, retimg = FALSE)
-    expect_equal(res, path.expand(outfile))
+    expect_equal(res, normalizePath(path.expand(outfile), mustWork = FALSE))
     expect_true(dir.exists(parent))
   })
 

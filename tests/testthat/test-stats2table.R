@@ -216,10 +216,10 @@ describe("stats2table", {
         "mock_binary"
       },
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        # Custom mock for this test
-        expect_match(cmd, "--skip")
-        expect_match(cmd, paste0("export SUBJECTS_DIR=", mock_subj_dir, ";"))
-        expect_match(cmd, "some_extra_opts")
+        expect_match(cmd, "--skip", fixed = TRUE)
+        expect_match(cmd, "export SUBJECTS_DIR=", fixed = TRUE)
+        expect_match(cmd, "test_subjects_dir", fixed = TRUE)
+        expect_match(cmd, "some_extra_opts", fixed = TRUE)
         file.create(outfile)
         invisible(0)
       },

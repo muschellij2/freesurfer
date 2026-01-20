@@ -2,7 +2,7 @@ describe("get_fs_setting", {
   it("get_fs_setting correctly uses R options if set", {
     local_fs_unset()
     opt_name <- "freesurfer.test_option"
-    value <- normalizePath("/this/weird/path", mustWork = FALSE)
+    value <- "/this/weird/path"
 
     withr::local_options(freesurfer.test_option = value)
 
@@ -10,13 +10,12 @@ describe("get_fs_setting", {
       env_var = "TEST_ENV_VAR",
       opt_var = opt_name
     )
-    expect_equal(result$value, value)
+    expect_equal(result$value, normalizePath(value, mustWork = FALSE))
     expect_match(result$source, "R option")
     expect_false(result$exists)
 
     # -- create dir for exists tests
-    value <- withr::local_tempdir() |>
-      normalizePath(mustWork = FALSE)
+    value <- withr::local_tempdir()
     dir.create(value, showWarnings = FALSE, recursive = TRUE)
     withr::local_options(freesurfer.test_option = value)
 
@@ -24,7 +23,7 @@ describe("get_fs_setting", {
       env_var = "TEST_ENV_VAR",
       opt_var = opt_name
     )
-    expect_match(result$value, value)
+    expect_equal(result$value, normalizePath(value, mustWork = FALSE))
     expect_match(result$source, "R option")
     expect_true(result$exists)
   })
@@ -37,32 +36,30 @@ describe("get_fs_setting", {
     withr::local_envvar(FREESURFER_TEST_ENV = value)
 
     result <- get_fs_setting(env_var = env_var, opt_var = "irrelevant.option")
-    expect_match(result$value, value)
+    expect_equal(result$value, normalizePath(value, mustWork = FALSE))
     expect_match(result$source, "Environment variable")
     expect_false(result$exists)
 
     # -- create dir for exists tests
-    value <- withr::local_tempdir() |>
-      normalizePath(mustWork = FALSE)
+    value <- withr::local_tempdir()
     withr::local_envvar(FREESURFER_TEST_ENV = value)
 
     result <- get_fs_setting(env_var = env_var, opt_var = "irrelevant.option")
-    expect_match(result$value, value)
+    expect_equal(result$value, normalizePath(value, mustWork = FALSE))
     expect_match(result$source, "Environment variable")
     expect_true(result$exists)
   })
 
   it("get_fs_setting falls back to defaults if neither option nor environment variable is set", {
     local_fs_unset()
-    temp_dir <- withr::local_tempdir() |>
-      normalizePath(mustWork = FALSE)
+    temp_dir <- withr::local_tempdir()
 
     result <- get_fs_setting(
       env_var = "MISSING_ENV_VAR",
       opt_var = "missing.option",
       defaults = c("NA/path", temp_dir)
     )
-    expect_match(result$value, temp_dir)
+    expect_equal(result$value, normalizePath(temp_dir, mustWork = FALSE))
     expect_match(result$source, "Default")
     expect_true(result$exists)
   })
@@ -99,9 +96,10 @@ describe("get_fs_setting", {
   # ---- get_fs_home function ----
   it("get_fs_home retrieves value from R option", {
     local_fs_unset()
-    withr::local_options(freesurfer.home = "/mock/path/from/option")
+    mock_path <- "/mock/path/from/option"
+    withr::local_options(freesurfer.home = mock_path)
     result <- get_fs_home(simplify = FALSE)
-    expect_equal(result$value, "/mock/path/from/option")
+    expect_equal(result$value, normalizePath(mock_path, mustWork = FALSE))
     expect_match(result$source, "R option")
     expect_false(result$exists)
 
@@ -111,9 +109,10 @@ describe("get_fs_setting", {
 
   it("get_fs_home retrieves value from environment variable", {
     local_fs_unset()
-    withr::local_envvar(FREESURFER_HOME = "/mock/path/from/env")
+    mock_path <- "/mock/path/from/env"
+    withr::local_envvar(FREESURFER_HOME = mock_path)
     result <- get_fs_home(simplify = FALSE)
-    expect_equal(result$value, "/mock/path/from/env")
+    expect_equal(result$value, normalizePath(mock_path, mustWork = FALSE))
     expect_match(result$source, "Environment variable")
     expect_false(result$exists)
   })
@@ -178,7 +177,7 @@ describe("get_fs_setting", {
     path <- file.path(fs_dir(), ".license")
     writeLines("FS license", path)
     result <- get_fs_license(simplify = FALSE)
-    expect_equal(result$value, path)
+    expect_equal(result$value, normalizePath(path, mustWork = FALSE))
     expect_match(result$source, "Default")
     expect_true(result$exists)
     file.remove(path)
@@ -187,7 +186,7 @@ describe("get_fs_setting", {
     path <- file.path(fs_dir(), "license.txt")
     writeLines("FS license", path)
     result <- get_fs_license(simplify = FALSE)
-    expect_equal(result$value, path)
+    expect_equal(result$value, normalizePath(path, mustWork = FALSE))
     expect_match(result$source, "Default")
     expect_true(result$exists)
 
@@ -241,8 +240,7 @@ describe("get_fs_setting", {
   it("get_mni_bin identifies default path", {
     local_fs_unset()
 
-    temp_dir <- withr::local_tempdir() |>
-      normalizePath(mustWork = FALSE)
+    temp_dir <- withr::local_tempdir()
     local_mocked_bindings(
       get_fs_home = function() {
         temp_dir
@@ -255,15 +253,14 @@ describe("get_fs_setting", {
     expect_true(file.exists(temp_bin))
 
     result <- get_mni_bin(simplify = FALSE)
-    expect_equal(result$value, dirname(temp_bin))
+    expect_equal(result$value, normalizePath(dirname(temp_bin), mustWork = FALSE))
     expect_true(result$exists)
   })
 
   it("get_mni_bin identifies option", {
     local_fs_unset()
 
-    temp_dir <- withr::local_tempdir() |>
-      normalizePath(mustWork = FALSE)
+    temp_dir <- withr::local_tempdir()
     local_mocked_bindings(
       get_fs_home = function(...) {
         temp_dir
@@ -277,7 +274,7 @@ describe("get_fs_setting", {
 
     result <- get_mni_bin(simplify = FALSE)
     expect_true(result$exists)
-    expect_equal(result$value, dirname(temp_bin))
+    expect_equal(result$value, normalizePath(dirname(temp_bin), mustWork = FALSE))
 
     result2 <- get_mni_bin(simplify = TRUE)
     expect_equal(result$value, result2)
@@ -313,9 +310,10 @@ describe("get_fs_setting", {
   it("get_fs_subdir retrieves value from R option", {
     local_fs_unset()
 
-    withr::local_options(freesurfer.subj_dir = "/mock/path/from/option")
+    mock_path <- "/mock/path/from/option"
+    withr::local_options(freesurfer.subj_dir = mock_path)
     result <- get_fs_subdir(simplify = FALSE)
-    expect_equal(result$value, "/mock/path/from/option")
+    expect_equal(result$value, normalizePath(mock_path, mustWork = FALSE))
     expect_match(result$source, "R option")
     expect_false(result$exists) # Since this is a mock path
   })
@@ -323,9 +321,10 @@ describe("get_fs_setting", {
   it("get_fs_subdir retrieves value from environment variable", {
     local_fs_unset()
 
-    withr::local_envvar(SUBJECTS_DIR = "/mock/path/from/env")
+    mock_path <- "/mock/path/from/env"
+    withr::local_envvar(SUBJECTS_DIR = mock_path)
     result <- get_fs_subdir(simplify = FALSE)
-    expect_equal(result$value, "/mock/path/from/env")
+    expect_equal(result$value, normalizePath(mock_path, mustWork = FALSE))
     expect_match(result$source, "Environment variable")
     expect_false(result$exists) # Since this is a mock path
   })
