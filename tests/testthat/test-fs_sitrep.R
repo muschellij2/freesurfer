@@ -388,3 +388,11 @@ cli::test_that_cli("fs_sitrep()  recommends setting home when fs_home is NA", {
     fs_sitrep(test_commands = TRUE)
   )
 })
+
+describe("fs_sitrep integration", {
+  it("runs without error when FreeSurfer is available", {
+    skip_if_no_freesurfer()
+    withr::local_options(freesurfer.verbose = FALSE)
+    expect_no_error(fs_sitrep())
+  })
+})

@@ -349,3 +349,23 @@ describe("fs_setup", {
     )
   })
 })
+
+describe("fs_setup integration", {
+  it("have_fs returns TRUE when FreeSurfer installed", {
+    skip_if_no_freesurfer()
+    expect_true(have_fs())
+  })
+
+  it("fs_dir returns existing directory", {
+    skip_if_no_freesurfer()
+    fs_home <- fs_dir()
+    expect_true(dir.exists(fs_home))
+  })
+
+  it("fs_version returns valid version string", {
+    skip_if_no_freesurfer()
+    version <- fs_version()
+    expect_type(version, "character")
+    expect_match(version, "freesurfer", ignore.case = TRUE)
+  })
+})

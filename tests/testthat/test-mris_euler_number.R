@@ -228,7 +228,16 @@ describe("mris_euler_number integration", {
     bert_surf <- file.path(fs_subj_dir(), "bert", "surf", "lh.white")
     skip_if_not(file.exists(bert_surf), "bert subject not available")
 
-    result <- suppressWarnings(mris_euler_number(bert_surf))
+    expect_warning(
+      expect_warning(
+        expect_warning(
+          result <- mris_euler_number(bert_surf),
+          "Unexpected file format"
+        ),
+        "Input and output files are identical"
+      ),
+      "output file is empty"
+    )
 
     expect_true(is.character(result) || is.null(result))
   })

@@ -258,3 +258,26 @@ describe("fs_cmd", {
     expect_equal(result, "Wait Test")
   })
 })
+
+describe("fs_cmd integration", {
+  it("runs mri_info successfully", {
+    skip_if_no_freesurfer()
+
+    sample_mgz <- file.path(fs_dir(), "subjects", "sample-001.mgz")
+    skip_if_not(file.exists(sample_mgz), "sample-001.mgz not available")
+
+    withr::local_options(freesurfer.verbose = FALSE)
+    expect_warning(
+      result <- fs_cmd(
+        func = "mri_info",
+        file = sample_mgz,
+        outfile = sample_mgz,
+        frontopts = "--dim",
+        retimg = FALSE
+      ),
+      "Input and output files are identical"
+    )
+
+    expect_equal(result, 0L)
+  })
+})
