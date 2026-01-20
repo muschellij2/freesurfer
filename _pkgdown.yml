@@ -1,4 +1,157 @@
-url: ~
+url: https://muschellij2.github.io/freesurfer/
+
 template:
   bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
 
+navbar:
+  structure:
+    left: [intro, articles, reference]
+    right: [search, github]
+  components:
+    intro:
+      text: Get Started
+      href: articles/freesurfer.html
+    articles:
+      text: Articles
+      menu:
+        - text: Tutorials
+        - text: Running recon-all
+          href: articles/recon-all.html
+        - text: Core Image Processing
+          href: articles/image_processing.html
+        - text: Analyzing and Visualizing Outputs
+          href: articles/analysing_visualizing.html
+        - text: "---"
+        - text: Advanced Topics
+        - text: Advanced Usage & Future Plans
+          href: articles/advance_future.html
+        - text: "---"
+        - text: Citation
+        - text: Package Paper
+          href: articles/paper.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    github:
+      icon: fab fa-github
+      href: https://github.com/muschellij2/freesurfer/
+      aria-label: GitHub
+
+home:
+  links:
+    - text: Report a bug
+      href: https://github.com/muschellij2/freesurfer/issues
+
+articles:
+  - title: Getting Started
+    navbar: ~
+    contents:
+      - freesurfer
+  - title: Tutorials
+    navbar: ~
+    contents:
+      - recon-all
+      - image_processing
+      - analysing_visualizing
+  - title: Advanced Topics
+    navbar: ~
+    contents:
+      - advance_future
+  - title: Citation
+    navbar: ~
+    desc: >
+      If you use this package in your research, please cite the following paper.
+    contents:
+      - paper
+
+reference:
+  - title: Setup & Configuration
+    desc: >
+      Functions to configure and verify your FreeSurfer installation.
+    contents:
+      - have_fs
+      - get_fs
+      - get_fs_setting
+      - fs_dir
+      - set_fs_subj_dir
+      - fs_sitrep
+      - fs_version
+      - fs_imgext
+
+  - title: Reading FreeSurfer Files
+    desc: >
+
+      Functions to read FreeSurfer-specific file formats into R.
+    contents:
+      - contains("read")
+
+  - title: Image Conversion
+    desc: >
+      Convert between different neuroimaging file formats.
+    contents:
+      - mri_convert
+      - mri_info
+      - mnc2nii
+      - nii2mnc
+      - checkmnc-methods
+
+  - title: Image Processing
+    desc: >
+      Core image processing operations like normalization, segmentation,
+      and skull stripping.
+    contents:
+      - mri_normalize
+      - mri_segment
+      - mri_watershed
+      - mri_mask
+      - mri_deface
+      - mri_synthstrip
+      - nu_correct
+
+  - title: Surface Operations
+    desc: >
+      Functions for working with cortical surface data.
+    contents:
+      - starts_with("mris_convert")
+      - mri_surf2surf
+      - surf_convert
+      - convert_surface
+      - surface_to_obj
+      - surface_to_triangles
+      - mris_euler_number
+
+  - title: Reconstruction Pipelines
+    desc: >
+      Run FreeSurfer's automated reconstruction pipelines.
+    contents:
+      - reconner
+      - recon
+      - recon_manual
+      - trac
+      - construct_subj_dir
+
+  - title: Statistics & Analysis
+    desc: >
+      Extract and analyze statistics from FreeSurfer outputs.
+    contents:
+      - stats2table
+      - aparcs_to_bg
+      - fs_lut
+
+  - title: Utilities
+    desc: >
+      Helper functions for working with FreeSurfer.
+    contents:
+      - fs_cmd
+      - fs_help
+      - temp_file
+
+  - title: FreeSurfer Help Documentation
+    desc: >
+      Access FreeSurfer command-line help directly from R.
+    contents:
+      - ends_with(".help")

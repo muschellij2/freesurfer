@@ -16,6 +16,8 @@ Description: Wrapper functions that interface with 'Freesurfer'
     function executes an 'Freesurfer' command and returns an R object of
     class 'nifti' or necessary output.
 License: GPL-3
+URL: https://muschellij2.github.io/freesurfer/,
+    https://github.com/muschellij2/freesurfer
 BugReports: https://github.com/muschellij2/freesurfer/issues
 Depends:
     R (>= 4.1)
