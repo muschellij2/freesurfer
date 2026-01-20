@@ -50,3 +50,22 @@ sys_info <- function() {
     shell = Sys.getenv("SHELL")
   )
 }
+
+# nocov start
+knit_vignettes <- function() {
+  vf <- list.files("vignettes", ".orig$", full.names = TRUE)
+
+  mapply(
+    knitr::knit,
+    input = vf,
+    output = gsub("\\.orig", "", vf)
+  )
+
+  cp <- file.copy(
+    "figure",
+    "vignette/figure",
+    overwrite = TRUE,
+    recursive = TRUE
+  )
+}
+# nocov end

@@ -23,3 +23,6 @@ man-roxygen
 Dockerfile
 .continue
 ^\.claude$
+vignettes/*.orig
+figure
+cache/

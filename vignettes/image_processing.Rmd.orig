@@ -8,7 +8,16 @@ vignette: >
 bibliography: ref.bib
 ---
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  eval = freesurfer::have_fs(),
+  prompt = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+options(freesurfer.verbose = FALSE)
 
+```
 
 Welcome to this tutorial on core image processing with the `freesurfer` package!
 This guide will walk you through essential image manipulation and processing functions that `freesurfer` wraps, allowing you to seamlessly integrate Freesurfer's powerful tools into your R workflow.
@@ -49,8 +58,7 @@ The results of the processing will be saved in a sub-directory within your `SUBJ
 
 The basic syntax for `recon_all` is:
 
-
-``` r
+```{r eval = FALSE}
 recon_all(infile, outdir, subjid)
 ```
 
@@ -73,8 +81,7 @@ The `mri_convert` Freesurfer function is the perfect tool for this conversion, a
 Let's use the T1-weighted image from the "bert" subject, which is included with your Freesurfer installation for reproducible examples.
 The `read_mgz()` function converts this `.mgz` file to NIfTI format and then read it into R:
 
-
-``` r
+```{r mri_convert}
 library(freesurfer)
 
 bert_mri = file.path(fs_subj_dir(), "bert", "mri", "T1.mgz")
@@ -84,27 +91,21 @@ bert_nii = read_mgz(bert_mri)
 
 Now that `bert_nii` is a `nifti` object, we can easily plot it using the `neurobase` package:
 
-
-``` r
+```{r mri_plot, fig.cap = "Slices of the Bert T1 image", fig.asp=0.8}
 library(neurobase)
 
 neurobase::ortho2(bert_nii)
 ```
 
-![Slices of the Bert T1 image](figure/mri_plot-1.png)
-
 We can now see a display of three slices of the head: the top-left panel shows an axial view (looking down from the top of the head), the top-right panel shows a sagittal view (looking from the right side of the brain), and the bottom-left panel shows a coronal view (looking from the back of the head).
 You might notice that the image is not stored in the right/posterior/inferior (RPI) orientation, which is typically assumed when displaying with the `neurobase::neurobase::ortho2` function.
 To correct this, we can use the `orient_rpi` function from the `neurobase` package, whose function returns a list, with the nii image in the "img" element, and the orientation in the "orientation" element.
 
-
-``` r
+```{r mri_plot2, fig.cap = "Slices of the Bert T1 image after reorientation", fig.asp=0.8}
 bert_nii_rpi = orient_rpi(bert_nii)
 
 neurobase::ortho2(bert_nii_rpi$img)
 ```
-
-![Slices of the Bert T1 image after reorientation](figure/mri_plot2-1.png)
 The image above shows the reoriented image.
 Notice how the views now align correctly with the assumed orientation markers of `neurobase::ortho2`, changing which panel corresponds to which view.
 
@@ -119,8 +120,7 @@ The Freesurfer function `nu_correct` performs this non-uniformity correction usi
 The `freesurfer` R function with the same name will execute this correction and return the processed image.
 The Freesurfer `nu_correct` command typically requires input in the [MINC format](http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC).
 
-
-``` r
+```{r nu_correct_convert_minc, results='hide'}
 # Save the NIfTI to a temporary MINC file
 temp_minc_file = tempfile(fileext = ".mnc")
 bert_mnc <- nii2mnc(bert_nii_rpi$img, outfile = temp_minc_file)
@@ -129,8 +129,7 @@ bert_mnc <- nii2mnc(bert_nii_rpi$img, outfile = temp_minc_file)
 Now, we can pass this MINC file directly into the `nu_correct` function.
 This function will run the Freesurfer correction and then automatically convert the resulting MINC output back into a `nifti` object for you to use in R.
 
-
-``` r
+```{r nu_correct, results='hide'}
 bert_nu = nu_correct(bert_mnc)
 class(bert_nu)
 ```
@@ -138,8 +137,7 @@ class(bert_nu)
 As you can see, the output `bert_mnc` is indeed a `nifti` object.
 We can now visualize the corrected image alongside the estimated bias field (log-transformed for better display) to observe which areas have been differentially corrected, as seen below.
 
-
-``` r
+```{r nu_correct_plot, fig.cap = "Bias field corrected image and estimated bias field", fig.asp = 0.8}
 bias_field = finite_img(log(bert_nii_rpi$img / bert_nu))
 
 double_ortho(
@@ -149,8 +147,6 @@ double_ortho(
   mask = bert_nu > 40
 )
 ```
-
-![Bias field corrected image and estimated bias field](figure/nu_correct_plot-1.png)
 
 Ultimately, this correction helps to make the intensities within the brain more spatially homogeneous.
 It's worth noting that this method is different from what's implemented in FSL [@jenkinson_fsl_2012] (and consequently in `fslr`), offering you an alternative correction method that wasn't previously available to R users.
@@ -165,13 +161,10 @@ The `mri_watershed` function is designed to segment the brain, separating it fro
 While other R imaging software, like `EBImage` [@EBImage], have implemented the general watershed algorithm, these methods haven't been directly adapted for MRI or specifically optimized for brain extraction.
 With `freesurfer`, you can simply pass in your `nifti` object, and the function will return a brain-extracted `nifti` object.
 
-
-``` r
+```{r watershed_plot, fig.cap = "Brain extracted image using mri_watershed", fig.asp = 0.8, results = 'hide'}
 bert_brain = mri_watershed(bert_nii_rpi$img)
 neurobase::ortho2(bert_brain)
 ```
-
-![Brain extracted image using mri_watershed](figure/watershed_plot-1.png)
 
 The figure above shows the result: areas like the skull, eyes, face, and other parts of the image have been successfully removed.
 You might still observe some remaining areas, possibly membranes between the brain and the skull, but for most analyses, this represents an adequate brain extraction.
@@ -179,8 +172,7 @@ You might still observe some remaining areas, possibly membranes between the bra
 Since the result is a `nifti` object, you can easily create a binary brain mask using standard logical operations for arrays.
 As MRI scans typically have positive intensity values, the positive areas of the image can be considered the "brain" region:
 
-
-``` r
+```{r brain_mask}
 brain_mask = bert_brain > 0
 neurobase::ortho2(
   bert_nii_rpi$img,
@@ -189,7 +181,5 @@ neurobase::ortho2(
   text = "Brain Mask"
 )
 ```
-
-![plot of chunk brain_mask](figure/brain_mask-1.png)
 
 
