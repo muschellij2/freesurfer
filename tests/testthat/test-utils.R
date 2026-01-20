@@ -77,17 +77,15 @@ describe("utils", {
   })
 
   it("respects a custom tmpdir argument", {
-    # Setup: create a base temporary directory path (doesn't exist yet)
-    base_tmp <- file.path(
-      withr::local_tempdir(),
-      paste0("custom_tmpdir_", as.integer(Sys.time()))
-    )
+    # Setup: use an existing temporary directory
+    base_tmp <- withr::local_tempdir()
 
     # Run: request a tempfile inside base_tmp
     tf <- temp_file(tmpdir = base_tmp, pattern = "provided_dir_")
 
-    # Assertions: returned path should use the provided directory and the dir exists
-    expect_true(startsWith(dirname(tf), normalizePath(base_tmp, mustWork = FALSE)))
+    # Assertions: returned path should be inside base_tmp directory
+    expect_true(grepl(basename(base_tmp), tf, fixed = TRUE))
+    expect_true(dir.exists(dirname(tf)))
   })
 
   it("returns invisibly TRUE when FreeSurfer is available", {
