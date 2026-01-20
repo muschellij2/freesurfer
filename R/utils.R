@@ -53,6 +53,10 @@ sys_info <- function() {
 
 # nocov start
 knit_vignettes <- function() {
+  if (!has_freesurfer()) {
+    fs_inform("Not knitting vignettes, no freesufer installed.")
+    return()
+  }
   vf <- list.files("vignettes", ".orig$", full.names = TRUE)
 
   mapply(
