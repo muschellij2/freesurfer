@@ -1,45 +1,34 @@
-#' Reconstruction Helper for Freesurfer's `recon-all`
+#' Reconstruction Helper for FreeSurfer's recon-all
 #'
-#' This function is a wrapper around Freesurfer's `recon-all` command used
-#' for reconstructing brain surfaces or handling input files (DICOM or NIfTI
-#' format) for medical image analysis. It provides convenient interfaces
-#' for specifying input/output paths, subject IDs, custom options, and
-#' additional flags.
+#' @description
+#' Wrapper around FreeSurfer's `recon-all` command for brain surface
+#' reconstruction from MRI data. Handles input processing, subject directory
+#' creation, and command flag management.
 #'
-#' @section Overview:
-#' Freesurfer’s `recon-all` is a robust tool for brain image processing,
-#' including cortical reconstruction and segmentation. The `reconner` function
-#' simplifies its usage by automating subject directory creation, flag handling,
-#' and input processing.
+#' @details
+#' FreeSurfer's `recon-all` performs cortical reconstruction and volumetric
+#' segmentation. This function simplifies usage by:
+#' * Automatically deriving subject ID from input filename if not provided
+#' * Managing subject directory paths
+#' * Providing force option for re-running on existing subjects
 #'
 #' @template subjid
 #' @param infile Character; path to input file in DICOM or NIfTI format.
 #' @template outdir
 #' @template verbose
 #' @template opts
-#' @param force Logical flag to force execution of `recon-all`, even if the
-#' subject directory already exists. Default is `FALSE`.
+#' @param force Logical; force execution even if subject directory exists.
+#'   Default is `FALSE`.
 #'
-#' @return Returns the result of executing the `recon-all`.
+#' @return Result of [base::system()] call, typically exit status (0 = success).
 #'
+#' @seealso [tracker()] for diffusion tractography pipeline
 #'
-#'
-#' @examples
+#' @examplesIf have_fs()
 #' \dontrun{
-#' # Example 1: Run reconstruction with infile and default opts
-#' reconner(infile = "input_01.nii", outdir = "/output_dir", subjid = "subj01")
-#'
-#' # Example 2: Auto-generate subject ID from input file
-#' reconner(infile = "input_02.nii", outdir = "/output_dir")
-#'
-#' # Example 3: Run with custom options and force execution
-#' reconner(infile = "input_03.nii", opts = "-autorecon2", force = TRUE)
-#'
-#' # Example 4: Run reconstruction in default subject directory
-#' reconner(infile = "input_04.nii", subjid = "subj04")
-#'
-#' # Example 5: Run without verbosity
-#' reconner(infile = "input_05.nii", verbose = FALSE)
+#' reconner(infile = "input.nii", outdir = "/output_dir", subjid = "subj01")
+#' reconner(infile = "input.nii", outdir = "/output_dir")
+#' reconner(infile = "input.nii", opts = "-autorecon2", force = TRUE)
 #' }
 #'
 #' @importFrom tools file_path_sans_ext
@@ -53,16 +42,16 @@ reconner <- function(
   force = FALSE,
   verbose = get_fs_verbosity()
 ) {
+  validate_fs_env(check_license = FALSE)
+
   if (is.null(subjid) && is.null(infile)) {
-    cli::cli_abort("Either {.val subjid} or {.val infile} must be specified!")
+    cli::cli_abort("Either {.arg subjid} or {.arg infile} must be specified!")
   }
+
   if (!is.null(infile)) {
     check_path(infile)
     infile <- checknii(infile)
   }
-
-  cmd <- paste0(get_fs(), "recon-all")
-  subject_directory <- file.path(fs_subj_dir(), subjid)
 
   if (is.null(subjid)) {
     subjid <- gsub("[.]mg(z|h)$", "", infile)
@@ -71,32 +60,38 @@ reconner <- function(
     if (verbose) {
       cli::cli_alert_info("Subject set to: {.val {subjid}}")
     }
-    cmd <- c(cmd, paste(" -subjid", subjid))
   }
 
-  if (!is.null(outdir)) {
-    cmd <- c(cmd, paste(" -sd", shQuote(outdir)))
-    subject_directory <- file.path(outdir, subjid)
+  subject_directory <- if (!is.null(outdir)) {
+    file.path(outdir, subjid)
+  } else {
+    file.path(fs_subj_dir(), subjid)
   }
 
-  if (!is.null(infile)) {
-    cmd <- c(cmd, paste("-i", infile))
-    if (dir.exists(subject_directory)) {
-      fs_warn(
-        "Subject Directory {.path subject_directory} already exists - 
-        either use {.code force = TRUE}, or delete directory"
-      )
-    }
+  if (!is.null(infile) && dir.exists(subject_directory)) {
+    fs_warn(
+      "Subject Directory {.path {subject_directory}} already exists",
+      details = "Use {.code force = TRUE} or delete directory"
+    )
   }
 
-  if (force) {
-    cmd <- c(cmd, "-force")
-  }
+  cmd_args <- c(
+    paste("-subjid", subjid),
+    if (!is.null(outdir)) paste("-sd", shQuote(outdir)),
+    if (!is.null(infile)) paste("-i", infile),
+    if (force) "-force",
+    opts
+  )
 
-  cmd <- paste(c(cmd, opts), collapse = " ")
+  cmd <- paste(
+    get_fs(),
+    "recon-all",
+    paste(cmd_args, collapse = " ")
+  )
 
   if (verbose) {
     cli::cli_code(cmd)
   }
-  try_fs_cmd(cmd)
+
+  try_fs_cmd(cmd, context = "recon-all")
 }

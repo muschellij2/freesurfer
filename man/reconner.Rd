@@ -2,7 +2,7 @@
 % Please edit documentation in R/reconner.R
 \name{reconner}
 \alias{reconner}
-\title{Reconstruction Helper for Freesurfer's \code{recon-all}}
+\title{Reconstruction Helper for FreeSurfer's recon-all}
 \usage{
 reconner(
   subjid = NULL,
@@ -22,45 +22,37 @@ reconner(
 
 \item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{force}{Logical flag to force execution of \code{recon-all}, even if the
-subject directory already exists. Default is \code{FALSE}.}
+\item{force}{Logical; force execution even if subject directory exists.
+Default is \code{FALSE}.}
 
 \item{verbose}{(logical) print diagnostic messages}
 }
 \value{
-Returns the result of executing the \code{recon-all}.
+Result of \code{\link[base:system]{base::system()}} call, typically exit status (0 = success).
 }
 \description{
-This function is a wrapper around Freesurfer's \code{recon-all} command used
-for reconstructing brain surfaces or handling input files (DICOM or NIfTI
-format) for medical image analysis. It provides convenient interfaces
-for specifying input/output paths, subject IDs, custom options, and
-additional flags.
+Wrapper around FreeSurfer's \code{recon-all} command for brain surface
+reconstruction from MRI data. Handles input processing, subject directory
+creation, and command flag management.
 }
-\section{Overview}{
-
-Freesurfer’s \code{recon-all} is a robust tool for brain image processing,
-including cortical reconstruction and segmentation. The \code{reconner} function
-simplifies its usage by automating subject directory creation, flag handling,
-and input processing.
+\details{
+FreeSurfer's \code{recon-all} performs cortical reconstruction and volumetric
+segmentation. This function simplifies usage by:
+\itemize{
+\item Automatically deriving subject ID from input filename if not provided
+\item Managing subject directory paths
+\item Providing force option for re-running on existing subjects
 }
-
+}
 \examples{
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 \dontrun{
-# Example 1: Run reconstruction with infile and default opts
-reconner(infile = "input_01.nii", outdir = "/output_dir", subjid = "subj01")
-
-# Example 2: Auto-generate subject ID from input file
-reconner(infile = "input_02.nii", outdir = "/output_dir")
-
-# Example 3: Run with custom options and force execution
-reconner(infile = "input_03.nii", opts = "-autorecon2", force = TRUE)
-
-# Example 4: Run reconstruction in default subject directory
-reconner(infile = "input_04.nii", subjid = "subj04")
-
-# Example 5: Run without verbosity
-reconner(infile = "input_05.nii", verbose = FALSE)
+reconner(infile = "input.nii", outdir = "/output_dir", subjid = "subj01")
+reconner(infile = "input.nii", outdir = "/output_dir")
+reconner(infile = "input.nii", opts = "-autorecon2", force = TRUE)
 }
-
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=tracker]{tracker()}} for diffusion tractography pipeline
 }
