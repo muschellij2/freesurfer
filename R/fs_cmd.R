@@ -259,18 +259,12 @@ try_fs_cmd <- function(
   }
 
   # Use timeout if requested and available
-  if (
-    !is.null(timeout_seconds) && requireNamespace("R.utils", quietly = TRUE)
-  ) {
+  if (!is.null(timeout_seconds)) {
     return(R.utils::withTimeout(
       call_system(),
       timeout = timeout_seconds,
       onTimeout = "error"
     ))
-  }
-
-  if (!is.null(timeout_seconds)) {
-    fs_warn("Timeout requested but R.utils not available")
   }
 
   call_system()
