@@ -68,14 +68,16 @@ stats2table <- function(
   verbose = get_fs_verbosity(),
   ...
 ) {
-  # Validate input and input_type
+  validate_fs_env(check_license = FALSE)
+
   if (is.null(input) || length(input) == 0) {
     cli::cli_abort("'input' must be specified and cannot be empty.")
   }
-  input_type <- match.arg(input_type)
 
-  # Argument Mapping for delimiter
+  type <- match.arg(type)
+  input_type <- match.arg(input_type)
   delim <- match.arg(delim)
+
   delimiter_map <- list(
     tab = list(ext = ".tsv", delim = "\t"),
     space = list(ext = ".txt", delim = " "),
@@ -84,15 +86,14 @@ stats2table <- function(
   )
   delim_values <- delimiter_map[[delim]]
 
-  outfile <- if (is.null(outfile)) {
-    temp_file(fileext = delim_values$ext)
-  } else {
-    outfile
+  if (is.null(outfile)) {
+    outfile <- temp_file(fileext = delim_values$ext)
   }
-  input <- paste(input, collapse = " ")
 
-  command_args <- c(
-    sprintf("--%s %s", input_type, input),
+  func_name <- paste0(type, "stats2table")
+
+  cmd_args <- c(
+    sprintf("--%s %s", input_type, paste(input, collapse = " ")),
     paste("--delimiter", delim),
     paste("--meas", measure),
     if (verbose) "--debug",
@@ -100,18 +101,17 @@ stats2table <- function(
     paste("--tablefile", outfile)
   )
 
-  # Environmental Configurations
-  subdir <- ""
+  subdir_prefix <- ""
   if (!is.null(subj_dir)) {
-    subdir <- sprintf("export SUBJECTS_DIR=%s;", subj_dir)
+    subj_dir <- path.expand(subj_dir)
+    subdir_prefix <- sprintf("export SUBJECTS_DIR=%s; ", subj_dir)
   }
 
-  # Run Command
   cmd <- paste(
-    subdir,
+    subdir_prefix,
     get_fs(),
-    paste0(type, "stats2table"),
-    paste(command_args, collapse = " "),
+    func_name,
+    paste(cmd_args, collapse = " "),
     opts
   )
 
@@ -119,6 +119,7 @@ stats2table <- function(
     cmd = cmd,
     outfile = outfile,
     verbose = verbose,
+    func_name = func_name,
     ...
   )
 
