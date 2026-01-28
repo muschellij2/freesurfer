@@ -55,12 +55,13 @@ tracker <- function(
   verbose = get_fs_verbosity(),
   opts = ""
 ) {
-  # Validate inputs
+
+  validate_fs_env(check_license = FALSE)
+
   if (is.null(subjid) && is.null(infile)) {
     fs_abort("Either {.arg subjid} or {.arg infile} must be specified")
   }
 
-  # Derive subject ID from filename if needed
   if (is.null(subjid) && !is.null(infile)) {
     subjid <- nii.stub(infile, bn = TRUE)
     subjid <- file_path_sans_ext(subjid)
@@ -69,39 +70,24 @@ tracker <- function(
     }
   }
 
-  # Build input options
-  if (!is.null(infile)) {
-    infile <- checknii(infile)
-    in_opts <- paste0("-i ", shQuote(infile))
-  } else {
-    in_opts <- ""
-  }
-
-  # Build subject directory options
-  if (!is.null(outdir)) {
-    sd_opts <- paste0("-sd ", shQuote(outdir))
-  } else {
-    sd_opts <- ""
-  }
-
-  # Combine all options
-  opts <- paste(
-    in_opts,
-    sd_opts,
-    paste0("-s ", subjid),
+  cmd_args <- c(
+    if (!is.null(infile)) paste("-i", shQuote(checknii(infile))),
+    if (!is.null(outdir)) paste("-sd", shQuote(outdir)),
+    paste("-s", subjid),
     opts
   )
 
-  # Build and execute command
-  cmd <- get_fs()
-  cmd <- paste0(cmd, "trac-all")
-  cmd <- paste(cmd, opts)
+  cmd <- paste(
+    get_fs(),
+    "trac-all",
+    paste(cmd_args, collapse = " ")
+  )
 
   if (verbose) {
     cli::cli_code(cmd)
   }
 
-  try_fs_cmd(cmd)
+  try_fs_cmd(cmd, context = "trac-all")
 }
 
 #' @describeIn trac High-level wrapper running complete tractography pipeline
