@@ -53,7 +53,7 @@ sys_info <- function() {
 
 # nocov start
 knit_vignettes <- function() {
-  if (!has_freesurfer()) {
+  if (!have_fs()) {
     fs_inform("Not knitting vignettes, no freesufer installed.")
     return()
   }
