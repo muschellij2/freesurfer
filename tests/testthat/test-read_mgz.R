@@ -1,11 +1,9 @@
 describe("read_mgz", {
-  it("works with valid inputs", {
-    # Create a temporary directory and file
+  it("reads valid MGZ file successfully", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.mgz")
     writeLines("Mock MGZ data", input_file)
 
-    # Mocked bindings
     local_mocked_bindings(
       check_path = mock_check_path,
       temp_file = withr::local_tempfile,
@@ -16,7 +14,6 @@ describe("read_mgz", {
       .package = "neurobase"
     )
 
-    # Call the function and capture informational messages
     expect_message(
       result <- read_mgz(input_file),
       regexp = "Successfully read|Unexpected file format|Successfully read mgz",
@@ -25,25 +22,22 @@ describe("read_mgz", {
     expect_equal(result[1], "Mock NIfTI Object")
   })
 
-  it("handles non-existing file gracefully", {
-    # Mocked bindings
+  it("errors for non-existent file", {
     local_mocked_bindings(
       check_path = mock_check_path
     )
 
-    # Non-existing input
     expect_error(
       read_mgz("non_existing_file.mgz"),
       "Files not found"
     )
   })
 
-  it("handles mri_convert errors", {
+  it("propagates mri_convert errors", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.mgz")
     writeLines("Mock MGZ data", input_file)
 
-    # Mock a failure in mri_convert
     mock_mri_convert_fail <- function(input, output, ...) {
       fs_abort("mri_convert failed")
     }
@@ -59,7 +53,7 @@ describe("read_mgz", {
     )
   })
 
-  it("handles readnii errors", {
+  it("propagates readnii errors", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.mgz")
     writeLines("Mock MGZ data", input_file)
@@ -82,11 +76,11 @@ describe("read_mgz", {
     )
   })
 
-  it("and read_mgh are identical", {
+  it("is identical to read_mgh alias", {
     expect_identical(read_mgh, read_mgz)
   })
 
-  it("skips format validation when validate_format = FALSE", {
+  it("skips format warning when validate_format = FALSE", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.xyz")
     writeLines("Mock data", input_file)
@@ -107,7 +101,7 @@ describe("read_mgz", {
     )
   })
 
-  it("warns for unexpected file format when validate_format = TRUE", {
+  it("warns for unexpected file extension when validate_format = TRUE", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.xyz")
     writeLines("Mock data", input_file)
@@ -129,7 +123,7 @@ describe("read_mgz", {
     )
   })
 
-  it("does not warn for file with no extension", {
+  it("does not warn for file without extension", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "inputfile")
     writeLines("Mock data", input_file)
@@ -150,7 +144,7 @@ describe("read_mgz", {
     )
   })
 
-  it("outputs message when verbose mode is enabled", {
+  it("outputs success message when verbose = TRUE", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.mgz")
     writeLines("Mock MGZ data", input_file)
@@ -172,7 +166,7 @@ describe("read_mgz", {
     )
   })
 
-  it("errors when output file is not created after conversion", {
+  it("errors when conversion produces no output file", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.mgz")
     writeLines("Mock MGZ data", input_file)
@@ -181,7 +175,6 @@ describe("read_mgz", {
       check_path = mock_check_path,
       temp_file = withr::local_tempfile,
       mri_convert = function(file, outfile, ...) {
-        # Don't create output file
         invisible(NULL)
       },
       get_fs_verbosity = function() FALSE
@@ -193,7 +186,7 @@ describe("read_mgz", {
     )
   })
 
-  it("adds metadata attributes to result", {
+  it("attaches original file and format metadata to result", {
     temp_dir <- withr::local_tempdir()
     input_file <- file.path(temp_dir, "input.mgz")
     writeLines("Mock MGZ data", input_file)
@@ -214,8 +207,10 @@ describe("read_mgz", {
     expect_equal(attr(result, "original_file"), input_file)
     expect_equal(attr(result, "original_format"), "mgz")
   })
+})
 
-  it("reads actual data", {
+describe("read_mgz integration", {
+  it("reads actual FreeSurfer MGZ file", {
     skip_if_no_freesurfer()
 
     valid_mgz_file <- file.path(

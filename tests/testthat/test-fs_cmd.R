@@ -1,6 +1,5 @@
 describe("fs_cmd", {
   it("constructs command correctly for valid inputs", {
-    # Mocking dependencies and files
     temp_file <- withr::local_tempfile(fileext = ".nii")
     writeLines("Mock NIfTI content", temp_file)
     temp_outfile <- withr::local_tempfile(fileext = ".nii")
@@ -21,7 +20,6 @@ describe("fs_cmd", {
       .package = "neurobase"
     )
 
-    # Execute the function
     result <- fs_cmd(
       func = "test_func",
       file = temp_file,
@@ -29,13 +27,11 @@ describe("fs_cmd", {
       verbose = FALSE
     )
 
-    # Validate return value
     expect_equal(result, "Mock Output NIfTI content")
   })
 
-  it("warns when input and output file paths are identical", {
+  it("warns when input and output files identical", {
     local_fs_unset()
-    # Mocking input file
     temp_file <- withr::local_tempfile(fileext = ".nii")
     writeLines("Mock NIfTI content", temp_file)
 
@@ -52,7 +48,6 @@ describe("fs_cmd", {
       .package = "neurobase"
     )
 
-    # Expect warning when input and output files are the same
     expect_warning(
       result <- fs_cmd(
         func = "test_func",
@@ -65,8 +60,7 @@ describe("fs_cmd", {
     )
   })
 
-  it("constructs command with optional arguments", {
-    # Mocking dependencies and files
+  it("places opts after outfile when opts_after_outfile = TRUE", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     writeLines("Mock NIfTI content", temp_file)
     outfile <- withr::local_tempfile(fileext = ".nii")
@@ -80,10 +74,9 @@ describe("fs_cmd", {
       try_fs_cmd = function(cmd, intern, ...) cmd
     )
 
-    opts = "-opt1 -opt2"
-    func = "test_func"
+    opts <- "-opt1 -opt2"
+    func <- "test_func"
 
-    # Execute with opts_after_outfile = TRUE
     expect_message(
       result <- fs_cmd(
         func = func,
@@ -108,8 +101,7 @@ describe("fs_cmd", {
     )
   })
 
-  it("handles missing output files gracefully", {
-    # Mocking dependencies and files
+  it("warns when output file not created", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     writeLines("Mock NIfTI content", temp_file)
 
@@ -125,7 +117,6 @@ describe("fs_cmd", {
       .package = "neurobase"
     )
 
-    # Execute the function without an output file
     expect_warning(
       expect_warning(
         result <- fs_cmd(
@@ -139,12 +130,10 @@ describe("fs_cmd", {
       regexp = "Cannot return image|return image"
     )
 
-    # Ensure the return value corresponds to the file
     expect_true(is.null(result))
   })
 
-  it("handles retimg = FALSE correctly", {
-    # Mocking dependencies and files
+  it("errors when retimg = FALSE and outfile = NULL", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     writeLines("Mock NIfTI content", temp_file)
     outfile <- withr::local_tempfile(fileext = ".nii")
@@ -157,7 +146,6 @@ describe("fs_cmd", {
       try_fs_cmd = function(...) "Command Executed"
     )
 
-    # Execute with retimg = FALSE
     expect_error(
       result <- fs_cmd(
         func = "test_func",
@@ -169,7 +157,7 @@ describe("fs_cmd", {
     )
   })
 
-  it("errors when outfile or input paths are invalid", {
+  it("errors when input file not found", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     invalid_outfile <- "invalid_path.nii"
 
@@ -193,7 +181,7 @@ describe("fs_cmd", {
     )
   })
 
-  it("respects verbosity settings", {
+  it("prints command when verbose = TRUE", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     writeLines("Mock NIfTI content", temp_file)
     outfile <- withr::local_tempfile(fileext = ".nii")
@@ -213,7 +201,6 @@ describe("fs_cmd", {
       .package = "neurobase"
     )
 
-    # Capture output with verbosity enabled
     expect_message(
       fs_cmd(
         func = "test_func",
@@ -224,8 +211,28 @@ describe("fs_cmd", {
       ),
       regexp = "freesurfer_bin/test_func"
     )
+  })
 
-    # Ensure no output with verbosity disabled
+  it("is silent when verbose = FALSE", {
+    temp_file <- withr::local_tempfile(fileext = ".nii")
+    writeLines("Mock NIfTI content", temp_file)
+    outfile <- withr::local_tempfile(fileext = ".nii")
+    writeLines("Mock Output NIfTI content", outfile)
+
+    local_mocked_bindings(
+      batch_file_exists = function(files, error, ...) TRUE,
+      validate_fs_env = function(...) TRUE,
+      checkimg = function(file) temp_file,
+      check_path = function(file, error) TRUE,
+      get_fs = function(bin_app) "freesurfer_bin/",
+      try_fs_cmd = function(cmd, intern, ...) NULL
+    )
+
+    local_mocked_bindings(
+      readnii = function(file, ...) readLines(file),
+      .package = "neurobase"
+    )
+
     expect_silent(
       fs_cmd(
         func = "test_func",
@@ -236,15 +243,16 @@ describe("fs_cmd", {
       )
     )
   })
+})
 
-  it("executes valid system commands", {
-    # Test a simple valid command
+describe("try_fs_cmd", {
+  it("executes valid shell commands", {
     result <- try_fs_cmd("echo 'Hello, World!'", intern = TRUE)
     expect_type(result, "character")
     expect_equal(result, "Hello, World!")
   })
 
-  it("gracefully handles invalid commands", {
+  it("errors for invalid commands", {
     skip_on_os("windows")
     expect_error(
       try_fs_cmd("nonexistent_command", intern = TRUE, verbose = FALSE),
@@ -252,7 +260,7 @@ describe("fs_cmd", {
     )
   })
 
-  it("works with additional arguments passed via `...`", {
+  it("passes additional arguments via ...", {
     result <- try_fs_cmd("echo 'Wait Test'", wait = TRUE, intern = TRUE)
     expect_type(result, "character")
     expect_equal(result, "Wait Test")

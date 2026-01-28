@@ -8,7 +8,7 @@ withr::local_envvar(
 
 mock_get_fs <- function() "mock_fs/"
 
-mock_try_fs_cmd <- function(cmd) {
+mock_try_fs_cmd <- function(cmd, context = NULL, ...) {
   if (grepl("error", cmd)) {
     fs_abort("Command error")
   }

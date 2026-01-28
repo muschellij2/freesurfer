@@ -1,12 +1,14 @@
-describe("stats2table", {
-  # This is the function that actually executes the system command.
-  # We will mock this specifically using local_mocked_bindings.
-  mock_run_check_fs_cmd <- function(cmd, outfile, verbose, ...) {
-    writeLines("mock_data", outfile)
-    return(invisible(0))
-  }
+mock_run_check_fs_cmd <- function(cmd, outfile, verbose, ...) {
+  writeLines("mock_data", outfile)
+  return(invisible(0))
+}
 
-  it("validates 'input' argument", {
+describe("stats2table", {
+  it("validates input argument is not empty", {
+    local_mocked_bindings(
+      validate_fs_env = function(...) TRUE
+    )
+
     expect_error(
       stats2table(
         type = "aparc",
@@ -28,15 +30,12 @@ describe("stats2table", {
     )
   })
 
-  it("handles basic valid arguments and creates output file", {
+  it("creates output file with correct attributes", {
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = mock_run_check_fs_cmd,
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
 
     outfile <- stats2table(
@@ -64,16 +63,13 @@ describe("stats2table", {
     expect_match(outfile_csv, "\\.csv$")
   })
 
-  it("creates temp file if outfile is NULL", {
+  it("creates temp file when outfile is NULL", {
     withr::local_tempdir()
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = mock_run_check_fs_cmd,
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
     outfile <- stats2table(
       type = "aparc",
@@ -88,16 +84,12 @@ describe("stats2table", {
 
   it("handles different delimiters correctly", {
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = mock_run_check_fs_cmd,
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
 
-    # Test tab
     outfile_tab <- stats2table(
       type = "aparc",
       input = "subj",
@@ -109,7 +101,6 @@ describe("stats2table", {
     expect_equal(attr(outfile_tab, "delimiter"), "\t")
     expect_match(outfile_tab, "\\.tsv$")
 
-    # Test space
     outfile_space <- stats2table(
       type = "aparc",
       input = "subj",
@@ -121,7 +112,6 @@ describe("stats2table", {
     expect_equal(attr(outfile_space, "delimiter"), " ")
     expect_match(outfile_space, "\\.txt$")
 
-    # Test comma
     outfile_comma <- stats2table(
       type = "aparc",
       input = "subj",
@@ -133,7 +123,6 @@ describe("stats2table", {
     expect_equal(attr(outfile_comma, "delimiter"), ",")
     expect_match(outfile_comma, "\\.csv$")
 
-    # Test semicolon
     outfile_semicolon <- stats2table(
       type = "aparc",
       input = "subj",
@@ -145,25 +134,21 @@ describe("stats2table", {
     expect_match(outfile_semicolon, "\\.csv$")
   })
 
-  it("constructs correct command arguments for subjects", {
+  it("constructs correct command arguments for subjects input type", {
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        # Custom mock for this test
         expect_match(cmd, "aparcstats2table_mock_binary aparcstats2table")
         expect_match(cmd, "--subjects subj1 subj2")
         expect_match(cmd, "--delimiter tab")
         expect_match(cmd, "--meas thickness")
         expect_match(cmd, "--tablefile ")
-        expect_no_match(cmd, "--inputs") # Ensure inputs is not present
+        expect_no_match(cmd, "--inputs")
         file.create(outfile)
         invisible(0)
       },
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
     stats2table(
       type = "aparc",
@@ -175,25 +160,21 @@ describe("stats2table", {
     )
   })
 
-  it("constructs correct command arguments for inputs", {
+  it("constructs correct command arguments for inputs input type", {
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        # Custom mock for this test
         expect_match(cmd, "aparcstats2table_mock_binary asegstats2table")
         expect_match(cmd, "--inputs input1.stats input2.stats")
         expect_match(cmd, "--delimiter comma")
         expect_match(cmd, "--meas volume")
         expect_match(cmd, "--tablefile ")
-        expect_no_match(cmd, "--subjects") # Ensure subjects is not present
+        expect_no_match(cmd, "--subjects")
         file.create(outfile)
         invisible(0)
       },
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
     stats2table(
       type = "aseg",
@@ -204,7 +185,7 @@ describe("stats2table", {
     )
   })
 
-  it("handles skip, verbose, subj_dir, and opts", {
+  it("handles skip, verbose, subj_dir, and opts arguments", {
     mock_subj_dir <- file.path(
       withr::local_tempdir(),
       "test_subjects_dir"
@@ -212,9 +193,8 @@ describe("stats2table", {
     dir.create(mock_subj_dir, recursive = TRUE)
 
     local_mocked_bindings(
-      get_fs = function(...) {
-        "mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function(...) "mock_binary",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
         expect_match(cmd, "--skip", fixed = TRUE)
         expect_match(cmd, "export SUBJECTS_DIR=", fixed = TRUE)
@@ -223,9 +203,7 @@ describe("stats2table", {
         file.create(outfile)
         invisible(0)
       },
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
     expect_silent(
       stats2table(
@@ -241,20 +219,16 @@ describe("stats2table", {
     )
   })
 
-  it("handles different `measure` arguments", {
+  it("handles different measure arguments", {
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        # Custom mock for this test
         expect_match(cmd, "--meas area")
         file.create(outfile)
         invisible(0)
       },
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
     stats2table(
       type = "aparc",
@@ -265,18 +239,14 @@ describe("stats2table", {
     )
 
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        # Custom mock for this test
         expect_match(cmd, "--meas gauscurv")
         file.create(outfile)
         invisible(0)
       },
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
     stats2table(
       type = "aparc",
@@ -287,16 +257,13 @@ describe("stats2table", {
     )
   })
 
-  it("correctly assigns delimiter attribute", {
+  it("correctly assigns delimiter attribute to output", {
     withr::local_tempdir()
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = mock_run_check_fs_cmd,
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
 
     outfile_tab <- stats2table(
@@ -320,19 +287,14 @@ describe("stats2table", {
     expect_equal(attr(outfile_comma, "delimiter"), ",")
   })
 
-  it("handles `run_check_fs_cmd` failure", {
+  it("propagates run_check_fs_cmd errors", {
     local_mocked_bindings(
-      get_fs = function() {
-        "aparcstats2table_mock_binary"
-      },
+      validate_fs_env = function(...) TRUE,
+      get_fs = function() "aparcstats2table_mock_binary",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        # Custom mock for this test
-        # Simulate an error from the system command
         fs_abort("FreeSurfer command failed!")
       },
-      temp_file = function(fileext = "") {
-        tempfile(fileext = fileext)
-      }
+      temp_file = function(fileext = "") tempfile(fileext = fileext)
     )
 
     expect_error(
@@ -346,8 +308,139 @@ describe("stats2table", {
       "FreeSurfer command failed!"
     )
   })
+})
 
-  it("works with Freesurfer", {
+describe("asegstats2table", {
+  it("errors when both subjects and inputs are specified", {
+    expect_error(
+      asegstats2table(
+        subjects = "subj",
+        inputs = "input.stats",
+        measure = "volume",
+        verbose = FALSE
+      ),
+      "'subjects' and 'inputs' cannot both be specified for asegstats2table."
+    )
+  })
+
+  it("errors when neither subjects nor inputs are specified", {
+    expect_error(
+      asegstats2table(
+        subjects = NULL,
+        inputs = NULL,
+        measure = "volume"
+      ),
+      "Either 'subjects' or 'inputs' must be specified for asegstats2table."
+    )
+  })
+
+  it("calls stats2table correctly with subjects argument", {
+    mock_stats2table_call <- function(type, input, input_type, measure, ...) {
+      expect_equal(type, "aseg")
+      expect_equal(input, "subj1")
+      expect_equal(input_type, "subjects")
+      expect_equal(measure, "volume")
+      withr::local_tempfile(fileext = ".txt")
+    }
+    local_mocked_bindings(stats2table = mock_stats2table_call)
+
+    outfile <- asegstats2table(
+      subjects = "subj1",
+      measure = "volume",
+      verbose = FALSE
+    )
+  })
+
+  it("calls stats2table correctly with inputs argument", {
+    mock_stats2table_call <- function(type, input, input_type, measure, ...) {
+      expect_equal(type, "aseg")
+      expect_equal(input, "input1.stats")
+      expect_equal(input_type, "inputs")
+      expect_equal(measure, "mean")
+      return(withr::local_tempfile(fileext = ".txt"))
+    }
+    local_mocked_bindings(stats2table = mock_stats2table_call)
+
+    outfile <- asegstats2table(
+      inputs = "input1.stats",
+      measure = "mean",
+      verbose = FALSE
+    )
+  })
+})
+
+describe("aparcstats2table", {
+  it("errors when subjects is empty", {
+    expect_error(
+      aparcstats2table(subjects = character(0)),
+      "Subjects must be specified for aparcstats2table."
+    )
+  })
+
+  it("errors when subjects is NULL", {
+    expect_error(
+      aparcstats2table(subjects = NULL, verbose = FALSE),
+      "Subjects must be specified for aparcstats2table."
+    )
+  })
+
+  it("calls stats2table with correct hemi and parc options", {
+    mock_stats2table_call <- function(
+      type,
+      input,
+      input_type,
+      measure,
+      opts,
+      ...
+    ) {
+      expect_equal(type, "aparc")
+      expect_equal(input, "subj_aparc")
+      expect_equal(input_type, "subjects")
+      expect_equal(measure, "thickness")
+      expect_match(opts, "--hemi lh")
+      expect_match(opts, "--parc aparc")
+      return(withr::local_tempfile(fileext = ".txt"))
+    }
+    local_mocked_bindings(stats2table = mock_stats2table_call)
+
+    outfile <- aparcstats2table(
+      subjects = "subj_aparc",
+      hemi = "lh",
+      measure = "thickness",
+      parc = "aparc",
+      verbose = FALSE
+    )
+  })
+
+  it("combines internal and user-provided opts", {
+    mock_stats2table_call <- function(
+      type,
+      input,
+      input_type,
+      measure,
+      opts,
+      ...
+    ) {
+      expect_match(opts, "--hemi rh")
+      expect_match(opts, "--parc aparc.a2009s")
+      expect_match(opts, "--user-flag --another-flag")
+      return(withr::local_tempfile(fileext = ".txt"))
+    }
+    local_mocked_bindings(stats2table = mock_stats2table_call)
+
+    outfile <- aparcstats2table(
+      subjects = "subj_combined_opts",
+      hemi = "rh",
+      measure = "volume",
+      parc = "aparc.a2009s",
+      opts = "--user-flag --another-flag",
+      verbose = FALSE
+    )
+  })
+})
+
+describe("aparcstats2table integration", {
+  it("runs with FreeSurfer", {
     skip_if_no_freesurfer()
 
     bert_stats <- file.path(fs_subj_dir(), "bert", "stats", "lh.aparc.stats")
@@ -368,136 +461,8 @@ describe("stats2table", {
     attr(outfile, "delimiter") <- "\t"
     expect_equal(result, outfile)
 
-    # Check the content of the file (basic check)
     content <- read.table(outfile, header = TRUE, sep = "\t")
     expect_true(nrow(content) > 0)
     expect_true("bert" %in% content[, 1])
-  })
-
-  # --- asegstats tests ---
-  it("asegstats2table validates 'subjects' and 'inputs' exclusivity", {
-    expect_error(
-      asegstats2table(
-        subjects = "subj",
-        inputs = "input.stats",
-        measure = "volume",
-        verbose = FALSE
-      ),
-      "'subjects' and 'inputs' cannot both be specified for asegstats2table."
-    )
-    expect_error(
-      asegstats2table(
-        subjects = NULL,
-        inputs = NULL,
-        measure = "volume"
-      ),
-      "Either 'subjects' or 'inputs' must be specified for asegstats2table."
-    )
-  })
-
-  it("asegstats2table calls stats2table correctly with subjects", {
-    # Mock stats2table to verify its arguments
-    mock_stats2table_call <- function(type, input, input_type, measure, ...) {
-      expect_equal(type, "aseg")
-      expect_equal(input, "subj1")
-      expect_equal(input_type, "subjects")
-      expect_equal(measure, "volume")
-      withr::local_tempfile(fileext = ".txt")
-    }
-    local_mocked_bindings(stats2table = mock_stats2table_call)
-
-    outfile <- asegstats2table(
-      subjects = "subj1",
-      measure = "volume",
-      verbose = FALSE
-    )
-  })
-
-  it("asegstats2table calls stats2table correctly with inputs", {
-    # Mock stats2table to verify its arguments
-    mock_stats2table_call <- function(type, input, input_type, measure, ...) {
-      expect_equal(type, "aseg")
-      expect_equal(input, "input1.stats")
-      expect_equal(input_type, "inputs")
-      expect_equal(measure, "mean")
-      # Simulate stats2table's return
-      return(withr::local_tempfile(fileext = ".txt"))
-    }
-    local_mocked_bindings(stats2table = mock_stats2table_call)
-
-    outfile <- asegstats2table(
-      inputs = "input1.stats",
-      measure = "mean",
-      verbose = FALSE
-    )
-  })
-
-  it("aparcstats2table validates 'subjects' argument", {
-    expect_error(
-      aparcstats2table(subjects = character(0)),
-      "Subjects must be specified for aparcstats2table."
-    )
-    expect_error(
-      aparcstats2table(subjects = NULL, verbose = FALSE),
-      "Subjects must be specified for aparcstats2table."
-    )
-  })
-
-  # --- aparcstats2table tests ---
-  it("aparcstats2table calls stats2table correctly and constructs opts", {
-    mock_stats2table_call <- function(
-      type,
-      input,
-      input_type,
-      measure,
-      opts,
-      ...
-    ) {
-      expect_equal(type, "aparc")
-      expect_equal(input, "subj_aparc")
-      expect_equal(input_type, "subjects")
-      expect_equal(measure, "thickness")
-      expect_match(opts, "--hemi lh")
-      expect_match(opts, "--parc aparc")
-      # Simulate stats2table's return
-      return(withr::local_tempfile(fileext = ".txt"))
-    }
-    local_mocked_bindings(stats2table = mock_stats2table_call)
-
-    outfile <- aparcstats2table(
-      subjects = "subj_aparc",
-      hemi = "lh",
-      measure = "thickness",
-      parc = "aparc",
-      verbose = FALSE
-    )
-  })
-
-  it("aparcstats2table combines internal and user-provided opts", {
-    # Mock stats2table to verify its arguments
-    mock_stats2table_call <- function(
-      type,
-      input,
-      input_type,
-      measure,
-      opts,
-      ...
-    ) {
-      expect_match(opts, "--hemi rh")
-      expect_match(opts, "--parc aparc.a2009s")
-      expect_match(opts, "--user-flag --another-flag") # Check for user-provided opts
-      # Simulate stats2table's return
-      return(withr::local_tempfile(fileext = ".txt"))
-    }
-    local_mocked_bindings(stats2table = mock_stats2table_call)
-
-    outfile <- aparcstats2table(
-      subjects = "subj_combined_opts",
-      hemi = "rh",
-      measure = "volume",
-      parc = "aparc.a2009s",
-      opts = "--user-flag --another-flag",
-      verbose = FALSE
-    )
   })
 })

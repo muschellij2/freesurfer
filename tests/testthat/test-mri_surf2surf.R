@@ -2,6 +2,7 @@ describe("mri_surf2surf", {
   it("builds correct hemisphere argument", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -21,6 +22,7 @@ describe("mri_surf2surf", {
   it("builds correct subject argument", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -40,6 +42,7 @@ describe("mri_surf2surf", {
   it("builds correct target subject argument", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -59,6 +62,7 @@ describe("mri_surf2surf", {
   it("builds correct source type argument", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -79,6 +83,7 @@ describe("mri_surf2surf", {
   it("builds correct target type argument", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -101,6 +106,7 @@ describe("mri_surf2surf", {
 
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -121,6 +127,7 @@ describe("mri_surf2surf", {
   it("adds --debug flag when verbose = TRUE", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -141,6 +148,7 @@ describe("mri_surf2surf", {
   it("does not add --debug flag when verbose = FALSE", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -161,6 +169,7 @@ describe("mri_surf2surf", {
   it("includes tval argument for output file", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -180,6 +189,7 @@ describe("mri_surf2surf", {
   it("appends additional opts to command", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -199,6 +209,7 @@ describe("mri_surf2surf", {
 
   it("prefixes output file with hemisphere", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, outfile, ...) 0
     )
@@ -214,6 +225,7 @@ describe("mri_surf2surf", {
 
   it("validates hemisphere argument", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) 0
     )
@@ -230,6 +242,7 @@ describe("mri_surf2surf", {
 
   it("validates trg_type argument", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) 0
     )
@@ -246,6 +259,7 @@ describe("mri_surf2surf", {
 
   it("validates src_type argument", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) 0
     )
@@ -265,6 +279,7 @@ describe("mri_surf2surf", {
 
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -285,6 +300,7 @@ describe("mri_surf2surf", {
   it("does not set SUBJECTS_DIR when subj_dir is NULL", {
     captured_cmd <- NULL
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function(...) "/fs/bin/",
       run_check_fs_cmd = function(cmd, ...) {
         captured_cmd <<- cmd
@@ -300,6 +316,26 @@ describe("mri_surf2surf", {
     )
 
     expect_no_match(captured_cmd, "export SUBJECTS_DIR")
+  })
+
+  it("passes func_name to run_check_fs_cmd", {
+    captured_func_name <- NULL
+    local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
+      get_fs = function(...) "/fs/bin/",
+      run_check_fs_cmd = function(cmd, outfile, verbose, func_name, ...) {
+        captured_func_name <<- func_name
+        0
+      }
+    )
+
+    mri_surf2surf(
+      subject = "bert",
+      target_subject = "fsaverage",
+      hemi = "lh"
+    )
+
+    expect_equal(captured_func_name, "mri_surf2surf")
   })
 })
 

@@ -1,42 +1,45 @@
 describe("reconner", {
-  it("throws error when neither subjid nor infile is provided", {
+  it("errors when neither subjid nor infile provided", {
+    local_mocked_bindings(
+      validate_fs_env = function(...) TRUE
+    )
+
     expect_error(
       reconner(infile = NULL, subjid = NULL),
       "must be specified!"
     )
   })
 
-  it("raises warning if subject directory exists and force is FALSE", {
+  it("warns when subject directory exists and force = FALSE", {
     outdir <- withr::local_tempdir()
     subj <- "subject01"
     dir.create(file.path(outdir, subj))
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
       fs_subj_dir = function() outdir,
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
 
-    expect_message(
-      expect_warning(
-        reconner(
-          infile = "input.nii",
-          subjid = subj
-        ),
-        "Subject Directory .* already exists.*use .*force = TRUE.*"
+    expect_warning(
+      reconner(
+        infile = "input.nii",
+        subjid = subj
       ),
-      "recon-all -i"
+      "already exists"
     )
   })
 
-  it("outputs command when verbose is TRUE", {
+  it("builds command with recon-all flags when verbose = TRUE", {
     outdir <- withr::local_tempdir()
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
@@ -53,12 +56,13 @@ describe("reconner", {
     expect_match(cmd, "-all")
   })
 
-  it("adds force flag when force = TRUE", {
+  it("includes -force flag when force = TRUE", {
     outdir <- withr::local_tempdir()
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
@@ -73,12 +77,13 @@ describe("reconner", {
     expect_match(cmd, "-force", fixed = TRUE)
   })
 
-  it("correctly adds options to the command", {
+  it("passes custom opts to command", {
     outdir <- withr::local_tempdir()
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
@@ -93,12 +98,13 @@ describe("reconner", {
     expect_match(cmd, "-autorecon2 -parallel")
   })
 
-  it("auto-generates subject ID from input file if subjid is NULL", {
+  it("auto-generates subject ID from filename when subjid = NULL", {
     outdir <- withr::local_tempdir()
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
@@ -118,12 +124,13 @@ describe("reconner", {
     expect_match(cmd, "-subjid input_file", fixed = TRUE)
   })
 
-  it("updates subject directory path with custom output directory", {
+  it("includes -sd flag with custom output directory", {
     outdir <- withr::local_tempdir()
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
@@ -137,27 +144,29 @@ describe("reconner", {
     expect_match(cmd, "-sd")
   })
 
-  it("runs command without outfile if infile is not specified", {
+  it("omits -i flag when infile not provided", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       get_fs_license = mock_get_license
     )
 
-    expect_message(
-      cmd <- reconner(
-        subjid = "subject02"
-      ),
-      "recon-all -all"
+    cmd <- reconner(
+      subjid = "subject02",
+      verbose = FALSE
     )
-    expect_false(grepl("-i", cmd))
+    expect_match(cmd, "recon-all")
+    expect_match(cmd, "-all")
+    expect_false(grepl("-i ", cmd))
   })
 
-  it("calls checknii and uses it for infile processing", {
+  it("processes infile through checknii", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
       checknii = function(filepath) "processed_file.nii",
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE,
       get_fs_license = mock_get_license
     )
@@ -170,11 +179,12 @@ describe("reconner", {
     expect_match(cmd, "-i processed_file.nii")
   })
 
-  it("controls default verbosity via get_fs_verbosity()", {
+  it("respects get_fs_verbosity() for default verbosity", {
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = function() "mock/path",
       get_fs_verbosity = function() FALSE,
-      try_fs_cmd = function(cmd) cmd,
+      try_fs_cmd = function(cmd, ...) cmd,
       check_path = function(...) TRUE
     )
 

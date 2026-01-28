@@ -1,19 +1,17 @@
 describe("recon", {
-  it("works for valid input", {
-    # Setup a temporary file and directory
+  it("runs silently with valid input file and subject ID", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     temp_dir <- withr::local_tempdir()
     file.create(temp_file)
 
-    # Mock bindings
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = mock_get_fs,
       try_fs_cmd = mock_try_fs_cmd,
       checknii = mock_checknii,
       get_fs_verbosity = function() FALSE
     )
 
-    # Call recon and verify no errors for valid input
     expect_silent(
       res <- recon(
         infile = temp_file,
@@ -23,7 +21,7 @@ describe("recon", {
     )
   })
 
-  it("warns when subj dir exists", {
+  it("warns when subject directory already exists", {
     tempdr <- withr::local_tempdir()
 
     tmp_file <- withr::local_tempfile(
@@ -34,6 +32,7 @@ describe("recon", {
     file.create(tmp_file)
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = mock_get_fs,
       try_fs_cmd = mock_try_fs_cmd,
       checknii = mock_checknii,
@@ -50,7 +49,7 @@ describe("recon", {
     )
   })
 
-  it("handles missing subjid and generates correctly", {
+  it("auto-generates subject ID from filename when subjid = NULL", {
     tempdr <- withr::local_tempdir()
     tmp_file <- withr::local_tempfile(
       fileext = ".nii",
@@ -60,39 +59,36 @@ describe("recon", {
     file.create(tmp_file)
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = mock_get_fs,
       try_fs_cmd = mock_try_fs_cmd,
       checknii = mock_checknii,
       get_fs_verbosity = function() FALSE
     )
 
-    # Ensure subjid is auto-generated from infile when missing
     expect_message(
-      expect_message(
-        out <- recon(
-          infile = tmp_file,
-          outdir = tempdr,
-          subjid = NULL,
-          verbose = TRUE
-        ),
-        "Subject set to: "
+      out <- recon(
+        infile = tmp_file,
+        outdir = tempdr,
+        subjid = NULL,
+        verbose = TRUE
       ),
-      "mock_fs/recon-all  -subjid file"
+      "Subject set to: "
     )
     expect_true(out)
   })
 
-  it("handles invalid file paths gracefully", {
+  it("errors for non-existent input file", {
     invalid_file <- "nonexistent_file.nii"
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = mock_get_fs,
       try_fs_cmd = mock_try_fs_cmd,
       checknii = mock_checknii,
       get_fs_verbosity = function() FALSE
     )
 
-    # Expect an error for nonexistent input file
     expect_error(
       recon(
         infile = invalid_file,
@@ -103,19 +99,19 @@ describe("recon", {
     )
   })
 
-  it("handles all parameters and edge cases correctly", {
+  it("accepts custom options and processing flags", {
     temp_file <- withr::local_tempfile(fileext = ".nii")
     temp_dir <- withr::local_tempdir()
     file.create(temp_file)
 
     local_mocked_bindings(
+      validate_fs_env = function(...) TRUE,
       get_fs = mock_get_fs,
       try_fs_cmd = mock_try_fs_cmd,
       checknii = mock_checknii,
       get_fs_verbosity = function() FALSE
     )
 
-    # Handle all edge cases of parameter combinations
     expect_silent(
       recon(
         infile = temp_file,

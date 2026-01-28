@@ -1,4 +1,4 @@
-describe("read_annot", {
+describe("read_annotation", {
   #' Write Freesurfer annotation file
   #'
   #' Creates a mock Freesurfer binary annotation file
