@@ -2,37 +2,57 @@
 % Please edit documentation in R/reconner.R
 \name{reconner}
 \alias{reconner}
-\title{Reconstruction Helper for recon from Freesurfer}
+\title{Reconstruction Helper for FreeSurfer's recon-all}
 \usage{
 reconner(
+  subjid = NULL,
   infile = NULL,
   outdir = NULL,
-  subjid = NULL,
-  verbose = TRUE,
   opts = "-all",
-  force = FALSE
+  force = FALSE,
+  verbose = get_fs_verbosity()
 )
 }
 \arguments{
-\item{infile}{Input filename (dcm or nii)}
+\item{subjid}{subject id, if NULL, the basename of the infile will be used}
 
-\item{outdir}{Output directory}
+\item{infile}{Character; path to input file in DICOM or NIfTI format.}
 
-\item{subjid}{subject id}
+\item{outdir}{Character, Path to output directory.}
 
-\item{verbose}{print diagnostic messages}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{opts}{Additional options}
+\item{force}{Logical; force execution even if subject directory exists.
+Default is \code{FALSE}.}
 
-\item{force}{Force running of the reconstruction}
+\item{verbose}{(logical) print diagnostic messages}
 }
 \value{
-Result of \code{\link{system}}
+Result of \code{\link[base:system]{base::system()}} call, typically exit status (0 = success).
 }
 \description{
-Wrapper for the \code{recon-all} function in Freesurfer
+Wrapper around FreeSurfer's \code{recon-all} command for brain surface
+reconstruction from MRI data. Handles input processing, subject directory
+creation, and command flag management.
 }
-\note{
-If you set \code{infile = NULL}, then you can omit the 
-\code{-i} flag in \code{recon-all}
+\details{
+FreeSurfer's \code{recon-all} performs cortical reconstruction and volumetric
+segmentation. This function simplifies usage by:
+\itemize{
+\item Automatically deriving subject ID from input filename if not provided
+\item Managing subject directory paths
+\item Providing force option for re-running on existing subjects
+}
+}
+\examples{
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
+reconner(infile = "input.nii", outdir = "/output_dir", subjid = "subj01")
+reconner(infile = "input.nii", outdir = "/output_dir")
+reconner(infile = "input.nii", opts = "-autorecon2", force = TRUE)
+}
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=tracker]{tracker()}} for diffusion tractography pipeline
 }
