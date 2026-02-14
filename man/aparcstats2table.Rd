@@ -64,3 +64,7 @@ if (have_fs()) {
                     meas = "thickness")
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("aparcstats2table", "--help", "bin")}
+}
+

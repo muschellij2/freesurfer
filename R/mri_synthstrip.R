@@ -7,8 +7,9 @@
 #' @param opts (character) additional options to \code{mri_mask}
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Character or nifti depending on \code{retimg}
+#' @fsHelp mri_synthstrip
 #' @export
-#' @examples 
+#' @examples
 #' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
 #'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))  
 #'    res = mri_synthstrip(img)

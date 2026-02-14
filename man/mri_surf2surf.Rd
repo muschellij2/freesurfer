@@ -63,3 +63,7 @@ if (have_fs()) {
    sval = "thickness")
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_surf2surf", "--help", "bin")}
+}
+

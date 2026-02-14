@@ -21,9 +21,13 @@ mri_segment(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 Character or nifti depending on \code{retimg}
 }
 \description{
-This function calls \code{mri_segment} 
+This function calls \code{mri_segment}
 to segment tissues from an image
 }
 \note{
 NOT COMPLETE
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_segment", "--help", "bin")}
+}
+

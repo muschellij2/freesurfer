@@ -20,6 +20,7 @@
 #' @param ... Additional arguments to pass to \code{\link{system}}
 #' @return Character filename of output file, with the
 #' attribute of the separator
+#' @fsHelp aparcstats2table
 #' @export
 #' @examples
 #' if (have_fs()) {

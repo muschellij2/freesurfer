@@ -35,7 +35,7 @@ List with the subject name, the SUBJECTS_DIR to use (the directory
 that contains the subject name), and the types of objects copied
 }
 \description{
-This function copies files specified by the types of data, 
+This function copies files specified by the types of data,
 determined by the folder Freesurfer put them in, into a temporary directory
 for easier separation of data and different structuring of data.
 }

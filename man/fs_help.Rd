@@ -11,7 +11,7 @@ fs_help(func_name, help.arg = "--help", extra.args = "", ...)
 
 \item{help.arg}{Argument to print help, usually "--help"}
 
-\item{extra.args}{Extra arguments to be passed other than 
+\item{extra.args}{Extra arguments to be passed other than
 \code{--help}}
 
 \item{...}{additional arguments to \code{\link{get_fs}}}

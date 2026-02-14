@@ -29,7 +29,7 @@ ensure_mnc(file, ...)
 Character filename of mnc image
 }
 \description{
-Ensures the output to be a character filename (or vector) 
+Ensures the output to be a character filename (or vector)
 from an input image or \code{nifti} to have \code{.mnc} extension and
 be converted to MNC when necessary
 }

@@ -9,11 +9,11 @@ convert_surface(infile, ...)
 \arguments{
 \item{infile}{Input surface file}
 
-\item{...}{additional arguments to pass to 
+\item{...}{additional arguments to pass to
 \code{\link{mris_convert}}}
 }
 \value{
-List of 3 elements: a header indicating the number of 
+List of 3 elements: a header indicating the number of
 vertices and faces, the vertices, and the faces
 }
 \description{
@@ -21,7 +21,7 @@ Reads in a surface file from Freesurfer and separates
 into vertices and faces
 }
 \note{
-This was adapted from the gist: 
+This was adapted from the gist:
 \url{https://gist.github.com/mm--/4a4fc7badacfad874102}
 }
 \examples{

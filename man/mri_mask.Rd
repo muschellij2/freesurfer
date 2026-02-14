@@ -32,3 +32,7 @@ if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
    res = mri_mask(img, mask)
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_mask", "--help", "bin")}
+}
+

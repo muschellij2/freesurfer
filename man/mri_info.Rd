@@ -24,3 +24,7 @@ if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)){
    mri_info(img)
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_info", "--help", "bin")}
+}
+

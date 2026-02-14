@@ -6,6 +6,7 @@
 #'
 #' @return Result of \code{fs_cmd}, which type depends on
 #' arguments to \code{...}
+#' @fsHelp mri_info
 #' @export
 #' @examples
 #' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)){

@@ -18,8 +18,9 @@
 #' @param opts (character) additional options to \code{asegstats2table}
 #' @param verbose (logical) print diagnostic messages
 #' 
-#' @return Character filename of output file, with the 
+#' @return Character filename of output file, with the
 #' attribute of the separator
+#' @fsHelp asegstats2table
 #' @export
 #' @examples 
 #' if (have_fs()) {

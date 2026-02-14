@@ -27,3 +27,7 @@ if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
    res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_convert", "--help", "bin")}
+}
+

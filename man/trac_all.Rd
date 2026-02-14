@@ -21,6 +21,6 @@ trac_all(infile, outdir = NULL, subjid, verbose = TRUE, opts = "")
 Result of \code{\link{system}}
 }
 \description{
-Wrapper for the \code{trac-all} function in Freesurfer 
+Wrapper for the \code{trac-all} function in Freesurfer
 for All Steps
 }

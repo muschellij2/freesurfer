@@ -25,9 +25,9 @@ This function is heavily
 based on Freesurfer's read_annotation.m
 Original Author: Bruce Fischl
 CVS Revision Info:
-    $Author: greve $
-    $Date: 2014/02/25 19:54:10 $
-    $Revision: 1.10 $
+$Author: greve $
+$Date: 2014/02/25 19:54:10 $
+$Revision: 1.10 $
 }
 \examples{
 if (have_fs()) {

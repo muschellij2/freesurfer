@@ -21,7 +21,7 @@ mri_normalize(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 Character or nifti depending on \code{retimg}
 }
 \description{
-This function calls \code{mri_normalize} to normalize the 
+This function calls \code{mri_normalize} to normalize the
 values of the image, with white matter voxels around 110.
 }
 \examples{
@@ -31,3 +31,7 @@ if (have_fs()){
 } 
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_normalize", "--help", "bin")}
+}
+

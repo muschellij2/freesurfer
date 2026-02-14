@@ -48,3 +48,7 @@ if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
    res = mri_synthstrip(img)
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mri_synthstrip", "--help", "bin")}
+}
+

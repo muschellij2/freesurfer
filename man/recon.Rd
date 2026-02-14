@@ -51,86 +51,86 @@ recon(
 
 \item{subjid}{subject id}
 
-\item{motioncor}{When there are multiple source volumes, this step will 
-correct for small motions between them and then average them together. 
-The input are the volumes found in file(s) mri/orig/XXX.mgz. The output 
-will be the volume mri/orig.mgz. If no runs are found, then it looks for 
-a volume in mri/orig (or mri/orig.mgz). If that volume is there, then it 
-is used in subsequent processes as if it was the motion corrected volume. 
+\item{motioncor}{When there are multiple source volumes, this step will
+correct for small motions between them and then average them together.
+The input are the volumes found in file(s) mri/orig/XXX.mgz. The output
+will be the volume mri/orig.mgz. If no runs are found, then it looks for
+a volume in mri/orig (or mri/orig.mgz). If that volume is there, then it
+is used in subsequent processes as if it was the motion corrected volume.
 If no volume is found, then the process exits with errors.}
 
-\item{nuintensitycor}{Non-parametric Non-uniform intensity Normalization 
-(N3), corrects for intensity non-uniformity in MR data, making relatively 
-few assumptions about the data. This runs the MINC tool 'nu_correct'. By 
+\item{nuintensitycor}{Non-parametric Non-uniform intensity Normalization
+(N3), corrects for intensity non-uniformity in MR data, making relatively
+few assumptions about the data. This runs the MINC tool 'nu_correct'. By
 default, four iterations of nu_correct are run. The flag '-nuiterations'
 specification of some other number of iterations.}
 
-\item{talairach}{computes the affine transform from the orig volume to the 
-MNI305 atlas using the MINC program mritotal. 
+\item{talairach}{computes the affine transform from the orig volume to the
+MNI305 atlas using the MINC program mritotal.
 Creates the files mri/transform/talairach.auto.xfm and talairach.xfm.}
 
-\item{normalization}{Performs intensity normalization of the orig 
+\item{normalization}{Performs intensity normalization of the orig
 volume and places the result in mri/T1.mgz}
 
-\item{skullstrip}{Removes the skull from mri/T1.mgz and 
-stores the result in mri/brainmask.auto.mgz and 
+\item{skullstrip}{Removes the skull from mri/T1.mgz and
+stores the result in mri/brainmask.auto.mgz and
 mri/brainmask.mgz. Runs the mri_watershed program.}
 
-\item{gcareg}{Computes transform to align the mri/nu.mgz volume 
-to the default GCA atlas found in FREESURFER_HOME/average. 
+\item{gcareg}{Computes transform to align the mri/nu.mgz volume
+to the default GCA atlas found in FREESURFER_HOME/average.
 Creates the file mri/transforms/talairach.lta.}
 
-\item{canorm}{Further normalization, based on GCA model. 
+\item{canorm}{Further normalization, based on GCA model.
 Creates mri/norm.mgz.}
 
-\item{careg}{Computes a nonlinear transform to align with GCA atlas. 
+\item{careg}{Computes a nonlinear transform to align with GCA atlas.
 Creates the file mri/transform/talairach.m3z.}
 
-\item{rmneck}{The neck region is removed from the NU-corrected volume mri/nu.mgz. 
-Makes use of transform computed from prior CA Register stage. 
+\item{rmneck}{The neck region is removed from the NU-corrected volume mri/nu.mgz.
+Makes use of transform computed from prior CA Register stage.
 Creates the file mri/nu_noneck.mgz.}
 
 \item{skull_lta}{Computes transform to align volume mri/nu_noneck.mgz
-with GCA volume possessing the skull. 
+with GCA volume possessing the skull.
 Creates the file mri/transforms/talairach_with_skull.lta.}
 
-\item{calabel}{Labels subcortical structures, based in GCA model. 
+\item{calabel}{Labels subcortical structures, based in GCA model.
 Creates the files mri/aseg.auto.mgz and mri/aseg.mgz.}
 
-\item{normalization2}{Performs a second (major) intensity correction 
-using only the brain volume as the input 
-(so that it has to be done after the skull strip). 
-Intensity normalization works better when the skull 
-has been removed. Creates a new brain.mgz volume. 
+\item{normalization2}{Performs a second (major) intensity correction
+using only the brain volume as the input
+(so that it has to be done after the skull strip).
+Intensity normalization works better when the skull
+has been removed. Creates a new brain.mgz volume.
 If -noaseg flag is used, then aseg.mgz is not used by mri_normalize.}
 
-\item{segmentation}{Attempts to separate white matter from 
-everything else. The input is mri/brain.mgz, and the 
-output is mri/wm.mgz. Uses intensity, neighborhood, 
-and smoothness constraints. This is the volume that is 
-edited when manually fixing defects. Calls mri_segment, 
-mri_edit_wm_with_aseg, and mri_pretess. To keep previous edits, 
-run with -keepwmedits. If -noaseg is used, them mri_edit_wm_aseg 
+\item{segmentation}{Attempts to separate white matter from
+everything else. The input is mri/brain.mgz, and the
+output is mri/wm.mgz. Uses intensity, neighborhood,
+and smoothness constraints. This is the volume that is
+edited when manually fixing defects. Calls mri_segment,
+mri_edit_wm_with_aseg, and mri_pretess. To keep previous edits,
+run with -keepwmedits. If -noaseg is used, them mri_edit_wm_aseg
 is skipped.}
 
-\item{fill}{This creates the subcortical mass from which the orig 
-surface is created. The mid brain is cut from the cerebrum, 
-and the hemispheres are cut from each other. The left hemisphere 
-is binarized to 255. The right hemisphere is binarized to 127. 
-The input is mri/wm.mgz and the output is mri/filled.mgz. 
-Calls mri_fill. If the cut fails, then seed points can be supplied 
-(see -cc-crs, -pons-crs, -lh-crs, -rh-crs). 
+\item{fill}{This creates the subcortical mass from which the orig
+surface is created. The mid brain is cut from the cerebrum,
+and the hemispheres are cut from each other. The left hemisphere
+is binarized to 255. The right hemisphere is binarized to 127.
+The input is mri/wm.mgz and the output is mri/filled.mgz.
+Calls mri_fill. If the cut fails, then seed points can be supplied
+(see -cc-crs, -pons-crs, -lh-crs, -rh-crs).
 The actual points used for the cutting planes in the corpus callosum
- and pons can be found in scripts/ponscc.cut.log. 
- This is the last stage of volumetric processing. 
- If -noaseg is used, then aseg.mgz is not used by mri_fill.}
+and pons can be found in scripts/ponscc.cut.log.
+This is the last stage of volumetric processing.
+If -noaseg is used, then aseg.mgz is not used by mri_fill.}
 
-\item{tessellate}{This is the step where the orig surface 
-(ie, surf/?h.orig.nofix) is created. 
-The surface is created by covering the filled hemisphere 
-with triangles. Runs mri_tessellate. The places where the 
-points of the triangles meet are called vertices. 
-Creates the file surf/?h.orig.nofix Note: the 
+\item{tessellate}{This is the step where the orig surface
+(ie, surf/?h.orig.nofix) is created.
+The surface is created by covering the filled hemisphere
+with triangles. Runs mri_tessellate. The places where the
+points of the triangles meet are called vertices.
+Creates the file surf/?h.orig.nofix Note: the
 topology fixer will create the surface ?h.orig.}
 
 \item{smooth1}{Calls mris_smooth. Smooth1 is the step just after tessellation}

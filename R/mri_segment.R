@@ -7,7 +7,8 @@
 #' @param opts (character) additional options to \code{mri_segment}
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Character or nifti depending on \code{retimg}
-#' 
+#' @fsHelp mri_segment
+#'
 #' @note NOT COMPLETE
 mri_segment = function(
   file, 

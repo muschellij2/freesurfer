@@ -5,6 +5,7 @@
 #' @param opts (character) additional options to \code{mri_convert}
 #' @param ... Additional arguments to pass to \code{\link{fs_cmd}}
 #' @return Result of \code{system} command
+#' @fsHelp mri_convert
 #' @export
 #' @examples
 #' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {

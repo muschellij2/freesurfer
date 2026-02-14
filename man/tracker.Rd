@@ -23,3 +23,7 @@ Result of \code{\link{system}}
 \description{
 Wrapper for the \code{trac-all} function in Freesurfer
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("trac-all", "--help", "bin")}
+}
+

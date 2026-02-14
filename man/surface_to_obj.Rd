@@ -9,10 +9,10 @@ surface_to_obj(infile, outfile = NULL, ...)
 \arguments{
 \item{infile}{Input surface file}
 
-\item{outfile}{output Wavefront OBJ file.  If \code{NULL}, 
+\item{outfile}{output Wavefront OBJ file.  If \code{NULL},
 a temporary file will be created}
 
-\item{...}{additional arguments to pass to 
+\item{...}{additional arguments to pass to
 \code{\link{convert_surface}}}
 }
 \value{

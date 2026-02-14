@@ -30,3 +30,7 @@ if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
 }
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mris_euler_number", "--help", "bin")}
+}
+

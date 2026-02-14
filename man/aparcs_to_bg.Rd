@@ -7,10 +7,10 @@
 aparcs_to_bg(subjects, measure, ...)
 }
 \arguments{
-\item{subjects}{subjects to analyze, 
+\item{subjects}{subjects to analyze,
 passed to \code{\link{aparcstats2table}}}
 
-\item{measure}{measure to be analyzed, 
+\item{measure}{measure to be analyzed,
 passed to \code{\link{aparcstats2table}}}
 
 \item{...}{additional arguments passed to \code{\link{aparcstats2table}}}

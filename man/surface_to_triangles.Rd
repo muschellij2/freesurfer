@@ -9,7 +9,7 @@ surface_to_triangles(infile, ...)
 \arguments{
 \item{infile}{Input surface file}
 
-\item{...}{additional arguments to pass to 
+\item{...}{additional arguments to pass to
 \code{\link{convert_surface}}}
 }
 \value{
@@ -17,7 +17,7 @@ Matrix of triangles with the number of rows equal
 to the number of faces (not the triplets - total faces)
 }
 \description{
-Reads in a surface file from Freesurfer and 
+Reads in a surface file from Freesurfer and
 converts it into triangles
 }
 \examples{

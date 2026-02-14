@@ -8,6 +8,7 @@
 #' @param verbose (logical) print diagnostic messages
 #' @param ... Additional arguments to pass to \code{\link{system}}
 #' @return Name of output file
+#' @fsHelp mris_convert
 #' @export
 #' @examples
 #' if (have_fs()) {

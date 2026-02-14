@@ -9,7 +9,7 @@ mris_convert_annot(annot, opts = "", ...)
 \arguments{
 \item{annot}{(character) annotation or gifti label data}
 
-\item{opts}{(character) additional options to 
+\item{opts}{(character) additional options to
 \code{\link{mris_convert}}}
 
 \item{...}{additional arguments to \code{\link{mris_convert}}}
@@ -18,7 +18,7 @@ mris_convert_annot(annot, opts = "", ...)
 Result of \code{\link{mris_convert}}
 }
 \description{
-This function call \code{mris_convert}, 
+This function call \code{mris_convert},
 using the \code{--annot} option
 }
 \examples{

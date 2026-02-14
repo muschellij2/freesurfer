@@ -6,6 +6,7 @@
 #' @param opts (character) additional options to \code{mris_euler_number}
 #' @param ... Additional arguments to pass to \code{\link{fs_cmd}}
 #' @return Result of \code{system} command
+#' @fsHelp mris_euler_number
 #' @export
 #' @examples \dontrun{
 #' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {

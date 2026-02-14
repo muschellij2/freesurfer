@@ -7,6 +7,7 @@
 #' @param verbose print diagnostic messages
 #' @param ... additional arguments passed to \code{\link{fs_cmd}}.
 #' @return Object of class nifti depending on \code{retimg}
+#' @fsHelp nu_correct -help mni/bin
 #' @importFrom neurobase parse_img_ext readnii
 #' @export
 #' @examples \dontrun{

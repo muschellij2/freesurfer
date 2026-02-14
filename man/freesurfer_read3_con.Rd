@@ -7,7 +7,7 @@
 freesurfer_read3_con(fid)
 }
 \arguments{
-\item{fid}{connection to a 
+\item{fid}{connection to a
 thickness file or anything in surf/ directory from Freesurfer
 subject}
 }
@@ -15,7 +15,7 @@ subject}
 Numeric
 }
 \description{
-Reads first 3 records from a connection and 
+Reads first 3 records from a connection and
 returns the rotated value,
 for checking for other functions.
 }

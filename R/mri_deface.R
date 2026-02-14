@@ -10,6 +10,7 @@
 #' they will be downloaded.
 #' @return Result of \code{fs_cmd}, which type depends on
 #' arguments to \code{...}
+#' @fsHelp mri_deface
 #' @export
 #' @examples
 #' \donttest{

@@ -8,6 +8,7 @@
 #' @param opts Additional options
 #'
 #' @return Result of \code{\link{system}}
+#' @fsHelp trac-all
 #' @export
 tracker <- function(
   infile,

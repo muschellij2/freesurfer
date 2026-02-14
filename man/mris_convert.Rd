@@ -41,3 +41,7 @@ if (have_fs()) {
  )
 }
 }
+\section{FreeSurfer CLI Help}{
+\Sexpr[results=rd,stage=render]{freesurfer::fs_help_rd("mris_convert", "--help", "bin")}
+}
+
