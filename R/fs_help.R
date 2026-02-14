@@ -22,3 +22,44 @@ fs_help = function(func_name, help.arg = "--help", extra.args = "", ...){
   cat(res, sep = "\n")
   return(invisible(res))
 }
+
+#' Render FreeSurfer CLI help as Rd markup
+#'
+#' Called at render time by `\Sexpr` in generated .Rd files.
+#' Returns valid Rd markup showing CLI help or a fallback message.
+#'
+#' @param func_name FreeSurfer function name
+#' @param help_arg Argument to print help
+#' @param bin_app FreeSurfer bin directory appendix
+#' @return Character string of Rd markup
+#' @export
+fs_help_rd <- function(func_name, help_arg = "--help", bin_app = "bin") {
+  if (!have_fs()) {
+    return(paste0(
+      "FreeSurfer is not installed. Run \\code{",
+      func_name,
+      ".help()} in a FreeSurfer-enabled session."
+    ))
+  }
+
+  help_text <- tryCatch(
+    {
+      cmd <- get_fs(bin_app = bin_app)
+      cmd <- paste0(cmd, sprintf("%s %s", func_name, help_arg))
+      suppressWarnings(system(cmd, intern = TRUE))
+    },
+    error = function(e) NULL
+  )
+
+  if (is.null(help_text) || length(help_text) == 0) {
+    return(paste0("Help not available for \\code{", func_name, "}."))
+  }
+
+  escaped <- help_text
+  escaped <- gsub("\\", "\\\\", escaped, fixed = TRUE)
+  escaped <- gsub("{", "\\{", escaped, fixed = TRUE)
+  escaped <- gsub("}", "\\}", escaped, fixed = TRUE)
+  escaped <- gsub("%", "\\%", escaped, fixed = TRUE)
+
+  paste0("\\preformatted{", paste(escaped, collapse = "\n"), "}")
+}

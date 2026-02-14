@@ -36,6 +36,7 @@ Suggests:
     oro.nifti (>= 0.7),
     rgl,
     rmarkdown,
+    roxygen2,
     testthat (>= 3.0.0),
     withr
 VignetteBuilder: 
