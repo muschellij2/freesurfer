@@ -4,7 +4,10 @@
 \alias{mri_synthstrip.help}
 \title{MRI Normalize Help}
 \usage{
-mri_synthstrip.help()
+mri_synthstrip.help(...)
+}
+\arguments{
+\item{...}{additional arguments to \code{\link{get_fs}}}
 }
 \value{
 Result of \code{fs_help}

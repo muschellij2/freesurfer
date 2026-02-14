@@ -11,7 +11,7 @@ construct_subj_dir(
   surf = NULL,
   touch = NULL,
   subj = NULL,
-  subj_root_dir = tempdir()
+  subj_root_dir = tempdir(check = TRUE)
 )
 }
 \arguments{
@@ -35,7 +35,7 @@ List with the subject name, the SUBJECTS_DIR to use (the directory
 that contains the subject name), and the types of objects copied
 }
 \description{
-This function copies files specified by the types of data, 
+This function copies files specified by the types of data,
 determined by the folder Freesurfer put them in, into a temporary directory
 for easier separation of data and different structuring of data.
 }
@@ -49,6 +49,10 @@ mri = c(
 stats = c("/Applications/freesurfer/subjects/bert/stats/lh.aparc.stats",
           "/Applications/freesurfer/subjects/bert/stats/aseg.stats")
 surf = "/Applications/freesurfer/subjects/bert/surf/lh.thickness"
-touch = NULL
+construct_subj_dir(
+  label = label,
+  mri = mri,
+  stats = stats,
+  surf = surf)
 }
 }

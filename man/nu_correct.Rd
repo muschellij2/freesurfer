@@ -2,32 +2,64 @@
 % Please edit documentation in R/nu_correct.R
 \name{nu_correct}
 \alias{nu_correct}
-\title{Use Freesurfers Non-Uniformity Correction}
+\alias{nu_correct.help}
+\title{Use FreeSurfer's Non-Uniformity Correction}
 \usage{
-nu_correct(file, mask = NULL, opts = "", verbose = TRUE, ...)
+nu_correct(file, mask = NULL, opts = "", verbose = get_fs_verbosity(), ...)
+
+nu_correct.help(...)
 }
 \arguments{
-\item{file}{(character) input filename}
+\item{file}{Character; input filename.}
 
-\item{mask}{(character or nifti) Mask to use for correction.}
+\item{mask}{Character or nifti; mask to use for correction.}
 
-\item{opts}{(character) additional options to \code{mri_segment}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{verbose}{print diagnostic messages}
+\item{verbose}{(logical) print diagnostic messages}
 
-\item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \value{
-Object of class nifti depending on \code{retimg}
+Object of class nifti.
 }
 \description{
-This function calls \code{nu_correct}
-to correct for non-uniformity
+This function calls \code{nu_correct} to correct for intensity non-uniformity
+in MRI images using N3 (nonparametric nonuniform normalization).
 }
+\details{
+The \code{nu_correct} command performs N3 (nonparametric nonuniform intensity
+normalization) to correct for intensity inhomogeneity in MRI images.
+This is particularly useful for T1-weighted images where intensity
+varies across the image due to magnetic field inhomogeneities.
+
+Common options:
+\itemize{
+\item \verb{-mask <file>}: Use a binary mask
+\item \verb{-distance <value>}: N3 spline distance (default 200mm)
+\item \verb{-iterations <value>}: Maximum iterations (default 4)
+\item \verb{-stop <value>}: Stopping criterion (default 0.01)
+}
+
+Note: This is an MNI tool and uses different help syntax (\code{-help} instead of \code{--help}).
+}
+\section{Functions}{
+\itemize{
+\item \code{nu_correct.help()}: Display information about nu_correct
+
+}}
 \examples{
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
 \dontrun{
-if (have_fs()){
-    nu_correct("/path/to/T1.nii.gz")
+# Basic usage
+nu_correct("/path/to/T1.nii.gz")
+
+# With mask
+nu_correct("/path/to/T1.nii.gz", mask = "/path/to/mask.nii.gz")
 }
+\dontshow{\}) # examplesIf}
 }
+\seealso{
+\code{\link[=mri_normalize]{mri_normalize()}} for FreeSurfer's normalization,
+\code{\link[=nu_correct.help]{nu_correct.help()}} for command information
 }

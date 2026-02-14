@@ -19,8 +19,10 @@ arguments to \code{...}
 This calls Freesurfer's \code{mri_info}
 }
 \examples{
-if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)){
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-   mri_info(img)
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
+img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+mri_info(img)
 }
+\dontshow{\}) # examplesIf}
 }

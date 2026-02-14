@@ -2,9 +2,12 @@
 % Please edit documentation in R/mri_watershed.R
 \name{mri_watershed}
 \alias{mri_watershed}
+\alias{mri_watershed.help}
 \title{Use Freesurfers MRI Watershed Algorithm}
 \usage{
 mri_watershed(file, outfile = NULL, retimg = TRUE, opts = "", ...)
+
+mri_watershed.help(...)
 }
 \arguments{
 \item{file}{(character) input filename}
@@ -13,21 +16,28 @@ mri_watershed(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 
 \item{retimg}{(logical) return image of class nifti}
 
-\item{opts}{(character) additional options to \code{mri_watershed}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \value{
 Character or nifti depending on \code{retimg}
+
+Result of \code{fs_help}
 }
 \description{
 This function calls \code{mri_watershed} to extract a brain
 from an image, usually for skull stripping.
+
+This calls Freesurfer's \code{mri_watershed} help
 }
+\section{Functions}{
+\itemize{
+\item \code{mri_watershed.help()}: Display FreeSurfer help for mri_watershed
+
+}}
 \examples{
 \dontrun{
-if (have_fs()){
-    mri_watershed("/path/to/T1.nii.gz")
-}
+mri_watershed("/path/to/T1.nii.gz")
 }
 }

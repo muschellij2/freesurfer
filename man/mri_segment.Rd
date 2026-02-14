@@ -2,9 +2,12 @@
 % Please edit documentation in R/mri_segment.R
 \name{mri_segment}
 \alias{mri_segment}
+\alias{mri_segment.help}
 \title{Use Freesurfers MRI Segmentation Algorithm}
 \usage{
 mri_segment(file, outfile = NULL, retimg = TRUE, opts = "", ...)
+
+mri_segment.help(...)
 }
 \arguments{
 \item{file}{(character) input filename}
@@ -13,17 +16,25 @@ mri_segment(file, outfile = NULL, retimg = TRUE, opts = "", ...)
 
 \item{retimg}{(logical) return image of class nifti}
 
-\item{opts}{(character) additional options to \code{mri_segment}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{...}{additional arguments passed to \code{\link{fs_cmd}}.}
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \value{
 Character or nifti depending on \code{retimg}
+
+Result of \code{fs_help}
 }
 \description{
-This function calls \code{mri_segment} 
-to segment tissues from an image
+This function calls \code{mri_segment}
+
+This calls Freesurfer's \code{mri_segment} help
 }
+\section{Functions}{
+\itemize{
+\item \code{mri_segment.help()}: Display FreeSurfer help for mri_segment
+
+}}
 \note{
 NOT COMPLETE
 }
