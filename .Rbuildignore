@@ -6,7 +6,8 @@
 .DS_Store$
 ^\.travis\.yml$
 vignettes/.*_cache
-freesurfer_lut.R
+vignettes/.*_files
+vignettes/paper*
 ^cran-comments\.md$
 revdep/
 ^README\.Rmd$
@@ -17,3 +18,11 @@ revdep/
 ^CRAN-SUBMISSION$
 ^revdep$
 ^\.github$
+man-roxygen
+^data-raw$
+Dockerfile
+.continue
+^\.claude$
+vignettes/*.orig
+figure
+cache/
