@@ -2,18 +2,21 @@
 % Please edit documentation in R/fs_setup.R
 \name{set_fs_subj_dir}
 \alias{set_fs_subj_dir}
-\title{Set Freesurfer Subjects Directory}
+\title{Set FreeSurfer Subjects Directory}
 \usage{
-set_fs_subj_dir(x = file.path(fs_dir(), "subjects"))
+set_fs_subj_dir(path)
 }
 \arguments{
-\item{x}{path to SUBJECTS_DIR defaults to \code{file.path(fs_dir(), "subjects")}}
+\item{path}{Character path to the subjects directory}
 }
 \value{
-No return value, called for side effects (`SUBJECTS_DIR` 
-environment variable set, and `fs.subj_dir` option set)
+Invisibly returns the previous value of SUBJECTS_DIR
 }
 \description{
-Sets the SUBJECTS_DIR variable in the system environment or 
-\code{options("fs.subj_dir" = x)}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+This function is deprecated. Set the subjects directory using
+\code{Sys.setenv(SUBJECTS_DIR = path)} or the R option
+\code{options(freesurfer.subj_dir = path)} instead.
 }
+\keyword{internal}

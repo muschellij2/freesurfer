@@ -2,29 +2,45 @@
 % Please edit documentation in R/fs_setup.R
 \name{get_fs}
 \alias{get_fs}
-\title{Create command declaring FREESURFER_HOME}
+\title{Generate FreeSurfer Command Line Environment Setup}
 \usage{
-get_fs(bin_app = c("bin", "mni/bin", ""))
+get_fs(bin_app = c("bin", "mni/bin"), fs_home = get_fs_home(simplify = FALSE))
 }
 \arguments{
-\item{bin_app}{Should \code{bin} be added to the freesurfer path? 
-All executables are assumed to be in \code{FREESURFER_HOME/bin/}.  If not, and 
-\code{bin_app = ""}, they will be assumed to be in \code{FREESURFER_HOME/}.}
+\item{bin_app}{\link{character} A vector of options for the binary application directory.
+Possible options include:
+\itemize{
+\item \code{"bin"}: Default FreeSurfer binary directory.
+\item \code{"mni/bin"}: Includes MNI initialization.
+\item \code{""}: Base directory with no specific subdirectories.
+}}
+
+\item{fs_home}{Character string specifying FreeSurfer installation
+directory. Usually this is determined automatically via
+\code{\link{get_fs_home}}.}
 }
 \value{
-NULL if Freesurfer in path, or bash code for setting up Freesurfer DIR
+\link{character} A bash command string that includes environment setup for FreeSurfer.
+If the FreeSurfer environment or required configurations cannot be initialized, the function
+throws an error or issues a warning. On success, the returned string can be used directly
+in shell operations to load the FreeSurfer environment.
 }
 \description{
-Finds the Freesurfer from system environment or \code{getOption("freesurfer.path")}
-for location of Freesurfer functions
-}
-\note{
-This will use \code{Sys.getenv("FREESURFER_HOME")} before \code{getOption("freesurfer.path")}.
-If the directory is not found for Freesurfer in \code{Sys.getenv("FreesurferDIR")} and 
-\code{getOption("freesurfer.path")}, it will try the default directory \code{/usr/local/freesurfer}.
+This function generates a bash command string to set up the environment for using FreeSurfer.
+It ensures the required FreeSurfer installation, license, and environment setup files are
+validated and included in the command string. The function handles different FreeSurfer
+binaries like \code{bin}, \code{mni/bin}, and others, while ensuring proper initialization of
+the MNI environment if required.
 }
 \examples{
-if (have_fs()) {
-get_fs()
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+# Generate a shell command to set up FreeSurfer with the default `bin`
+get_fs(bin_app = "bin")
+
+# Generate a shell command to include MNI environment setup
+get_fs(bin_app = "mni/bin")
+\dontshow{\}) # examplesIf}
 }
+\seealso{
+\code{\link[=get_fs_home]{get_fs_home()}}, \code{\link[=get_fs_license]{get_fs_license()}}, \code{\link[=get_fs_output]{get_fs_output()}}
 }

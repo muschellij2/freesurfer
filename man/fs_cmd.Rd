@@ -2,7 +2,7 @@
 % Please edit documentation in R/fs_cmd.R
 \name{fs_cmd}
 \alias{fs_cmd}
-\title{FS Command Wrapper}
+\title{Execute FreeSurfer Commands from R}
 \usage{
 fs_cmd(
   func,
@@ -10,53 +10,132 @@ fs_cmd(
   outfile = NULL,
   retimg = TRUE,
   reorient = FALSE,
-  intern = FALSE,
+  verbose = get_fs_verbosity(),
+  intern = verbose,
   opts = "",
-  verbose = TRUE,
-  samefile = FALSE,
   opts_after_outfile = FALSE,
   frontopts = "",
-  add_ext = TRUE,
   bin_app = "bin",
+  timeout_seconds = NULL,
+  validate_inputs = TRUE,
   ...
 )
 }
 \arguments{
-\item{func}{(character) Freesurfer function}
+\item{func}{Character string specifying the FreeSurfer command to execute
+(e.g., \code{"mri_convert"}, \code{"mri_watershed"}).}
 
-\item{file}{(character) image to be manipulated}
+\item{file}{Character path to the input image file, or a nifti object.
+If a nifti object is provided, it will be temporarily written to disk.}
 
-\item{outfile}{(character) resultant image name (optional)}
+\item{outfile}{Character path to the output image file. If \code{NULL} (default),
+and \code{retimg = TRUE}, a temporary file will be created. Set \code{outfile = file}
+to overwrite the input file (with warning).}
 
-\item{retimg}{(logical) return image of class nifti}
+\item{retimg}{Logical; if \code{TRUE} (default), returns output as a nifti object.
+If \code{FALSE}, returns the system command result.}
 
-\item{reorient}{(logical) If retimg, should file be reoriented when read in?
-Passed to \code{\link[neurobase]{readnii}}.}
+\item{reorient}{Logical; if \code{TRUE} and \code{retimg = TRUE}, reorients the image
+when loading. Passed to \code{\link[neurobase:readNIfTI2]{neurobase::readnii()}}. Default is \code{FALSE}.}
 
-\item{intern}{(logical) to be passed to \code{\link{system}}}
+\item{verbose}{(logical) print diagnostic messages}
 
-\item{opts}{(character) operations to be passed to \code{func}}
+\item{intern}{Logical; if \code{TRUE}, captures command output. Passed to
+\code{\link[base:system]{base::system()}}. Default is \code{FALSE}.}
 
-\item{verbose}{(logical) print out command before running}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{samefile}{(logical) is the output the same file?}
+\item{opts_after_outfile}{Logical; if \code{TRUE}, places \code{opts} after \code{outfile}
+in the command string. Default is \code{FALSE}.}
 
-\item{opts_after_outfile}{(logical) should \code{opts} come after
-the \code{outfile} in the Freesurfer command?}
+\item{frontopts}{Character string of options to prepend before the input
+file in the command. Default is \code{""}.}
 
-\item{frontopts}{(character) options/character to put in before filename}
+\item{bin_app}{Character string specifying the FreeSurfer bin directory
+appendix. Options are \code{"bin"} (default) or \code{"mni/bin"}.}
 
-\item{add_ext}{(logical) should the extension be added to
-the \code{outfile}}
+\item{timeout_seconds}{Numeric; command timeout in seconds. If specified,
+requires the \pkg{R.utils} package. Default is \code{NULL} (no timeout).}
 
-\item{bin_app}{(character) appendix to add to \code{\link{get_fs}}}
+\item{validate_inputs}{Logical; if \code{TRUE} (default), validates that input
+files exist before running the command.}
 
-\item{...}{additional arguments passed to \code{\link{system}}.}
+\item{...}{Additional arguments passed to \code{\link[base:system]{base::system()}}.}
 }
 \value{
-If \code{retimg} then object of class nifti.  Otherwise,
-Result from system command, depends if intern is TRUE or FALSE.
+If \code{retimg = TRUE}: A nifti object containing the output image, or \code{NULL}
+if output creation failed. If \code{retimg = FALSE}: The result from
+\code{\link[base:system]{base::system()}}, typically the exit status or captured output.
 }
 \description{
-This function calls Freesurfer command passed to \code{func}
+\code{fs_cmd()} is the core wrapper function that executes FreeSurfer command-line
+tools from within R. It handles file path validation, command construction,
+execution, and optional return of neuroimaging data as nifti objects.
+}
+\details{
+This function provides a unified interface to FreeSurfer's command-line tools,
+with several key features:
+\itemize{
+\item Automatic validation of input/output files
+\item Support for nifti objects as inputs
+\item Optional timeout for long-running commands
+\item Flexible command option placement
+\item Automatic result verification
+\item Integration with FreeSurfer environment setup
+}
+\subsection{Overwriting Files}{
+
+To overwrite the input file, set \code{outfile = file}. A warning will be
+displayed for safety. The function checks file existence before and after
+command execution to verify successful completion.
+}
+
+\subsection{Command Construction}{
+
+The command is constructed in the following order:
+\enumerate{
+\item FreeSurfer environment setup (from \code{get_fs()})
+\item Command name (\code{func})
+\item Front options (\code{frontopts})
+\item Input file path (quoted)
+\item Output file path (quoted, if provided)
+\item Additional options (\code{opts})
+}
+
+Use \code{opts_after_outfile = TRUE} to place \code{opts} after the output file.
+}
+}
+\examples{
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
+# Basic usage: convert MGZ to NIfTI
+fs_cmd(
+  func = "mri_convert",
+  file = "input.mgz",
+  outfile = "output.nii.gz",
+  opts = "--conform"
+)
+
+# Return as nifti object
+img <- fs_cmd(
+  func = "mri_convert",
+  file = "input.mgz",
+  retimg = TRUE
+)
+
+# Use nifti object as input
+library(oro.nifti)
+img <- nifti(array(rnorm(10*10*10), dim = c(10, 10, 10)))
+result <- fs_cmd(
+  func = "mri_convert",
+  file = img,
+  outfile = "output.nii.gz"
+)
+}
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=get_fs]{get_fs()}} for FreeSurfer environment setup,
+\code{\link[=mri_convert]{mri_convert()}} for format conversion,
+\code{\link[neurobase:readNIfTI2]{neurobase::readnii()}} for reading nifti files
 }

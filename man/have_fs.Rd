@@ -4,19 +4,16 @@
 \alias{have_fs}
 \title{Logical check if Freesurfer is accessible}
 \usage{
-have_fs(..., check_license = FALSE)
+have_fs(check_license = TRUE)
 }
 \arguments{
-\item{...}{options to pass to \code{\link{get_fs}}}
-
-\item{check_license}{Should a license file be checked to exist?}
+\item{check_license}{\link{logical} Should a license file be checked for existence?}
 }
 \value{
-Logical TRUE is Freesurfer is accessible, FALSE if not
+Logical \code{TRUE} if Freesurfer is accessible and license (if checked) is found, \code{FALSE} otherwise.
 }
 \description{
-Uses \code{get_fs} to check if FreesurferDIR is accessible or the option
-\code{freesurfer.path} is set and returns logical
+Checks if FreesurferDIR is accessible and optionally if a license file exists.
 }
 \examples{
 have_fs()

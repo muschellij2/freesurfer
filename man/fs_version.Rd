@@ -7,7 +7,7 @@
 fs_version()
 }
 \value{
-If the version file does not exist, it will throw a warning, but 
+If the version file does not exist, it will throw a warning, but
 it will return an empty string.  Otherwise it will be a string of the version.
 }
 \description{
@@ -17,7 +17,7 @@ Finds the Freesurfer version from \code{FREESURFER_HOME/build-stamp.txt}
 This will use \code{fs_dir()} to get the directory of FREESURFER
 }
 \examples{
-if (have_fs()) {
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
  fs_version()
-}
+\dontshow{\}) # examplesIf}
 }
