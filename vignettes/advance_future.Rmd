@@ -1,0 +1,47 @@
+---
+title: "Advanced usage & future plans"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced usage & future plans}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  eval = freesurfer::have_fs(),
+  collapse = TRUE,
+  comment = "#>"
+)
+options(freesurfer.verbose = FALSE)
+```
+
+```{r setup}
+library(freesurfer)
+```
+
+## What's Next? Additional Features and Future Plans
+
+For the initial release of `freesurfer`, we focused on implementing core functionalities.
+However, not all Freesurfer output file types, such as annotation files and other surface-based files, were fully implemented for direct reading.
+Rest assured, support for these file types is planned for future releases and may be integrated with existing functions to enhance their utility.
+Additionally, while Freesurfer offers a suite of tools for Diffusion Tensor Imaging (DTI) data analysis, some of these functions have been adapted for `freesurfer`.
+We are actively working on thoroughly testing and refining these DTI-related functions to ensure their robustness and reliability.
+
+# Conclusion
+
+The neuroimaging community has developed a vast array of powerful tools for image processing and analysis.
+Many of these tools offer functionalities not natively present in R, such as Freesurfer's advanced surface-based registration and comprehensive processing pipelines.
+By providing a seamless interface to these external tools, the `freesurfer` package effectively bridges this gap, much like how `fslr` integrates FSL functionalities.
+This integration allows R users to leverage cutting-edge neuroimaging capabilities directly within their preferred statistical environment.
+
+The increasing popularity of similar interfacing tools within the Python community, such as Nipype [@gorgolewski_nipype:_2011], further highlights the immense value of such integrations.
+For many R users who may not have extensive experience with Python or bash scripting, `freesurfer` significantly lowers the barrier to entry for performing complex neuroimaging analyses.
+
+Lowering this threshold is incredibly important because it empowers more R users to take full control of every aspect of their image analysis workflow.
+This includes everything from raw image processing to the final statistical analysis.
+Interfacing R with existing, robust software like Freesurfer provides R users with expanded functionality and access to a broader support community that would not be available if all these functions were rewritten from scratch in R.
+While relying on an external software dependency might initially seem like a disadvantage, the integrated software benefits from years of rigorous testing and continuous development by dedicated communities.
+Most importantly, because `freesurfer` is built entirely within the R framework, all the inherent benefits of using R are readily available to you.
+This includes creating dynamic documents, developing interactive Shiny applications, generating customized figures, and employing state-of-the-art statistical methods.
+This powerful synergy between the neuroimaging and R communities allows for comprehensive analyses within a single, unified framework, leveraging the strengths of both.
