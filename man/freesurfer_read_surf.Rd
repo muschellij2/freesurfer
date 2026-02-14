@@ -4,22 +4,27 @@
 \alias{freesurfer_read_surf}
 \title{Read Freesurfer Surface file}
 \usage{
-freesurfer_read_surf(file)
+freesurfer_read_surf(file, verbose = get_fs_verbosity())
 }
 \arguments{
 \item{file}{surface file (e.g. \code{lh.inflated})}
+
+\item{verbose}{(logical) print diagnostic messages}
 }
 \value{
 List of length 2: vertices and faces are the elements
 }
 \description{
-Reads a Freesurfer Surface file from 
+Reads a Freesurfer Surface file from
 the \code{surf/} directory
 from \code{recon-all}
 }
 \examples{
-if (have_fs()) {
-   fname = file.path(fs_subj_dir(), "bert", "surf", "lh.inflated")
-   out = freesurfer_read_surf(fname)
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontshow{
+options(freesurfer.verbose = FALSE)
 }
+fname = file.path(fs_subj_dir(), "bert", "surf", "lh.inflated")
+out = freesurfer_read_surf(fname)
+\dontshow{\}) # examplesIf}
 }

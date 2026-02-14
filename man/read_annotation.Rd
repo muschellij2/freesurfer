@@ -4,7 +4,7 @@
 \alias{read_annotation}
 \title{Read Freesurfer annotation file}
 \usage{
-read_annotation(path, verbose = TRUE)
+read_annotation(path, verbose = get_fs_verbosity())
 }
 \arguments{
 \item{path}{path to annotation file, usually with extension \code{annot}}
@@ -25,14 +25,14 @@ This function is heavily
 based on Freesurfer's read_annotation.m
 Original Author: Bruce Fischl
 CVS Revision Info:
-    $Author: greve $
-    $Date: 2014/02/25 19:54:10 $
-    $Revision: 1.10 $
+$Author: greve $
+$Date: 2014/02/25 19:54:10 $
+$Revision: 1.10 $
 }
 \examples{
-if (have_fs()) {
-    bert_dir = file.path(fs_subj_dir(), "bert")
-    annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
-    res = read_annotation(annot_file)
-} 
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+bert_dir = file.path(fs_subj_dir(), "bert")
+annot_file = file.path(bert_dir, "label", "lh.aparc.annot")
+res = read_annotation(annot_file)
+\dontshow{\}) # examplesIf}
 }

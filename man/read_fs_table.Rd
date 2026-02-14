@@ -2,19 +2,38 @@
 % Please edit documentation in R/read_fs_table.R
 \name{read_fs_table}
 \alias{read_fs_table}
-\title{Read Freesurfer Table Output}
+\alias{read_stats_table}
+\title{Read FreeSurfer Table Output}
 \usage{
-read_fs_table(file, sep = NULL, stringsAsFactors = FALSE, header = TRUE, ...)
+read_fs_table(
+  file,
+  sep = NULL,
+  header = TRUE,
+  validate_format = TRUE,
+  stringsAsFactors = FALSE,
+  ...
+)
+
+read_stats_table(
+  file,
+  sep = NULL,
+  header = TRUE,
+  validate_format = TRUE,
+  stringsAsFactors = FALSE,
+  ...
+)
 }
 \arguments{
 \item{file}{(character path) filename of text file}
 
-\item{sep}{separator to override attribute of file, to 
+\item{sep}{separator to override attribute of file, to
 pass to \code{\link[utils]{read.table}}.}
 
-\item{stringsAsFactors}{(logical) passed to \code{\link{read.table}}}
-
 \item{header}{Is there a header in the data}
+
+\item{validate_format}{(logical) Whether to warn about unexpected formats}
+
+\item{stringsAsFactors}{(logical) passed to \code{\link{read.table}}}
 
 \item{...}{additional arguments to \code{\link{read.table}}}
 }
@@ -22,23 +41,18 @@ pass to \code{\link[utils]{read.table}}.}
 \code{data.frame} from the file
 }
 \description{
-This function reads output from a Freesurfer table command,
+This function reads output from a FreeSurfer table command,
 e.g. \code{aparcstats2table}, \code{asegstats2table}
 }
 \examples{
-if (have_fs()) {
-   outfile = aparcstats2table(subjects = "bert",
-                    hemi = "lh",
-                    meas = "thickness")
-   df = read_fs_table(outfile)
-   seg_outfile = asegstats2table(subjects = "bert", meas = "mean")
-   df_seg = read_fs_table(seg_outfile)
-}
-\dontrun{
-### using the pipe
-if (requireNamespace("magrittr", quietly = TRUE)) {
-df_seg = asegstats2table(subjects = "bert", meas = "mean") \%>\% 
-            read_fs_table
-            }
-}
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+outfile = aparcstats2table(
+   subjects = "bert",
+   hemi = "lh",
+   meas = "thickness"
+)
+df = read_fs_table(outfile)
+seg_outfile = asegstats2table(subjects = "bert", meas = "mean")
+df_seg = read_fs_table(seg_outfile)
+\dontshow{\}) # examplesIf}
 }
