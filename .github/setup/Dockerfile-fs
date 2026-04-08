@@ -1,6 +1,6 @@
 # Stage 1: FreeSurfer Base
 FROM ubuntu:22.04
-ARG FS_VERSION=8.0.0
+ARG FS_VERSION=7.4.1
 
 ## Set a default user. Available via runtime flag `--user docker`
 ## Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
