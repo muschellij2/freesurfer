@@ -1,46 +1,50 @@
-Package: freesurfer
 Type: Package
-Title: Wrapper Functions for 'Freesurfer'
-Version: 1.8.1
+Package: freesurfer
+Title: Wrapper Functions for 'FreeSurfer'
+Version: 1.8.1.902
 Authors@R: c(
-    person(given = "John",
-           family = "Muschelli",
-           role = c("aut", "cre"),
-           email = "muschellij2@gmail.com",
+    person("John", "Muschelli", , "muschellij2@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-6469-1750")),
-    person("Athanasia Mo", "Mowinckel", 
-                    role = "ctb",
-                    comment = c(ORCID = "0000-0002-5756-0223"))
-    )
-Description: Wrapper functions that interface with 'Freesurfer' 
-    <https://surfer.nmr.mgh.harvard.edu/>, a powerful and 
-    commonly-used 'neuroimaging'
-    software, using system commands. The goal is to be able to interface with
-    'Freesurfer' completely in R, where you pass R objects of class 'nifti',
-    implemented by package 'oro.nifti', and the function executes an 'Freesurfer'
-    command and returns an R object of class 'nifti' or necessary output.
-LazyData: true
-LazyLoad: true
+    person("Athanasia Mo", "Mowinckel", role = "ctb",
+           comment = c(ORCID = "0000-0002-5756-0223"))
+  )
+Description: Wrapper functions that interface with 'Freesurfer'
+    <https://surfer.nmr.mgh.harvard.edu/>, a powerful and commonly-used
+    'neuroimaging' software, using system commands. The goal is to be able
+    to interface with 'Freesurfer' completely in R, where you pass R
+    objects of class 'nifti', implemented by package 'oro.nifti', and the
+    function executes an 'Freesurfer' command and returns an R object of
+    class 'nifti' or necessary output.
+License: GPL-3
+URL: https://muschellij2.github.io/freesurfer/,
+    https://github.com/muschellij2/freesurfer
+BugReports: https://github.com/muschellij2/freesurfer/issues
+Depends:
+    R (>= 4.1)
 Imports:
+    cli,
+    lifecycle,
     methods,
     neurobase,
-    tools,
     R.utils,
-    reshape2,
+    tools,
+    stats,
     utils
-Depends:
-    R (>= 3.2.0)
-License: GPL-3
 Suggests:
-    magrittr,
+    covr,
     knitr,
     oro.nifti (>= 0.7),
     rgl,
     rmarkdown,
-    pander,
-    fslr (>= 2.9.2)
-BugReports: https://github.com/muschellij2/freesurfer/issues
-SystemRequirements: FSL, Freesurfer (https://surfer.nmr.mgh.harvard.edu/)
-VignetteBuilder: knitr
+    testthat (>= 3.0.0),
+    withr
+VignetteBuilder: 
+    knitr
+Config/testthat/edition: 3
+Config/testthat/parallel: true
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+LazyData: true
+LazyLoad: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+SystemRequirements: FreeSurfer (https://freesurfer.net/)

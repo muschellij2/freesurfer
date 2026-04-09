@@ -2,26 +2,107 @@
 % Please edit documentation in R/read_aseg_stats.R
 \name{read_aseg_stats}
 \alias{read_aseg_stats}
-\title{Read Anatomical Segmentation Statistics}
+\title{Read FreeSurfer Anatomical Segmentation Statistics}
 \usage{
 read_aseg_stats(file, lowercase = TRUE)
 }
 \arguments{
-\item{file}{aseg.stats file from Freesurfer}
+\item{file}{Character; path to an \code{aseg.stats} file from FreeSurfer.}
 
-\item{lowercase}{should the measures and values be lowercase (`TRUE`) or 
-kept as is?}
+\item{lowercase}{Logical; if \code{TRUE} (default), converts measure names and
+column names to lowercase for easier access. If \code{FALSE}, preserves
+FreeSurfer's original capitalization.}
 }
 \value{
-List of 2 \code{data.frame}s, one with the global measures and one 
-with the structure-specific measures.
+A list with two components:
+\itemize{
+\item \code{measures}: A data frame with global brain measures, with columns:
+\itemize{
+\item \code{measure}: Short name of the measure
+\item \code{measure_long}: Long descriptive name
+\item \code{meaning}: Description of what the measure represents
+\item \code{value}: Numeric value of the measure
+\item \code{units}: Units of measurement
+}
+\item \code{structures}: A data frame with structure-specific statistics, with columns:
+\itemize{
+\item \code{Index}: Structure index
+\item \code{SegId}: Segmentation ID
+\item \code{NVoxels}: Number of voxels
+\item \code{Volume_mm3}: Volume in cubic millimeters
+\item \code{StructName}: Name of the anatomical structure
+\item \code{normMean}: Normalized mean intensity
+\item \code{normStdDev}: Normalized standard deviation
+\item \code{normMin}: Normalized minimum
+\item \code{normMax}: Normalized maximum
+\item \code{normRange}: Normalized range
+}
+}
 }
 \description{
-Reads an \code{aseg.stats} file from an individual subject
+Reads and parses an \code{aseg.stats} file produced by FreeSurfer's anatomical
+segmentation pipeline. Returns both global brain measures and structure-
+specific statistics.
+}
+\details{
+The \code{aseg.stats} file contains volumetric and morphometric statistics for
+subcortical structures and global brain measures computed by FreeSurfer's
+\code{recon-all} pipeline.
+\subsection{Output Structure}{
+
+The function returns a list with two data frames:
+
+\strong{measures}: Global brain measures including:
+\itemize{
+\item Brain segmentation volume
+\item Estimated total intracranial volume (eTIV)
+\item Normalization factors
+}
+
+\strong{structures}: Structure-specific measures including:
+\itemize{
+\item Structure index and name
+\item Number of voxels
+\item Volume (mm³)
+\item Mean intensity and standard deviation
+\item Minimum, maximum, and range of intensities
+}
+}
+
+\subsection{File Location}{
+
+For a subject processed with \code{recon-all}, the file is typically located at:
+\verb{$SUBJECTS_DIR/<subject_id>/stats/aseg.stats}
+}
 }
 \examples{
-if (have_fs()) {
- file = file.path(fs_subj_dir(), "bert", "stats", "aseg.stats")
- out = read_aseg_stats(file)
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+# Read stats for the "bert" example subject
+file <- file.path(fs_subj_dir(), "bert", "stats", "aseg.stats")
+
+if (file.exists(file)) {
+  out <- read_aseg_stats(file)
+
+  # Examine global measures
+  print(head(out$measures))
+
+  # Get estimated total intracranial volume
+  etiv <- out$measures$value[out$measures$measure == "estimatedtotalintracranialvol"]
+  cat("eTIV:", etiv, "mm³\n")
+
+  # Examine structure-specific stats
+  print(head(out$structures))
+
+  # Get hippocampal volumes
+  hippo <- out$structures[grepl("Hippocampus", out$structures$StructName), ]
+  print(hippo[, c("StructName", "Volume_mm3")])
+}
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\itemize{
+\item \code{\link[=read_fs_table]{read_fs_table()}} for reading other FreeSurfer tables
+\item \code{\link[=recon_all]{recon_all()}} for running the FreeSurfer pipeline
+\item \code{\link[=stats2table]{stats2table()}} for combining stats from multiple subjects
 }
 }

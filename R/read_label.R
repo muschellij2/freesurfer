@@ -1,6 +1,6 @@
-#' @title Read Label File 
+#' @title Read Label File
 #' @description Reads an \code{label} file from an individual subject
-#' 
+#'
 #' @param file label file from Freesurfer
 #'
 #' @return \code{data.frame} with 5 columns:
@@ -13,29 +13,31 @@
 #'  }
 #' @export
 #'
-#' @examples
-#' if (have_fs()) {
+#' @examplesIf have_fs()
 #'  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1.label")
 #'  if (!file.exists(file)) {
 #'  file = file.path(fs_subj_dir(), "bert", "label", "lh.BA1_exvivo.label")
 #'  }
 #'  out = read_fs_label(file)
-#' }
-read_fs_label = function(file) {
-  header = readLines(con = file)
-  comment = header[1]
-  n_lines = as.numeric(header[2])
-  header = header[-c(1:2)]
+read_fs_label <- function(file) {
+  check_path(file)
+  header <- readLines(con = file)
+  comment <- header[1]
+  n_lines <- as.numeric(header[2])
+  header <- header[-c(1:2)]
   if (length(header) != n_lines) {
-    warning("Number of lines do not match file specification! ")
-  } 
-  ss = strsplit(header, " ")
-  ss = lapply(ss, function(x) {
-    x[ !x %in% ""]
+    fs_warn("Number of lines do not match file specification! ")
+  }
+  ss <- strsplit(header, " ")
+  ss <- lapply(ss, function(x) {
+    x[!x %in% ""]
   })
-  ss = do.call("rbind", ss)
-  colnames(ss) = c("vertex_num", "r_coord", "a_coord", "s_coord", "value")
-  ss = data.frame(ss, stringsAsFactors = FALSE)
-  attr(ss, "comment") = comment
-  return(ss)
+  ss <- do.call("rbind", ss)
+  if (is.null(ss)) {
+    fs_abort("The file is no valid label content.")
+  }
+  colnames(ss) <- c("vertex_num", "r_coord", "a_coord", "s_coord", "value")
+  ss <- data.frame(ss, stringsAsFactors = FALSE)
+  attr(ss, "comment") <- comment
+  ss
 }

@@ -1,26 +1,27 @@
 #' @title MRI information
 #' @description This calls Freesurfer's \code{mri_info}
 #'
+#'
 #' @param file File to pass to \code{mri_info}
 #' @param ... Additional arguments to pass to \code{\link{fs_cmd}}
 #'
 #' @return Result of \code{fs_cmd}, which type depends on
 #' arguments to \code{...}
 #' @export
-#' @examples
-#' if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)){
-#'    img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-#'    mri_info(img)
+#' @examplesIf have_fs()
+#' \dontrun{
+#' img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
+#' mri_info(img)
 #' }
-mri_info = function(file, ...) {
-  fs_cmd(func = "mri_info", file = file, samefile = TRUE, ...)
+mri_info <- function(file, ...) {
+  fs_cmd(func = "mri_info", file = file, outfile = file, ...)
 }
 
 #' @title MRI information Help
 #' @description This calls Freesurfer's \code{mri_info} help
 #'
-#' @return Result of \code{fs_help}
+#' @param ... Additional arguments passed to [fs_help()]
 #' @export
-mri_info.help = function() {
-  fs_help(func_name = "mri_info")
+mri_info.help <- function(...) {
+  fs_help("mri_info", ...)
 }

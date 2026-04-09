@@ -2,28 +2,82 @@
 % Please edit documentation in R/mri_convert.R
 \name{mri_convert}
 \alias{mri_convert}
-\title{Use Freesurfers MRI Converter}
+\alias{mri_convert.help}
+\title{Convert Medical Image Formats with FreeSurfer}
 \usage{
-mri_convert(file, outfile, opts = "", ...)
+mri_convert(
+  file,
+  outfile,
+  opts = "",
+  format_check = TRUE,
+  timeout_seconds = 300,
+  ...
+)
+
+mri_convert.help(...)
 }
 \arguments{
-\item{file}{(character) input filename}
+\item{file}{Character; input filename or nifti object.}
 
-\item{outfile}{(character) output filename}
+\item{outfile}{Character; output filename.}
 
-\item{opts}{(character) additional options to \code{mri_convert}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
-\item{...}{Additional arguments to pass to \code{\link{fs_cmd}}}
+\item{format_check}{Logical; whether to validate input/output formats and
+warn about unexpected formats. Default is \code{TRUE}.}
+
+\item{timeout_seconds}{Numeric; command timeout in seconds. Default is 300.}
+
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \value{
-Result of \code{system} command
+Result of \code{\link[base:system]{base::system()}} command, typically exit status.
 }
 \description{
-This function calls \code{mri_convert} to convert an image
+Calls FreeSurfer's \code{mri_convert} to convert between different medical imaging
+formats (NIfTI, MGZ, MINC, etc.) with enhanced format validation and error
+handling.
 }
+\details{
+Runtime FreeSurfer CLI help is available via the helper
+function \code{mri_convert.help()}. When called, that helper will attempt
+to fetch and display the underlying FreeSurfer command-line help if
+FreeSurfer is installed on the system. The package does not embed the
+CLI help into the installed Rd at package build time.
+
+This function provides format validation and informative messages about
+conversions between different image types.
+}
+\section{Functions}{
+\itemize{
+\item \code{mri_convert.help()}: Display FreeSurfer help for mri_convert
+
+}}
+\section{FreeSurfer Command Help}{
+
+When FreeSurfer is installed and available, detailed command-line help
+for the underlying \code{mri_convert} command can be accessed via
+\code{mri_convert.help()}. This provides comprehensive information about
+FreeSurfer's native command options, file format support, and usage examples.
+
+To see FreeSurfer CLI help: \code{mri_convert.help()}
+}
+
 \examples{
-if (have_fs() && requireNamespace("oro.nifti", quietly = TRUE)) {
-   img = oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5,5,5)))
-   res = mri_convert(img, outfile = tempfile(fileext = ".mgz"))
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+# Convert nifti object to MGZ format
+img <- oro.nifti::nifti(array(rnorm(5*5*5), dim = c(5, 5, 5)))
+res <- mri_convert(img, outfile = temp_file(fileext = ".mgz"))
+
+\dontrun{
+# Convert MGZ to NIfTI
+mri_convert("brain.mgz", "brain.nii.gz")
+
+# With additional options
+mri_convert("brain.mgz", "brain.nii.gz", opts = "--conform")
 }
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=fs_cmd]{fs_cmd()}} for the underlying command wrapper
 }

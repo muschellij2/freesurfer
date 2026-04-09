@@ -4,11 +4,11 @@
 \alias{mris_euler_number.help}
 \title{MRI Euler Number Help}
 \usage{
-mris_euler_number.help()
+mris_euler_number.help(...)
 }
-\value{
-Result of \code{fs_help}
+\arguments{
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \description{
-This calls Freesurfer's \code{mris_euler_number} help
+This calls FreeSurfer's \code{mris_euler_number} help
 }

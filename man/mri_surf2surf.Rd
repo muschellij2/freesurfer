@@ -2,8 +2,8 @@
 % Please edit documentation in R/mri_surf2surf.R
 \name{mri_surf2surf}
 \alias{mri_surf2surf}
-\title{Use Freesurfers \code{mri_surf2surf} function to
-resamples one cortical surface onto another}
+\alias{mri_surf2surf.help}
+\title{Resample Cortical Surface Data with FreeSurfer}
 \usage{
 mri_surf2surf(
   subject = NULL,
@@ -15,51 +15,77 @@ mri_surf2surf(
   sval = c("thickness"),
   subj_dir = NULL,
   opts = "",
-  verbose = TRUE,
+  verbose = get_fs_verbosity(),
   ...
 )
+
+mri_surf2surf.help(...)
 }
 \arguments{
-\item{subject}{(character) vector of subject name}
+\item{subject}{Character; source subject name.}
 
-\item{target_subject}{(character) vector of target subject name}
+\item{target_subject}{Character; target subject name (e.g., "fsaverage").}
 
-\item{trg_type}{(character) target file type, can be curv, paint (w), mgh, or nii}
+\item{trg_type}{Character; target file type. One of "curv", "w" (paint),
+"mgh", or "nii".}
 
-\item{src_type}{(character) source file type, can be curv or paint (w)}
+\item{src_type}{Character; source file type. One of "curv" or "w" (paint).}
 
-\item{outfile}{(character) output filename}
+\item{outfile}{Character; output filename. If NULL, a temporary file is
+created.}
 
-\item{hemi}{(character) hemisphere to run statistics}
+\item{hemi}{Character; hemisphere. One of "lh" or "rh".}
 
-\item{sval}{(character) source file}
+\item{sval}{Character; source value/measure (e.g., "thickness").}
 
 \item{subj_dir}{(character path) if a different subjects directory
 is to be used other than \code{SUBJECTS_DIR} from shell, it can be
 specified here.  Use with care as if the command fail, it may not reset
 the \code{SUBJECTS_DIR} back correctly after the error}
 
-\item{opts}{(character) additional options to \code{mri_surf2surf}}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{verbose}{(logical) print diagnostic messages}
 
-\item{...}{Additional arguments to pass to \code{\link{system}}}
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \value{
-Name of output file
+Character; path to the output file (prefixed with hemisphere).
 }
 \description{
-This function calls Freesurfer \code{mri_surf2surf} to
-resample one cortical surface onto another
+Calls FreeSurfer's \code{mri_surf2surf} to resample one cortical surface onto
+another, enabling comparison of surface data across subjects or atlases.
 }
+\details{
+This function is commonly used to:
+\itemize{
+\item Project individual subject data onto a template (e.g., fsaverage)
+\item Resample between different surface resolutions
+\item Convert between surface file formats
+}
+
+The output filename is automatically prefixed with the hemisphere
+(e.g., "lh.output.mgz").
+}
+\section{Functions}{
+\itemize{
+\item \code{mri_surf2surf.help()}: Display FreeSurfer help for mri_surf2surf
+
+}}
 \examples{
-if (have_fs()) {
-   out = mri_surf2surf(
-   subject = 'bert',
-   target_subject = 'fsaverage',
-   trg_type  = 'curv',
-   src_type  = 'curv',
-   hemi = "rh",
-   sval = "thickness")
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
+out <- mri_surf2surf(
+  subject = "bert",
+  target_subject = "fsaverage",
+  trg_type = "curv",
+  src_type = "curv",
+  hemi = "rh",
+  sval = "thickness"
+)
 }
+\dontshow{\}) # examplesIf}
+}
+\seealso{
+\code{\link[=fs_help]{fs_help()}} for FreeSurfer command documentation
 }

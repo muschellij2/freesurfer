@@ -4,10 +4,10 @@
 \alias{mri_info.help}
 \title{MRI information Help}
 \usage{
-mri_info.help()
+mri_info.help(...)
 }
-\value{
-Result of \code{fs_help}
+\arguments{
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \description{
 This calls Freesurfer's \code{mri_info} help

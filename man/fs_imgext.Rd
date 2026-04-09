@@ -2,16 +2,16 @@
 % Please edit documentation in R/fs_setup.R
 \name{fs_imgext}
 \alias{fs_imgext}
-\title{Determine extension of image based on FSLOUTPUTTYPE}
+\title{Determine extension of image based on Freesurfer output type}
 \usage{
 fs_imgext()
 }
 \value{
-Extension for output type
+Character string representing the file extension for the output type.
 }
 \description{
-Runs \code{get_fs_output()} to extract FSLOUTPUTTYPE and then 
-gets corresponding extension (such as .nii.gz)
+Runs \code{get_fs_output()} to extract the Freesurfer output type
+and then gets the corresponding file extension (such as \code{.nii.gz}).
 }
 \examples{
 fs_imgext()

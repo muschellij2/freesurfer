@@ -13,14 +13,17 @@ freesurfer_read_curv(file)
 Numeric vector
 }
 \description{
-Reads a Freesurfer curvature file according to the 
+Reads a Freesurfer curvature file according to the
 FREESURFER_HOME/matlab/read_curv.m file.
 }
 \examples{
-if (have_fs()) {
-   bert_dir = file.path(fs_subj_dir(), "bert", "surf")
-   file = file.path(bert_dir, "lh.thickness")
-   fid = file(file, open = "rb")
-   out = freesurfer_read_curv(file)
-} 
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontshow{
+options(freesurfer.verbose = FALSE)
+}
+bert_dir = file.path(fs_subj_dir(), "bert", "surf")
+file = file.path(bert_dir, "lh.thickness")
+fid = file(file, open = "rb")
+out = freesurfer_read_curv(file)
+\dontshow{\}) # examplesIf}
 }

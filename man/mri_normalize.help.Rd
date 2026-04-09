@@ -4,7 +4,10 @@
 \alias{mri_normalize.help}
 \title{MRI Normalize Help}
 \usage{
-mri_normalize.help()
+mri_normalize.help(...)
+}
+\arguments{
+\item{...}{additional arguments to \code{\link{get_fs}}}
 }
 \value{
 Result of \code{fs_help}

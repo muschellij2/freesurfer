@@ -2,42 +2,110 @@
 % Please edit documentation in R/mris_convert.R
 \name{mris_convert}
 \alias{mris_convert}
-\title{Use Freesurfers MRIs Converter}
+\alias{mris_convert_annot}
+\alias{mris_convert_curv}
+\alias{mris_convert_normals}
+\alias{mris_convert_vertex}
+\alias{mris_convert.help}
+\title{Convert Cortical Surface File Formats with FreeSurfer}
 \usage{
 mris_convert(
   infile,
   outfile = NULL,
   ext = ".asc",
   opts = "",
-  verbose = TRUE,
+  verbose = get_fs_verbosity(),
   ...
 )
+
+mris_convert_annot(annot, opts = "", ...)
+
+mris_convert_curv(curv, opts = "", ...)
+
+mris_convert_normals(opts = "", ...)
+
+mris_convert_vertex(opts = "", ...)
+
+mris_convert.help(...)
 }
 \arguments{
-\item{infile}{(character) file path for input file}
+\item{infile}{Character; path to input surface file.}
 
-\item{outfile}{(character) output file path}
+\item{outfile}{Character; path to output file. If NULL, a temporary file
+with the specified extension is created.}
 
-\item{ext}{(character) output file extension, default is set to .asc}
+\item{ext}{Character; output file extension when \code{outfile} is NULL.
+Default is ".asc".}
 
-\item{opts}{(character) additional options to add to front of command}
+\item{opts}{Character. Additional options to Freesurfer function.}
 
 \item{verbose}{(logical) print diagnostic messages}
 
-\item{...}{Additional arguments to pass to \code{\link{system}}}
+\item{...}{Additional arguments passed to \code{mris_convert}.}
+
+\item{annot}{Character; path to annotation or gifti label file.}
+
+\item{curv}{Character; path to scalar curvature overlay file.}
 }
 \value{
-Name of output file
+Character; path to the output file. For \code{mris_convert()}, the
+output has a "separator" attribute indicating the file's field separator.
 }
 \description{
-This function call  \code{mris_convert}, a
-general conversion program for converting between cortical surface file formats
+These functions call FreeSurfer's \code{mris_convert} to convert between cortical
+surface file formats. The base function \code{mris_convert()} provides general
+conversion, while specialized variants handle specific data types.
+}
+\details{
+FreeSurfer's \code{mris_convert} is a general conversion program for cortical
+surface file formats. It can convert between binary and ASCII formats,
+extract specific data types, and transform between coordinate systems.
+}
+\section{Functions}{
+\itemize{
+\item \code{mris_convert_annot()}: Convert with annotation or gifti label data
+
+\item \code{mris_convert_curv()}: Convert with scalar curvature overlay
+
+\item \code{mris_convert_normals()}: Extract surface normals
+
+\item \code{mris_convert_vertex()}: Extract vertex coordinates
+
+\item \code{mris_convert.help()}: Display FreeSurfer help for mris_convert
+
+}}
+\note{
+For curvature conversions, the output filename may be modified by
+FreeSurfer. You may need to prepend the hemisphere prefix to get the
+correct path.
 }
 \examples{
-if (have_fs()) {
- bert_surf_dir = file.path(fs_subj_dir(), "bert", "surf")
- asc_file = mris_convert(
- infile = file.path(bert_surf_dir, "lh.white")
- )
+\dontshow{if (have_fs()) withAutoprint(\{ # examplesIf}
+\dontrun{
+bert_dir <- file.path(fs_subj_dir(), "bert")
+bert_surf <- file.path(bert_dir, "surf", "lh.white")
+
+# Basic conversion to ASCII
+asc_file <- mris_convert(infile = bert_surf)
+
+# Convert with annotation data
+gii_file <- mris_convert_annot(
+  infile = bert_surf,
+  annot = file.path(bert_dir, "label", "lh.aparc.annot"),
+  ext = ".gii"
+)
+
+# Convert with curvature overlay
+curv_file <- mris_convert_curv(
+  infile = bert_surf,
+  curv = file.path(bert_dir, "surf", "lh.thickness")
+)
+
+# Extract surface normals
+normals_file <- mris_convert_normals(infile = bert_surf)
+
+# Extract vertex coordinates
+vertex_file <- mris_convert_vertex(infile = bert_surf)
 }
+\dontshow{\}) # examplesIf}
 }

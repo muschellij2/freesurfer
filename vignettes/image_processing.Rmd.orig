@@ -1,0 +1,185 @@
+---
+title: "Core Image Processing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Core Image Processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+bibliography: ref.bib
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  eval = freesurfer::have_fs(),
+  prompt = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+options(freesurfer.verbose = FALSE)
+
+```
+
+Welcome to this tutorial on core image processing with the `freesurfer` package!
+This guide will walk you through essential image manipulation and processing functions that `freesurfer` wraps, allowing you to seamlessly integrate Freesurfer's powerful tools into your R workflow.
+We'll cover how to work with different imaging formats and perform fundamental processing steps like MRI conversion, bias-field correction, and brain extraction.
+
+## Understanding Imaging Formats in `freesurfer` and R
+
+The `freesurfer` package is built to work primarily with `nifti` objects, which are R's representation of images in the Neuroimaging Informatics Technology Initiative (NIfTI) format, as implemented by the `oro.nifti` package [@whitcher_working_2011].
+When you use `freesurfer` R functions that call underlying Freesurfer commands, these functions are designed to accept either a file name or a `nifti` object as input.
+Behind the scenes, the R code will automatically handle any necessary conversions to prepare the image in the specific format required by Freesurfer.
+
+From your perspective as a user, this means the entire input/output process stays within the R environment, consistently using the `nifti` object format.
+This approach offers a significant advantage: you can read an image into R, perform various manipulations on the `nifti` object using standard R array syntax, and then effortlessly pass this modified object directly into a `freesurfer` R function.
+This seamless integration allows you to leverage R's extensive functionality for object manipulation while still accessing Freesurfer's specialized tools.
+
+While NIfTI is a common format, some Freesurfer functions may require other imaging formats, such as the Medical Imaging NetCDF (MINC) format (you can find more details about MINC [here](http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC)).
+
+Fortunately, your Freesurfer installation provides utilities to convert between MINC and NIfTI formats.
+These are implemented in R as functions like `nii2mnc` (for NIfTI to MINC) and `mnc2nii` (for MINC to NIfTI).
+Furthermore, the `mri_convert` Freesurfer function (which has an R interface with the same name in `freesurfer`) offers a more general tool for converting between various imaging types.
+This is incredibly useful because it allows you to convert many different formats to NIfTI, which can then be easily read into R using the `readNIfTI` function from the `oro.nifti` package.
+
+## The Freesurfer Reconstruction Pipeline
+
+The Freesurfer pipeline and analysis workflow for neuroanatomical images is specifically designed to work with T1-weighted structural MRI scans of the brain.
+The entire processing pipeline is implemented within the main Freesurfer function, `recon-all`, where "recon" stands for "reconstruction" (you can learn more on the [Freesurfer wiki](https://surfer.nmr.mgh.harvard.edu/fswiki/recon-all)).
+
+The `recon-all` function is the primary workhorse of Freesurfer and is the most commonly used command.
+By using the `-all` flag with `recon-all`, you initiate over 30 different processing steps.
+This comprehensive process can take anywhere from [20 to 40 hours to fully process a single subject](https://surfer.nmr.mgh.harvard.edu/fswiki/recon-all).
+This is the recommended method for fully processing a T1-weighted image in Freesurfer, and it's implemented in the `freesurfer` R package as the `recon_all` function.
+When using the `recon_all` function in R, you'll need to specify:
+* `infile`: Your input file, which should be a T1-weighted image.
+* `outdir`: The output directory (optional, if different from `SUBJECTS_DIR`).
+* `subjid`: A unique identifier for your subject.
+
+The results of the processing will be saved in a sub-directory within your `SUBJECTS_DIR`, named after your subject identifier.
+
+The basic syntax for `recon_all` is:
+
+```{r eval = FALSE}
+recon_all(infile, outdir, subjid)
+```
+
+Sometimes, issues might arise with the initial processing results.
+For example, brain extraction, where non-brain tissues are removed from the image, might not be perfect.
+In such cases, Freesurfer allows you to manually edit certain parts of the processing to correct these issues.
+
+Once these corrections are made, you can then resume the remainder of the pipeline.
+The full `recon-all` pipeline is logically broken down into three separate sets of steps: `autorecon1`, `autorecon2`, and `autorecon3`.
+These correspond to the same-named flags used in the `recon-all` command to initiate each set of steps.
+To make this workflow easier for R users, we have created wrapper functions: `autorecon1`, `autorecon2`, and `autorecon3`.
+This allows you to run specific parts of the pipeline if desired, or restart a failed process after you've corrected any issues with your data.
+
+## Converting MRI Images with `mri_convert`
+
+Freesurfer's brain volumes are typically output in MGH/MGZ format (explained further on the [fswiki](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat)).
+Since NIfTI is one of the most common and widely supported formats for analysis in packages like `oro.nifti` and `neurobase`, it's often beneficial to convert these MGH/MGZ files to NIfTI for easy reading into R.
+The `mri_convert` Freesurfer function is the perfect tool for this conversion, and we've wrapped it conveniently in the `freesurfer` R package.
+
+Let's use the T1-weighted image from the "bert" subject, which is included with your Freesurfer installation for reproducible examples.
+The `read_mgz()` function converts this `.mgz` file to NIfTI format and then read it into R:
+
+```{r mri_convert}
+library(freesurfer)
+
+bert_mri = file.path(fs_subj_dir(), "bert", "mri", "T1.mgz")
+
+bert_nii = read_mgz(bert_mri)
+```
+
+Now that `bert_nii` is a `nifti` object, we can easily plot it using the `neurobase` package:
+
+```{r mri_plot, fig.cap = "Slices of the Bert T1 image", fig.asp=0.8}
+library(neurobase)
+
+neurobase::ortho2(bert_nii)
+```
+
+We can now see a display of three slices of the head: the top-left panel shows an axial view (looking down from the top of the head), the top-right panel shows a sagittal view (looking from the right side of the brain), and the bottom-left panel shows a coronal view (looking from the back of the head).
+You might notice that the image is not stored in the right/posterior/inferior (RPI) orientation, which is typically assumed when displaying with the `neurobase::neurobase::ortho2` function.
+To correct this, we can use the `orient_rpi` function from the `neurobase` package, whose function returns a list, with the nii image in the "img" element, and the orientation in the "orientation" element.
+
+```{r mri_plot2, fig.cap = "Slices of the Bert T1 image after reorientation", fig.asp=0.8}
+bert_nii_rpi = orient_rpi(bert_nii)
+
+neurobase::ortho2(bert_nii_rpi$img)
+```
+The image above shows the reoriented image.
+Notice how the views now align correctly with the assumed orientation markers of `neurobase::ortho2`, changing which panel corresponds to which view.
+
+## Correcting for Bias Fields with `nu_correct`
+
+MRI images generally offer excellent contrast between different soft tissue classes.
+However, intensity inhomogeneities within the radio frequency (RF) field can lead to variations in tissue type intensities across different spatial locations (e.g., intensities might differ between the top and bottom of the brain).
+These inhomogeneities or non-uniformities can cause problems for algorithms that rely on histograms, quantiles, or raw intensities [@zhang_segmentation_2001].
+Therefore, correcting for these image inhomogeneities is a critical step in many neuroimaging analyses.
+
+The Freesurfer function `nu_correct` performs this non-uniformity correction using the method described by [@sled_nonparametric_1998].
+The `freesurfer` R function with the same name will execute this correction and return the processed image.
+The Freesurfer `nu_correct` command typically requires input in the [MINC format](http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC).
+
+```{r nu_correct_convert_minc, results='hide'}
+# Save the NIfTI to a temporary MINC file
+temp_minc_file = tempfile(fileext = ".mnc")
+bert_mnc <- nii2mnc(bert_nii_rpi$img, outfile = temp_minc_file)
+```
+
+Now, we can pass this MINC file directly into the `nu_correct` function.
+This function will run the Freesurfer correction and then automatically convert the resulting MINC output back into a `nifti` object for you to use in R.
+
+```{r nu_correct, results='hide'}
+bert_nu = nu_correct(bert_mnc)
+class(bert_nu)
+```
+
+As you can see, the output `bert_mnc` is indeed a `nifti` object.
+We can now visualize the corrected image alongside the estimated bias field (log-transformed for better display) to observe which areas have been differentially corrected, as seen below.
+
+```{r nu_correct_plot, fig.cap = "Bias field corrected image and estimated bias field", fig.asp = 0.8}
+bias_field = finite_img(log(bert_nii_rpi$img / bert_nu))
+
+double_ortho(
+  bert_nu,
+  bias_field,
+  col.y = hotmetal(),
+  mask = bert_nu > 40
+)
+```
+
+Ultimately, this correction helps to make the intensities within the brain more spatially homogeneous.
+It's worth noting that this method is different from what's implemented in FSL [@jenkinson_fsl_2012] (and consequently in `fslr`), offering you an alternative correction method that wasn't previously available to R users.
+You can also pass in a mask of the brain (we'll cover brain extraction next) to apply the correction only to specific areas of interest within the brain.
+
+In addition to `read_mgz` and `read_mgh`, we also provide a `read_mnc` wrapper function for directly reading MINC files after they've been converted to NIfTI.
+A useful feature: if you pass a `nifti` object directly into the `mri_convert` function, it will automatically handle the conversion of that NIfTI input file before running the Freesurfer conversion.
+
+## Brain Extraction with `mri_watershed`
+
+The `mri_watershed` function is designed to segment the brain, separating it from non-brain tissues such as the skull and other extra-cranial structures.
+While other R imaging software, like `EBImage` [@EBImage], have implemented the general watershed algorithm, these methods haven't been directly adapted for MRI or specifically optimized for brain extraction.
+With `freesurfer`, you can simply pass in your `nifti` object, and the function will return a brain-extracted `nifti` object.
+
+```{r watershed_plot, fig.cap = "Brain extracted image using mri_watershed", fig.asp = 0.8, results = 'hide'}
+bert_brain = mri_watershed(bert_nii_rpi$img)
+neurobase::ortho2(bert_brain)
+```
+
+The figure above shows the result: areas like the skull, eyes, face, and other parts of the image have been successfully removed.
+You might still observe some remaining areas, possibly membranes between the brain and the skull, but for most analyses, this represents an adequate brain extraction.
+
+Since the result is a `nifti` object, you can easily create a binary brain mask using standard logical operations for arrays.
+As MRI scans typically have positive intensity values, the positive areas of the image can be considered the "brain" region:
+
+```{r brain_mask}
+brain_mask = bert_brain > 0
+neurobase::ortho2(
+  bert_nii_rpi$img,
+  col.y = c(NA, "red"),
+  mask = brain_mask,
+  text = "Brain Mask"
+)
+```
+
+

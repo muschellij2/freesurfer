@@ -4,10 +4,10 @@
 \alias{mri_mask.help}
 \title{MRI Normalize Help}
 \usage{
-mri_mask.help()
+mri_mask.help(...)
 }
-\value{
-Result of \code{fs_help}
+\arguments{
+\item{...}{Additional arguments passed to \code{\link[=fs_help]{fs_help()}}}
 }
 \description{
 This calls Freesurfer's \code{mri_mask} help
