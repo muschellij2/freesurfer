@@ -25,10 +25,12 @@ can specify an output directory using `outdir`.
 Here’s a simple example:
 
 ``` r
+
 library(freesurfer)
 ```
 
 ``` r
+
 # Run the full Freesurfer pipeline on an input NIfTI file
 recon_all(
   infile = "subject01.nii",
@@ -46,6 +48,7 @@ If the pipeline is interrupted or you need to restart the pipeline, you
 can specify additional options using the `opts` parameter. For example:
 
 ``` r
+
 # Restart the entire pipeline from the beginning
 recon_all(
   infile = "subject01.nii",
@@ -67,6 +70,7 @@ pipeline. You can specify which steps to include or exclude using the
 By default, all processing steps are included:
 
 ``` r
+
 # Run the pipeline with all steps enabled
 recon(
   infile = "subject01.nii",
@@ -82,6 +86,7 @@ To customize the pipeline, create a logical vector of steps using
 modify it, and pass it to the `options` argument.
 
 ``` r
+
 # Customize the pipeline to skip Talairach alignment and normalization
 custom_steps <- recon_steps()
 custom_steps
@@ -120,6 +125,7 @@ custom_steps
 ```
 
 ``` r
+
 # Run the pipeline with customized steps
 recon(
   infile = "subject01.nii",
@@ -134,6 +140,7 @@ recon(
 For detailed logging, set `verbose = TRUE`:
 
 ``` r
+
 # Example with verbose output
 recon(
   infile = "subject01.nii",
@@ -155,6 +162,7 @@ Further processing (e.g., intensity normalization and registration). -
 Final stages, including surface reconstruction and quality checks.
 
 ``` r
+
 # Run stages individually
 autorecon1(
   infile = "subject_001.nii",
@@ -191,6 +199,7 @@ options.
 #### Basic Usage
 
 ``` r
+
 # Basic example with default options
 reconner(
   infile = "subject01.nii",
@@ -206,6 +215,7 @@ If the subject directory already exists and you want to force
 re-execution, set `force = TRUE`:
 
 ``` r
+
 # Force reconstruction
 reconner(
   infile = "subject01.nii",

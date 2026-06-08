@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>freesurfer: R wrapper to neuroimaging software • freesurfer</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="freesurfer: R wrapper to neuroimaging software">
 </head>
@@ -82,24 +82,24 @@ anatomical neuroimaging data <span class="citation">(Fischl
 2012)</span>, developed by the Laboratory for Computational Neuroimaging
 at the Athinoula A. Martinos Center for Biomedical Imaging. This
 software provides open-source, command-line tools for image processing
-tasks such as brain extraction/skull-stripping <span class="citation">(Segonne, Dale, and Fischl 2004)</span>, bias-field
-correction <span class="citation">(Sled, Zijdenbos, and Evans
-1998)</span>, segmentation of structures within the brain <span class="citation">(Fischl et al. 2002, fischl2004sequence)</span>, and
-image registration <span class="citation">Reuter, Rosas, and Fischl
+tasks such as brain extraction/skull-stripping <span class="citation">(Segonne et al. 2004)</span>, bias-field correction
+<span class="citation">(Sled et al. 1998)</span>, segmentation of
+structures within the brain <span class="citation">(<span class="nocase">Fischl et al.</span> 2002, fischl2004sequence)</span>,
+and image registration <span class="citation">Reuter et al.
 (2010)</span>. In addition to these functions, Freesurfer has functions
 that perform fully-automated pipelines for the user.</p>
 <!-- We have previously published a similar adaptation of the FSL imaging software [@jenkinson_fsl_2012} to R, called \fslr [@muschelli2015fslr}.
 
 Again, we note that there -->
 <p>There exist a number of R packages for reading and manipulating image
-data, including <code>AnalyzeFMRI</code> <span class="citation">(Bordier, Poline, and Thirion 2011)</span> and
-<code>fmri</code> <span class="citation">(Tabelow et al. 2011)</span>,
-which analyze functional magnetic resonance images (MRI) and perform
-spatial smoothing, <code>RNiftyReg</code> <span class="citation">(Modat
-et al. 2013)</span>, which performs image registration, and
-<code>dpmixsim</code> <span class="citation">(CRAN 2024)</span> and
-<code>mritc</code> <span class="citation">(CRAN 2023)</span>, which
-perform image clustering and segmentation (see the <a href="http://cran.r-project.org/web/views/MedicalImaging.html" class="external-link">Medical
+data, including <code>AnalyzeFMRI</code> <span class="citation">(Bordier
+et al. 2011)</span> and <code>fmri</code> <span class="citation">(<span class="nocase">Tabelow et al.</span> 2011)</span>, which analyze
+functional magnetic resonance images (MRI) and perform spatial
+smoothing, <code>RNiftyReg</code> <span class="citation">(<span class="nocase">Modat et al.</span> 2013)</span>, which performs image
+registration, and <code>dpmixsim</code> <span class="citation">(CRAN
+2024)</span> and <code>mritc</code> <span class="citation">(CRAN
+2023)</span>, which perform image clustering and segmentation (see the
+<a href="http://cran.r-project.org/web/views/MedicalImaging.html" class="external-link">Medical
 Imaging CRAN task view</a> for more information). These packages provide
 powerful tools for performing image analysis, but the neuroimaging
 community has additional tools that may perform better on a specific
@@ -223,7 +223,7 @@ data.</p>
 <div class="section level3">
 <h3 id="imaging-formats-in-freesurfer-and-r">Imaging formats in <code>freesurfer</code> and R<a class="anchor" aria-label="anchor" href="#imaging-formats-in-freesurfer-and-r"></a>
 </h3>
-<p>The <code>freesurfer</code> package relies on the oro.nift <span class="citation">(Whitcher, Muschelli, and Johnson 2011)</span> package
+<p>The <code>freesurfer</code> package relies on the oro.nift <span class="citation">(Whitcher, Muschelli, et al. 2011)</span> package
 implementation of images (referred to as <code>nifti</code> objects)
 that are in the Neuroimaging Informatics Technology Initiative (NIfTI)
 format. For Freesurfer functions that require an image, the R
@@ -247,7 +247,7 @@ Freesurfer function has been interfaced in <code>freesurfer</code> (same
 function name), which allows for a more general conversion tool of
 imaging types for R users than currently implemented in native R. Thus,
 many formats can be converted to NIfTI and then read into R using the
-<code>readNIfTI</code> function from <code>oro.nifi</code> <span class="citation">(Whitcher, Schmid, and Thornton 2011)</span>.</p>
+<code>readNIfTI</code> function from <code>oro.nifi</code> <span class="citation">(Whitcher, Schmid, et al. 2011)</span>.</p>
 </div>
 <div class="section level2">
 <h2 id="example-analyses-and-use-of-functions">Example analyses and use of functions<a class="anchor" aria-label="anchor" href="#example-analyses-and-use-of-functions"></a>
@@ -370,13 +370,13 @@ classes, but intensity inhomogeneities in the radio frequency field can
 cause differences in the ranges of tissue types at different spatial
 locations (e.g. top versus bottom of the brain). These
 inhomogeneities/non-uniformities can cause problems with algorithms
-based on histograms, quantiles, or raw intensities <span class="citation">(Zhang, Brady, and Smith 2001)</span>.</p>
+based on histograms, quantiles, or raw intensities <span class="citation">(Zhang et al. 2001)</span>.</p>
 <p>Therefore, correction for image inhomogeneities is a crucial step in
 many analyses.</p>
 <p>The Freesurfer function <code>nu_correct</code> performs the
-non-uniformity correction by <span class="citation">Sled, Zijdenbos, and
-Evans (1998)</span>, and the <code>freesurfer</code> function of the
-same name will run the correction and return an image.</p>
+non-uniformity correction by <span class="citation">Sled et al.
+(1998)</span>, and the <code>freesurfer</code> function of the same name
+will run the correction and return an image.</p>
 <p>The Freesurfer <code>nu_correct</code> function requires a <a href="http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC" class="external-link">MINC
 format</a>. For this to work, you can convert the <code>nifti</code>
 object to a MINC file using <code>nii2mnc</code>:</p>
@@ -649,7 +649,7 @@ assigned (in this case all zeroes). These files can be used for
 registration as well. Overall, we have provided a reader for users, but
 have not used them in our research and therefore have not tested them
 extensively to discuss them further.</p>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bordier_temporal_2011" class="csl-entry">
 Bordier, Cynthia, Jean-Baptiste Poline, and Bertrand Thirion. 2011.
 <span>“Temporal and Spatial Smoothing for fMRI Data Based on a Bayesian
@@ -657,22 +657,22 @@ Hierarchical Model.”</span> <em>Statistical Methods in Medical
 Research</em> 20 (3): 201–23.
 </div>
 <div id="ref-mritc" class="csl-entry">
-CRAN. 2023. <span>“<span class="nocase">mritc</span>: Image Clustering
-and Segmentation.”</span> <a href="https://CRAN.R-project.org/package=mritc" class="external-link">https://CRAN.R-project.org/package=mritc</a>.
+CRAN. 2023. <em><span class="nocase">mritc</span>: Image Clustering and
+Segmentation</em>. <a href="https://CRAN.R-project.org/package=mritc" class="external-link">https://CRAN.R-project.org/package=mritc</a>.
 </div>
 <div id="ref-dpmixsim" class="csl-entry">
-———. 2024. <span>“<span class="nocase">dpmixsim</span>: An r Package for
-Bayesian Nonparametric Mixture Models.”</span> <a href="https://CRAN.R-project.org/package=dpmixsim" class="external-link">https://CRAN.R-project.org/package=dpmixsim</a>.
+CRAN. 2024. <em><span class="nocase">dpmixsim</span>: An r Package for
+Bayesian Nonparametric Mixture Models</em>. <a href="https://CRAN.R-project.org/package=dpmixsim" class="external-link">https://CRAN.R-project.org/package=dpmixsim</a>.
 </div>
 <div id="ref-fischl2012freesurfer" class="csl-entry">
 Fischl, Bruce. 2012. <span>“FreeSurfer.”</span> <em>Neuroimage</em> 62
 (2): 774–81.
 </div>
 <div id="ref-fischl2002whole" class="csl-entry">
-Fischl, Bruce, David H Salat, Evelina Busa, Matthew Albert, Mark
-Schaberg, Douglas N Greve, Anders M Dale, et al. 2002.
-<span>“Whole-Brain Segmentation: Automated Labeling of Neuroanatomical
-Structures in the Human Brain.”</span> <em>Neuron</em> 33 (3): 341–55.
+<span class="nocase">Fischl, Bruce, David H Salat, Evelina Busa, et
+al.</span> 2002. <span>“Whole-Brain Segmentation: Automated Labeling of
+Neuroanatomical Structures in the Human Brain.”</span> <em>Neuron</em>
+33 (3): 341–55.
 </div>
 <div id="ref-fischl1999high" class="csl-entry">
 Fischl, Bruce, Martin I Sereno, and Anders M Dale. 1999.
@@ -680,9 +680,8 @@ Fischl, Bruce, Martin I Sereno, and Anders M Dale. 1999.
 for the Human Brain.”</span> <em>Human Brain Mapping</em> 8 (4): 272–84.
 </div>
 <div id="ref-gorgolewski_nipype:_2011" class="csl-entry">
-Gorgolewski, Krzysztof J, Christopher D Burns, Christopher Madison,
-Daniel Clark, Yaroslav O Halchenko, Michael L Waskom, and Satrajit S
-Ghosh. 2011. <span>“<span>Nipype</span>: A Flexible, Distributed, and
+Gorgolewski, Krzysztof J, Christopher D Burns, Christopher Madison, et
+al. 2011. <span>“<span>Nipype</span>: A Flexible, Distributed, and
 Open-Source Implementation of a Dataflow for Neuroimaging Data
 Analysis.”</span> <em>Frontiers in Neuroinformatics</em> 5: 13.
 </div>
@@ -693,10 +692,10 @@ MRI of the Brain, Diffusion Tensor Imaging, and Structural
 Imaging.”</span> <em>Neuroimage</em> 62 (2): 782–90.
 </div>
 <div id="ref-modat_rniftyreg:_2013" class="csl-entry">
-Modat, Marc, David M Cash, Pradnya Daga, Kyana Dourado, and and others.
-2013. <span>“<span>RNiftyReg</span>: An r Package for Image
-Registration.”</span> <em>Journal of Statistical Software</em> 55 (10):
-1–22.
+<span class="nocase">Modat, Marc, David M Cash, Pradnya Daga, Kyana
+Dourado, and and others</span>. 2013. <span>“<span>RNiftyReg</span>: An
+r Package for Image Registration.”</span> <em>Journal of Statistical
+Software</em> 55 (10): 1–22.
 </div>
 <div id="ref-rgl" class="csl-entry">
 Murdoch, Duncan, and Daniel Adler. 2025. <em>Rgl: 3D Visualization Using
@@ -735,15 +734,14 @@ MRI Data.”</span> <em>IEEE Transactions on Medical Imaging</em> 17 (1):
 87–97.
 </div>
 <div id="ref-tabelow_statistical_2011" class="csl-entry">
-Tabelow, Karsten, Jörg Polzehl, Helga U Voss, et al. 2011.
-<span>“Statistical Analysis of fMRI Data in r.”</span>
+<span class="nocase">Tabelow, Karsten, Jörg Polzehl, Helga U Voss, et
+al.</span> 2011. <span>“Statistical Analysis of fMRI Data in r.”</span>
 <em>Neuroimage</em> 58 (4): 1117–26.
 </div>
 <div id="ref-tustison_antsx_2021" class="csl-entry">
-Tustison, Nicholas J., Brian B. Avants, Philip A. Cook, Sharmistha Das,
-Gordon Duda, Daljeet S. Grewal, Andy Ha, et al. 2021. <span>“The
-<span>ANTsX</span> Ecosystem for Quantitative Biological and Medical
-Imaging.”</span> <em>Scientific Reports</em> 11: 87564–66. <a href="https://doi.org/10.1038/s41598-021-87564-6" class="external-link">https://doi.org/10.1038/s41598-021-87564-6</a>.
+Tustison, Nicholas J., Brian B. Avants, Philip A. Cook, et al. 2021.
+<span>“The <span>ANTsX</span> Ecosystem for Quantitative Biological and
+Medical Imaging.”</span> <em>Scientific Reports</em> 11: 87564–66. <a href="https://doi.org/10.1038/s41598-021-87564-6" class="external-link">https://doi.org/10.1038/s41598-021-87564-6</a>.
 </div>
 <div id="ref-whitcher_working_2011" class="csl-entry">
 Whitcher, Brandon, John Muschelli, and Keith Johnson. 2011.

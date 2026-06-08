@@ -19,10 +19,12 @@ If you were to run a full analysis using `recon_all`, your output would
 look something like this:
 
 ``` r
+
 library(freesurfer)
 ```
 
 ``` r
+
 recon_all(infile = "/path/to/T1.nii", subjid = "bert")
 ```
 
@@ -31,6 +33,7 @@ subject’s output folder. This will give us an overview of where
 different types of data are stored.
 
 ``` r
+
 list.files(path = file.path(fs_subj_dir(), "bert"))
 ```
 
@@ -64,6 +67,7 @@ Conveniently, the `freesurfer` package includes this `fs_lut` object
 directly for easy access:
 
 ``` r
+
 head(fs_lut, 3)
 ```
 
@@ -93,6 +97,7 @@ returns a list with an image and the orientation of the image, we
 suggest making a custom function to reorient on need.
 
 ``` r
+
 #' Helper function to reorient images to RPI
 #' @param ... Arguments passed to neurobase::orient_rpi
 #' @return Reoriented image
@@ -157,6 +162,7 @@ anatomical segmentation. The `freesurfer` package offers the
 returns a list containing two useful `data.frame`s:
 
 ``` r
+
 file = file.path(fs_subj_dir(), "bert", "stats", "aseg.stats")
 out = read_aseg_stats(file)
 names(out)
@@ -169,6 +175,7 @@ measurements of the brain, such as total brain volume, as well as
 measures for broad anatomical categories like gray matter volume.
 
 ``` r
+
 head(out$measures[, c("meaning", "value", "units")], n = 3)
 ```
 
@@ -188,6 +195,7 @@ hand, the `structures` element offers a more detailed set of measures
 and statistics for a predefined set of specific anatomical structures:
 
 ``` r
+
 head(out$structures, n = 3)
 ```
 
@@ -231,6 +239,7 @@ right pial surfaces of the brain and visualizing them using the powerful
 `rgl` package (Murdoch and Adler 2025).
 
 ``` r
+
 rgl.useNULL()
 library(rgl)
 right_file = file.path(
@@ -251,6 +260,7 @@ left_triangles = surface_to_triangles(left_file)
 ```
 
 ``` r
+
 # Open an rgl window
 open3d()
 
@@ -292,6 +302,7 @@ function for this purpose. Below is a practical example of how to read a
 label file for the left hemisphere cortex:
 
 ``` r
+
 file = file.path(fs_subj_dir(), "bert", "label", "lh.cortex.label")
 out = read_fs_label(file)
 head(out)

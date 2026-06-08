@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Core Image Processing • freesurfer</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Core Image Processing">
 </head>
@@ -88,12 +88,12 @@ extraction.</p>
 <p>The <code>freesurfer</code> package is built to work primarily with
 <code>nifti</code> objects, which are R’s representation of images in
 the Neuroimaging Informatics Technology Initiative (NIfTI) format, as
-implemented by the <code>oro.nifti</code> package <span class="citation">(Whitcher, Muschelli, and Johnson 2011)</span>. When
-you use <code>freesurfer</code> R functions that call underlying
-Freesurfer commands, these functions are designed to accept either a
-file name or a <code>nifti</code> object as input. Behind the scenes,
-the R code will automatically handle any necessary conversions to
-prepare the image in the specific format required by Freesurfer.</p>
+implemented by the <code>oro.nifti</code> package <span class="citation">(Whitcher et al. 2011)</span>. When you use
+<code>freesurfer</code> R functions that call underlying Freesurfer
+commands, these functions are designed to accept either a file name or a
+<code>nifti</code> object as input. Behind the scenes, the R code will
+automatically handle any necessary conversions to prepare the image in
+the specific format required by Freesurfer.</p>
 <p>From your perspective as a user, this means the entire input/output
 process stays within the R environment, consistently using the
 <code>nifti</code> object format. This approach offers a significant
@@ -221,14 +221,14 @@ frequency (RF) field can lead to variations in tissue type intensities
 across different spatial locations (e.g., intensities might differ
 between the top and bottom of the brain). These inhomogeneities or
 non-uniformities can cause problems for algorithms that rely on
-histograms, quantiles, or raw intensities <span class="citation">(Zhang,
-Brady, and Smith 2001)</span>. Therefore, correcting for these image
+histograms, quantiles, or raw intensities <span class="citation">(Zhang
+et al. 2001)</span>. Therefore, correcting for these image
 inhomogeneities is a critical step in many neuroimaging analyses.</p>
 <p>The Freesurfer function <code>nu_correct</code> performs this
-non-uniformity correction using the method described by <span class="citation">(Sled, Zijdenbos, and Evans 1998)</span>. The
-<code>freesurfer</code> R function with the same name will execute this
-correction and return the processed image. The Freesurfer
-<code>nu_correct</code> command typically requires input in the <a href="http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC" class="external-link">MINC
+non-uniformity correction using the method described by <span class="citation">(Sled et al. 1998)</span>. The <code>freesurfer</code>
+R function with the same name will execute this correction and return
+the processed image. The Freesurfer <code>nu_correct</code> command
+typically requires input in the <a href="http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC" class="external-link">MINC
 format</a>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Save the NIfTI to a temporary MINC file</span></span>
@@ -312,7 +312,7 @@ areas of the image can be considered the “brain” region:</p>
 <div class="float">
 <img src="figure/brain_mask-1.png" alt="plot of chunk brain_mask"><div class="figcaption">plot of chunk brain_mask</div>
 </div>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-jenkinson_fsl_2012" class="csl-entry">
 Jenkinson, Mark, Christian F Beckmann, Timothy EJ Behrens, Mark W
 Woolrich, and Stephen M Smith. 2012. <span>“<span>FSL</span>: Functional

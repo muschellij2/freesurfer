@@ -7,20 +7,19 @@ anatomical neuroimaging data (Fischl 2012), developed by the Laboratory
 for Computational Neuroimaging at the Athinoula A. Martinos Center for
 Biomedical Imaging. This software provides open-source, command-line
 tools for image processing tasks such as brain
-extraction/skull-stripping (Segonne, Dale, and Fischl 2004), bias-field
-correction (Sled, Zijdenbos, and Evans 1998), segmentation of structures
-within the brain (Fischl et al. 2002, fischl2004sequence), and image
-registration Reuter, Rosas, and Fischl (2010). In addition to these
-functions, Freesurfer has functions that perform fully-automated
-pipelines for the user.
+extraction/skull-stripping (Segonne et al. 2004), bias-field correction
+(Sled et al. 1998), segmentation of structures within the brain (Fischl
+et al. 2002, fischl2004sequence), and image registration Reuter et al.
+(2010). In addition to these functions, Freesurfer has functions that
+perform fully-automated pipelines for the user.
 
 There exist a number of R packages for reading and manipulating image
-data, including `AnalyzeFMRI` (Bordier, Poline, and Thirion 2011) and
-`fmri` (Tabelow et al. 2011), which analyze functional magnetic
-resonance images (MRI) and perform spatial smoothing, `RNiftyReg` (Modat
-et al. 2013), which performs image registration, and `dpmixsim` (CRAN
-2024) and `mritc` (CRAN 2023), which perform image clustering and
-segmentation (see the [Medical Imaging CRAN task
+data, including `AnalyzeFMRI` (Bordier et al. 2011) and `fmri` (Tabelow
+et al. 2011), which analyze functional magnetic resonance images (MRI)
+and perform spatial smoothing, `RNiftyReg` (Modat et al. 2013), which
+performs image registration, and `dpmixsim` (CRAN 2024) and `mritc`
+(CRAN 2023), which perform image clustering and segmentation (see the
+[Medical Imaging CRAN task
 view](http://cran.r-project.org/web/views/MedicalImaging.md) for more
 information). These packages provide powerful tools for performing image
 analysis, but the neuroimaging community has additional tools that may
@@ -124,6 +123,7 @@ in the individual subject directory, a sub-directory of `SUBJECTS_DIR`.
 The syntax is:
 
 ``` r
+
 recon_all(infile, outdir, subjid)
 ```
 
@@ -141,17 +141,17 @@ the data.
 
 ### Imaging formats in `freesurfer` and R
 
-The `freesurfer` package relies on the oro.nift (Whitcher, Muschelli,
-and Johnson 2011) package implementation of images (referred to as
-`nifti` objects) that are in the Neuroimaging Informatics Technology
-Initiative (NIfTI) format. For Freesurfer functions that require an
-image, the R `freesurfer` functions that call those Freesurfer functions
-will take in a file name or a `nifti` object. The R code will convert
-the `nifti` to the corresponding input required for Freesurfer. From the
-user’s perspective, the input/output process is all within R, with one
-object format (`nifti`). The advantage of this approach is that the user
-can read in an image, do manipulations of the `nifti` object using
-standard syntax for arrays, and pass this object into the `freesurfer` R
+The `freesurfer` package relies on the oro.nift (Whitcher, Muschelli, et
+al. 2011) package implementation of images (referred to as `nifti`
+objects) that are in the Neuroimaging Informatics Technology Initiative
+(NIfTI) format. For Freesurfer functions that require an image, the R
+`freesurfer` functions that call those Freesurfer functions will take in
+a file name or a `nifti` object. The R code will convert the `nifti` to
+the corresponding input required for Freesurfer. From the user’s
+perspective, the input/output process is all within R, with one object
+format (`nifti`). The advantage of this approach is that the user can
+read in an image, do manipulations of the `nifti` object using standard
+syntax for arrays, and pass this object into the `freesurfer` R
 function. Thus, users can use R functionality to manipulate objects
 while seamlessly passing these object to Freesurfer through
 `freesurfer`.
@@ -166,7 +166,7 @@ interfaced in `freesurfer` (same function name), which allows for a more
 general conversion tool of imaging types for R users than currently
 implemented in native R. Thus, many formats can be converted to NIfTI
 and then read into R using the `readNIfTI` function from `oro.nifi`
-(Whitcher, Schmid, and Thornton 2011).
+(Whitcher, Schmid, et al. 2011).
 
 ## Example analyses and use of functions
 
@@ -180,10 +180,12 @@ If we were to run all the analyses, we would use the `recon_all` code
 (described below):
 
 ``` r
+
 library(freesurfer)
 ```
 
 ``` r
+
 recon_all(infile = "/path/to/T1.nii", subjid = "bert")
 ```
 
@@ -191,6 +193,7 @@ We see the result of this output in the “bert” directory, which includes
 a series of sub-directories:
 
 ``` r
+
 list.files(path = file.path(fs_subj_dir(), "bert"))
 ```
 
@@ -215,6 +218,7 @@ the T1-weighted image from the “bert” subject and convert it to NIfTI,
 and read it into R:
 
 ``` r
+
 library(neurobase)
 
 bert_dir = file.path(fs_subj_dir(), "bert") # subject directory
@@ -230,6 +234,7 @@ and `readnii` functions. Here we show that these steps are equivalent to
 the `read_mgz` function:
 
 ``` r
+
 img_mgz = read_mgz(t1_mgz)
 identical(img, img_mgz)
 ```
@@ -240,6 +245,7 @@ Now that we have the image in R, we can plot it using the standard
 plotting tools for `nifti` objects:
 
 ``` r
+
 neurobase::ortho2(img, add.orient = FALSE, mask = img > 40)
 ```
 
@@ -257,10 +263,11 @@ Note, the image is not stored in the right/posterior/inferior (RPI)
 orientation which is assumed when displaying using the `neurobase`
 [`neurobase::ortho2`](https://rdrr.io/pkg/neurobase/man/ortho2.html)
 function (Muschelli 2024). We can use the `rpi_orient` function in
-(version $\geq$ 2.4.0) (Muschelli et al. 2015) or `fslswapdim` to
+(version $`\geq`$ 2.4.0) (Muschelli et al. 2015) or `fslswapdim` to
 reorient the image to the assumed orientation.
 
 ``` r
+
 reoriented_img <- orient_rpi(img)
 reoriented_img
 ```
@@ -283,6 +290,7 @@ reoriented_img
     [1] "LIA"
 
 ``` r
+
 # Save only the image part of the result
 reoriented_img <- reoriented_img$img
 ```
@@ -292,6 +300,7 @@ matches the assumed orientation for
 [`neurobase::ortho2`](https://rdrr.io/pkg/neurobase/man/ortho2.html):
 
 ``` r
+
 neurobase::ortho2(reoriented_img, mask = reoriented_img > 40)
 ```
 
@@ -317,21 +326,21 @@ but intensity inhomogeneities in the radio frequency field can cause
 differences in the ranges of tissue types at different spatial locations
 (e.g. top versus bottom of the brain). These
 inhomogeneities/non-uniformities can cause problems with algorithms
-based on histograms, quantiles, or raw intensities (Zhang, Brady, and
-Smith 2001).
+based on histograms, quantiles, or raw intensities (Zhang et al. 2001).
 
 Therefore, correction for image inhomogeneities is a crucial step in
 many analyses.
 
 The Freesurfer function `nu_correct` performs the non-uniformity
-correction by Sled, Zijdenbos, and Evans (1998), and the `freesurfer`
-function of the same name will run the correction and return an image.
+correction by Sled et al. (1998), and the `freesurfer` function of the
+same name will run the correction and return an image.
 
 The Freesurfer `nu_correct` function requires a [MINC
 format](http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC). For this to
 work, you can convert the `nifti` object to a MINC file using `nii2mnc`:
 
 ``` r
+
 mnc = nii2mnc(reoriented_img)
 print(mnc)
 ```
@@ -343,10 +352,12 @@ which will run the correction and then convert the output MNC to a NIfTI
 object.
 
 ``` r
+
 nu_from_mnc = nu_correct(file = mnc)
 ```
 
 ``` r
+
 class(nu_from_mnc)
 ```
 
@@ -360,6 +371,7 @@ with the image to view which areas had been differentially corrected
 (Figure @ref(fig:nu_correct_plot)).
 
 ``` r
+
 bias_field = finite_img(log(reoriented_img / nu_from_mnc))
 
 double_ortho(
@@ -385,6 +397,7 @@ mask of the brain (see next section) to run the correction only the
 areas of the brain.
 
 ``` r
+
 nu_masked = nu_correct(file = reoriented_img, mask = mask)
 ```
 
@@ -405,6 +418,7 @@ specifically for brain extraction. In `freesurfer`, we can pass in the
 `nifti` object and the output is a brain-extracted `nifti` object.
 
 ``` r
+
 ss = mri_watershed(img)
 ss = orient_rpi(img)$img
 neurobase::ortho2(img, mask = ss)
@@ -429,6 +443,7 @@ logical operations for arrays. As MRI scans are typically
 positive-valued, the positive areas of the image are the “brain”:
 
 ``` r
+
 mask = ss > 0
 ```
 
@@ -448,6 +463,7 @@ This look up table provides a label for each structure and the color
 associated with it:
 
 ``` r
+
 head(fs_lut, 3)
 ```
 
@@ -458,12 +474,13 @@ head(fs_lut, 3)
 
 This object is included in `freesurfer` and denotes the indices, labels,
 and color representation of the structure. We note that the alpha
-channel is set to $0$ for all regions of interest, so we will not use it
-in the calculation of the colors from RGB space. This LUT allows
+channel is set to $`0`$ for all regions of interest, so we will not use
+it in the calculation of the colors from RGB space. This LUT allows
 visualizations produced in R to be consistent with those from
 Freesurfer.
 
 ``` r
+
 seg_file = file = file.path(
   fs_subj_dir(),
   "bert",
@@ -502,6 +519,7 @@ anatomical segmentation. The `read_aseg_stats` function reads this
 corresponding file and creates a list of 2 different `data.frame`s:
 
 ``` r
+
 file = file.path(fs_subj_dir(), "bert", "stats", "aseg.stats")
 out = read_aseg_stats(file)
 names(out)
@@ -514,6 +532,7 @@ The `measures` element corresponds to global measurements of the brain
 structures (e.g. gray matter).
 
 ``` r
+
 head(out$measures[, c("meaning", "value", "units")], n = 3)
 ```
 
@@ -528,6 +547,7 @@ volume over time or across groups are of interest. Alternatively, the
 a set of fixed anatomical structures.
 
 ``` r
+
 head(out$structures, n = 3)
 ```
 
@@ -564,6 +584,7 @@ side of the pial surface of the brain and display the surface using
 `rgl` (Murdoch and Adler 2025).
 
 ``` r
+
 right_file = file.path(fs_subj_dir(), "bert", "surf", "rh.pial")
 right_triangles = surface_to_triangles(infile = right_file)
 left_file = file.path(fs_subj_dir(), "bert", "surf", "lh.pial")
@@ -624,6 +645,7 @@ Freesurfer, we have provided the `read_fs_label` function. Here we will
 read a label file for the left hemisphere cortex:
 
 ``` r
+
 file = file.path(fs_subj_dir(), "bert", "label", "lh.cortex.label")
 out = read_fs_label(file)
 head(out)
@@ -648,16 +670,15 @@ Bordier, Cynthia, Jean-Baptiste Poline, and Bertrand Thirion. 2011.
 Hierarchical Model.” *Statistical Methods in Medical Research* 20 (3):
 201–23.
 
-CRAN. 2023. “mritc: Image Clustering and Segmentation.”
+CRAN. 2023. *mritc: Image Clustering and Segmentation*.
 <https://CRAN.R-project.org/package=mritc>.
 
-———. 2024. “dpmixsim: An r Package for Bayesian Nonparametric Mixture
-Models.” <https://CRAN.R-project.org/package=dpmixsim>.
+CRAN. 2024. *dpmixsim: An r Package for Bayesian Nonparametric Mixture
+Models*. <https://CRAN.R-project.org/package=dpmixsim>.
 
 Fischl, Bruce. 2012. “FreeSurfer.” *Neuroimage* 62 (2): 774–81.
 
-Fischl, Bruce, David H Salat, Evelina Busa, Matthew Albert, Mark
-Schaberg, Douglas N Greve, Anders M Dale, et al. 2002. “Whole-Brain
+Fischl, Bruce, David H Salat, Evelina Busa, et al. 2002. “Whole-Brain
 Segmentation: Automated Labeling of Neuroanatomical Structures in the
 Human Brain.” *Neuron* 33 (3): 341–55.
 
@@ -665,9 +686,8 @@ Fischl, Bruce, Martin I Sereno, and Anders M Dale. 1999.
 “High-Resolution Intersubject Averaging and a Coordinate System for the
 Human Brain.” *Human Brain Mapping* 8 (4): 272–84.
 
-Gorgolewski, Krzysztof J, Christopher D Burns, Christopher Madison,
-Daniel Clark, Yaroslav O Halchenko, Michael L Waskom, and Satrajit S
-Ghosh. 2011. “Nipype: A Flexible, Distributed, and Open-Source
+Gorgolewski, Krzysztof J, Christopher D Burns, Christopher Madison, et
+al. 2011. “Nipype: A Flexible, Distributed, and Open-Source
 Implementation of a Dataflow for Neuroimaging Data Analysis.” *Frontiers
 in Neuroinformatics* 5: 13.
 
@@ -711,10 +731,10 @@ Transactions on Medical Imaging* 17 (1): 87–97.
 Tabelow, Karsten, Jörg Polzehl, Helga U Voss, et al. 2011. “Statistical
 Analysis of fMRI Data in r.” *Neuroimage* 58 (4): 1117–26.
 
-Tustison, Nicholas J., Brian B. Avants, Philip A. Cook, Sharmistha Das,
-Gordon Duda, Daljeet S. Grewal, Andy Ha, et al. 2021. “The ANTsX
-Ecosystem for Quantitative Biological and Medical Imaging.” *Scientific
-Reports* 11: 87564–66. <https://doi.org/10.1038/s41598-021-87564-6>.
+Tustison, Nicholas J., Brian B. Avants, Philip A. Cook, et al. 2021.
+“The ANTsX Ecosystem for Quantitative Biological and Medical Imaging.”
+*Scientific Reports* 11: 87564–66.
+<https://doi.org/10.1038/s41598-021-87564-6>.
 
 Whitcher, Brandon, John Muschelli, and Keith Johnson. 2011. “Working
 with the NIfTI and ANALYZE Image Formats in r.” *Journal of Statistical

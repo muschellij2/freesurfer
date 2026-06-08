@@ -13,12 +13,14 @@ You can install the released version of freesurfer from
 [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
+
 install.packages("freesurfer")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("muschellij2/freesurfer")
 ```

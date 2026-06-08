@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Getting Started and Setting Up `freesurfer` in R • freesurfer</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started and Setting Up `freesurfer` in R">
 </head>
@@ -82,28 +82,24 @@ suite of open-source, command-line tools. These tools handle essential
 image processing tasks such as:</p>
 <ul>
 <li>Brain extraction or skull-stripping, which removes non-brain tissues
-from images <span class="citation">(Segonne, Dale, and Fischl
-2004)</span>.</li>
+from images <span class="citation">(Segonne et al. 2004)</span>.</li>
 <li>Bias-field correction, which corrects for intensity non-uniformities
-in MRI scans <span class="citation">(Sled, Zijdenbos, and Evans
-1998)</span>.</li>
+in MRI scans <span class="citation">(Sled et al. 1998)</span>.</li>
 <li>Segmentation of brain structures, allowing for the identification
-and measurement of different regions <span class="citation">(Fischl et
-al. 2002, 2004)</span>.</li>
+and measurement of different regions <span class="citation">(<span class="nocase">Fischl et al.</span> 2002, 2004)</span>.</li>
 <li>Image registration, which aligns different brain images to a common
-space <span class="citation">(Fischl, Sereno, and Dale 1999; Reuter,
-Rosas, and Fischl 2010)</span>.</li>
+space <span class="citation">(Fischl et al. 1999; Reuter et al.
+2010)</span>.</li>
 </ul>
 <p>Beyond these individual functions, Freesurfer also provides
 fully-automated pipelines that streamline complex processing
 workflows.</p>
 <p>While R offers several powerful packages for image data, such as
-<code>AnalyzeFMRI</code> <span class="citation">(Bordier, Poline, and
-Thirion 2011)</span> and <code>fmri</code> <span class="citation">(Tabelow et al. 2011)</span> for functional MRI
-analysis and spatial smoothing, <code>RNiftyReg</code> <span class="citation">(Modat et al. 2013)</span> for image registration, and
-<code>dpmixsim</code> <span class="citation">(CRAN 2024)</span> and
-<code>mritc</code> <span class="citation">(CRAN 2023)</span> for image
-clustering and segmentation (see the <a href="http://cran.r-project.org/web/views/MedicalImaging.html" class="external-link">Medical
+<code>AnalyzeFMRI</code> <span class="citation">(Bordier et al.
+2011)</span> and <code>fmri</code> <span class="citation">(<span class="nocase">Tabelow et al.</span> 2011)</span> for functional MRI
+analysis and spatial smoothing, <code>RNiftyReg</code> <span class="citation">(<span class="nocase">Modat et al.</span> 2013)</span>
+for image registration, and <code>dpmixsim</code> <span class="citation">(CRAN 2024)</span> and <code>mritc</code> <span class="citation">(CRAN 2023)</span> for image clustering and
+segmentation (see the <a href="http://cran.r-project.org/web/views/MedicalImaging.html" class="external-link">Medical
 Imaging CRAN task view</a> for more), the neuroimaging community has
 developed even more specialized tools that might perform better on
 specific datasets or offer more comprehensive information. Freesurfer,
@@ -456,7 +452,7 @@ Freesurfer installation paths.</li>
 </ul>
 </li>
 </ol>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bordier_temporal_2011" class="csl-entry">
 Bordier, Cynthia, Jean-Baptiste Poline, and Bertrand Thirion. 2011.
 <span>“Temporal and Spatial Smoothing for fMRI Data Based on a Bayesian
@@ -464,28 +460,28 @@ Hierarchical Model.”</span> <em>Statistical Methods in Medical
 Research</em> 20 (3): 201–23.
 </div>
 <div id="ref-mritc" class="csl-entry">
-CRAN. 2023. <span>“<span class="nocase">mritc</span>: Image Clustering
-and Segmentation.”</span> <a href="https://CRAN.R-project.org/package=mritc" class="external-link">https://CRAN.R-project.org/package=mritc</a>.
+CRAN. 2023. <em><span class="nocase">mritc</span>: Image Clustering and
+Segmentation</em>. <a href="https://CRAN.R-project.org/package=mritc" class="external-link">https://CRAN.R-project.org/package=mritc</a>.
 </div>
 <div id="ref-dpmixsim" class="csl-entry">
-———. 2024. <span>“<span class="nocase">dpmixsim</span>: An r Package for
-Bayesian Nonparametric Mixture Models.”</span> <a href="https://CRAN.R-project.org/package=dpmixsim" class="external-link">https://CRAN.R-project.org/package=dpmixsim</a>.
+CRAN. 2024. <em><span class="nocase">dpmixsim</span>: An r Package for
+Bayesian Nonparametric Mixture Models</em>. <a href="https://CRAN.R-project.org/package=dpmixsim" class="external-link">https://CRAN.R-project.org/package=dpmixsim</a>.
 </div>
 <div id="ref-fischl2012freesurfer" class="csl-entry">
 Fischl, Bruce. 2012. <span>“FreeSurfer.”</span> <em>Neuroimage</em> 62
 (2): 774–81.
 </div>
 <div id="ref-fischl2002whole" class="csl-entry">
-Fischl, Bruce, David H Salat, Evelina Busa, Matthew Albert, Mark
-Schaberg, Douglas N Greve, Anders M Dale, et al. 2002.
-<span>“Whole-Brain Segmentation: Automated Labeling of Neuroanatomical
-Structures in the Human Brain.”</span> <em>Neuron</em> 33 (3): 341–55.
+<span class="nocase">Fischl, Bruce, David H Salat, Evelina Busa, et
+al.</span> 2002. <span>“Whole-Brain Segmentation: Automated Labeling of
+Neuroanatomical Structures in the Human Brain.”</span> <em>Neuron</em>
+33 (3): 341–55.
 </div>
 <div id="ref-fischl2004sequence" class="csl-entry">
-Fischl, Bruce, David H Salat, Andre JW van der Kouwe, Nikos Makris,
-Florent Segonne, Anders M Dale, Anders M Dale, et al. 2004.
-<span>“Sequence-Independent Segmentation of Subcortical Brain Structures
-Using a Probabilistic Atlas.”</span> <em>Neuroimage</em> 23 (1): S69–84.
+<span class="nocase">Fischl, Bruce, David H Salat, Andre JW van der
+Kouwe, et al.</span> 2004. <span>“Sequence-Independent Segmentation of
+Subcortical Brain Structures Using a Probabilistic Atlas.”</span>
+<em>Neuroimage</em> 23 (1): S69–84.
 </div>
 <div id="ref-fischl1999high" class="csl-entry">
 Fischl, Bruce, Martin I Sereno, and Anders M Dale. 1999.
@@ -493,10 +489,10 @@ Fischl, Bruce, Martin I Sereno, and Anders M Dale. 1999.
 for the Human Brain.”</span> <em>Human Brain Mapping</em> 8 (4): 272–84.
 </div>
 <div id="ref-modat_rniftyreg:_2013" class="csl-entry">
-Modat, Marc, David M Cash, Pradnya Daga, Kyana Dourado, and and others.
-2013. <span>“<span>RNiftyReg</span>: An r Package for Image
-Registration.”</span> <em>Journal of Statistical Software</em> 55 (10):
-1–22.
+<span class="nocase">Modat, Marc, David M Cash, Pradnya Daga, Kyana
+Dourado, and and others</span>. 2013. <span>“<span>RNiftyReg</span>: An
+r Package for Image Registration.”</span> <em>Journal of Statistical
+Software</em> 55 (10): 1–22.
 </div>
 <div id="ref-reuter2010highly" class="csl-entry">
 Reuter, Martin, H Augusto Rosas, and Bruce Fischl. 2010. <span>“Highly
@@ -516,8 +512,8 @@ MRI Data.”</span> <em>IEEE Transactions on Medical Imaging</em> 17 (1):
 87–97.
 </div>
 <div id="ref-tabelow_statistical_2011" class="csl-entry">
-Tabelow, Karsten, Jörg Polzehl, Helga U Voss, et al. 2011.
-<span>“Statistical Analysis of fMRI Data in r.”</span>
+<span class="nocase">Tabelow, Karsten, Jörg Polzehl, Helga U Voss, et
+al.</span> 2011. <span>“Statistical Analysis of fMRI Data in r.”</span>
 <em>Neuroimage</em> 58 (4): 1117–26.
 </div>
 </div>

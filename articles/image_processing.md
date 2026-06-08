@@ -13,12 +13,12 @@ and brain extraction.
 The `freesurfer` package is built to work primarily with `nifti`
 objects, which are R’s representation of images in the Neuroimaging
 Informatics Technology Initiative (NIfTI) format, as implemented by the
-`oro.nifti` package (Whitcher, Muschelli, and Johnson 2011). When you
-use `freesurfer` R functions that call underlying Freesurfer commands,
-these functions are designed to accept either a file name or a `nifti`
-object as input. Behind the scenes, the R code will automatically handle
-any necessary conversions to prepare the image in the specific format
-required by Freesurfer.
+`oro.nifti` package (Whitcher et al. 2011). When you use `freesurfer` R
+functions that call underlying Freesurfer commands, these functions are
+designed to accept either a file name or a `nifti` object as input.
+Behind the scenes, the R code will automatically handle any necessary
+conversions to prepare the image in the specific format required by
+Freesurfer.
 
 From your perspective as a user, this means the entire input/output
 process stays within the R environment, consistently using the `nifti`
@@ -74,6 +74,7 @@ your `SUBJECTS_DIR`, named after your subject identifier.
 The basic syntax for `recon_all` is:
 
 ``` r
+
 recon_all(infile, outdir, subjid)
 ```
 
@@ -112,6 +113,7 @@ function converts this `.mgz` file to NIfTI format and then read it into
 R:
 
 ``` r
+
 library(freesurfer)
 
 bert_mri = file.path(fs_subj_dir(), "bert", "mri", "T1.mgz")
@@ -123,6 +125,7 @@ Now that `bert_nii` is a `nifti` object, we can easily plot it using the
 `neurobase` package:
 
 ``` r
+
 library(neurobase)
 
 neurobase::ortho2(bert_nii)
@@ -144,6 +147,7 @@ function. To correct this, we can use the `orient_rpi` function from the
 in the “img” element, and the orientation in the “orientation” element.
 
 ``` r
+
 bert_nii_rpi = orient_rpi(bert_nii)
 
 neurobase::ortho2(bert_nii_rpi$img)
@@ -164,18 +168,19 @@ frequency (RF) field can lead to variations in tissue type intensities
 across different spatial locations (e.g., intensities might differ
 between the top and bottom of the brain). These inhomogeneities or
 non-uniformities can cause problems for algorithms that rely on
-histograms, quantiles, or raw intensities (Zhang, Brady, and Smith
-2001). Therefore, correcting for these image inhomogeneities is a
-critical step in many neuroimaging analyses.
+histograms, quantiles, or raw intensities (Zhang et al. 2001).
+Therefore, correcting for these image inhomogeneities is a critical step
+in many neuroimaging analyses.
 
 The Freesurfer function `nu_correct` performs this non-uniformity
-correction using the method described by (Sled, Zijdenbos, and Evans
-1998). The `freesurfer` R function with the same name will execute this
-correction and return the processed image. The Freesurfer `nu_correct`
-command typically requires input in the [MINC
+correction using the method described by (Sled et al. 1998). The
+`freesurfer` R function with the same name will execute this correction
+and return the processed image. The Freesurfer `nu_correct` command
+typically requires input in the [MINC
 format](http://www.bic.mni.mcgill.ca/ServicesSoftware/MINC).
 
 ``` r
+
 # Save the NIfTI to a temporary MINC file
 temp_minc_file = tempfile(fileext = ".mnc")
 bert_mnc <- nii2mnc(bert_nii_rpi$img, outfile = temp_minc_file)
@@ -187,6 +192,7 @@ convert the resulting MINC output back into a `nifti` object for you to
 use in R.
 
 ``` r
+
 bert_nu = nu_correct(bert_mnc)
 class(bert_nu)
 ```
@@ -197,6 +203,7 @@ now visualize the corrected image alongside the estimated bias field
 differentially corrected, as seen below.
 
 ``` r
+
 bias_field = finite_img(log(bert_nii_rpi$img / bert_nu))
 
 double_ortho(
@@ -239,6 +246,7 @@ in your `nifti` object, and the function will return a brain-extracted
 `nifti` object.
 
 ``` r
+
 bert_brain = mri_watershed(bert_nii_rpi$img)
 neurobase::ortho2(bert_brain)
 ```
@@ -260,6 +268,7 @@ typically have positive intensity values, the positive areas of the
 image can be considered the “brain” region:
 
 ``` r
+
 brain_mask = bert_brain > 0
 neurobase::ortho2(
   bert_nii_rpi$img,

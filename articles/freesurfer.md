@@ -8,23 +8,23 @@ command-line tools. These tools handle essential image processing tasks
 such as:
 
 - Brain extraction or skull-stripping, which removes non-brain tissues
-  from images (Segonne, Dale, and Fischl 2004).
+  from images (Segonne et al. 2004).
 - Bias-field correction, which corrects for intensity non-uniformities
-  in MRI scans (Sled, Zijdenbos, and Evans 1998).
+  in MRI scans (Sled et al. 1998).
 - Segmentation of brain structures, allowing for the identification and
   measurement of different regions (Fischl et al. 2002, 2004).
 - Image registration, which aligns different brain images to a common
-  space (Fischl, Sereno, and Dale 1999; Reuter, Rosas, and Fischl 2010).
+  space (Fischl et al. 1999; Reuter et al. 2010).
 
 Beyond these individual functions, Freesurfer also provides
 fully-automated pipelines that streamline complex processing workflows.
 
 While R offers several powerful packages for image data, such as
-`AnalyzeFMRI` (Bordier, Poline, and Thirion 2011) and `fmri` (Tabelow et
-al. 2011) for functional MRI analysis and spatial smoothing, `RNiftyReg`
-(Modat et al. 2013) for image registration, and `dpmixsim` (CRAN 2024)
-and `mritc` (CRAN 2023) for image clustering and segmentation (see the
-[Medical Imaging CRAN task
+`AnalyzeFMRI` (Bordier et al. 2011) and `fmri` (Tabelow et al. 2011) for
+functional MRI analysis and spatial smoothing, `RNiftyReg` (Modat et al.
+2013) for image registration, and `dpmixsim` (CRAN 2024) and `mritc`
+(CRAN 2023) for image clustering and segmentation (see the [Medical
+Imaging CRAN task
 view](http://cran.r-project.org/web/views/MedicalImaging.md) for more),
 the neuroimaging community has developed even more specialized tools
 that might perform better on specific datasets or offer more
@@ -79,6 +79,7 @@ function to get detailed information about the setup between R and
 Freesurfer on your system.
 
 ``` r
+
 library(freesurfer)
 
 fs_sitrep()
@@ -125,6 +126,7 @@ access. On your personal computer, its likely you’d rather set the
 variables in your user `.Rprofile`. Possible options to set are:
 
 ``` r
+
 options(
     freesurfer.home = "/path/to/freesurfer",
     freesurfer.subj_dir = "/path/to/freesurfer/subjects",
@@ -169,6 +171,7 @@ also ask it to check for the presence of a license file by specifying
 `check_license = TRUE`.
 
 ``` r
+
 have_fs()
 
 if (have_fs()) {
@@ -200,6 +203,7 @@ also retrieve the corresponding file extension with
 [`fs_imgext()`](https://muschellij2.github.io/freesurfer/reference/fs_imgext.md).
 
 ``` r
+
 get_fs_output()
 fs_imgext()
 ```
@@ -294,6 +298,7 @@ In most cases, you will never directly need to run this command. But it
 is good to know of it, how it works and what it’s output is.
 
 ``` r
+
 # Generate a shell command to set up FreeSurfer with the default `bin` directory
 get_fs(bin_app = "bin")
 
@@ -320,6 +325,7 @@ subjects directory if it’s already set. If not, it defaults to
 `file.path(fs_dir(), "subjects")`.
 
 ``` r
+
 fs_subj_dir()
 ```
 
@@ -374,21 +380,19 @@ Bordier, Cynthia, Jean-Baptiste Poline, and Bertrand Thirion. 2011.
 Hierarchical Model.” *Statistical Methods in Medical Research* 20 (3):
 201–23.
 
-CRAN. 2023. “mritc: Image Clustering and Segmentation.”
+CRAN. 2023. *mritc: Image Clustering and Segmentation*.
 <https://CRAN.R-project.org/package=mritc>.
 
-———. 2024. “dpmixsim: An r Package for Bayesian Nonparametric Mixture
-Models.” <https://CRAN.R-project.org/package=dpmixsim>.
+CRAN. 2024. *dpmixsim: An r Package for Bayesian Nonparametric Mixture
+Models*. <https://CRAN.R-project.org/package=dpmixsim>.
 
 Fischl, Bruce. 2012. “FreeSurfer.” *Neuroimage* 62 (2): 774–81.
 
-Fischl, Bruce, David H Salat, Evelina Busa, Matthew Albert, Mark
-Schaberg, Douglas N Greve, Anders M Dale, et al. 2002. “Whole-Brain
+Fischl, Bruce, David H Salat, Evelina Busa, et al. 2002. “Whole-Brain
 Segmentation: Automated Labeling of Neuroanatomical Structures in the
 Human Brain.” *Neuron* 33 (3): 341–55.
 
-Fischl, Bruce, David H Salat, Andre JW van der Kouwe, Nikos Makris,
-Florent Segonne, Anders M Dale, Anders M Dale, et al. 2004.
+Fischl, Bruce, David H Salat, Andre JW van der Kouwe, et al. 2004.
 “Sequence-Independent Segmentation of Subcortical Brain Structures Using
 a Probabilistic Atlas.” *Neuroimage* 23 (1): S69–84.
 

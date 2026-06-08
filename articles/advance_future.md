@@ -1,6 +1,7 @@
 # Advanced usage & future plans
 
 ``` r
+
 library(freesurfer)
 ```
 
