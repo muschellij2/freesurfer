@@ -20,6 +20,11 @@ Useful links:
 \author{
 \strong{Maintainer}: John Muschelli \email{muschellij2@gmail.com} (\href{https://orcid.org/0000-0001-6469-1750}{ORCID}) [copyright holder]
 
+Authors:
+\itemize{
+  \item John Muschelli \email{muschellij2@gmail.com} (\href{https://orcid.org/0000-0001-6469-1750}{ORCID}) [copyright holder]
+}
+
 Other contributors:
 \itemize{
   \item Athanasia Mo Mowinckel (\href{https://orcid.org/0000-0002-5756-0223}{ORCID}) [contributor]

@@ -36,7 +36,7 @@ to overwrite the input file (with warning).}
 If \code{FALSE}, returns the system command result.}
 
 \item{reorient}{Logical; if \code{TRUE} and \code{retimg = TRUE}, reorients the image
-when loading. Passed to \code{\link[neurobase:readNIfTI2]{neurobase::readnii()}}. Default is \code{FALSE}.}
+when loading. Passed to \code{\link[neurobase:readnii]{neurobase::readnii()}}. Default is \code{FALSE}.}
 
 \item{verbose}{(logical) print diagnostic messages}
 
@@ -137,5 +137,5 @@ result <- fs_cmd(
 \seealso{
 \code{\link[=get_fs]{get_fs()}} for FreeSurfer environment setup,
 \code{\link[=mri_convert]{mri_convert()}} for format conversion,
-\code{\link[neurobase:readNIfTI2]{neurobase::readnii()}} for reading nifti files
+\code{\link[neurobase:readnii]{neurobase::readnii()}} for reading nifti files
 }
