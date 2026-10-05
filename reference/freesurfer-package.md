@@ -12,7 +12,7 @@ executes an 'Freesurfer' command and returns an R object of class
 
 Useful links:
 
-- <https://muschellij2.github.io/freesurfer/>
+- <https://johnmuschelli.com/freesurfer/>
 
 - <https://github.com/muschellij2/freesurfer>
 
