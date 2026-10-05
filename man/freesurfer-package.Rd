@@ -11,7 +11,7 @@ Wrapper functions that interface with 'Freesurfer' \url{https://surfer.nmr.mgh.h
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://muschellij2.github.io/freesurfer/}
+  \item \url{https://johnmuschelli.com/freesurfer/}
   \item \url{https://github.com/muschellij2/freesurfer}
   \item Report bugs at \url{https://github.com/muschellij2/freesurfer/issues}
 }
