@@ -30,10 +30,10 @@ These tools handle essential image processing tasks such as:
 
 Beyond these individual functions, Freesurfer also provides fully-automated pipelines that streamline complex processing workflows.
 
-While R offers several powerful packages for image data, such as `AnalyzeFMRI` [@bordier_temporal_2011] and `fmri` [@tabelow_statistical_2011] for functional MRI analysis and spatial smoothing, `RNiftyReg` [@modat_rniftyreg:_2013] for image registration, and `dpmixsim` [@dpmixsim] and `mritc` [@mritc] for image clustering and segmentation (see the [Medical Imaging CRAN task view](http://cran.r-project.org/web/views/MedicalImaging.html) for more), the neuroimaging community has developed even more specialized tools that might perform better on specific datasets or offer more comprehensive information.
+While R offers several powerful packages for image data, such as `AnalyzeFMRI` [@bordier_temporal_2011] and `fmri` [@tabelow_statistical_2011] for functional MRI analysis and spatial smoothing, `RNiftyReg` [@modat_rniftyreg:_2013] for image registration, and `dpmixsim` [@dpmixsim] and `mritc` [@mritc] for image clustering and segmentation (see the [Medical Imaging CRAN task view](https://cran.r-project.org/view=MedicalImaging) for more), the neuroimaging community has developed even more specialized tools that might perform better on specific datasets or offer more comprehensive information.
 Freesurfer, for instance, includes methods not currently implemented in R, such as surface-based registration and completely automated image segmentation pipelines.
 
-The `ANTsR` package (available on [GitHub](https://github.com/stnava/ANTsR)), an unpublished R package, has implemented additional image analysis functionality, but it doesn't encompass everything Freesurfer offers.
+The `ANTsR` package (available on [GitHub](https://github.com/ANTsX/ANTsR)), an unpublished R package, has implemented additional image analysis functionality, but it doesn't encompass everything Freesurfer offers.
 Having multiple options for image processing directly within R empowers users to compare different methods and provides the flexibility to combine various packages to create a robust data processing pipeline.
 
 This `freesurfer` package serves as an interface, allowing R users to leverage Freesurfer's state-of-the-art anatomical processing capabilities, along with a suite of tools that simplify analyzing Freesurfer's output.
