@@ -24,17 +24,16 @@ While R offers several powerful packages for image data, such as
 functional MRI analysis and spatial smoothing, `RNiftyReg` (Modat et al.
 2013) for image registration, and `dpmixsim` (CRAN 2024) and `mritc`
 (CRAN 2023) for image clustering and segmentation (see the [Medical
-Imaging CRAN task
-view](http://cran.r-project.org/web/views/MedicalImaging.md) for more),
-the neuroimaging community has developed even more specialized tools
-that might perform better on specific datasets or offer more
-comprehensive information. Freesurfer, for instance, includes methods
-not currently implemented in R, such as surface-based registration and
-completely automated image segmentation pipelines.
+Imaging CRAN task view](https://cran.r-project.org/view=MedicalImaging)
+for more), the neuroimaging community has developed even more
+specialized tools that might perform better on specific datasets or
+offer more comprehensive information. Freesurfer, for instance, includes
+methods not currently implemented in R, such as surface-based
+registration and completely automated image segmentation pipelines.
 
 The `ANTsR` package (available on
-[GitHub](https://github.com/stnava/ANTsR)), an unpublished R package,
-has implemented additional image analysis functionality, but it doesn’t
+[GitHub](https://github.com/ANTsX/ANTsR)), an unpublished R package, has
+implemented additional image analysis functionality, but it doesn’t
 encompass everything Freesurfer offers. Having multiple options for
 image processing directly within R empowers users to compare different
 methods and provides the flexibility to combine various packages to

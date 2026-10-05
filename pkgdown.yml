@@ -1,5 +1,5 @@
 pandoc: 3.8.3
-pkgdown: 2.2.0
+pkgdown: 2.2.1
 pkgdown_sha: ~
 articles:
   advance_future: advance_future.html
@@ -8,7 +8,7 @@ articles:
   image_processing: image_processing.html
   paper: paper.html
   recon-all: recon-all.html
-last_built: 2026-06-08T15:18Z
+last_built: 2026-10-05T15:03Z
 urls:
   reference: https://muschellij2.github.io/freesurfer/reference
   article: https://muschellij2.github.io/freesurfer/articles

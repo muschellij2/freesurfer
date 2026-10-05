@@ -23,6 +23,11 @@ Useful links:
 **Maintainer**: John Muschelli <muschellij2@gmail.com>
 ([ORCID](https://orcid.org/0000-0001-6469-1750)) \[copyright holder\]
 
+Authors:
+
+- John Muschelli <muschellij2@gmail.com>
+  ([ORCID](https://orcid.org/0000-0001-6469-1750)) \[copyright holder\]
+
 Other contributors:
 
 - Athanasia Mo Mowinckel
