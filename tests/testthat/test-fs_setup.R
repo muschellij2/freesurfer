@@ -101,8 +101,11 @@ describe("get_fs", {
         list(exists = TRUE, value = "/valid/path/FreeSurferEnv.sh")
       },
       get_fs_output = function() "nii",
-      get_mni_bin = function(simplify = FALSE) {
+      get_mni_bin = function(fs_home = get_fs_home(), simplify = FALSE) {
         list(value = "/valid/path/mni/bin", exists = TRUE, source = "Default")
+      },
+      get_perl_folder = function(fs_home = get_fs_home(), simplify = FALSE) {
+        list(value = "/valid/path/mni/Perl", exists = TRUE, source = "Default")
       }
     )
     cmd <- get_fs("mni/bin")
