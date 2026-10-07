@@ -55,7 +55,7 @@ get_fs <- function(
     FALSE
   )
 
-  perl_folder = get_perl_folder(simplify = FALSE)
+  perl_folder = get_perl_folder(fs_home = fs_home, simplify = FALSE)
   perl_folder = return_single(perl_folder)$value
   if (!is.na(perl_folder)) {
     cmd <- c(
@@ -66,7 +66,7 @@ get_fs <- function(
   
   # Handle MNI Perl startup if 'mni' is in bin_app
   if (grepl("mni", bin_app)) {
-    mni_path <- get_mni_bin(simplify = FALSE)
+    mni_path <- get_mni_bin(fs_home = fs_home, simplify = FALSE)
     mni_path <- return_single(mni_path)$value
     if (!is.na(mni_path)) {
       cmd <- c(

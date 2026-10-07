@@ -107,11 +107,13 @@ stats2table <- function(
     subdir_prefix <- sprintf("export SUBJECTS_DIR=%s; ", subj_dir)
   }
 
-  cmd <- paste(
+  cmd <- paste0(
     subdir_prefix,
     get_fs(),
     func_name,
+    " ",
     paste(cmd_args, collapse = " "),
+    " ",
     opts
   )
 

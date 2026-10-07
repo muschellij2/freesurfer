@@ -288,6 +288,9 @@ get_mni_bin <- function(
     fs_home = get_fs_home(),
     simplify = TRUE
 ) {
+  if (is.list(fs_home)) {
+    fs_home = return_single(fs_home)$value
+  }
   default_mni_dir <- if (!is.na(fs_home)) {
     file.path(fs_home, "mni")
   } else {
@@ -325,6 +328,9 @@ get_perl_folder <- function(
   fs_home = get_fs_home(),
   simplify = TRUE
 ) {
+  if (is.list(fs_home)) {
+    fs_home = return_single(fs_home)$value
+  }
   default_mni_dir <- if (!is.na(fs_home)) {
     file.path(fs_home, "mni")
   } else {

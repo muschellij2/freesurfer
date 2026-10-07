@@ -9,6 +9,7 @@
 \alias{get_fs_verbosity}
 \alias{get_fs_output}
 \alias{get_mni_bin}
+\alias{get_perl_folder}
 \title{Retrieve FreeSurfer Configuration Settings}
 \usage{
 get_fs_setting(env_var, opt_var, defaults = NULL, is_path = TRUE)
@@ -26,6 +27,8 @@ get_fs_verbosity(simplify = TRUE)
 get_fs_output(simplify = TRUE)
 
 get_mni_bin(fs_home = get_fs_home(), simplify = TRUE)
+
+get_perl_folder(fs_home = get_fs_home(), simplify = TRUE)
 }
 \arguments{
 \item{env_var}{Character; name of the environment variable to check.}
@@ -89,6 +92,8 @@ You can set R options in your \code{.Rprofile}:
 \item \code{get_fs_output()}: Retrieve FreeSurfer output format
 
 \item \code{get_mni_bin()}: Retrieve MNI tools directory
+
+\item \code{get_perl_folder()}: Retrieve MNI tools directory
 
 }}
 \examples{
