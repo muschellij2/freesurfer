@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">freesurfer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.8.1.902</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,16 +46,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="1.8.1.900" id="freesurfer-181900">freesurfer 1.8.1.900<a class="anchor" aria-label="anchor" href="#freesurfer-181900"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.9.0" id="freesurfer-190">freesurfer 1.9.0<a class="anchor" aria-label="anchor" href="#freesurfer-190"></a></h2>
 <div class="section level3">
-<h3 id="new-features-1-8-1-900">New features<a class="anchor" aria-label="anchor" href="#new-features-1-8-1-900"></a></h3>
+<h3 id="new-features-1-9-0">New features<a class="anchor" aria-label="anchor" href="#new-features-1-9-0"></a></h3>
 <ul><li>
 <code><a href="../reference/mri_vol2vol.html">mri_vol2vol()</a></code> wraps FreeSurfer’s <code>mri_vol2vol</code> to resample a volume onto another volume’s grid, using either a registration (<code>reg</code>) or the volumes’ headers (<code>regheader = TRUE</code>).</li>
 <li>
 <code><a href="../reference/fs_flag_cmd.html">fs_flag_cmd()</a></code> is a new helper for flag-based FreeSurfer commands (<code>--flag value</code>), the counterpart to <code><a href="../reference/fs_cmd.html">fs_cmd()</a></code> for positional <code>&lt;input&gt; &lt;output&gt;</code> commands. It assembles the command from a named list of flags and is what <code><a href="../reference/mri_vol2vol.html">mri_vol2vol()</a></code> is built on.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="deprecations-1-8-1-900">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-1-8-1-900"></a></h3>
+<h3 id="deprecations-1-9-0">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-1-9-0"></a></h3>
 <ul><li>
 <code><a href="../reference/read_mgz.html">readmgz()</a></code> is deprecated, use <code><a href="../reference/read_mgz.html">read_mgz()</a></code> instead</li>
 <li>
@@ -64,12 +64,12 @@
 <code><a href="../reference/set_fs_subj_dir.html">set_fs_subj_dir()</a></code> is deprecated, use <code>Sys.setenv(SUBJECTS_DIR = path)</code> or <code>options(freesurfer.subj_dir = path)</code> instead</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bug-fixes-1-8-1-900">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-8-1-900"></a></h3>
+<h3 id="bug-fixes-1-9-0">Bug Fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-1-9-0"></a></h3>
 <ul><li>Fix <code><a href="../reference/get_fs.html">get_fs()</a></code> returning a vector instead of a string when <code>add_home = FALSE</code>, which caused malformed commands</li>
 <li>Fix <code><a href="../reference/mri_mask.html">mri_mask()</a></code> argument order: now correctly passes <code>&lt;input&gt; &lt;mask&gt; &lt;output&gt;</code> to FreeSurfer</li>
 </ul></div>
 <div class="section level3">
-<h3 id="major-changes-1-8-1-900">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-8-1-900"></a></h3>
+<h3 id="major-changes-1-9-0">Major Changes<a class="anchor" aria-label="anchor" href="#major-changes-1-9-0"></a></h3>
 <ul><li>Consolidate MNC conversion functions: <code><a href="../reference/nii2mnc.html">nii2mnc()</a></code> and <code><a href="../reference/mnc2nii.html">mnc2nii()</a></code> now in single file with shared validation</li>
 <li>Consolidate trac functions: <code><a href="../reference/trac.html">trac_all()</a></code> and <code>trac_manual()</code> merged into <code>tracker.R</code>
 </li>
@@ -77,18 +77,18 @@
 <li>New <code>check_fs_result()</code> for consistent FreeSurfer command result validation</li>
 </ul></div>
 <div class="section level3">
-<h3 id="cli-messaging-1-8-1-900">CLI Messaging<a class="anchor" aria-label="anchor" href="#cli-messaging-1-8-1-900"></a></h3>
+<h3 id="cli-messaging-1-9-0">CLI Messaging<a class="anchor" aria-label="anchor" href="#cli-messaging-1-9-0"></a></h3>
 <ul><li>New internal functions <code>fs_abort()</code>, <code>fs_warn()</code>, <code>fs_inform()</code> wrapping cli package</li>
-<li>Substitute <code>warning</code>, <code>stop</code>, <code>message</code> and <code>cat</code> with corresponding <code>cli</code> functions for more modern stdout and stderr output</li>
+<li>Substitute <code>warning</code>, <code>stop</code>, <code>message</code> and <code>cat</code> with corresponding <code>cli</code> functions for more modern <code>stdout</code> and <code>stderr</code> output</li>
 </ul></div>
 <div class="section level3">
-<h3 id="freesurfer-environment-1-8-1-900">FreeSurfer Environment<a class="anchor" aria-label="anchor" href="#freesurfer-environment-1-8-1-900"></a></h3>
+<h3 id="freesurfer-environment-1-9-0">FreeSurfer Environment<a class="anchor" aria-label="anchor" href="#freesurfer-environment-1-9-0"></a></h3>
 <ul><li>Add function <code><a href="../reference/fs_sitrep.html">fs_sitrep()</a></code> to check, verify and output information on FreeSurfer-R communication</li>
 <li>Refactor <code><a href="../reference/get_fs.html">get_fs()</a></code> with new <code>get_fs_*</code> functions for fine-grained control of each setting</li>
-<li>New roxygen2 template for consistent <code>fs_home</code> parameter documentation</li>
+<li>New <code>roxygen2</code> template for consistent <code>fs_home</code> parameter documentation</li>
 </ul></div>
 <div class="section level3">
-<h3 id="wrapper-function-improvements-1-8-1-900">Wrapper Function Improvements<a class="anchor" aria-label="anchor" href="#wrapper-function-improvements-1-8-1-900"></a></h3>
+<h3 id="wrapper-function-improvements-1-9-0">Wrapper Function Improvements<a class="anchor" aria-label="anchor" href="#wrapper-function-improvements-1-9-0"></a></h3>
 <ul><li>Improve <code><a href="../reference/mri_convert.html">mri_convert()</a></code> with better format validation and error handling</li>
 <li>Improve <code><a href="../reference/mri_info.html">mri_info()</a></code>, <code><a href="../reference/mri_mask.html">mri_mask()</a></code>, <code><a href="../reference/mri_segment.html">mri_segment()</a></code>, <code><a href="../reference/mri_watershed.html">mri_watershed()</a></code> with consistent patterns</li>
 <li>Improve <code><a href="../reference/mri_synthstrip.html">mri_synthstrip()</a></code> with better parameter handling</li>
@@ -98,15 +98,15 @@
 <li>Improve <code><a href="../reference/surf_convert.html">surf_convert()</a></code> with better output parsing</li>
 </ul></div>
 <div class="section level3">
-<h3 id="read-functions-1-8-1-900">Read Functions<a class="anchor" aria-label="anchor" href="#read-functions-1-8-1-900"></a></h3>
+<h3 id="read-functions-1-9-0">Read Functions<a class="anchor" aria-label="anchor" href="#read-functions-1-9-0"></a></h3>
 <ul><li>Improve <code><a href="../reference/read_annotation.html">read_annotation()</a></code>, <code><a href="../reference/read_aseg_stats.html">read_aseg_stats()</a></code>, <code><a href="../reference/read_fs_table.html">read_fs_table()</a></code> with better error handling</li>
 <li>Improve <code><a href="../reference/read_fs_table.html">read_fs_table()</a></code> with separator auto-detection</li>
 <li>Improve <code>freesurfer_read3()</code> with better error messages</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-improvements-1-8-1-900">Other Improvements<a class="anchor" aria-label="anchor" href="#other-improvements-1-8-1-900"></a></h3>
+<h3 id="other-improvements-1-9-0">Other Improvements<a class="anchor" aria-label="anchor" href="#other-improvements-1-9-0"></a></h3>
 <ul><li>Simplify management of common parameter information</li>
-<li>Creates containing folder of tempfiles if necessary</li>
+<li>Creates containing folder of <code>tempfile</code>s if necessary</li>
 <li>Improved handling of running examples with <a href="https://github.com/examplesIf" class="external-link">@examplesIf</a></li>
 <li>Split single vignette into several smaller vignettes with more tutorial-like structure and language
 <ul><li>Original vignette is saved as “paper.Rmd” and is ignored by R build</li>

@@ -1,7 +1,7 @@
 # Force object to filename with .mnc extension
 
 Ensures the output to be a character filename (or vector) from an input
-image or `nifti` to have `.mnc` extension and be converted to MNC when
+image or `nifti` to have `.mnc` extension and be converted to `MNC` when
 necessary
 
 ## Usage
@@ -34,7 +34,7 @@ checkmnc(file, ...)
 
 ## Value
 
-Character filename of mnc image
+Character filename of `mnc` image
 
 ## Author
 

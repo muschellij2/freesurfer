@@ -1,6 +1,6 @@
 # Changelog
 
-## freesurfer 1.8.1.900
+## freesurfer 1.9.0
 
 ### New features
 
@@ -63,7 +63,7 @@
 - New internal functions `fs_abort()`, `fs_warn()`, `fs_inform()`
   wrapping cli package
 - Substitute `warning`, `stop`, `message` and `cat` with corresponding
-  `cli` functions for more modern stdout and stderr output
+  `cli` functions for more modern `stdout` and `stderr` output
 
 ### FreeSurfer Environment
 
@@ -73,7 +73,8 @@
 - Refactor
   [`get_fs()`](https://muschellij2.github.io/freesurfer/reference/get_fs.md)
   with new `get_fs_*` functions for fine-grained control of each setting
-- New roxygen2 template for consistent `fs_home` parameter documentation
+- New `roxygen2` template for consistent `fs_home` parameter
+  documentation
 
 ### Wrapper Function Improvements
 
@@ -119,7 +120,7 @@
 ### Other Improvements
 
 - Simplify management of common parameter information
-- Creates containing folder of tempfiles if necessary
+- Creates containing folder of `tempfile`s if necessary
 - Improved handling of running examples with
   [@examplesIf](https://github.com/examplesIf)
 - Split single vignette into several smaller vignettes with more

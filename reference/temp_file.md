@@ -16,7 +16,8 @@ temp_file(tmpdir = tempdir(check = TRUE), ...)
 
 - ...:
 
-  Arguments passed to tempfile()
+  Arguments passed to
+  [`tempfile()`](https://rdrr.io/r/base/tempfile.html)
 
 ## Value
 

@@ -186,7 +186,7 @@ autorecon3(
 )
 ```
 
-### Advamced use with the Low-Level `reconner` Function
+### Advanced use with the Low-Level `reconner` Function
 
 `reconner` is a lower-level function that interfaces directly with
 Freesurfer’s `recon-all` command. It allows you to specify command-line
