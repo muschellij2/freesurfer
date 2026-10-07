@@ -26,12 +26,12 @@ checkmnc(file, ...)
 \item{...}{options passed to \code{\link[neurobase]{checkimg}}}
 }
 \value{
-Character filename of mnc image
+Character filename of \code{mnc} image
 }
 \description{
 Ensures the output to be a character filename (or vector)
 from an input image or \code{nifti} to have \code{.mnc} extension and
-be converted to MNC when necessary
+be converted to \code{MNC} when necessary
 }
 \author{
 John Muschelli \email{muschellij2@gmail.com}

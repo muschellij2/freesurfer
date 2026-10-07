@@ -1,6 +1,6 @@
 #' Create a Temporary File with a Newly Created Directory
 #' @param tmpdir Directory in which to create the temporary file
-#' @param ... Arguments passed to tempfile()
+#' @param ... Arguments passed to [tempfile()]
 #' @return Full file path to temporary file with created directory
 #' @export
 temp_file <- function(tmpdir = tempdir(check = TRUE), ...) {

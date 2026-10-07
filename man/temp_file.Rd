@@ -9,7 +9,7 @@ temp_file(tmpdir = tempdir(check = TRUE), ...)
 \arguments{
 \item{tmpdir}{Directory in which to create the temporary file}
 
-\item{...}{Arguments passed to tempfile()}
+\item{...}{Arguments passed to \code{\link[=tempfile]{tempfile()}}}
 }
 \value{
 Full file path to temporary file with created directory

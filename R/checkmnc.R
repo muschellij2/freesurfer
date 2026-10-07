@@ -3,12 +3,12 @@
 #' @aliases checkmnc
 #' @description Ensures the output to be a character filename (or vector)
 #' from an input image or \code{nifti} to have \code{.mnc} extension and
-#' be converted to MNC when necessary
+#' be converted to `MNC` when necessary
 #'
 #' @title Force object to filename with .mnc extension
 #' @param file character or \code{nifti} object
 #' @param ... options passed to \code{\link[neurobase]{checkimg}}
-#' @return Character filename of mnc image
+#' @return Character filename of `mnc` image
 #'
 #' @export
 #' @import methods

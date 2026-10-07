@@ -1,7 +1,7 @@
 Type: Package
 Package: freesurfer
 Title: Wrapper Functions for 'FreeSurfer'
-Version: 1.8.1.902
+Version: 1.9.0
 Authors@R: c(
     person("John", "Muschelli", , "muschellij2@gmail.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0001-6469-1750")),

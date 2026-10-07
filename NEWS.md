@@ -1,4 +1,4 @@
-# freesurfer 1.8.1.900
+# freesurfer 1.9.0
 
 ## New features
 
@@ -31,13 +31,13 @@
 ## CLI Messaging
 
 - New internal functions `fs_abort()`, `fs_warn()`, `fs_inform()` wrapping cli package
-- Substitute `warning`, `stop`, `message` and `cat` with corresponding `cli` functions for more modern stdout and stderr output
+- Substitute `warning`, `stop`, `message` and `cat` with corresponding `cli` functions for more modern `stdout` and `stderr` output
 
 ## FreeSurfer Environment
 
 - Add function `fs_sitrep()` to check, verify and output information on FreeSurfer-R communication
 - Refactor `get_fs()` with new `get_fs_*` functions for fine-grained control of each setting
-- New roxygen2 template for consistent `fs_home` parameter documentation
+- New `roxygen2` template for consistent `fs_home` parameter documentation
 
 ## Wrapper Function Improvements
 
@@ -58,7 +58,7 @@
 ## Other Improvements
 
 - Simplify management of common parameter information
-- Creates containing folder of tempfiles if necessary
+- Creates containing folder of `tempfile`s if necessary
 - Improved handling of running examples with @examplesIf
 - Split single vignette into several smaller vignettes with more tutorial-like structure and language
   - Original vignette is saved as "paper.Rmd" and is ignored by R build
