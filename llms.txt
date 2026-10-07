@@ -43,6 +43,7 @@ Functions to configure and verify your FreeSurfer installation.
   [`get_fs_verbosity()`](https://muschellij2.github.io/freesurfer/reference/get_fs_setting.md)
   [`get_fs_output()`](https://muschellij2.github.io/freesurfer/reference/get_fs_setting.md)
   [`get_mni_bin()`](https://muschellij2.github.io/freesurfer/reference/get_fs_setting.md)
+  [`get_perl_folder()`](https://muschellij2.github.io/freesurfer/reference/get_fs_setting.md)
   : Retrieve FreeSurfer Configuration Settings
 - [`freesurferdir()`](https://muschellij2.github.io/freesurfer/reference/fs_dir.md)
   [`freesurfer_dir()`](https://muschellij2.github.io/freesurfer/reference/fs_dir.md)

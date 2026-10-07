@@ -22,6 +22,8 @@ get_fs_verbosity(simplify = TRUE)
 get_fs_output(simplify = TRUE)
 
 get_mni_bin(fs_home = get_fs_home(), simplify = TRUE)
+
+get_perl_folder(fs_home = get_fs_home(), simplify = TRUE)
 ```
 
 ## Arguments
@@ -98,6 +100,8 @@ You can set R options in your `.Rprofile`:
 - `get_fs_output()`: Retrieve FreeSurfer output format
 
 - `get_mni_bin()`: Retrieve MNI tools directory
+
+- `get_perl_folder()`: Retrieve MNI tools directory
 
 ## See also
 
