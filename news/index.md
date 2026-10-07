@@ -2,6 +2,21 @@
 
 ## freesurfer 1.8.1.900
 
+### New features
+
+- [`mri_vol2vol()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
+  wraps FreeSurfer’s `mri_vol2vol` to resample a volume onto another
+  volume’s grid, using either a registration (`reg`) or the volumes’
+  headers (`regheader = TRUE`).
+- [`fs_flag_cmd()`](https://muschellij2.github.io/freesurfer/reference/fs_flag_cmd.md)
+  is a new helper for flag-based FreeSurfer commands (`--flag value`),
+  the counterpart to
+  [`fs_cmd()`](https://muschellij2.github.io/freesurfer/reference/fs_cmd.md)
+  for positional `<input> <output>` commands. It assembles the command
+  from a named list of flags and is what
+  [`mri_vol2vol()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
+  is built on.
+
 ### Deprecations
 
 - [`readmgz()`](https://muschellij2.github.io/freesurfer/reference/read_mgz.md)

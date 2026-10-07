@@ -92,6 +92,9 @@ skull stripping.
 - [`mri_synthstrip()`](https://muschellij2.github.io/freesurfer/reference/mri_synthstrip.md)
   [`synthstrip()`](https://muschellij2.github.io/freesurfer/reference/mri_synthstrip.md)
   : Use Freesurfers MRI SynthStrip
+- [`mri_vol2vol()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
+  [`mri_vol2vol.help()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
+  : Resample a Volume into Another Volume's Space with FreeSurfer
 - [`nu_correct()`](https://muschellij2.github.io/freesurfer/reference/nu_correct.md)
   [`nu_correct.help()`](https://muschellij2.github.io/freesurfer/reference/nu_correct.md)
   : Use FreeSurfer's Non-Uniformity Correction
@@ -169,6 +172,8 @@ Helper functions for working with FreeSurfer.
 
 - [`fs_cmd()`](https://muschellij2.github.io/freesurfer/reference/fs_cmd.md)
   : Execute FreeSurfer Commands from R
+- [`fs_flag_cmd()`](https://muschellij2.github.io/freesurfer/reference/fs_flag_cmd.md)
+  : Run a Flag-Based FreeSurfer Command
 - [`fs_help()`](https://muschellij2.github.io/freesurfer/reference/fs_help.md)
   : Wrapper for getting FreeSurfer help
 - [`temp_file()`](https://muschellij2.github.io/freesurfer/reference/temp_file.md)
@@ -200,6 +205,9 @@ Access FreeSurfer command-line help directly from R.
   : Resample Cortical Surface Data with FreeSurfer
 - [`mri_synthstrip.help()`](https://muschellij2.github.io/freesurfer/reference/mri_synthstrip.help.md)
   : MRI Normalize Help
+- [`mri_vol2vol()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
+  [`mri_vol2vol.help()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
+  : Resample a Volume into Another Volume's Space with FreeSurfer
 - [`mri_watershed()`](https://muschellij2.github.io/freesurfer/reference/mri_watershed.md)
   [`mri_watershed.help()`](https://muschellij2.github.io/freesurfer/reference/mri_watershed.md)
   : Use Freesurfers MRI Watershed Algorithm

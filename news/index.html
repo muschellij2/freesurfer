@@ -48,6 +48,13 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.8.1.900" id="freesurfer-181900">freesurfer 1.8.1.900<a class="anchor" aria-label="anchor" href="#freesurfer-181900"></a></h2>
 <div class="section level3">
+<h3 id="new-features-1-8-1-900">New features<a class="anchor" aria-label="anchor" href="#new-features-1-8-1-900"></a></h3>
+<ul><li>
+<code><a href="../reference/mri_vol2vol.html">mri_vol2vol()</a></code> wraps FreeSurfer’s <code>mri_vol2vol</code> to resample a volume onto another volume’s grid, using either a registration (<code>reg</code>) or the volumes’ headers (<code>regheader = TRUE</code>).</li>
+<li>
+<code><a href="../reference/fs_flag_cmd.html">fs_flag_cmd()</a></code> is a new helper for flag-based FreeSurfer commands (<code>--flag value</code>), the counterpart to <code><a href="../reference/fs_cmd.html">fs_cmd()</a></code> for positional <code>&lt;input&gt; &lt;output&gt;</code> commands. It assembles the command from a named list of flags and is what <code><a href="../reference/mri_vol2vol.html">mri_vol2vol()</a></code> is built on.</li>
+</ul></div>
+<div class="section level3">
 <h3 id="deprecations-1-8-1-900">Deprecations<a class="anchor" aria-label="anchor" href="#deprecations-1-8-1-900"></a></h3>
 <ul><li>
 <code><a href="../reference/read_mgz.html">readmgz()</a></code> is deprecated, use <code><a href="../reference/read_mgz.html">read_mgz()</a></code> instead</li>

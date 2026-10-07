@@ -19,6 +19,7 @@
 <url><loc>https://muschellij2.github.io/freesurfer/reference/freesurfer_read_surf.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/fs_cmd.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/fs_dir.html</loc></url>
+<url><loc>https://muschellij2.github.io/freesurfer/reference/fs_flag_cmd.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/fs_help.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/fs_imgext.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/fs_lut.html</loc></url>
@@ -41,6 +42,7 @@
 <url><loc>https://muschellij2.github.io/freesurfer/reference/mri_surf2surf.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/mri_synthstrip.help.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/mri_synthstrip.html</loc></url>
+<url><loc>https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/mri_watershed.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/mris_convert.html</loc></url>
 <url><loc>https://muschellij2.github.io/freesurfer/reference/mris_euler_number.help.html</loc></url>
