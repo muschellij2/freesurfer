@@ -2,6 +2,8 @@
 
 ## freesurfer 1.9.0
 
+CRAN release: 2026-10-07
+
 ### New features
 
 - [`mri_vol2vol()`](https://muschellij2.github.io/freesurfer/reference/mri_vol2vol.md)
