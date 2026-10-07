@@ -12,7 +12,7 @@ structure(
               email = NULL,
               comment = NULL
             ),
-            .Names = c("given", "family", "role", "email", "comment")
+            names = c("given", "family", "role", "email", "comment")
           )),
           class = "person"
         ),
@@ -23,7 +23,7 @@ structure(
         year = "2012",
         publisher = "Elsevier"
       ),
-      .Names = c(
+      names = c(
         "title",
         "author",
         "journal",
@@ -38,6 +38,6 @@ structure(
     )
   ),
   class = "bibentry",
-  strings = structure(character(0), .Names = character(0)),
-  .Names = "fischl2012freesurfer"
+  strings = structure(character(0), names = character(0)),
+  names = "fischl2012freesurfer"
 )
