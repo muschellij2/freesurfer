@@ -55,15 +55,23 @@ get_fs <- function(
     FALSE
   )
 
+  perl_folder = get_perl_folder(simplify = FALSE)
+  perl_folder = return_single(perl_folder)$value
+  if (!is.na(perl_folder)) {
+    cmd <- c(
+      cmd,
+      sprintf("export PERL5LIB=$PERL5LIB:%s", shQuote(perl_folder))
+    )
+  }
+  
   # Handle MNI Perl startup if 'mni' is in bin_app
   if (grepl("mni", bin_app)) {
-    start_up_path <- get_mni_bin(simplify = FALSE)
-    start_up_path <- return_single(start_up_path)$value
-    if (!is.na(start_up_path)) {
+    mni_path <- get_mni_bin(simplify = FALSE)
+    mni_path <- return_single(mni_path)$value
+    if (!is.na(mni_path)) {
       cmd <- c(
         cmd,
-        "export PERL5LIB=$PERL5LIB",
-        sprintf("export MNI_DIR=%s", shQuote(start_up_path))
+        sprintf("export MNI_DIR=%s", shQuote(mni_path))
       )
     }
   }

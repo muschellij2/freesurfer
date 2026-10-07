@@ -285,6 +285,43 @@ get_fs_output <- function(simplify = TRUE) {
 #' @describeIn get_fs_setting Retrieve MNI tools directory
 #' @export
 get_mni_bin <- function(
+    fs_home = get_fs_home(),
+    simplify = TRUE
+) {
+  default_mni_dir <- if (!is.na(fs_home)) {
+    file.path(fs_home, "mni")
+  } else {
+    NULL
+  }
+  
+  ret <- get_fs_setting(
+    "MNI_DIR",
+    "freesurfer.mni_dir",
+    default_mni_dir
+  )
+  
+  if (!ret$exists) {
+    result <- list(
+      value = NA,
+      source = "No MNI directory found",
+      exists = FALSE
+    )
+    if (simplify) {
+      return(result$value)
+    }
+    return(result)
+  }
+  
+  result = ret
+  if (simplify) {
+    return(result$value[1])
+  }
+  result
+}
+
+#' @describeIn get_fs_setting Retrieve MNI tools directory
+#' @export
+get_perl_folder <- function(
   fs_home = get_fs_home(),
   simplify = TRUE
 ) {
