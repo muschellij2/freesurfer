@@ -1,5 +1,15 @@
 # freesurfer 1.8.1.900
 
+## New features
+
+- `mri_vol2vol()` wraps FreeSurfer's `mri_vol2vol` to resample a volume onto
+  another volume's grid, using either a registration (`reg`) or the volumes'
+  headers (`regheader = TRUE`).
+- `fs_flag_cmd()` is a new helper for flag-based FreeSurfer commands
+  (`--flag value`), the counterpart to `fs_cmd()` for positional
+  `<input> <output>` commands. It assembles the command from a named list of
+  flags and is what `mri_vol2vol()` is built on.
+
 ## Deprecations
 
 - `readmgz()` is deprecated, use `read_mgz()` instead

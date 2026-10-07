@@ -110,6 +110,7 @@ reference:
       - mri_mask
       - mri_deface
       - mri_synthstrip
+      - mri_vol2vol
       - nu_correct
 
   - title: Surface Operations
@@ -147,6 +148,7 @@ reference:
       Helper functions for working with FreeSurfer.
     contents:
       - fs_cmd
+      - fs_flag_cmd
       - fs_help
       - temp_file
 
