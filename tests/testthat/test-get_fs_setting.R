@@ -267,20 +267,21 @@ describe("get_fs_setting", {
       }
     )
 
-    temp_bin <- file.path(temp_dir, "mni", "MNI.pm")
-    withr::local_options(freesurfer.mni_path = dirname(temp_bin))
+    temp_bin <- file.path(temp_dir, "custom_mni", "MNI.pm")
+    withr::local_options(freesurfer.mni_dir = dirname(temp_bin))
     dir.create(dirname(temp_bin))
     writeLines("bin", temp_bin)
 
     result <- get_mni_bin(simplify = FALSE)
     expect_true(result$exists)
     expect_equal(result$value, normalizePath(dirname(temp_bin), mustWork = FALSE))
+    expect_match(result$source, "R option")
 
     result2 <- get_mni_bin(simplify = TRUE)
     expect_equal(result$value, result2)
   })
 
-  it("get_mni_bin returns several paths when present", {
+  it("get_mni_bin returns the MNI directory and get_perl_folder finds Perl paths", {
     local_fs_unset()
 
     temp_dir <- withr::local_tempdir()
@@ -296,14 +297,18 @@ describe("get_fs_setting", {
     )
 
     withr::local_options(
-      freesurfer.mni_path = file.path(temp_dir, "mni")
+      freesurfer.mni_dir = file.path(temp_dir, "mni")
     )
     sapply(dirname(temp_bin), dir.create, recursive = TRUE)
     sapply(temp_bin, function(x) writeLines("bin", x))
 
     result <- get_mni_bin(simplify = FALSE)
-    expect_true(all(result$exists))
-    expect_length(result$value, 2)
+    expect_true(result$exists)
+    expect_equal(result$value, normalizePath(file.path(temp_dir, "mni")))
+
+    perl_paths <- get_perl_folder(simplify = FALSE)
+    expect_true(all(perl_paths$exists))
+    expect_setequal(perl_paths$value, normalizePath(dirname(temp_bin)))
   })
 
   # ---- get_fs_subdir function ----

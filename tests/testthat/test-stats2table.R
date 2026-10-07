@@ -137,9 +137,9 @@ describe("stats2table", {
   it("constructs correct command arguments for subjects input type", {
     local_mocked_bindings(
       validate_fs_env = function(...) TRUE,
-      get_fs = function() "aparcstats2table_mock_binary",
+      get_fs = function() "aparcstats2table_mock_binary/",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        expect_match(cmd, "aparcstats2table_mock_binary aparcstats2table")
+        expect_match(cmd, "aparcstats2table_mock_binary/aparcstats2table")
         expect_match(cmd, "--subjects subj1 subj2")
         expect_match(cmd, "--delimiter tab")
         expect_match(cmd, "--meas thickness")
@@ -163,9 +163,9 @@ describe("stats2table", {
   it("constructs correct command arguments for inputs input type", {
     local_mocked_bindings(
       validate_fs_env = function(...) TRUE,
-      get_fs = function() "aparcstats2table_mock_binary",
+      get_fs = function() "aparcstats2table_mock_binary/",
       run_check_fs_cmd = function(cmd, outfile, verbose, ...) {
-        expect_match(cmd, "aparcstats2table_mock_binary asegstats2table")
+        expect_match(cmd, "aparcstats2table_mock_binary/asegstats2table")
         expect_match(cmd, "--inputs input1.stats input2.stats")
         expect_match(cmd, "--delimiter comma")
         expect_match(cmd, "--meas volume")
