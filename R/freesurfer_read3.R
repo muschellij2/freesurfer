@@ -28,7 +28,7 @@ freesurfer_read3 <- function(file) {
   bitwShiftL(b[1], 16) + bitwShiftL(b[2], 8) + b[3]
 }
 
-#' @title Read Freesufer Curv file
+#' @title Read Freesurfer Curv file
 #' @description Reads a Freesurfer curvature file according to the
 #' FREESURFER_HOME/matlab/read_curv.m file.
 #' @param file file name of a curvature file

@@ -1,3 +1,7 @@
+# freesurfer 1.10.0
+
+- Fixing issues with respect to finding Freesurfer with `PERL5LIB` in `get_fs`.
+
 # freesurfer 1.9.0
 
 ## New features

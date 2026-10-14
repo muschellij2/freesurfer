@@ -2,7 +2,7 @@
 % Please edit documentation in R/freesurfer_read3.R
 \name{freesurfer_read_curv}
 \alias{freesurfer_read_curv}
-\title{Read Freesufer Curv file}
+\title{Read Freesurfer Curv file}
 \usage{
 freesurfer_read_curv(file)
 }

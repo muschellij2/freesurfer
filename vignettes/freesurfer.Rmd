@@ -69,7 +69,7 @@ This function provides useful information about which issues may be present rega
 Ideally all checks should pass with a green tick.
 Any red ticks or warnings should be addressed to ensure smooth use of this package.
 As you can see, there are several things to make sure are in order.
-As a minimun, you should have the  `freesurfer.home` option or `FREESURFER_HOME` variable set.
+As a minimum, you should have the  `freesurfer.home` option or `FREESURFER_HOME` variable set.
 If you see a red tick for `freesurfer.home` or `FREESURFER_HOME`, it means that the package cannot find your Freesurfer installation.
 However, as long as this is set and has a green tick, the remaining options are likely set to sensible defaults.
 
@@ -149,7 +149,7 @@ get_fs_output()
 fs_imgext()
 ```
 
-### Understanding how `get_fs()` fascilitates Freesurfer calls
+### Understanding how `get_fs()` facilitates Freesurfer calls
 
 The `get_fs()` function is a crucial utility in this R package for interacting with FreeSurfer. 
 Its primary purpose is to generate a shell command string that correctly configures your environment to run FreeSurfer commands, ensuring that the FreeSurfer executables, license, and other necessary settings are properly recognized by your system.
