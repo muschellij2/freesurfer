@@ -42,7 +42,7 @@ Our goal is to enable R users to perform complete anatomical imaging analyses wi
 ## Setting Up Your R Environment for `freesurfer`
 
 To use the `freesurfer` R package, you'll first need a working installation of Freesurfer itself.
-You can download and install Freesurfer from its [official website](http://freesurfer.net/fswiki/DownloadAndInstall).
+You can download and install Freesurfer from its [official website](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall).
 
 The `freesurfer` R package relies on successfully detecting your Freesurfer installation.
 The core of this detection process is handled by a series of functions `get_fs_home()`, which attempts to locate your `FREESURFER_HOME` directory.
