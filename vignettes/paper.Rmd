@@ -30,7 +30,7 @@ The `freesurfer` package allows R users to perform a complete anatomical imaging
 ## R function setup
 
 To use `freesurfer`, a working installation of Freesurfer is required (downloads available on the [freesurfer website](http://freesurfer.net/fswiki/DownloadAndInstall)).
-The following code was run using Freesurfer version "freesurfer-macOS-darwin_x86_64-7.4.1-20230614-7eb8460".
+The following code was run using Freesurfer version "`freesurfer-macOS-darwin_x86_64-7.4.1-20230614-7eb8460`".
 The Freesurfer version can be accessed using the `freesurfer` `fs_version` function. The path of Freesurfer must also be set.
 When using R from a shell environment, after the `FREESURFER_HOME` environment variable is set (which is done when installing Freesurfer), `freesurfer` will use this as the path to Freesurfer.
 If using R through a graphical user interface (GUI) such as RStudio (RStudio, Boston, MA), environmental variables and paths are not explicitly exported.
@@ -92,7 +92,7 @@ We have written wrapper functions `autorecon1`, `autorecon2`, and `autorecon3`, 
 
 ## Imaging formats in `freesurfer` and R
 
-The `freesurfer` package relies on the oro.nift [@whitcher_working_2011] package implementation of images (referred to as `nifti` objects) that are in the Neuroimaging Informatics Technology Initiative (NIfTI) format.
+The `freesurfer` package relies on the `oro.nifti` [@whitcher_working_2011] package implementation of images (referred to as `nifti` objects) that are in the Neuroimaging Informatics Technology Initiative (NIfTI) format.
 For Freesurfer functions that require an image, the R `freesurfer` functions that call those Freesurfer functions will take in a file name or a `nifti` object. 
 The R code will convert the `nifti` to the corresponding input required for Freesurfer.
 From the user's perspective, the input/output process is all within R, with one object format (`nifti`).
@@ -142,7 +142,7 @@ We will explore the results in "mri", which contain imaging data, "stats", which
 ## MRI conversion: the `mri_convert` function
 
 The typical output format of brain volumes from Freesurfer is MGH/MGZ format, which is explained  on the [freesurfer wiki](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat).
-As NIfTI formats are one of the most common formats and has been the common format for analysis in the \oro.nift and \neurobase packages, it is useful to convert these files to a NIfTI format to read into R.
+As NIfTI formats are one of the most common formats and has been the common format for analysis in the `oro.nifti` and `neurobase` packages, it is useful to convert these files to a NIfTI format to read into R.
 The `mri_convert` Freesurfer function will be used for that conversion.
 Here we will use the T1-weighted image from the "bert" subject and convert it to NIfTI, and read it into R:
 
