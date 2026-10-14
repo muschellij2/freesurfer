@@ -4,7 +4,7 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/freesurfer)](https://cran.r-project.org/package=freesurfer)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/freesurfer)](https://cran.r-project.org/package=freesurfer)
 [![DOI](https://zenodo.org/badge/67370835.svg)](https://zenodo.org/badge/latestdoi/67370835)
-[![R-CMD-check](https://github.com/muschellij2/freesurfer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/muschellij2/freesurfer/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/muschellij2/freesurfer/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/muschellij2/freesurfer/actions/workflows/R-CMD-check.yml)
 <!-- badges: end -->
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -14,9 +14,9 @@
 The goal of freesurfer is a port/wrapper of
 [Freesurfer](https://surfer.nmr.mgh.harvard.edu) to R.
 
-Much of the operations of Freesurfer are incorporated. This package is
-very useful for structural imaging, such as MRI. Some of the fMRI
-functionality has not been ported or has limited capability.
+Much of the operations of Freesurfer are incorporated.\
+This package is very useful for structural imaging, such as MRI. Some of
+the fMRI functionality has not been ported or has limited capability.
 
 ## Installation
 
@@ -33,3 +33,12 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("muschellij2/freesurfer")
 ```
+
+    R_VERSION=4.5.0
+    FS_VERSION=8.0.0
+
+    docker buildx build \
+      --platform linux/amd64 \
+      --build-arg FS_VERSION=${FS_VERSION} \
+      --build-arg R_VERSION=${R_VERSION} \
+      -t docker-freesurfer-r:r${R_VERSION}-fs_${FS_VERSION} .
