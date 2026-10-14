@@ -37,7 +37,7 @@ Functions to configure and verify your FreeSurfer installation.
 Functions to read FreeSurfer-specific file formats into R.
 
 - [`freesurfer_read_curv()`](https://muschellij2.github.io/freesurfer/reference/freesurfer_read_curv.md)
-  : Read Freesufer Curv file
+  : Read Freesurfer Curv file
 - [`freesurfer_read_surf()`](https://muschellij2.github.io/freesurfer/reference/freesurfer_read_surf.md)
   : Read Freesurfer Surface file
 - [`read_annotation()`](https://muschellij2.github.io/freesurfer/reference/read_annotation.md)

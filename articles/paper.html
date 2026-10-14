@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">freesurfer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.10.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,8 +125,8 @@ both the image processing and analysis within R.</p>
 <p>To use <code>freesurfer</code>, a working installation of Freesurfer
 is required (downloads available on the <a href="http://freesurfer.net/fswiki/DownloadAndInstall" class="external-link">freesurfer
 website</a>). The following code was run using Freesurfer version
-“freesurfer-macOS-darwin_x86_64-7.4.1-20230614-7eb8460”. The Freesurfer
-version can be accessed using the <code>freesurfer</code>
+“<code>freesurfer-macOS-darwin_x86_64-7.4.1-20230614-7eb8460</code>”.
+The Freesurfer version can be accessed using the <code>freesurfer</code>
 <code>fs_version</code> function. The path of Freesurfer must also be
 set. When using R from a shell environment, after the
 <code>FREESURFER_HOME</code> environment variable is set (which is done
@@ -223,17 +223,19 @@ data.</p>
 <div class="section level3">
 <h3 id="imaging-formats-in-freesurfer-and-r">Imaging formats in <code>freesurfer</code> and R<a class="anchor" aria-label="anchor" href="#imaging-formats-in-freesurfer-and-r"></a>
 </h3>
-<p>The <code>freesurfer</code> package relies on the oro.nift <span class="citation">(Whitcher, Muschelli, et al. 2011)</span> package
-implementation of images (referred to as <code>nifti</code> objects)
-that are in the Neuroimaging Informatics Technology Initiative (NIfTI)
-format. For Freesurfer functions that require an image, the R
-<code>freesurfer</code> functions that call those Freesurfer functions
-will take in a file name or a <code>nifti</code> object. The R code will
-convert the <code>nifti</code> to the corresponding input required for
-Freesurfer. From the user’s perspective, the input/output process is all
-within R, with one object format (<code>nifti</code>). The advantage of
-this approach is that the user can read in an image, do manipulations of
-the <code>nifti</code> object using standard syntax for arrays, and pass
+<p>The <code>freesurfer</code> package relies on the
+<code>oro.nifti</code> <span class="citation">(Whitcher, Muschelli, et
+al. 2011)</span> package implementation of images (referred to as
+<code>nifti</code> objects) that are in the Neuroimaging Informatics
+Technology Initiative (NIfTI) format. For Freesurfer functions that
+require an image, the R <code>freesurfer</code> functions that call
+those Freesurfer functions will take in a file name or a
+<code>nifti</code> object. The R code will convert the
+<code>nifti</code> to the corresponding input required for Freesurfer.
+From the user’s perspective, the input/output process is all within R,
+with one object format (<code>nifti</code>). The advantage of this
+approach is that the user can read in an image, do manipulations of the
+<code>nifti</code> object using standard syntax for arrays, and pass
 this object into the <code>freesurfer</code> R function. Thus, users can
 use R functionality to manipulate objects while seamlessly passing these
 object to Freesurfer through <code>freesurfer</code>.</p>
@@ -282,11 +284,12 @@ Freesurfer processing.</p>
 <p>The typical output format of brain volumes from Freesurfer is MGH/MGZ
 format, which is explained on the <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat" class="external-link">freesurfer
 wiki</a>. As NIfTI formats are one of the most common formats and has
-been the common format for analysis in the .nift and packages, it is
-useful to convert these files to a NIfTI format to read into R. The
-<code>mri_convert</code> Freesurfer function will be used for that
-conversion. Here we will use the T1-weighted image from the “bert”
-subject and convert it to NIfTI, and read it into R:</p>
+been the common format for analysis in the <code>oro.nifti</code> and
+<code>neurobase</code> packages, it is useful to convert these files to
+a NIfTI format to read into R. The <code>mri_convert</code> Freesurfer
+function will be used for that conversion. Here we will use the
+T1-weighted image from the “bert” subject and convert it to NIfTI, and
+read it into R:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">neurobase</span><span class="op">)</span></span>
 <span></span>

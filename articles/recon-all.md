@@ -19,7 +19,7 @@ and/or the `subjid` (a unique ID for the subject). If a subject id is
 omitted, the function will create one based on the input file name.
 Alternatively, you can specify the subject ID explicitly using the
 `subjid` parameter, and even omit the input file if you have the data
-necessary already in the Freesurfer subject direcoty. Optionally, you
+necessary already in the Freesurfer subject directory. Optionally, you
 can specify an output directory using `outdir`.
 
 Here’s a simple example:

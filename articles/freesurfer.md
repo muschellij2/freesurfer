@@ -89,7 +89,7 @@ present regarding the integration of R and Freesurfer on your system.
 Ideally all checks should pass with a green tick. Any red ticks or
 warnings should be addressed to ensure smooth use of this package. As
 you can see, there are several things to make sure are in order. As a
-minimun, you should have the `freesurfer.home` option or
+minimum, you should have the `freesurfer.home` option or
 `FREESURFER_HOME` variable set. If you see a red tick for
 `freesurfer.home` or `FREESURFER_HOME`, it means that the package cannot
 find your Freesurfer installation. However, as long as this is set and
@@ -207,7 +207,7 @@ get_fs_output()
 fs_imgext()
 ```
 
-### Understanding how `get_fs()` fascilitates Freesurfer calls
+### Understanding how `get_fs()` facilitates Freesurfer calls
 
 The
 [`get_fs()`](https://muschellij2.github.io/freesurfer/reference/get_fs.md)

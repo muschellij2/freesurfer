@@ -1,4 +1,4 @@
-# Read Freesufer Curv file
+# Read Freesurfer Curv file
 
 Reads a Freesurfer curvature file according to the
 FREESURFER_HOME/matlab/read_curv.m file.

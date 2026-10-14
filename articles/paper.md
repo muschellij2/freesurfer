@@ -47,23 +47,23 @@ To use `freesurfer`, a working installation of Freesurfer is required
 (downloads available on the [freesurfer
 website](http://freesurfer.net/fswiki/DownloadAndInstall)). The
 following code was run using Freesurfer version
-“freesurfer-macOS-darwin_x86_64-7.4.1-20230614-7eb8460”. The Freesurfer
-version can be accessed using the `freesurfer` `fs_version` function.
-The path of Freesurfer must also be set. When using R from a shell
-environment, after the `FREESURFER_HOME` environment variable is set
-(which is done when installing Freesurfer), `freesurfer` will use this
-as the path to Freesurfer. If using R through a graphical user interface
-(GUI) such as RStudio (RStudio, Boston, MA), environmental variables and
-paths are not explicitly exported. Therefore, `FREESURFER_HOME` is not
-set and `freesurfer` will try the default directories of Mac OSX and
-Linux. Freesurfer is only available on Windows via a virtual machine. If
-the user did not perform an standard installation of Freesurfer, the
-path to Freesurfer can be specified using
-`options(freesurfer.home="/path/to/freesurfer")`. The `have_fs` function
-tests whether a user has a Freesurfer installation, returning a logical,
-which is useful for `if` statements within examples. If `have_fs`
-function returns `TRUE`, the `fs_dir` function will return the directory
-of the Freesurfer installation.
+“`freesurfer-macOS-darwin_x86_64-7.4.1-20230614-7eb8460`”. The
+Freesurfer version can be accessed using the `freesurfer` `fs_version`
+function. The path of Freesurfer must also be set. When using R from a
+shell environment, after the `FREESURFER_HOME` environment variable is
+set (which is done when installing Freesurfer), `freesurfer` will use
+this as the path to Freesurfer. If using R through a graphical user
+interface (GUI) such as RStudio (RStudio, Boston, MA), environmental
+variables and paths are not explicitly exported. Therefore,
+`FREESURFER_HOME` is not set and `freesurfer` will try the default
+directories of Mac OSX and Linux. Freesurfer is only available on
+Windows via a virtual machine. If the user did not perform an standard
+installation of Freesurfer, the path to Freesurfer can be specified
+using `options(freesurfer.home="/path/to/freesurfer")`. The `have_fs`
+function tests whether a user has a Freesurfer installation, returning a
+logical, which is useful for `if` statements within examples. If
+`have_fs` function returns `TRUE`, the `fs_dir` function will return the
+directory of the Freesurfer installation.
 
 #### Structure of Freesurfer analyses
 
@@ -141,8 +141,8 @@ the data.
 
 ### Imaging formats in `freesurfer` and R
 
-The `freesurfer` package relies on the oro.nift (Whitcher, Muschelli, et
-al. 2011) package implementation of images (referred to as `nifti`
+The `freesurfer` package relies on the `oro.nifti` (Whitcher, Muschelli,
+et al. 2011) package implementation of images (referred to as `nifti`
 objects) that are in the Neuroimaging Informatics Technology Initiative
 (NIfTI) format. For Freesurfer functions that require an image, the R
 `freesurfer` functions that call those Freesurfer functions will take in
@@ -211,11 +211,11 @@ The typical output format of brain volumes from Freesurfer is MGH/MGZ
 format, which is explained on the [freesurfer
 wiki](https://surfer.nmr.mgh.harvard.edu/fswiki/FsTutorial/MghFormat).
 As NIfTI formats are one of the most common formats and has been the
-common format for analysis in the .nift and packages, it is useful to
-convert these files to a NIfTI format to read into R. The `mri_convert`
-Freesurfer function will be used for that conversion. Here we will use
-the T1-weighted image from the “bert” subject and convert it to NIfTI,
-and read it into R:
+common format for analysis in the `oro.nifti` and `neurobase` packages,
+it is useful to convert these files to a NIfTI format to read into R.
+The `mri_convert` Freesurfer function will be used for that conversion.
+Here we will use the T1-weighted image from the “bert” subject and
+convert it to NIfTI, and read it into R:
 
 ``` r
 
