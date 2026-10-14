@@ -52,7 +52,7 @@ analysis seamlessly integrated within R.
 To use the `freesurfer` R package, you’ll first need a working
 installation of Freesurfer itself. You can download and install
 Freesurfer from its [official
-website](http://freesurfer.net/fswiki/DownloadAndInstall).
+website](https://surfer.nmr.mgh.harvard.edu/fswiki/DownloadAndInstall).
 
 The `freesurfer` R package relies on successfully detecting your
 Freesurfer installation. The core of this detection process is handled
