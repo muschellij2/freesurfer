@@ -54,7 +54,11 @@ jobs:
       - name: Setup R Dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, any::urlchecker
+
+      - name: Check URLs
+        run: |
+          Rscript -e 'urls <- urlchecker::url_check(); if (nrow(urls) > 0) { print(urls); stop("URL check failed") }'
 
       # Run standard R CMD check (non-Docker)
       - name: Run R CMD check (standard)
